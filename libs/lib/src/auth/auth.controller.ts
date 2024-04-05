@@ -21,7 +21,7 @@ export class AuthController {
     return this.authService.SignOut(data);
   }
   @Post('ForgotPassword')
-  ForgotPassword(@Body() data: ValidationDto, @Body() update: String) {
+  ForgotPassword(@Body() data: ValidationDto, @Body() update: string) {
     return this.authService.ForgotPassword(data, update);
   }
 }

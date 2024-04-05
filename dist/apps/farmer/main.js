@@ -15,22 +15,72 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 let AdminService = class AdminService {
-    UpdatePassword() {
+    constructor(db) {
+        this.db = db;
+    }
+    async CreateResource(data) {
+        try {
+            const user = await this.db.user.create({
+                data: {
+                    email: data['email'],
+                    first_name: data['first_name'],
+                    last_name: data['last_name'],
+                    password: data['password'],
+                    phone_number: data['phone_number'],
+                    type: 'ADMIN',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    SignOut() {
         throw new Error('Method not implemented.');
     }
-    findByEmail() {
-        throw new Error('Method not implemented.');
+    async UpdatePassword(data, update) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    email: data['email'],
+                    type: 'ADMIN',
+                },
+                data: {
+                    password: update,
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
     }
-    CreateResource() {
-        throw new Error('Method not implemented.');
+    async findByEmail(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    email: data['email'],
+                    type: 'ADMIN',
+                },
+            });
+            return user;
+        }
+        catch (error) { }
     }
 };
 AdminService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
 ], AdminService);
 exports.AdminService = AdminService;
 
@@ -50,22 +100,72 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.WorkerService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 let WorkerService = class WorkerService {
-    UpdatePassword() {
+    constructor(db) {
+        this.db = db;
+    }
+    async findByEmail(data) {
+        try {
+            const user = await this.db.user.findUnique({
+                where: {
+                    email: data['email'],
+                    type: 'EXTENSION_WORKER',
+                },
+            });
+            return user;
+        }
+        catch (error) { }
+    }
+    async CreateResource(data) {
+        try {
+            const user = await this.db.user.create({
+                data: {
+                    email: data['email'],
+                    first_name: data['first_name'],
+                    last_name: data['last_name'],
+                    password: data['password'],
+                    phone_number: data['phone_number'],
+                    type: 'EXTENSION_WORKER',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    SignOut() {
         throw new Error('Method not implemented.');
     }
-    findByEmail() {
-        throw new Error('Method not implemented.');
-    }
-    CreateResource() {
-        throw new Error('Method not implemented.');
+    async UpdatePassword(data, update) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    email: data['email'],
+                    type: 'EXTENSION_WORKER',
+                },
+                data: {
+                    password: update,
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
     }
 };
 WorkerService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
 ], WorkerService);
 exports.WorkerService = WorkerService;
 
@@ -134,11 +234,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Farmer = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 let Farmer = class Farmer {
 };
 Farmer = __decorate([
     (0, common_1.Module)({
-        providers: [farmer_service_1.FarmerService]
+        providers: [farmer_service_1.FarmerService, db_service_1.DbService]
     })
 ], Farmer);
 exports.Farmer = Farmer;
@@ -159,22 +260,74 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 let FarmerService = class FarmerService {
-    UpdatePassword() {
+    constructor(db) {
+        this.db = db;
+    }
+    async UpdatePassword(data, update) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    email: data['email'],
+                    type: 'FARMER',
+                },
+                data: {
+                    password: update,
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async CreateResource(data) {
+        try {
+            const user = await this.db.user.create({
+                data: {
+                    email: data['email'],
+                    first_name: data['first_name'],
+                    last_name: data['last_name'],
+                    password: data['password'],
+                    phone_number: data['phone_number'],
+                    type: 'FARMER',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    SignOut() {
         throw new Error('Method not implemented.');
     }
-    findByEmail() {
-        throw new Error('Method not implemented.');
-    }
-    CreateResource() {
-        throw new Error('Method not implemented.');
+    async findByEmail(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    email: data['email'],
+                    type: 'FARMER',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 };
 FarmerService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
 ], FarmerService);
 exports.FarmerService = FarmerService;
 
@@ -200,7 +353,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -251,7 +404,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _d : Object, typeof (_e = typeof String !== "undefined" && String) === "function" ? _e : Object]),
+    __metadata("design:paramtypes", [typeof (_d = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _d : Object, String]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "ForgotPassword", null);
 AuthController = __decorate([
@@ -307,44 +460,51 @@ let AuthService = class AuthService {
         this.extensionWorker = extensionWorker;
         this.jwtService = jwtService;
     }
-    Signup(info) {
+    async Signup(info) {
         try {
-            let hash;
+            info['password'] = await (0, argon2_1.hash)(info['password'], {
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+                type: 2,
+            });
             let query = info['type'] == 'FARMER'
-                ? this.farmer.CreateResource()
+                ? this.farmer.CreateResource(info)
                 : info['type'] == 'ADMIN'
-                    ? this.admin.CreateResource()
+                    ? this.admin.CreateResource(info)
                     : info['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.CreateResource()
+                        ? this.extensionWorker.CreateResource(info)
                         : new Error('Please Specify User Type');
             return query;
         }
         catch (error) {
+            console.log(error);
             return error;
         }
     }
     async SignIn(data) {
         try {
             let user = data['type'] == 'FARMER'
-                ? this.farmer.findByEmail()
+                ? await this.farmer.findByEmail(data)
                 : data['type'] == 'ADMIN'
-                    ? this.admin.findByEmail()
+                    ? await this.admin.findByEmail(data)
                     : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.findByEmail()
+                        ? await this.extensionWorker.findByEmail(data)
                         : new Error('Cant Find Any Users By that email');
+            console.log(user);
             const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
-                secret: Buffer.from(process.env.HASH_SECRET),
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
             });
             const access_token = verification == true
                 ? {
                     access_token: this.jwtService.sign(data, {
-                        secret: process.env.HASH_SECRET,
+                        secret: process.env.HASH_SECRET || 'hash',
                     }),
                 }
                 : new common_1.UnauthorizedException();
             return access_token;
         }
-        catch (error) { }
+        catch (error) {
+            console.log(error);
+        }
     }
     async SignOut(data) {
         throw new Error('Method not implemented.');
@@ -352,14 +512,14 @@ let AuthService = class AuthService {
     async validate(data) {
         try {
             let user = data['type'] == 'FARMER'
-                ? this.farmer.findByEmail()
+                ? this.farmer.findByEmail(data)
                 : data['type'] == 'ADMIN'
-                    ? this.admin.findByEmail()
+                    ? this.admin.findByEmail(data)
                     : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.findByEmail()
+                        ? this.extensionWorker.findByEmail(data)
                         : new Error('Cant Find Any Users By that email');
             const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
-                secret: Buffer.from(process.env.HASH_SECRET),
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
             });
             if (user && verification) {
                 const result = __rest(user, []);
@@ -375,14 +535,19 @@ let AuthService = class AuthService {
     }
     async ForgotPassword(data, update) {
         try {
-            let hash;
+            let hashed = await (0, argon2_1.hash)(update, {
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+                type: 2,
+            });
+            data['password'] = hashed;
             let user = data['type'] == 'FARMER'
-                ? this.farmer.UpdatePassword()
+                ? this.farmer.UpdatePassword(data, update)
                 : data['type'] == 'ADMIN'
-                    ? this.admin.UpdatePassword()
+                    ? this.admin.UpdatePassword(data, update)
                     : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.UpdatePassword()
+                        ? this.extensionWorker.UpdatePassword(data, update)
                         : new Error('Cant Find Any Users By that email');
+            return user;
         }
         catch (error) {
             return error;
@@ -402,13 +567,58 @@ exports.AuthService = AuthService;
 /*!**************************************************!*\
   !*** ./libs/lib/src/auth/dto/create-auth.dto.ts ***!
   \**************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateUserDto = void 0;
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
+const class_validator_1 = __webpack_require__(/*! @nestjs/class-validator */ "@nestjs/class-validator");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 class CreateUserDto {
 }
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "first_name", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "last_name", void 0);
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsPhoneNumber)('NG'),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "phone_number", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(client_1.UserType),
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], CreateUserDto.prototype, "type", void 0);
 exports.CreateUserDto = CreateUserDto;
 
 
@@ -418,13 +628,43 @@ exports.CreateUserDto = CreateUserDto;
 /*!*************************************************!*\
   !*** ./libs/lib/src/auth/dto/login-auth.dto.ts ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ValidationDto = void 0;
+const class_validator_1 = __webpack_require__(/*! @nestjs/class-validator */ "@nestjs/class-validator");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
 class ValidationDto {
 }
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], ValidationDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], ValidationDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(client_1.UserType),
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], ValidationDto.prototype, "type", void 0);
 exports.ValidationDto = ValidationDto;
 
 
@@ -463,6 +703,16 @@ DbService = __decorate([
 ], DbService);
 exports.DbService = DbService;
 
+
+/***/ }),
+
+/***/ "@nestjs/class-validator":
+/*!******************************************!*\
+  !*** external "@nestjs/class-validator" ***!
+  \******************************************/
+/***/ ((module) => {
+
+module.exports = require("@nestjs/class-validator");
 
 /***/ }),
 

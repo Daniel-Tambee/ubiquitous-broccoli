@@ -2,6 +2,74 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./apps/admin/src/admin.module.ts":
+/*!****************************************!*\
+  !*** ./apps/admin/src/admin.module.ts ***!
+  \****************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AdminModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const auth_controller_1 = __webpack_require__(/*! @app/lib/auth/auth.controller */ "./libs/lib/src/auth/auth.controller.ts");
+const admin_module_1 = __webpack_require__(/*! ./admin/admin.module */ "./apps/admin/src/admin/admin.module.ts");
+const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
+const farmer_service_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const admin_service_1 = __webpack_require__(/*! ./admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
+const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let AdminModule = class AdminModule {
+};
+AdminModule = __decorate([
+    (0, common_1.Module)({
+        imports: [admin_module_1.Admin],
+        controllers: [auth_controller_1.AuthController],
+        providers: [auth_service_1.AuthService, farmer_service_1.FarmerService, admin_service_1.AdminService, worker_service_1.WorkerService, jwt_1.JwtService, db_service_1.DbService],
+    })
+], AdminModule);
+exports.AdminModule = AdminModule;
+
+
+/***/ }),
+
+/***/ "./apps/admin/src/admin/admin.module.ts":
+/*!**********************************************!*\
+  !*** ./apps/admin/src/admin/admin.module.ts ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Admin = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const admin_service_1 = __webpack_require__(/*! ./admin.service */ "./apps/admin/src/admin/admin.service.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let Admin = class Admin {
+};
+Admin = __decorate([
+    (0, common_1.Module)({
+        providers: [admin_service_1.AdminService, db_service_1.DbService],
+    })
+], Admin);
+exports.Admin = Admin;
+
+
+/***/ }),
+
 /***/ "./apps/admin/src/admin/admin.service.ts":
 /*!***********************************************!*\
   !*** ./apps/admin/src/admin/admin.service.ts ***!
@@ -83,42 +151,6 @@ AdminService = __decorate([
     __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
 ], AdminService);
 exports.AdminService = AdminService;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/extension-worker/extension-worker.module.ts":
-/*!*******************************************************************************!*\
-  !*** ./apps/extension-worker/src/extension-worker/extension-worker.module.ts ***!
-  \*******************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ExtensionWorkerModule = void 0;
-const auth_controller_1 = __webpack_require__(/*! @app/lib/auth/auth.controller */ "./libs/lib/src/auth/auth.controller.ts");
-const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
-const farmer_service_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
-const worker_service_1 = __webpack_require__(/*! ./worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
-const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let ExtensionWorkerModule = class ExtensionWorkerModule {
-};
-ExtensionWorkerModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, farmer_service_1.FarmerService, admin_service_1.AdminService, worker_service_1.WorkerService, jwt_1.JwtService, db_service_1.DbService],
-    })
-], ExtensionWorkerModule);
-exports.ExtensionWorkerModule = ExtensionWorkerModule;
 
 
 /***/ }),
@@ -748,30 +780,30 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 var exports = __webpack_exports__;
-/*!*******************************************!*\
-  !*** ./apps/extension-worker/src/main.ts ***!
-  \*******************************************/
+/*!********************************!*\
+  !*** ./apps/admin/src/main.ts ***!
+  \********************************/
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(/*! @nestjs/core */ "@nestjs/core");
-const extension_worker_module_1 = __webpack_require__(/*! ./extension-worker/extension-worker.module */ "./apps/extension-worker/src/extension-worker/extension-worker.module.ts");
+const admin_module_1 = __webpack_require__(/*! ./admin.module */ "./apps/admin/src/admin.module.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 async function bootstrap() {
-    const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
+    const app = await core_1.NestFactory.create(admin_module_1.AdminModule);
     const config = new swagger_1.DocumentBuilder()
-        .setTitle('Extension Worker Doc')
+        .setTitle('Admin Doc')
         .setDescription('')
         .setVersion('1.0')
         .addTag('')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);
-    await app.listen(process.env.WORKER_PORT || 3000);
-    const logger = new common_1.Logger('Extension Worker Logic', {
+    await app.listen(process.env.FARMER_PORT || 3000);
+    const logger = new common_1.Logger('Admin Logic', {
         timestamp: true,
     });
-    logger.log('app running on ' + process.env.WORKER_PORT);
+    logger.log('app running on ' + process.env.FARMER_PORT);
 }
 bootstrap();
 

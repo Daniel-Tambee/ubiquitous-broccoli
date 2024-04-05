@@ -4,6 +4,7 @@ import { verify } from 'jsonwebtoken';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { ValidationDto } from './dto/login-auth.dto';
 
 @Injectable()
 export class AuthGuard
@@ -28,15 +29,14 @@ export class AuthGuard
         'authorization'
       ] as string;
       const bearerToken = verify(HeaderbearerToken, process.env.HASH_SECRET);
-      const val = this.validate(bearerToken as Map<string, any>);
+      const val = this.validate(bearerToken as ValidationDto);
       return Boolean(val);
     } catch (error) {
       console.log(error.message + ',\njwt is missing');
     }
   }
-  // TODO fix the vaildate function
-  async validate(bearerToken: Map<string, any>) {
-    const user = await this.auth.validate();
+  async validate(bearerToken: ValidationDto) {
+    const user = await this.auth.validate(bearerToken);
     return user;
     /*       bearerToken.staffId !== undefined
         ? await this.staffAuth.validateUser(
