@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/extension-worker/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/extension-worker/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/extension-worker",
+  "projects": {
+    "extension-worker": {
+      "type": "application",
+      "root": "apps/extension-worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/extension-worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/extension-worker/tsconfig.app.json"
+      }
+    },
+    "admin": {
+      "type": "application",
+      "root": "apps/admin",
+      "entryFile": "main",
+      "sourceRoot": "apps/admin/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/admin/tsconfig.app.json"
+      }
+    },
+    "farmer": {
+      "type": "application",
+      "root": "apps/farmer",
+      "entryFile": "main",
+      "sourceRoot": "apps/farmer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/farmer/tsconfig.app.json"
+      }
+    },
+    "lib": {
+      "type": "library",
+      "root": "libs/lib",
+      "entryFile": "index",
+      "sourceRoot": "libs/lib/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/lib/tsconfig.lib.json"
+      }
+    }
+  }
+}
