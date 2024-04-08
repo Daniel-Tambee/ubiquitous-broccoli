@@ -24,6 +24,7 @@ model User {
   updatedAt    DateTime @updatedAt
 }
 
+// TODO add different profiles for users
 model Profile {
   id        String   @id @default(uuid()) @map("_id")
   about     String?

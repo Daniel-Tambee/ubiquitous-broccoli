@@ -27,6 +27,118 @@ let AdminService = class AdminService {
     constructor(db) {
         this.db = db;
     }
+    async UpdateFirstName(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'ADMIN',
+                },
+                data: {
+                    first_name: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdateLastName(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'ADMIN',
+                },
+                data: {
+                    last_name: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdatePhoneNumber(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'ADMIN',
+                },
+                data: {
+                    phone_number: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindById(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'ADMIN',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByPhone_Number(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'ADMIN',
+                    phone_number: data['property'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByFirst_name(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'ADMIN',
+                    first_name: data['property'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdatePassword(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    email: data['property'],
+                    type: 'ADMIN',
+                },
+                data: {
+                    password: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
     async CreateResource(data) {
         try {
             const user = await this.db.user.create({
@@ -48,34 +160,19 @@ let AdminService = class AdminService {
     SignOut() {
         throw new Error('Method not implemented.');
     }
-    async UpdatePassword(data, update) {
+    async FindByEmail(data) {
         try {
-            const user = await this.db.user.update({
+            const user = await this.db.user.findFirstOrThrow({
                 where: {
-                    email: data['email'],
+                    email: data['property'],
                     type: 'ADMIN',
-                },
-                data: {
-                    password: update,
                 },
             });
             return user;
         }
         catch (error) {
-            return error;
+            console.log(error);
         }
-    }
-    async findByEmail(data) {
-        try {
-            const user = await this.db.user.findFirstOrThrow({
-                where: {
-                    email: data['email'],
-                    type: 'ADMIN',
-                },
-            });
-            return user;
-        }
-        catch (error) { }
     }
 };
 AdminService = __decorate([
@@ -112,17 +209,117 @@ let WorkerService = class WorkerService {
     constructor(db) {
         this.db = db;
     }
-    async findByEmail(data) {
+    async UpdateFirstName(data) {
         try {
-            const user = await this.db.user.findUnique({
+            const user = await this.db.user.update({
                 where: {
-                    email: data['email'],
+                    id: data['id'],
+                    type: 'EXTENSION_WORKER',
+                },
+                data: {
+                    first_name: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdateLastName(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'EXTENSION_WORKER',
+                },
+                data: {
+                    last_name: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdatePhoneNumber(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'EXTENSION_WORKER',
+                },
+                data: {
+                    phone_number: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindById(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
                     type: 'EXTENSION_WORKER',
                 },
             });
             return user;
         }
-        catch (error) { }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByPhone_Number(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'EXTENSION_WORKER',
+                    phone_number: data['property'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByFirst_name(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'EXTENSION_WORKER',
+                    first_name: data['property'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdatePassword(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    email: data['property'],
+                    type: 'EXTENSION_WORKER',
+                },
+                data: {
+                    password: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
     }
     async CreateResource(data) {
         try {
@@ -145,21 +342,18 @@ let WorkerService = class WorkerService {
     SignOut() {
         throw new Error('Method not implemented.');
     }
-    async UpdatePassword(data, update) {
+    async FindByEmail(data) {
         try {
-            const user = await this.db.user.update({
+            const user = await this.db.user.findFirstOrThrow({
                 where: {
-                    email: data['email'],
+                    email: data['property'],
                     type: 'EXTENSION_WORKER',
-                },
-                data: {
-                    password: update,
                 },
             });
             return user;
         }
         catch (error) {
-            return error;
+            console.log(error);
         }
     }
 };
@@ -196,12 +390,13 @@ const farmer_service_1 = __webpack_require__(/*! ./farmer/farmer.service */ "./a
 const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
 const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
 const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const farmer_controller_1 = __webpack_require__(/*! ./farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
 let FarmerModule = class FarmerModule {
 };
 FarmerModule = __decorate([
     (0, common_1.Module)({
         imports: [farmer_module_1.Farmer],
-        controllers: [auth_controller_1.AuthController],
+        controllers: [auth_controller_1.AuthController, farmer_controller_1.FarmerController],
         providers: [
             auth_service_1.AuthService,
             farmer_service_1.FarmerService,
@@ -213,6 +408,222 @@ FarmerModule = __decorate([
     })
 ], FarmerModule);
 exports.FarmerModule = FarmerModule;
+
+
+/***/ }),
+
+/***/ "./apps/farmer/src/farmer/dto/dto.ts":
+/*!*******************************************!*\
+  !*** ./apps/farmer/src/farmer/dto/dto.ts ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
+class UpdateDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], UpdateDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], UpdateDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'new value for the property',
+    }),
+    __metadata("design:type", Object)
+], UpdateDto.prototype, "new_value", void 0);
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+
+/***/ "./apps/farmer/src/farmer/dto/find.dto.ts":
+/*!************************************************!*\
+  !*** ./apps/farmer/src/farmer/dto/find.dto.ts ***!
+  \************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
+class FindDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FindDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], FindDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Object)
+], FindDto.prototype, "property", void 0);
+exports.FindDto = FindDto;
+
+
+/***/ }),
+
+/***/ "./apps/farmer/src/farmer/farmer.controller.ts":
+/*!*****************************************************!*\
+  !*** ./apps/farmer/src/farmer/farmer.controller.ts ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FarmerController = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const login_auth_dto_1 = __webpack_require__(/*! @app/lib/auth/dto/login-auth.dto */ "./libs/lib/src/auth/dto/login-auth.dto.ts");
+const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
+const find_dto_1 = __webpack_require__(/*! ./dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
+const famrer_guard_1 = __webpack_require__(/*! @app/lib/auth/famrer.guard */ "./libs/lib/src/auth/famrer.guard.ts");
+let FarmerController = class FarmerController {
+    constructor(farmer) {
+        this.farmer = farmer;
+    }
+    UpdatePassword(data) {
+        return this.farmer.UpdatePassword(data);
+    }
+    FindById(data) {
+        return this.farmer.FindById(data);
+    }
+    FindByPhone_Number(data) {
+        return this.farmer.FindByPhone_Number(data);
+    }
+    FindByFirst_name(data) {
+        return this.farmer.FindByFirst_name(data);
+    }
+    UpdateFirstName(data) {
+        return this.farmer.UpdateFirstName(data);
+    }
+    UpdateLastName(data) {
+        return this.farmer.UpdateLastName(data);
+    }
+    UpdatePhoneNumber(data) {
+        return this.farmer.UpdatePhoneNumber(data);
+    }
+    CreateResource(data) {
+        throw new Error('Method not implemented.');
+    }
+    FindByEmail(data) {
+        return this.farmer.FindByEmail(data);
+    }
+    SignOut() {
+        return this.farmer.SignOut();
+    }
+};
+__decorate([
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], FarmerController.prototype, "UpdatePassword", null);
+__decorate([
+    (0, common_1.Post)('FindById'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], FarmerController.prototype, "FindById", null);
+__decorate([
+    (0, common_1.Post)('FindByPhone_Number'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], FarmerController.prototype, "FindByPhone_Number", null);
+__decorate([
+    (0, common_1.Post)('FindByFirst_name'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], FarmerController.prototype, "FindByFirst_name", null);
+__decorate([
+    (0, common_1.Post)('UpdateFirstName'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_k = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], FarmerController.prototype, "UpdateFirstName", null);
+__decorate([
+    (0, common_1.Post)('UpdateLastName'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+], FarmerController.prototype, "UpdateLastName", null);
+__decorate([
+    (0, common_1.Post)('UpdatePhoneNumber'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_p = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+], FarmerController.prototype, "UpdatePhoneNumber", null);
+__decorate([
+    (0, common_1.Post)('FindByEmail'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_r = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+], FarmerController.prototype, "FindByEmail", null);
+FarmerController = __decorate([
+    (0, common_1.Controller)('farmer'),
+    (0, swagger_1.ApiTags)('Farmer'),
+    (0, common_1.UseGuards)(famrer_guard_1.FamrerGuard),
+    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object])
+], FarmerController);
+exports.FarmerController = FarmerController;
 
 
 /***/ }),
@@ -272,15 +683,110 @@ let FarmerService = class FarmerService {
     constructor(db) {
         this.db = db;
     }
-    async UpdatePassword(data, update) {
+    async UpdateFirstName(data) {
         try {
             const user = await this.db.user.update({
                 where: {
-                    email: data['email'],
+                    id: data['id'],
                     type: 'FARMER',
                 },
                 data: {
-                    password: update,
+                    first_name: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdateLastName(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                },
+                data: {
+                    last_name: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdatePhoneNumber(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                },
+                data: {
+                    phone_number: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindById(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByPhone_Number(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                    phone_number: data['property'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByFirst_name(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                    first_name: data['property'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdatePassword(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    email: data['property'],
+                    type: 'FARMER',
+                },
+                data: {
+                    password: data['new_value'],
                 },
             });
             return user;
@@ -310,11 +816,11 @@ let FarmerService = class FarmerService {
     SignOut() {
         throw new Error('Method not implemented.');
     }
-    async findByEmail(data) {
+    async FindByEmail(data) {
         try {
             const user = await this.db.user.findFirstOrThrow({
                 where: {
-                    email: data['email'],
+                    email: data['property'],
                     type: 'FARMER',
                 },
             });
@@ -361,9 +867,13 @@ const auth_service_1 = __webpack_require__(/*! ./auth.service */ "./libs/lib/src
 const create_auth_dto_1 = __webpack_require__(/*! ./dto/create-auth.dto */ "./libs/lib/src/auth/dto/create-auth.dto.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const login_auth_dto_1 = __webpack_require__(/*! ./dto/login-auth.dto */ "./libs/lib/src/auth/dto/login-auth.dto.ts");
+const dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
+    }
+    validate(data) {
+        throw new Error('Method not implemented.');
     }
     Signup(info) {
         return this.authService.Signup(info);
@@ -374,8 +884,8 @@ let AuthController = class AuthController {
     SignOut(data) {
         return this.authService.SignOut(data);
     }
-    ForgotPassword(data, update) {
-        return this.authService.ForgotPassword(data, update);
+    ForgotPassword(data) {
+        return this.authService.ForgotPassword(data);
     }
 };
 __decorate([
@@ -402,9 +912,8 @@ __decorate([
 __decorate([
     (0, common_1.Post)('ForgotPassword'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _d : Object, String]),
+    __metadata("design:paramtypes", [typeof (_d = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "ForgotPassword", null);
 AuthController = __decorate([
@@ -483,11 +992,11 @@ let AuthService = class AuthService {
     async SignIn(data) {
         try {
             let user = data['type'] == 'FARMER'
-                ? await this.farmer.findByEmail(data)
+                ? await this.farmer.FindByEmail(data)
                 : data['type'] == 'ADMIN'
-                    ? await this.admin.findByEmail(data)
+                    ? await this.admin.FindByEmail(data)
                     : data['type'] == 'EXTENSION_WORKER'
-                        ? await this.extensionWorker.findByEmail(data)
+                        ? await this.extensionWorker.FindByEmail(data)
                         : new Error('Cant Find Any Users By that email');
             console.log(user);
             const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
@@ -512,11 +1021,11 @@ let AuthService = class AuthService {
     async validate(data) {
         try {
             let user = data['type'] == 'FARMER'
-                ? this.farmer.findByEmail(data)
+                ? this.farmer.FindByEmail(data)
                 : data['type'] == 'ADMIN'
-                    ? this.admin.findByEmail(data)
+                    ? this.admin.FindByEmail(data)
                     : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.findByEmail(data)
+                        ? this.extensionWorker.FindByEmail(data)
                         : new Error('Cant Find Any Users By that email');
             const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
                 secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
@@ -533,19 +1042,19 @@ let AuthService = class AuthService {
             return error;
         }
     }
-    async ForgotPassword(data, update) {
+    async ForgotPassword(data) {
         try {
-            let hashed = await (0, argon2_1.hash)(update, {
+            let hashed = await (0, argon2_1.hash)(data['new_value'], {
                 secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
                 type: 2,
             });
             data['password'] = hashed;
             let user = data['type'] == 'FARMER'
-                ? this.farmer.UpdatePassword(data, update)
+                ? this.farmer.UpdatePassword(data)
                 : data['type'] == 'ADMIN'
-                    ? this.admin.UpdatePassword(data, update)
+                    ? this.admin.UpdatePassword(data)
                     : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.UpdatePassword(data, update)
+                        ? this.extensionWorker.UpdatePassword(data)
                         : new Error('Cant Find Any Users By that email');
             return user;
         }
@@ -649,6 +1158,11 @@ const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
 class ValidationDto {
 }
 __decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ValidationDto.prototype, "id", void 0);
+__decorate([
     (0, class_validator_1.IsEmail)(),
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
@@ -666,6 +1180,47 @@ __decorate([
     __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
 ], ValidationDto.prototype, "type", void 0);
 exports.ValidationDto = ValidationDto;
+
+
+/***/ }),
+
+/***/ "./libs/lib/src/auth/famrer.guard.ts":
+/*!*******************************************!*\
+  !*** ./libs/lib/src/auth/famrer.guard.ts ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FamrerGuard = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+let FamrerGuard = class FamrerGuard {
+    canActivate(context) {
+        try {
+            const type = context.switchToHttp().getRequest()['body']['type'];
+            const valid = type == 'FARMER' ? true : false;
+            if (valid == false) {
+                throw new common_1.ForbiddenException('wrong server');
+            }
+            else {
+                return valid;
+            }
+        }
+        catch (error) {
+            throw new common_1.ForbiddenException('wrong server');
+        }
+    }
+};
+FamrerGuard = __decorate([
+    (0, common_1.Injectable)()
+], FamrerGuard);
+exports.FamrerGuard = FamrerGuard;
 
 
 /***/ }),
@@ -820,9 +1375,7 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(farmer_module_1.FarmerModule);
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Farmer Doc')
-        .setDescription('')
         .setVersion('1.0')
-        .addTag('')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);

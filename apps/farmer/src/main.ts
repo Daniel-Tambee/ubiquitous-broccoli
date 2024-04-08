@@ -7,9 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(FarmerModule);
   const config = new DocumentBuilder()
     .setTitle('Farmer Doc')
-    .setDescription('')
     .setVersion('1.0')
-    .addTag('')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

@@ -7,6 +7,7 @@ import { WorkerService } from 'apps/extension-worker/src/extension-worker/worker
 import { ValidationDto } from './dto/login-auth.dto';
 import { verify, hash } from 'argon2';
 import { JwtService } from '@nestjs/jwt';
+import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 
 @Injectable()
 export class AuthService implements IAuth {
@@ -48,11 +49,11 @@ export class AuthService implements IAuth {
     try {
       let user =
         data['type'] == 'FARMER'
-          ? await this.farmer.findByEmail(data)
+          ? await this.farmer.FindByEmail(data)
           : data['type'] == 'ADMIN'
-          ? await this.admin.findByEmail(data)
+          ? await this.admin.FindByEmail(data)
           : data['type'] == 'EXTENSION_WORKER'
-          ? await this.extensionWorker.findByEmail(data)
+          ? await this.extensionWorker.FindByEmail(data)
           : new Error('Cant Find Any Users By that email');
       console.log(user);
 
@@ -87,11 +88,11 @@ export class AuthService implements IAuth {
     try {
       let user =
         data['type'] == 'FARMER'
-          ? this.farmer.findByEmail(data)
+          ? this.farmer.FindByEmail(data)
           : data['type'] == 'ADMIN'
-          ? this.admin.findByEmail(data)
+          ? this.admin.FindByEmail(data)
           : data['type'] == 'EXTENSION_WORKER'
-          ? this.extensionWorker.findByEmail(data)
+          ? this.extensionWorker.FindByEmail(data)
           : new Error('Cant Find Any Users By that email');
 
       const verification = await verify(
@@ -113,9 +114,9 @@ export class AuthService implements IAuth {
     }
   }
   // TODO add them to db
-  async ForgotPassword(data: ValidationDto, update: string) {
+  async ForgotPassword(data: UpdateDto) {
     try {
-      let hashed = await hash(update, {
+      let hashed = await hash(data['new_value'], {
         secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
         type: 2,
       });
@@ -123,11 +124,11 @@ export class AuthService implements IAuth {
       data['password'] = hashed;
       let user =
         data['type'] == 'FARMER'
-          ? this.farmer.UpdatePassword(data, update)
+          ? this.farmer.UpdatePassword(data)
           : data['type'] == 'ADMIN'
-          ? this.admin.UpdatePassword(data, update)
+          ? this.admin.UpdatePassword(data)
           : data['type'] == 'EXTENSION_WORKER'
-          ? this.extensionWorker.UpdatePassword(data, update)
+          ? this.extensionWorker.UpdatePassword(data)
           : new Error('Cant Find Any Users By that email');
       return user;
     } catch (error) {

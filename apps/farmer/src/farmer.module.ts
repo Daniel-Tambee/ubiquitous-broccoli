@@ -7,10 +7,11 @@ import { FarmerService } from './farmer/farmer.service';
 import { AdminService } from 'apps/admin/src/admin/admin.service';
 import { WorkerService } from 'apps/extension-worker/src/extension-worker/worker.service';
 import { JwtService } from '@nestjs/jwt';
+import { FarmerController } from './farmer/farmer.controller';
 
 @Module({
   imports: [Farmer],
-  controllers: [AuthController],
+  controllers: [AuthController,FarmerController],
   providers: [
     AuthService,
     FarmerService,

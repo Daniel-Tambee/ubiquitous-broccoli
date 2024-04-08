@@ -7,9 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AdminModule);
   const config = new DocumentBuilder()
     .setTitle('Admin Doc')
-    .setDescription('')
     .setVersion('1.0')
-    .addTag('')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

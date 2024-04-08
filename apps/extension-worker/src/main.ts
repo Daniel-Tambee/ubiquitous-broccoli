@@ -7,9 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(ExtensionWorkerModule);
   const config = new DocumentBuilder()
     .setTitle('Extension Worker Doc')
-    .setDescription('')
     .setVersion('1.0')
-    .addTag('')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

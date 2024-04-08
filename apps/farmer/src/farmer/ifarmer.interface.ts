@@ -1,5 +1,4 @@
-import { IResource } from "@app/lib/interfaces/iresource.interface";
+import { IUser } from "@app/lib/interfaces/IUser.interface";
 
-export interface IFarmer extends IResource {
-    
+export interface IFarmer extends IUser {
 }

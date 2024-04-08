@@ -1,8 +1,12 @@
 import { IsEmail, IsEnum, IsString } from '@nestjs/class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { UserType } from '@prisma/client';
 
 export class ValidationDto {
+  @ApiPropertyOptional()
+  @IsString()
+  id: string;
+
   @IsEmail()
   @ApiProperty()
   email: string;

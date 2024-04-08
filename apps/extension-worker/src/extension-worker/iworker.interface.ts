@@ -1,3 +1,3 @@
-import { IResource } from "@app/lib/interfaces/iresource.interface";
+import { IUser } from "@app/lib/interfaces/IUser.interface";
 
-export interface Iworker  extends IResource{}
+export interface Iworker  extends IUser{}

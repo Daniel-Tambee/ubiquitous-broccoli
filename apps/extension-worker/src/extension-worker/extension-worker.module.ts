@@ -6,9 +6,10 @@ import { FarmerService } from 'apps/farmer/src/farmer/farmer.service';
 import { WorkerService } from './worker.service';
 import { JwtService } from '@nestjs/jwt';
 import { DbService } from '@app/lib/db/db.service';
+import { ExtensionWorkerController } from './extension-worker.controller';
 
 @Module({
-  controllers: [AuthController],
+  controllers: [AuthController, ExtensionWorkerController],
   providers: [AuthService,FarmerService,AdminService,WorkerService,JwtService,DbService],
 })
 export class ExtensionWorkerModule {}
