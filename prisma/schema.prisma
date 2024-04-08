@@ -26,10 +26,63 @@ model User {
 
 // TODO add different profiles for users
 model Profile {
+  id            String   @id @default(uuid()) @map("_id")
+  age           Int
+  sex           Gender
+  address       Json
+  householdsize Int
+  household     Int
+  religion      Religion
+  maritalstatus Marital
+  about         String?
+  photo         String?
+  User          User[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Project {
+  id        String      @id @default(uuid()) @map("_id")
+  type      ProjectType
+  milestone Milestone[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model Crop {
+  id         String   @id @default(uuid()) @map("_id")
+  type       CropTYpe
+  start_date DateTime
+  end_date   DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Milestone {
+  id         String   @id @default(uuid()) @map("_id")
+  text       String
+  start_date DateTime
+  end_date   DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Project    Project? @relation(fields: [projectId], references: [id])
+  projectId  String?
+}
+
+model Report {
   id        String   @id @default(uuid()) @map("_id")
-  about     String?
-  photo     String?
-  User      User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Recommendation {
+  id        String   @id @default(uuid()) @map("_id")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Input {
+  id        String   @id @default(uuid()) @map("_id")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -38,4 +91,31 @@ enum UserType {
   ADMIN
   FARMER
   EXTENSION_WORKER
+}
+
+enum CropTYpe {
+  ADMIN
+  FARMER
+  EXTENSION_WORKER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Religion {
+  Christian
+  Muslim
+  Not_specified
+}
+
+enum Marital {
+  Married
+  Unmarried
+}
+
+enum ProjectType {
+  Crop
+  Lifestock
 }
