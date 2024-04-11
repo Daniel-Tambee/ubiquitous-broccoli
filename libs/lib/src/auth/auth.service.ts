@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-auth.dto';
 import { IAuth } from './auth.interface';
 import { FarmerService } from 'apps/farmer/src/farmer/farmer.service';
@@ -37,7 +41,7 @@ export class AuthService implements IAuth {
           ? this.admin.CreateResource(info)
           : info['type'] == 'EXTENSION_WORKER'
           ? this.extensionWorker.CreateResource(info)
-          : new Error('Please Specify User Type');
+          : new BadRequestException('Please Specify User Type');
       return query;
     } catch (error) {
       console.log(error);

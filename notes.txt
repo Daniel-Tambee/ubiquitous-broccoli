@@ -1,0 +1,34 @@
+Notes
+extension worker
+
+1 reports on farms
+2 distribute inputs(being fertilizers)(rigorously monitor disbursement)(extension worker to farmer)(one to many)
+3 farmers divided into crop and and livestock
+4 educate farmers 
+5 classify farmers based on income level
+6 group farmers into cooperatives
+
+metrics
+type of crop 
+size of farm
+
+age 
+sex 
+address 
+household size
+household
+religion
+marital size
+
+farming seasons
+
+extension workers iss
+ue projects to farmer
+projects get farm size
+project status
+
+polygon of farm
+
+crop
+measure crop spacing
+
