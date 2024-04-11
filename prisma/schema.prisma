@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -45,7 +46,7 @@ model FarmerProfile {
   Cooperative   Cooperative? @relation(fields: [cooperativeId], references: [id])
   cooperativeId String?
   Milestone     Milestone[]  @relation(fields: [milestoneId], references: [id])
-  milestoneId   String[]   
+  milestoneId   String[]
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 }
@@ -152,9 +153,10 @@ model Recommendation {
 }
 
 model Input {
-  id        String   @id @default(uuid()) @map("_id")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(uuid()) @map("_id")
+  type      InputType
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Disbursement {
@@ -178,6 +180,11 @@ enum CropType {
 enum Gender {
   MALE
   FEMALE
+}
+
+enum InputType {
+  CASH
+  FERTILIZER
 }
 
 enum Religion {
