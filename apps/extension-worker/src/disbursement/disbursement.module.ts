@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { DisbursementController } from './disbursement.controller';
 
-@Module({})
+@Module({
+  controllers: [DisbursementController]
+})
 export class DisbursementModule {}

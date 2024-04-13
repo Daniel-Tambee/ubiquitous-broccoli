@@ -12,8 +12,17 @@ import { ReportModule } from './report/report.module';
 import { DisbursementModule } from './disbursement/disbursement.module';
 
 @Module({
-  imports: [ExtensionWorkerModule, ProfileModule, ProjectModule, CooperativeModule, CropModule, MilestoneModule, ReportModule, DisbursementModule],
+  imports: [
+    ExtensionWorkerModule,
+    ProfileModule,
+    ProjectModule,
+    CooperativeModule,
+    CropModule,
+    MilestoneModule,
+    ReportModule,
+    DisbursementModule,
+  ],
   controllers: [AuthController],
-  providers: [WorkerService,AuthService],
+  providers: [WorkerService, AuthService],
 })
 export class AppModule {}

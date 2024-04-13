@@ -29,7 +29,7 @@ model User {
 
 // TODO add different profiles for users
 model FarmerProfile {
-  id            String       @id @default(uuid()) @map("_id")
+  id            String         @id @default(uuid()) @map("_id")
   age           Int
   sex           Gender
   address       Json
@@ -37,18 +37,19 @@ model FarmerProfile {
   income        IncomeRange
   religion      Religion
   maritalStatus Marital
-  Project       Project?     @relation(fields: [projectId], references: [id])
+  Project       Project?       @relation(fields: [projectId], references: [id])
   projectId     String?
   about         String?
   photo         Bytes?
   User          User[]
   household     HouseHold[]
-  Cooperative   Cooperative? @relation(fields: [cooperativeId], references: [id])
+  Cooperative   Cooperative?   @relation(fields: [cooperativeId], references: [id])
   cooperativeId String?
-  Milestone     Milestone[]  @relation(fields: [milestoneId], references: [id])
+  Milestone     Milestone[]    @relation(fields: [milestoneId], references: [id])
   milestoneId   String[]
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  disbursement  Disbursement[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model WorkerProfile {
@@ -91,42 +92,41 @@ model Project {
   start_date      DateTime
   end_date        DateTime
   WorkerProfile   WorkerProfile?  @relation(fields: [workerProfileId], references: [id])
-  workerProfileId String?
+  workerProfileId String?         @unique
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 }
 
 model Cooperative {
   id              String          @id @default(uuid()) @map("_id")
-  type            ProjectType
   farmers         FarmerProfile[]
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   WorkerProfile   WorkerProfile?  @relation(fields: [workerProfileId], references: [id])
-  workerProfileId String?
+  workerProfileId String?         @unique
 }
 
 model Crop {
-  id         String   @id @default(uuid()) @map("_id")
-  type       CropType
-  start_date DateTime
-  end_date   DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(uuid()) @map("_id")
+  type      CropType
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Milestone {
-  id            String          @id @default(uuid()) @map("_id")
-  Farmer        FarmerProfile[] @relation(fields: [farmerProfile], references: [id])
-  farmerProfile String[]
-  text          String
-  start_date    DateTime
-  end_date      DateTime
-  isAchieved    Boolean
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  Project       Project?        @relation(fields: [projectId], references: [id])
-  projectId     String?
+  id               String          @id @default(uuid()) @map("_id")
+  Farmer           FarmerProfile[] @relation(fields: [farmerProfile], references: [id])
+  farmerProfile    String[]
+  text             String
+  start_date       DateTime
+  end_date         DateTime
+  isAchieved       Boolean
+  recommendation   Recommendation  @relation(fields: [recommendationId], references: [id])
+  recommendationId String
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  Project          Project?        @relation(fields: [projectId], references: [id])
+  projectId        String?
 }
 
 model Report {
@@ -134,7 +134,7 @@ model Report {
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   WorkerProfile   WorkerProfile? @relation(fields: [workerProfileId], references: [id])
-  workerProfileId String?
+  workerProfileId String?        @unique
 }
 
 model HouseHold {
@@ -147,9 +147,10 @@ model HouseHold {
 }
 
 model Recommendation {
-  id        String   @id @default(uuid()) @map("_id")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String      @id @default(uuid()) @map("_id")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Milestone Milestone[]
 }
 
 model Input {
@@ -160,9 +161,12 @@ model Input {
 }
 
 model Disbursement {
-  id        String   @id @default(uuid()) @map("_id")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String         @id @default(uuid()) @map("_id")
+  amount          Float
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  FarmerProfile   FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
+  farmerProfileId String?
 }
 
 enum UserType {
