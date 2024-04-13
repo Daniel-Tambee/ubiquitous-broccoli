@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { CooperativeController } from './cooperative.controller';
 
-@Module({})
+@Module({
+  controllers: [CooperativeController]
+})
 export class CooperativeModule {}

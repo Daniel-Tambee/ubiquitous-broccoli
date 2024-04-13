@@ -7,9 +7,42 @@ import { WorkerService } from './worker.service';
 import { JwtService } from '@nestjs/jwt';
 import { DbService } from '@app/lib/db/db.service';
 import { ExtensionWorkerController } from './extension-worker.controller';
+import { DisbursementModule } from '../disbursement/disbursement.module';
+import { CooperativeModule } from '../cooperative/cooperative.module';
+import { CropModule } from '../crop/crop.module';
+import { MilestoneModule } from '../milestone/milestone.module';
+import { ProfileModule } from '../profile/profile.module';
+import { ProjectModule } from '../project/project.module';
+import { ReportModule } from '../report/report.module';
+import { ProjectController } from '../project/project.controller';
+import { MilestoneController } from '../milestone/milestone.controller';
+import { CooperativeController } from '../cooperative/cooperative.controller';
+import { FarmerController } from 'apps/farmer/src/farmer/farmer.controller';
 
 @Module({
-  controllers: [AuthController, ExtensionWorkerController],
-  providers: [AuthService,FarmerService,AdminService,WorkerService,JwtService,DbService],
+  imports: [
+    DisbursementModule,
+    CooperativeModule,
+    CropModule,
+    MilestoneModule,
+    ProjectModule,
+    ReportModule,
+    ProfileModule
+  ],
+  controllers: [
+    AuthController,
+    ExtensionWorkerController,
+    MilestoneController,
+    CooperativeController,
+    FarmerController,
+  ],
+  providers: [
+    AuthService,
+    FarmerService,
+    AdminService,
+    WorkerService,
+    JwtService,
+    DbService,
+  ],
 })
 export class ExtensionWorkerModule {}
