@@ -60,7 +60,7 @@ export class FarmerService implements IFarmer {
           : new BadRequestException('pass in a valid property  please');
       return query;
     } catch (error) {
-      return new BadRequestException(error);
+      return error;
     }
   }
 
