@@ -17,6 +17,10 @@ export class FarmerController implements IFarmer {
    *
    */
   constructor(private readonly farmer: FarmerService) {}
+  @Post('UpdateProperties')
+  UpdateProperties(@Body() data: UpdateDto) {
+    return this.farmer.UpdateProperties(data);
+  }
   UpdatePassword(@Body() data: UpdateDto): Promise<User> {
     return this.farmer.UpdatePassword(data);
   }
@@ -32,15 +36,12 @@ export class FarmerController implements IFarmer {
   FindByFirst_name(@Body() data: FindDto): Promise<User> {
     return this.farmer.FindByFirst_name(data);
   }
-  @Post('UpdateFirstName')
   UpdateFirstName(@Body() data: UpdateDto): Promise<User> {
     return this.farmer.UpdateFirstName(data);
   }
-  @Post('UpdateLastName')
   UpdateLastName(@Body() data: UpdateDto): Promise<User> {
     return this.farmer.UpdateLastName(data);
   }
-  @Post('UpdatePhoneNumber')
   UpdatePhoneNumber(@Body() data: UpdateDto): Promise<User> {
     return this.farmer.UpdatePhoneNumber(data);
   }
