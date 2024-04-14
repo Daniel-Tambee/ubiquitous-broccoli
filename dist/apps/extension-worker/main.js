@@ -2366,7 +2366,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -2379,6 +2379,9 @@ const famrer_guard_1 = __webpack_require__(/*! @app/lib/auth/famrer.guard */ "./
 let FarmerController = class FarmerController {
     constructor(farmer) {
         this.farmer = farmer;
+    }
+    UpdateProperties(data) {
+        return this.farmer.UpdateProperties(data);
     }
     UpdatePassword(data) {
         return this.farmer.UpdatePassword(data);
@@ -2412,59 +2415,63 @@ let FarmerController = class FarmerController {
     }
 };
 __decorate([
+    (0, common_1.Post)('UpdateProperties'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "UpdateProperties", null);
+__decorate([
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], FarmerController.prototype, "UpdatePassword", null);
 __decorate([
     (0, common_1.Post)('FindById'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
-    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+    __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
 ], FarmerController.prototype, "FindById", null);
 __decorate([
     (0, common_1.Post)('FindByPhone_Number'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
-    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+    __metadata("design:paramtypes", [typeof (_g = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
 ], FarmerController.prototype, "FindByPhone_Number", null);
 __decorate([
     (0, common_1.Post)('FindByFirst_name'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+    __metadata("design:paramtypes", [typeof (_j = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _j : Object]),
+    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
 ], FarmerController.prototype, "FindByFirst_name", null);
 __decorate([
-    (0, common_1.Post)('UpdateFirstName'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+    __metadata("design:paramtypes", [typeof (_l = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
 ], FarmerController.prototype, "UpdateFirstName", null);
 __decorate([
-    (0, common_1.Post)('UpdateLastName'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+    __metadata("design:paramtypes", [typeof (_o = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _o : Object]),
+    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
 ], FarmerController.prototype, "UpdateLastName", null);
 __decorate([
-    (0, common_1.Post)('UpdatePhoneNumber'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_p = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _p : Object]),
-    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+    __metadata("design:paramtypes", [typeof (_q = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _q : Object]),
+    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
 ], FarmerController.prototype, "UpdatePhoneNumber", null);
 __decorate([
     (0, common_1.Post)('FindByEmail'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_r = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _r : Object]),
-    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+    __metadata("design:paramtypes", [typeof (_s = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _s : Object]),
+    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
 ], FarmerController.prototype, "FindByEmail", null);
 FarmerController = __decorate([
     (0, common_1.Controller)('farmer'),
@@ -2501,6 +2508,55 @@ const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/l
 let FarmerService = class FarmerService {
     constructor(db) {
         this.db = db;
+    }
+    async UpdateProperties(data) {
+        try {
+            let query = data['new_value']['first_name'] !== undefined
+                ? await this.db.user.update({
+                    data: {
+                        first_name: data['new_value']['first_name'],
+                    },
+                    where: {
+                        id: data['id'],
+                        type: 'FARMER',
+                    },
+                })
+                : data['new_value']['last_name'] !== undefined
+                    ? await this.db.user.update({
+                        data: {
+                            last_name: data['new_value']['last_name'],
+                        },
+                        where: {
+                            id: data['id'],
+                            type: 'FARMER',
+                        },
+                    })
+                    : data['new_value']['phone_number'] !== undefined
+                        ? await this.db.user.update({
+                            data: {
+                                phone_number: data['new_value']['phone_number'],
+                            },
+                            where: {
+                                id: data['id'],
+                                type: 'FARMER',
+                            },
+                        })
+                        : data['new_value']['email'] !== undefined
+                            ? await this.db.user.update({
+                                data: {
+                                    email: data['new_value']['email'],
+                                },
+                                where: {
+                                    id: data['id'],
+                                    type: 'FARMER',
+                                },
+                            })
+                            : new common_1.BadRequestException('pass in a valid property  please');
+            return query;
+        }
+        catch (error) {
+            return new common_1.BadRequestException(error);
+        }
     }
     async UpdateFirstName(data) {
         try {

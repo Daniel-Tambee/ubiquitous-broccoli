@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { IFarmer } from './ifarmer.interface';
 import { CreateUserDto } from '@app/lib/auth/dto/create-auth.dto';
 import { User } from '@prisma/client';
@@ -13,6 +13,57 @@ export class FarmerService implements IFarmer {
    *
    */
   constructor(private readonly db: DbService) {}
+
+  async UpdateProperties(data: UpdateDto): Promise<any> {
+    try {
+      let query =
+        data['new_value']['first_name'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                first_name: data['new_value']['first_name'],
+              },
+              where: {
+                id: data['id'],
+                type: 'FARMER',
+              },
+            })
+          : data['new_value']['last_name'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                last_name: data['new_value']['last_name'],
+              },
+              where: {
+                id: data['id'],
+                type: 'FARMER',
+              },
+            })
+          : data['new_value']['phone_number'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                phone_number: data['new_value']['phone_number'],
+              },
+              where: {
+                id: data['id'],
+                type: 'FARMER',
+              },
+            })
+          : data['new_value']['email'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                email: data['new_value']['email'],
+              },
+              where: {
+                id: data['id'],
+                type: 'FARMER',
+              },
+            })
+          : new BadRequestException('pass in a valid property  please');
+      return query;
+    } catch (error) {
+      return new BadRequestException(error);
+    }
+  }
+
   async UpdateFirstName(data: UpdateDto): Promise<User> {
     try {
       const user = await this.db.user.update({
