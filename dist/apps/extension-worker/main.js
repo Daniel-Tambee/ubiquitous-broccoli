@@ -602,6 +602,7 @@ const report_module_1 = __webpack_require__(/*! ../report/report.module */ "./ap
 const milestone_controller_1 = __webpack_require__(/*! ../milestone/milestone.controller */ "./apps/extension-worker/src/milestone/milestone.controller.ts");
 const cooperative_controller_1 = __webpack_require__(/*! ../cooperative/cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
 const farmer_controller_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
+const milestone_service_1 = __webpack_require__(/*! ../milestone/milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -629,6 +630,7 @@ ExtensionWorkerModule = __decorate([
             worker_service_1.WorkerService,
             jwt_1.JwtService,
             db_service_1.DbService,
+            milestone_service_1.MilestoneService
         ],
     })
 ], ExtensionWorkerModule);
@@ -819,6 +821,88 @@ exports.WorkerService = WorkerService;
 
 /***/ }),
 
+/***/ "./apps/extension-worker/src/milestone/dto/dto.ts":
+/*!********************************************************!*\
+  !*** ./apps/extension-worker/src/milestone/dto/dto.ts ***!
+  \********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateMilestoneDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class CreateMilestoneDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Array)
+], CreateMilestoneDto.prototype, "Farmers", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "text", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "start_date", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "end_date", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "recommendationId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "projectId", void 0);
+exports.CreateMilestoneDto = CreateMilestoneDto;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/milestone/dto/find_dto.ts":
+/*!*************************************************************!*\
+  !*** ./apps/extension-worker/src/milestone/dto/find_dto.ts ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+class FindDto {
+}
+exports.FindDto = FindDto;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/milestone/dto/update_dto.ts":
+/*!***************************************************************!*\
+  !*** ./apps/extension-worker/src/milestone/dto/update_dto.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+class UpdateDto {
+}
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+
 /***/ "./apps/extension-worker/src/milestone/milestone.controller.ts":
 /*!*********************************************************************!*\
   !*** ./apps/extension-worker/src/milestone/milestone.controller.ts ***!
@@ -835,106 +919,127 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MilestoneController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/milestone/dto/find_dto.ts");
+const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/milestone/dto/update_dto.ts");
+const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/milestone/dto/dto.ts");
+const milestone_service_1 = __webpack_require__(/*! ./milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
 let MilestoneController = class MilestoneController {
-    CreateMilestone() {
-        throw new Error('Method not implemented.');
+    constructor(milestone) {
+        this.milestone = milestone;
     }
-    FindByid() {
-        throw new Error('Method not implemented.');
+    CreateMilestone(data) {
+        return this.milestone.CreateMilestone(data);
     }
-    FindByfarmerProfile() {
-        throw new Error('Method not implemented.');
+    FindByid(data) {
+        return this.milestone.FindByid(data);
     }
-    FindBytext() {
-        throw new Error('Method not implemented.');
+    GetFarmers(data) {
+        return this.milestone.GetFarmers(data);
     }
-    FindBystart_date() {
-        throw new Error('Method not implemented.');
+    AddFarmers(data) {
+        return this.milestone.AddFarmers(data);
     }
-    FindByend_date() {
-        throw new Error('Method not implemented.');
+    RemoveFarmers(data) {
+        return this.milestone.RemoveFarmers(data);
     }
-    FindByisAchieved() {
-        throw new Error('Method not implemented.');
+    FindBytext(data) {
+        return this.milestone.FindBytext(data);
     }
-    FindByrecommendationId() {
-        throw new Error('Method not implemented.');
+    FindByisAchieved(data) {
+        return this.milestone.FindByisAchieved(data);
     }
-    FindByprojectId() {
-        throw new Error('Method not implemented.');
+    FindByrecommendationId(data) {
+        return this.milestone.FindByrecommendationId(data);
     }
-    UpdateProperty() {
-        throw new Error('Method not implemented.');
+    FindByprojectId(data) {
+        return this.milestone.FindByprojectId(data);
+    }
+    UpdateProperty(data) {
+        return this.milestone.UpdateProperty(data);
     }
 };
 __decorate([
     (0, common_1.Post)('CreateMilestone'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_a = typeof Promise !== "undefined" && Promise) === "function" ? _a : Object)
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateMilestoneDto !== "undefined" && dto_1.CreateMilestoneDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], MilestoneController.prototype, "CreateMilestone", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], MilestoneController.prototype, "FindByid", null);
 __decorate([
-    (0, common_1.Post)('FindByfarmerProfile'),
+    (0, common_1.Post)('GetFarmers'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
-], MilestoneController.prototype, "FindByfarmerProfile", null);
+    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], MilestoneController.prototype, "GetFarmers", null);
+__decorate([
+    (0, common_1.Post)('AddFarmers'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], MilestoneController.prototype, "AddFarmers", null);
+__decorate([
+    (0, common_1.Post)('RemoveFarmers'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], MilestoneController.prototype, "RemoveFarmers", null);
 __decorate([
     (0, common_1.Post)('FindBytext'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+    __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], MilestoneController.prototype, "FindBytext", null);
 __decorate([
-    (0, common_1.Post)('FindBystart_date'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
-], MilestoneController.prototype, "FindBystart_date", null);
-__decorate([
-    (0, common_1.Post)('FindByend_date'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
-], MilestoneController.prototype, "FindByend_date", null);
-__decorate([
     (0, common_1.Post)('FindByisAchieved'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+    __metadata("design:paramtypes", [typeof (_p = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], MilestoneController.prototype, "FindByisAchieved", null);
 __decorate([
     (0, common_1.Post)('FindByrecommendationId'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+    __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
 ], MilestoneController.prototype, "FindByrecommendationId", null);
 __decorate([
     (0, common_1.Post)('FindByprojectId'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+    __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
+    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
 ], MilestoneController.prototype, "FindByprojectId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+    __metadata("design:paramtypes", [typeof (_v = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _v : Object]),
+    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
 ], MilestoneController.prototype, "UpdateProperty", null);
 MilestoneController = __decorate([
     (0, common_1.Controller)('milestone'),
-    (0, swagger_1.ApiTags)('milestone')
+    (0, swagger_1.ApiTags)('milestone'),
+    __metadata("design:paramtypes", [typeof (_a = typeof milestone_service_1.MilestoneService !== "undefined" && milestone_service_1.MilestoneService) === "function" ? _a : Object])
 ], MilestoneController);
 exports.MilestoneController = MilestoneController;
 
@@ -958,14 +1063,225 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MilestoneModule = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const milestone_controller_1 = __webpack_require__(/*! ./milestone.controller */ "./apps/extension-worker/src/milestone/milestone.controller.ts");
+const milestone_service_1 = __webpack_require__(/*! ./milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 let MilestoneModule = class MilestoneModule {
 };
 MilestoneModule = __decorate([
     (0, common_1.Module)({
-        controllers: [milestone_controller_1.MilestoneController]
+        controllers: [milestone_controller_1.MilestoneController],
+        providers: [milestone_service_1.MilestoneService, db_service_1.DbService]
     })
 ], MilestoneModule);
 exports.MilestoneModule = MilestoneModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/milestone/milestone.service.ts":
+/*!******************************************************************!*\
+  !*** ./apps/extension-worker/src/milestone/milestone.service.ts ***!
+  \******************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MilestoneService = void 0;
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+let MilestoneService = class MilestoneService {
+    constructor(db) {
+        this.db = db;
+    }
+    async CreateMilestone(data) {
+        try {
+            let query = await this.db.milestone.create({
+                data: {
+                    end_date: data['end_date'],
+                    isAchieved: false,
+                    start_date: data['start_date'],
+                    text: data['text'],
+                },
+            });
+            data['Farmers'].forEach(async (farmer) => {
+                await this.db.milestone.update({
+                    where: {
+                        id: query['id'],
+                    },
+                    data: {
+                        farmerProfile: {
+                            push: farmer,
+                        },
+                    },
+                });
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async FindByid(data) {
+        try {
+            let query = await this.db.milestone.findUniqueOrThrow({
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async GetFarmers(data) {
+        try {
+            let query = await this.db.farmerProfile.findMany({
+                where: {
+                    milestoneId: data['property']['milestone_id'],
+                },
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async AddFarmers(data) {
+        try {
+            let query = await this.db.milestone.update({
+                data: {
+                    Farmer: {
+                        connect: {
+                            id: data['property']['farmer_id'],
+                        },
+                    },
+                },
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async RemoveFarmers(data) {
+        try {
+            let query = await this.db.milestone.update({
+                data: {
+                    Farmer: {
+                        disconnect: {
+                            id: data['property']['farmer_id'],
+                        },
+                    },
+                },
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async FindBytext(data) {
+        try {
+            let query = await this.db.milestone.findFirstOrThrow({
+                where: {
+                    text: data['property']['text'],
+                },
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async FindByisAchieved(data) {
+        try {
+            let query = await this.db.milestone.findFirstOrThrow({
+                where: {
+                    isAchieved: data['property']['isAchieved'],
+                },
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async FindByrecommendationId(data) {
+        try {
+            let query = await this.db.milestone.findFirstOrThrow({
+                where: {
+                    recommendationId: data['property']['recommendationId'],
+                },
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async FindByprojectId(data) {
+        try {
+            let query = await this.db.milestone.findFirstOrThrow({
+                where: {
+                    recommendationId: data['property']['recommendationId'],
+                },
+            });
+            return query;
+        }
+        catch (error) { }
+    }
+    async UpdateProperty(data) {
+        try {
+            let query = data['new_value']['start_date'] !== undefined
+                ? await this.db.milestone.update({
+                    data: {
+                        start_date: data['new_value']['start_date'],
+                    },
+                    where: {
+                        id: data['id'],
+                    },
+                })
+                : data['new_value']['end_date'] !== undefined
+                    ? await this.db.milestone.update({
+                        data: {
+                            end_date: data['new_value']['end_date'],
+                        },
+                        where: {
+                            id: data['id'],
+                        },
+                    })
+                    : data['new_value']['text'] !== undefined
+                        ? await this.db.milestone.update({
+                            data: {
+                                text: data['new_value']['text'],
+                            },
+                            where: {
+                                id: data['id'],
+                            },
+                        })
+                        : data['new_value']['isAchieved'] !== undefined
+                            ? await this.db.milestone.update({
+                                data: {
+                                    isAchieved: data['new_value']['isAchieved'],
+                                },
+                                where: {
+                                    id: data['id'],
+                                },
+                            })
+                            : new common_1.BadRequestException('pass in a valid property');
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+};
+MilestoneService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], MilestoneService);
+exports.MilestoneService = MilestoneService;
 
 
 /***/ }),

@@ -130,7 +130,7 @@ export class ProfileService implements IProfile {
       });
 
       for (let index = 0; index < data['farmer_ids'].length; index++) {
-        const element = data['farmer_ids'][index];
+        const element = data['farmer_ids'][index] as string;
         const pAddFarmers = await this.db.project.findFirstOrThrow({
           where: {
             id: project.id,
