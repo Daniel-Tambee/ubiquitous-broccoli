@@ -18,6 +18,7 @@ import { ProjectController } from '../project/project.controller';
 import { MilestoneController } from '../milestone/milestone.controller';
 import { CooperativeController } from '../cooperative/cooperative.controller';
 import { FarmerController } from 'apps/farmer/src/farmer/farmer.controller';
+import { MilestoneService } from '../milestone/milestone.service';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { FarmerController } from 'apps/farmer/src/farmer/farmer.controller';
     WorkerService,
     JwtService,
     DbService,
+    MilestoneService
   ],
 })
 export class ExtensionWorkerModule {}

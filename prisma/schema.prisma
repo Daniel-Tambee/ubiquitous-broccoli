@@ -121,8 +121,8 @@ model Milestone {
   start_date       DateTime
   end_date         DateTime
   isAchieved       Boolean
-  recommendation   Recommendation  @relation(fields: [recommendationId], references: [id])
-  recommendationId String
+  recommendation   Recommendation?  @relation(fields: [recommendationId], references: [id])
+  recommendationId String?
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
   Project          Project?        @relation(fields: [projectId], references: [id])

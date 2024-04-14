@@ -1,58 +1,59 @@
-import { Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IMilestone } from './milestone.interface';
-import { Milestone } from '@prisma/client';
+import { FarmerProfile, Milestone } from '@prisma/client';
+import { FindDto } from './dto/find_dto';
+import { UpdateDto } from './dto/update_dto';
+import { CreateMilestoneDto } from './dto/dto';
+import { MilestoneService } from './milestone.service';
 
 @Controller('milestone')
 @ApiTags('milestone')
 export class MilestoneController implements IMilestone {
+  /**
+   *
+   */
+  constructor(private readonly milestone: MilestoneService) {}
   @Post('CreateMilestone')
-  CreateMilestone(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
+  CreateMilestone(@Body() data: CreateMilestoneDto): Promise<Milestone> {
+    return this.milestone.CreateMilestone(data);
   }
-
   @Post('FindByid')
-  FindByid(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
+  FindByid(@Body() data: FindDto): Promise<Milestone> {
+    return this.milestone.FindByid(data);
   }
-
-  @Post('FindByfarmerProfile')
-  FindByfarmerProfile(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
+  @Post('GetFarmers')
+  GetFarmers(@Body() data: FindDto): Promise<FarmerProfile[]> {
+    return this.milestone.GetFarmers(data);
   }
-
+  @Post('AddFarmers')
+  AddFarmers(@Body() data: UpdateDto): Promise<Milestone> {
+    return this.milestone.AddFarmers(data);
+  }
+  @Post('RemoveFarmers')
+  RemoveFarmers(@Body() data: UpdateDto): Promise<Milestone> {
+    return this.milestone.RemoveFarmers(data);
+  }
   @Post('FindBytext')
-  FindBytext(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
+  FindBytext(@Body() data: FindDto): Promise<Milestone> {
+    return this.milestone.FindBytext(data);
   }
-
-  @Post('FindBystart_date')
-  FindBystart_date(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
-  }
-
-  @Post('FindByend_date')
-  FindByend_date(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
-  }
-
   @Post('FindByisAchieved')
-  FindByisAchieved(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
+  FindByisAchieved(@Body() data: FindDto): Promise<Milestone> {
+    return this.milestone.FindByisAchieved(data);
   }
-
   @Post('FindByrecommendationId')
-  FindByrecommendationId(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
+  FindByrecommendationId(@Body() data: FindDto): Promise<Milestone> {
+    return this.milestone.FindByrecommendationId(data);
   }
-
   @Post('FindByprojectId')
-  FindByprojectId(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
+  FindByprojectId(@Body() data: FindDto): Promise<Milestone> {
+    return this.milestone.FindByprojectId(data);
   }
-
   @Post('UpdateProperty')
-  UpdateProperty(): Promise<Milestone> {
-    throw new Error('Method not implemented.');
+  UpdateProperty(
+    @Body() data: UpdateDto,
+  ): Promise<Milestone | BadRequestException> {
+    return this.milestone.UpdateProperty(data);
   }
 }
