@@ -1,70 +1,139 @@
-import { Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { IProfile } from '../profile/profile.interface';
 import { IProject } from './project.interface';
-import { $Enums, Project } from '@prisma/client';
+import { FarmerProfile, Milestone, Project } from '@prisma/client';
+import { CreateProjectDto } from './dto/dto';
+import { FindDto } from './dto/find_dto';
+import { UpdateDto } from './dto/update_dto';
+import { ProjectService } from './project.service';
 
 @Controller('project')
 @ApiTags('project')
 export class ProjectController implements IProject {
+  /**
+   *
+   */
+  constructor(private readonly project: ProjectService) {}
   @Post('CreateProject')
-  CreateProject(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  CreateProject(@Body() data: CreateProjectDto): Promise<Project> {
+    try {
+      return this.project.CreateProject(data);
+    } catch (error) {
+      return error;
+    }
   }
-  @Post('Addparticipants')
-  Addparticipants(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  @Post('Addparticipant')
+  Addparticipant(@Body() data: UpdateDto): Promise<Project> {
+    try {
+      return this.project.Addparticipant(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('Addmilestones')
-  Addmilestones(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  Addmilestones(@Body() data: UpdateDto): Promise<Project> {
+    try {
+      return this.project.Addmilestones(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('Getparticipants')
-  Getparticipants(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  Getparticipants(@Body() data: FindDto): Promise<FarmerProfile[]> {
+    try {
+      return this.project.Getparticipants(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('Removeparticipants')
-  Removeparticipants(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  Removeparticipants(@Body() data: UpdateDto): Promise<Project> {
+    try {
+      return this.project.Removeparticipants(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('Getmilestones')
-  Getmilestones(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  Getmilestones(@Body() data: FindDto): Promise<Milestone[]> {
+    try {
+      return this.project.Getmilestones(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('Removemilestones')
-  Removemilestones(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  Removemilestones(@Body() data: UpdateDto): Promise<Project> {
+    try {
+      return this.project.Removemilestones(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('FindByid')
-  FindByid(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  FindByid(@Body() data: FindDto): Promise<Project> {
+    try {
+      return this.project.FindByid(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('FindBytype')
-  FindBytype(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  FindBytype(@Body() data: FindDto): Promise<Project> {
+    try {
+      return this.project.FindBytype(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('FindByparticipants')
-  FindByparticipants(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  FindByparticipants(@Body() data: FindDto): Promise<Project> {
+    try {
+      return this.project.FindByparticipants(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('FindBymilestones')
-  FindBymilestones(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  FindBymilestones(@Body() data: FindDto): Promise<Project> {
+    try {
+      return this.project.FindBymilestones(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('FindBystart_date')
-  FindBystart_date(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  FindBystart_date(@Body() data: FindDto): Promise<Project> {
+    try {
+      return this.project.FindBystart_date(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('FindByend_date')
-  FindByend_date(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  FindByend_date(@Body() data: FindDto): Promise<Project> {
+    try {
+      return this.project.FindByend_date(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('FindByworkerProfileId')
-  FindByworkerProfileId(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  FindByworkerProfileId(@Body() data: FindDto): Promise<Project> {
+    try {
+      return this.project.FindByworkerProfileId(data);
+    } catch (error) {
+      return error;
+    }
   }
   @Post('UpdateProperty')
-  UpdateProperty(): Promise<Project> {
-    throw new Error('Method not implemented.');
+  UpdateProperty(
+    @Body() data: UpdateDto,
+  ): Promise<Project | BadRequestException> {
+    try {
+      return this.project.UpdateProperty(data);
+    } catch (error) {
+      return error;
+    }
   }
 }

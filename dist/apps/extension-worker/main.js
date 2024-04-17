@@ -599,10 +599,13 @@ const milestone_module_1 = __webpack_require__(/*! ../milestone/milestone.module
 const profile_module_1 = __webpack_require__(/*! ../profile/profile.module */ "./apps/extension-worker/src/profile/profile.module.ts");
 const project_module_1 = __webpack_require__(/*! ../project/project.module */ "./apps/extension-worker/src/project/project.module.ts");
 const report_module_1 = __webpack_require__(/*! ../report/report.module */ "./apps/extension-worker/src/report/report.module.ts");
+const project_controller_1 = __webpack_require__(/*! ../project/project.controller */ "./apps/extension-worker/src/project/project.controller.ts");
 const milestone_controller_1 = __webpack_require__(/*! ../milestone/milestone.controller */ "./apps/extension-worker/src/milestone/milestone.controller.ts");
 const cooperative_controller_1 = __webpack_require__(/*! ../cooperative/cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
 const farmer_controller_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
 const milestone_service_1 = __webpack_require__(/*! ../milestone/milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
+const project_service_1 = __webpack_require__(/*! ../project/project.service */ "./apps/extension-worker/src/project/project.service.ts");
+const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -622,6 +625,7 @@ ExtensionWorkerModule = __decorate([
             milestone_controller_1.MilestoneController,
             cooperative_controller_1.CooperativeController,
             farmer_controller_1.FarmerController,
+            project_controller_1.ProjectController
         ],
         providers: [
             auth_service_1.AuthService,
@@ -630,7 +634,9 @@ ExtensionWorkerModule = __decorate([
             worker_service_1.WorkerService,
             jwt_1.JwtService,
             db_service_1.DbService,
-            milestone_service_1.MilestoneService
+            milestone_service_1.MilestoneService,
+            project_service_1.ProjectService,
+            profile_service_1.ProfileService
         ],
     })
 ], ExtensionWorkerModule);
@@ -1992,6 +1998,56 @@ exports.CreateProjectDto = CreateProjectDto;
 
 /***/ }),
 
+/***/ "./apps/extension-worker/src/project/dto/find_dto.ts":
+/*!***********************************************************!*\
+  !*** ./apps/extension-worker/src/project/dto/find_dto.ts ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class FindDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FindDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Object)
+], FindDto.prototype, "property", void 0);
+exports.FindDto = FindDto;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/project/dto/update_dto.ts":
+/*!*************************************************************!*\
+  !*** ./apps/extension-worker/src/project/dto/update_dto.ts ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+class UpdateDto {
+}
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+
 /***/ "./apps/extension-worker/src/project/project.controller.ts":
 /*!*****************************************************************!*\
   !*** ./apps/extension-worker/src/project/project.controller.ts ***!
@@ -2008,151 +2064,252 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProjectController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/project/dto/dto.ts");
+const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/project/dto/find_dto.ts");
+const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/project/dto/update_dto.ts");
+const project_service_1 = __webpack_require__(/*! ./project.service */ "./apps/extension-worker/src/project/project.service.ts");
 let ProjectController = class ProjectController {
-    CreateProject() {
-        throw new Error('Method not implemented.');
+    constructor(project) {
+        this.project = project;
     }
-    Addparticipants() {
-        throw new Error('Method not implemented.');
+    CreateProject(data) {
+        try {
+            return this.project.CreateProject(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    Addmilestones() {
-        throw new Error('Method not implemented.');
+    Addparticipant(data) {
+        try {
+            return this.project.Addparticipant(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    Getparticipants() {
-        throw new Error('Method not implemented.');
+    Addmilestones(data) {
+        try {
+            return this.project.Addmilestones(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    Removeparticipants() {
-        throw new Error('Method not implemented.');
+    Getparticipants(data) {
+        try {
+            return this.project.Getparticipants(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    Getmilestones() {
-        throw new Error('Method not implemented.');
+    Removeparticipants(data) {
+        try {
+            return this.project.Removeparticipants(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    Removemilestones() {
-        throw new Error('Method not implemented.');
+    Getmilestones(data) {
+        try {
+            return this.project.Getmilestones(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    FindByid() {
-        throw new Error('Method not implemented.');
+    Removemilestones(data) {
+        try {
+            return this.project.Removemilestones(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    FindBytype() {
-        throw new Error('Method not implemented.');
+    FindByid(data) {
+        try {
+            return this.project.FindByid(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    FindByparticipants() {
-        throw new Error('Method not implemented.');
+    FindBytype(data) {
+        try {
+            return this.project.FindBytype(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    FindBymilestones() {
-        throw new Error('Method not implemented.');
+    FindByparticipants(data) {
+        try {
+            return this.project.FindByparticipants(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    FindBystart_date() {
-        throw new Error('Method not implemented.');
+    FindBymilestones(data) {
+        try {
+            return this.project.FindBymilestones(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    FindByend_date() {
-        throw new Error('Method not implemented.');
+    FindBystart_date(data) {
+        try {
+            return this.project.FindBystart_date(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    FindByworkerProfileId() {
-        throw new Error('Method not implemented.');
+    FindByend_date(data) {
+        try {
+            return this.project.FindByend_date(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
-    UpdateProperty() {
-        throw new Error('Method not implemented.');
+    FindByworkerProfileId(data) {
+        try {
+            return this.project.FindByworkerProfileId(data);
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    UpdateProperty(data) {
+        try {
+            return this.project.UpdateProperty(data);
+        }
+        catch (error) {
+            return error;
+        }
     }
 };
 __decorate([
     (0, common_1.Post)('CreateProject'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_a = typeof Promise !== "undefined" && Promise) === "function" ? _a : Object)
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateProjectDto !== "undefined" && dto_1.CreateProjectDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], ProjectController.prototype, "CreateProject", null);
 __decorate([
-    (0, common_1.Post)('Addparticipants'),
+    (0, common_1.Post)('Addparticipant'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
-], ProjectController.prototype, "Addparticipants", null);
+    __metadata("design:paramtypes", [typeof (_d = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], ProjectController.prototype, "Addparticipant", null);
 __decorate([
     (0, common_1.Post)('Addmilestones'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+    __metadata("design:paramtypes", [typeof (_f = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], ProjectController.prototype, "Addmilestones", null);
 __decorate([
     (0, common_1.Post)('Getparticipants'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], ProjectController.prototype, "Getparticipants", null);
 __decorate([
     (0, common_1.Post)('Removeparticipants'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+    __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], ProjectController.prototype, "Removeparticipants", null);
 __decorate([
     (0, common_1.Post)('Getmilestones'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+    __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], ProjectController.prototype, "Getmilestones", null);
 __decorate([
     (0, common_1.Post)('Removemilestones'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+    __metadata("design:paramtypes", [typeof (_p = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], ProjectController.prototype, "Removemilestones", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+    __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
 ], ProjectController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('FindBytype'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+    __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
+    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
 ], ProjectController.prototype, "FindBytype", null);
 __decorate([
     (0, common_1.Post)('FindByparticipants'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+    __metadata("design:paramtypes", [typeof (_v = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _v : Object]),
+    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
 ], ProjectController.prototype, "FindByparticipants", null);
 __decorate([
     (0, common_1.Post)('FindBymilestones'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+    __metadata("design:paramtypes", [typeof (_x = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _x : Object]),
+    __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
 ], ProjectController.prototype, "FindBymilestones", null);
 __decorate([
     (0, common_1.Post)('FindBystart_date'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
+    __metadata("design:paramtypes", [typeof (_z = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _z : Object]),
+    __metadata("design:returntype", typeof (_0 = typeof Promise !== "undefined" && Promise) === "function" ? _0 : Object)
 ], ProjectController.prototype, "FindBystart_date", null);
 __decorate([
     (0, common_1.Post)('FindByend_date'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+    __metadata("design:paramtypes", [typeof (_1 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _1 : Object]),
+    __metadata("design:returntype", typeof (_2 = typeof Promise !== "undefined" && Promise) === "function" ? _2 : Object)
 ], ProjectController.prototype, "FindByend_date", null);
 __decorate([
     (0, common_1.Post)('FindByworkerProfileId'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
+    __metadata("design:paramtypes", [typeof (_3 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _3 : Object]),
+    __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
 ], ProjectController.prototype, "FindByworkerProfileId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+    __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
+    __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
 ], ProjectController.prototype, "UpdateProperty", null);
 ProjectController = __decorate([
     (0, common_1.Controller)('project'),
-    (0, swagger_1.ApiTags)('project')
+    (0, swagger_1.ApiTags)('project'),
+    __metadata("design:paramtypes", [typeof (_a = typeof project_service_1.ProjectService !== "undefined" && project_service_1.ProjectService) === "function" ? _a : Object])
 ], ProjectController);
 exports.ProjectController = ProjectController;
 
@@ -2176,14 +2333,315 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProjectModule = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const project_controller_1 = __webpack_require__(/*! ./project.controller */ "./apps/extension-worker/src/project/project.controller.ts");
+const project_service_1 = __webpack_require__(/*! ./project.service */ "./apps/extension-worker/src/project/project.service.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
 let ProjectModule = class ProjectModule {
 };
 ProjectModule = __decorate([
     (0, common_1.Module)({
-        controllers: [project_controller_1.ProjectController]
+        controllers: [project_controller_1.ProjectController],
+        providers: [project_service_1.ProjectService, db_service_1.DbService, profile_service_1.ProfileService],
     })
 ], ProjectModule);
 exports.ProjectModule = ProjectModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/project/project.service.ts":
+/*!**************************************************************!*\
+  !*** ./apps/extension-worker/src/project/project.service.ts ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ProjectService = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
+const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/project/dto/find_dto.ts");
+let ProjectService = class ProjectService {
+    constructor(db, profile) {
+        this.db = db;
+        this.profile = profile;
+    }
+    async CreateProject(data) {
+        try {
+            const query = await this.profile.Addproject(data);
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async Addparticipant(data) {
+        try {
+            const query = await this.db.project.update({
+                data: {
+                    participants: {
+                        connect: {
+                            id: data['new_value']['farmer_id'],
+                        },
+                    },
+                },
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async Addmilestones(data) {
+        try {
+            const query = await this.db.project.update({
+                data: {
+                    participants: {
+                        connect: {
+                            id: data['new_value']['farmer_id'],
+                        },
+                    },
+                },
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async Getparticipants(data) {
+        try {
+            const user = await this.db.farmerProfile.findMany({
+                where: {
+                    projectId: data['property']['project_id'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async Removeparticipants(data) {
+        try {
+            const query = await this.db.project.update({
+                data: {
+                    participants: {
+                        disconnect: {
+                            id: data['new_value']['farmer_id'],
+                        },
+                    },
+                },
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async Getmilestones(data) {
+        try {
+            const user = await this.db.milestone.findMany({
+                where: {
+                    projectId: data['property']['project_id'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async Removemilestones(data) {
+        try {
+            const query = await this.db.project.update({
+                data: {
+                    milestones: {
+                        disconnect: {
+                            id: data['new_value']['milestone_id'],
+                        },
+                    },
+                },
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByid(data) {
+        try {
+            const query = await this.db.project.findFirstOrThrow({
+                where: {
+                    id: find_dto_1.FindDto['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindBytype(data) {
+        try {
+            const query = await this.db.project.findFirstOrThrow({
+                where: {
+                    id: find_dto_1.FindDto['id'],
+                    type: find_dto_1.FindDto['property']['type'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByparticipants(data) {
+        try {
+            const query = await this.db.project.findFirstOrThrow({
+                where: {
+                    id: find_dto_1.FindDto['id'],
+                    participants: {
+                        every: {
+                            id: data['property']['farmer_id'],
+                        },
+                    },
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindBymilestones(data) {
+        try {
+            const query = await this.db.project.findFirstOrThrow({
+                where: {
+                    id: find_dto_1.FindDto['id'],
+                    milestones: {
+                        every: {
+                            id: data['property']['milestone_id'],
+                        },
+                    },
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindBystart_date(data) {
+        try {
+            const query = await this.db.project.findFirstOrThrow({
+                where: {
+                    id: find_dto_1.FindDto['id'],
+                    start_date: data['property']['start_date'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByend_date(data) {
+        try {
+            const query = await this.db.project.findFirstOrThrow({
+                where: {
+                    id: find_dto_1.FindDto['id'],
+                    end_date: data['property']['end_date'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByworkerProfileId(data) {
+        try {
+            const query = await this.db.project.findFirstOrThrow({
+                where: {
+                    id: find_dto_1.FindDto['id'],
+                    workerProfileId: data['property']['workerProfileId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdateProperty(data) {
+        try {
+            const query = data['new_value']['type'] !== undefined
+                ? await this.db.project.update({
+                    data: {
+                        type: data['new_value']['type'],
+                    },
+                    where: {
+                        id: data['id'],
+                        type: data['type'],
+                    },
+                })
+                : data['new_value']['start_date'] !== undefined
+                    ? await this.db.project.update({
+                        data: {
+                            start_date: data['new_value']['start_date'],
+                        },
+                        where: {
+                            id: data['id'],
+                            type: data['type'],
+                        },
+                    })
+                    : data['new_value']['end_date'] !== undefined
+                        ? await this.db.project.update({
+                            data: {
+                                end_date: data['new_value']['end_date'],
+                            },
+                            where: {
+                                id: data['id'],
+                                type: data['type'],
+                            },
+                        })
+                        : new common_1.BadRequestException('pass in a valid property');
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+};
+ProjectService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object, typeof (_b = typeof profile_service_1.ProfileService !== "undefined" && profile_service_1.ProfileService) === "function" ? _b : Object])
+], ProjectService);
+exports.ProjectService = ProjectService;
 
 
 /***/ }),
@@ -2508,6 +2966,55 @@ const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/l
 let FarmerService = class FarmerService {
     constructor(db) {
         this.db = db;
+    }
+    async UpdateProperties(data) {
+        try {
+            let query = data['new_value']['first_name'] !== undefined
+                ? await this.db.user.update({
+                    data: {
+                        first_name: data['new_value']['first_name'],
+                    },
+                    where: {
+                        id: data['id'],
+                        type: 'FARMER',
+                    },
+                })
+                : data['new_value']['last_name'] !== undefined
+                    ? await this.db.user.update({
+                        data: {
+                            last_name: data['new_value']['last_name'],
+                        },
+                        where: {
+                            id: data['id'],
+                            type: 'FARMER',
+                        },
+                    })
+                    : data['new_value']['phone_number'] !== undefined
+                        ? await this.db.user.update({
+                            data: {
+                                phone_number: data['new_value']['phone_number'],
+                            },
+                            where: {
+                                id: data['id'],
+                                type: 'FARMER',
+                            },
+                        })
+                        : data['new_value']['email'] !== undefined
+                            ? await this.db.user.update({
+                                data: {
+                                    email: data['new_value']['email'],
+                                },
+                                where: {
+                                    id: data['id'],
+                                    type: 'FARMER',
+                                },
+                            })
+                            : new common_1.BadRequestException('pass in a valid property  please');
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
     }
     async UpdateFirstName(data) {
         try {
