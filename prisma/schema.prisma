@@ -89,6 +89,7 @@ model AdminProfile {
 model Project {
   id              String          @id @default(uuid()) @map("_id")
   vists           Visit[]
+  status          ProjectStatus
   type            ProjectType
   participants    FarmerProfile[]
   milestones      Milestone[]
@@ -174,6 +175,7 @@ model Input {
 
 model Visit {
   id            String      @id @default(uuid()) @map("_id")
+  status        VisitStatus
   appointment   Appointment @relation(fields: [appointmentId], references: [id])
   milestoneId   String
   appointmentId String
@@ -214,9 +216,11 @@ model LocalGovernment {
 model Intervention {
   id              String         @id @default(uuid()) @map("_id")
   amount          Float
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  FarmerProfile   FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
+  custom_feild    Json
+  type            Intervention_type
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  FarmerProfile   FarmerProfile?    @relation(fields: [farmerProfileId], references: [id])
   farmerProfileId String?
   Project         Project?       @relation(fields: [projectId], references: [id])
   projectId       String?
@@ -264,10 +268,28 @@ enum Marital {
 enum ProjectType {
   CROP
   LIVESTOCK
+  ALL
+}
+
+enum VisitStatus {
+  CROP
+  LIVESTOCK
+  ALL
+}
+
+enum Appointment_Status {
+  PENDING
+  COMPLETED
+  MISSED
 }
 
 enum IncomeRange {
   SMALL
   MEDIUM
   COMMERCIAL
+}
+
+enum ProjectStatus {
+  ACTIVE
+  INACTIVE
 }
