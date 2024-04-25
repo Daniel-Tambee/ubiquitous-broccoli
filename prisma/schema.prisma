@@ -214,15 +214,15 @@ model LocalGovernment {
 }
 
 model Intervention {
-  id              String         @id @default(uuid()) @map("_id")
+  id              String            @id @default(uuid()) @map("_id")
   amount          Float
-  custom_feild    Json
+  custom_field    Json
   type            Intervention_type
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   FarmerProfile   FarmerProfile?    @relation(fields: [farmerProfileId], references: [id])
   farmerProfileId String?
-  Project         Project?       @relation(fields: [projectId], references: [id])
+  Project         Project?          @relation(fields: [projectId], references: [id])
   projectId       String?
 }
 
@@ -292,4 +292,11 @@ enum IncomeRange {
 enum ProjectStatus {
   ACTIVE
   INACTIVE
+}
+
+enum Intervention_type {
+  GRANT
+  CROPLIVESTOCK
+  OIL_EXTRACTION_MACHINE
+  SOLAR_WATER_PUMP
 }
