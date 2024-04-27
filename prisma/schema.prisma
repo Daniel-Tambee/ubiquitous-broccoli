@@ -173,15 +173,25 @@ model Input {
   updatedAt DateTime  @updatedAt
 }
 
+model Photo {
+  id        String   @id @default(uuid()) @map("_id")
+  data      Bytes
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Visit     Visit?   @relation(fields: [visitId], references: [id])
+  visitId   String?
+}
+
 model Visit {
   id            String      @id @default(uuid()) @map("_id")
   status        VisitStatus
   appointment   Appointment @relation(fields: [appointmentId], references: [id])
   milestoneId   String
   appointmentId String
-  photos        Bytes[]
+  photos        Photo[]
   milestone     Milestone[]
   challenge     Challenge[]
+  createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   Project       Project?    @relation(fields: [projectId], references: [id])
   projectId     String?
@@ -198,10 +208,11 @@ model Challenge {
 }
 
 model Appointment {
-  id        String   @id @default(uuid()) @map("_id")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String             @id @default(uuid()) @map("_id")
+  status    Appointment_Status
   Visit     Visit[]
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
 }
 
 model LocalGovernment {
