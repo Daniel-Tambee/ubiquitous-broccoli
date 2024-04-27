@@ -200,7 +200,7 @@ model Visit {
 model Challenge {
   id            String        @id @default(uuid()) @map("_id")
   type          ChallengeType
-  custom_felids Json          @default("{}")
+  custom_fields Json          @default("{}")
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   Visit         Visit?        @relation(fields: [visitId], references: [id])
@@ -244,9 +244,8 @@ enum UserType {
 }
 
 enum ChallengeType {
-  ADMIN
-  FARMER
-  EXTENSION_WORKER
+  PEST_INFESTATION
+  SOIL_DEGRADATION
 }
 
 enum CropType {
@@ -283,9 +282,8 @@ enum ProjectType {
 }
 
 enum VisitStatus {
-  CROP
-  LIVESTOCK
-  ALL
+  COMPLETED
+  UNCOMPLETED
 }
 
 enum Appointment_Status {
@@ -307,7 +305,8 @@ enum ProjectStatus {
 
 enum Intervention_type {
   GRANT
-  CROPLIVESTOCK
+  CROP
+  LIVESTOCK
   OIL_EXTRACTION_MACHINE
   SOLAR_WATER_PUMP
 }

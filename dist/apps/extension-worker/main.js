@@ -184,6 +184,276 @@ exports.AdminService = AdminService;
 
 /***/ }),
 
+/***/ "./apps/extension-worker/src/challenge/challenge.controller.ts":
+/*!*********************************************************************!*\
+  !*** ./apps/extension-worker/src/challenge/challenge.controller.ts ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeController = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/challenge/dto/update_dto.ts");
+const challenge_service_1 = __webpack_require__(/*! ./challenge.service */ "./apps/extension-worker/src/challenge/challenge.service.ts");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+let ChallengeController = class ChallengeController {
+    constructor(service) {
+        this.service = service;
+    }
+    CreateChallenge(data) {
+        return this.service.CreateChallenge(data);
+    }
+    FindByid(data) {
+        return this.service.FindByid(data);
+    }
+    FindBytype(data) {
+        return this.service.FindBytype(data);
+    }
+    FindBycustom_felids(data) {
+        return this.service.FindBycustom_felids(data);
+    }
+    FindByvisitId(data) {
+        return this.service.FindByvisitId(data);
+    }
+    UpdateProperty(data) {
+        return this.service.UpdateProperty(data);
+    }
+};
+__decorate([
+    (0, common_1.Post)('CreateChallenge'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], ChallengeController.prototype, "CreateChallenge", null);
+__decorate([
+    (0, common_1.Post)('FindByid'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof Partial !== "undefined" && Partial) === "function" ? _c : Object]),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+], ChallengeController.prototype, "FindByid", null);
+__decorate([
+    (0, common_1.Post)('FindBytype'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof Partial !== "undefined" && Partial) === "function" ? _e : Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+], ChallengeController.prototype, "FindBytype", null);
+__decorate([
+    (0, common_1.Post)('FindBycustom_felids'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_g = typeof Partial !== "undefined" && Partial) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+], ChallengeController.prototype, "FindBycustom_felids", null);
+__decorate([
+    (0, common_1.Post)('FindByvisitId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_j = typeof Partial !== "undefined" && Partial) === "function" ? _j : Object]),
+    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+], ChallengeController.prototype, "FindByvisitId", null);
+__decorate([
+    (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_l = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
+], ChallengeController.prototype, "UpdateProperty", null);
+ChallengeController = __decorate([
+    (0, common_1.Controller)('challenge'),
+    (0, swagger_1.ApiTags)('Challenge'),
+    __metadata("design:paramtypes", [typeof (_a = typeof challenge_service_1.ChallengeService !== "undefined" && challenge_service_1.ChallengeService) === "function" ? _a : Object])
+], ChallengeController);
+exports.ChallengeController = ChallengeController;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/challenge/challenge.module.ts":
+/*!*****************************************************************!*\
+  !*** ./apps/extension-worker/src/challenge/challenge.module.ts ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const challenge_service_1 = __webpack_require__(/*! ./challenge.service */ "./apps/extension-worker/src/challenge/challenge.service.ts");
+const challenge_controller_1 = __webpack_require__(/*! ./challenge.controller */ "./apps/extension-worker/src/challenge/challenge.controller.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let ChallengeModule = class ChallengeModule {
+};
+ChallengeModule = __decorate([
+    (0, common_1.Module)({
+        providers: [challenge_service_1.ChallengeService, db_service_1.DbService],
+        controllers: [challenge_controller_1.ChallengeController],
+    })
+], ChallengeModule);
+exports.ChallengeModule = ChallengeModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/challenge/challenge.service.ts":
+/*!******************************************************************!*\
+  !*** ./apps/extension-worker/src/challenge/challenge.service.ts ***!
+  \******************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeService = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let ChallengeService = class ChallengeService {
+    constructor(db) {
+        this.db = db;
+    }
+    async CreateChallenge(data) {
+        try {
+            let query = await this.db.challenge.create({
+                data: {
+                    type: data['type'],
+                    custom_fields: data['custom_fields'],
+                    visitId: data['visitId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindByid(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindBytype(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: data['type'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    FindBycustom_felids(data) {
+        throw new Error('Method not implemented.');
+    }
+    async FindByvisitId(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    visitId: data['visitId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async UpdateProperty(data) {
+        try {
+            let query = data['properties']['visitId'] !== undefined
+                ? await this.db.challenge.update({
+                    data: {
+                        visitId: data['properties']['visitId'],
+                    },
+                    where: {
+                        id: data['id'],
+                    },
+                })
+                : data['properties']['type'] !== undefined
+                    ? await this.db.challenge.update({
+                        data: {
+                            visitId: data['properties']['type'],
+                        },
+                        where: {
+                            id: data['id'],
+                        },
+                    })
+                    : new common_1.BadRequestException('pass in a valid property');
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+};
+ChallengeService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], ChallengeService);
+exports.ChallengeService = ChallengeService;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/challenge/dto/update_dto.ts":
+/*!***************************************************************!*\
+  !*** ./apps/extension-worker/src/challenge/dto/update_dto.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+class UpdateDto {
+}
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+
 /***/ "./apps/extension-worker/src/cooperative/cooperative.controller.ts":
 /*!*************************************************************************!*\
   !*** ./apps/extension-worker/src/cooperative/cooperative.controller.ts ***!
@@ -603,6 +873,7 @@ const milestone_controller_1 = __webpack_require__(/*! ../milestone/milestone.co
 const cooperative_controller_1 = __webpack_require__(/*! ../cooperative/cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
 const farmer_controller_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
 const milestone_service_1 = __webpack_require__(/*! ../milestone/milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
+const challenge_module_1 = __webpack_require__(/*! ../challenge/challenge.module */ "./apps/extension-worker/src/challenge/challenge.module.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -614,7 +885,8 @@ ExtensionWorkerModule = __decorate([
             milestone_module_1.MilestoneModule,
             project_module_1.ProjectModule,
             report_module_1.ReportModule,
-            profile_module_1.ProfileModule
+            profile_module_1.ProfileModule,
+            challenge_module_1.ChallengeModule,
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -630,7 +902,7 @@ ExtensionWorkerModule = __decorate([
             worker_service_1.WorkerService,
             jwt_1.JwtService,
             db_service_1.DbService,
-            milestone_service_1.MilestoneService
+            milestone_service_1.MilestoneService,
         ],
     })
 ], ExtensionWorkerModule);
@@ -2508,6 +2780,55 @@ const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/l
 let FarmerService = class FarmerService {
     constructor(db) {
         this.db = db;
+    }
+    async UpdateProperties(data) {
+        try {
+            let query = data['new_value']['first_name'] !== undefined
+                ? await this.db.user.update({
+                    data: {
+                        first_name: data['new_value']['first_name'],
+                    },
+                    where: {
+                        id: data['id'],
+                        type: 'FARMER',
+                    },
+                })
+                : data['new_value']['last_name'] !== undefined
+                    ? await this.db.user.update({
+                        data: {
+                            last_name: data['new_value']['last_name'],
+                        },
+                        where: {
+                            id: data['id'],
+                            type: 'FARMER',
+                        },
+                    })
+                    : data['new_value']['phone_number'] !== undefined
+                        ? await this.db.user.update({
+                            data: {
+                                phone_number: data['new_value']['phone_number'],
+                            },
+                            where: {
+                                id: data['id'],
+                                type: 'FARMER',
+                            },
+                        })
+                        : data['new_value']['email'] !== undefined
+                            ? await this.db.user.update({
+                                data: {
+                                    email: data['new_value']['email'],
+                                },
+                                where: {
+                                    id: data['id'],
+                                    type: 'FARMER',
+                                },
+                            })
+                            : new common_1.BadRequestException('pass in a valid property  please');
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
     }
     async UpdateFirstName(data) {
         try {

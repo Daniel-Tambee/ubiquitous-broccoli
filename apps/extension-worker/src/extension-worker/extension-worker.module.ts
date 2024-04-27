@@ -19,6 +19,7 @@ import { MilestoneController } from '../milestone/milestone.controller';
 import { CooperativeController } from '../cooperative/cooperative.controller';
 import { FarmerController } from 'apps/farmer/src/farmer/farmer.controller';
 import { MilestoneService } from '../milestone/milestone.service';
+import { ChallengeModule } from '../challenge/challenge.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { MilestoneService } from '../milestone/milestone.service';
     MilestoneModule,
     ProjectModule,
     ReportModule,
-    ProfileModule
+    ProfileModule,
+    ChallengeModule,
   ],
   controllers: [
     AuthController,
@@ -44,7 +46,7 @@ import { MilestoneService } from '../milestone/milestone.service';
     WorkerService,
     JwtService,
     DbService,
-    MilestoneService
+    MilestoneService,
   ],
 })
 export class ExtensionWorkerModule {}
