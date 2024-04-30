@@ -200,7 +200,7 @@ model Visit {
 model Challenge {
   id            String        @id @default(uuid()) @map("_id")
   type          ChallengeType
-  custom_felids Json          @default("{}")
+  custom_fields Json          @default("{}")
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   Visit         Visit?        @relation(fields: [visitId], references: [id])
