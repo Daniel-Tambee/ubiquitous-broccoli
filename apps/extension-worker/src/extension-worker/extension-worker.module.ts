@@ -21,6 +21,7 @@ import { FarmerController } from 'apps/farmer/src/farmer/farmer.controller';
 import { MilestoneService } from '../milestone/milestone.service';
 import { ProjectService } from '../project/project.service';
 import { ProfileService } from '../profile/profile.service';
+import { CooperativeService } from '../cooperative/cooperative.service';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { ProfileService } from '../profile/profile.service';
     MilestoneModule,
     ProjectModule,
     ReportModule,
-    ProfileModule
+    ProfileModule,
+    CooperativeModule
   ],
   controllers: [
     AuthController,
@@ -38,7 +40,7 @@ import { ProfileService } from '../profile/profile.service';
     MilestoneController,
     CooperativeController,
     FarmerController,
-    ProjectController
+    ProjectController,
   ],
   providers: [
     AuthService,
@@ -49,7 +51,8 @@ import { ProfileService } from '../profile/profile.service';
     DbService,
     MilestoneService,
     ProjectService,
-    ProfileService
+    ProfileService,
+    CooperativeService
   ],
 })
 export class ExtensionWorkerModule {}
