@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { IProfile } from './profile.interface';
-import { $Enums, Prisma } from '@prisma/client';
+import { $Enums, Cooperative, Prisma, Project } from '@prisma/client';
 import { CreateCooperativeDto } from '../cooperative/dto/dto';
 import { CreateProjectDto } from '../project/dto/dto';
 import { CreateReportDto } from '../report/dto/dto';
@@ -56,17 +56,7 @@ export class ProfileService implements IProfile {
       new BadRequestException(error);
     }
   }
-  async Getprojects(data: FindDto): Promise<
-    {
-      id: string;
-      type: $Enums.ProjectType;
-      start_date: Date;
-      end_date: Date;
-      workerProfileId: string;
-      createdAt: Date;
-      updatedAt: Date;
-    }[]
-  > {
+  async Getprojects(data: FindDto): Promise<Project[]> {
     try {
       let query = await this.db.project.findMany({
         where: {
@@ -94,11 +84,7 @@ export class ProfileService implements IProfile {
       new BadRequestException(error);
     }
   }
-  async GetCooperative(
-    data: FindDto,
-  ): Promise<
-    { id: string; createdAt: Date; updatedAt: Date; workerProfileId: string }[]
-  > {
+  async GetCooperative(data: FindDto): Promise<Cooperative[]> {
     try {
       let query = await this.db.cooperative.findMany({
         where: {
@@ -110,18 +96,11 @@ export class ProfileService implements IProfile {
       new BadRequestException(error);
     }
   }
-  async Addproject(data: CreateProjectDto): Promise<{
-    id: string;
-    type: $Enums.ProjectType;
-    start_date: Date;
-    end_date: Date;
-    workerProfileId: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }> {
+  async Addproject(data: CreateProjectDto): Promise<Project> {
     try {
       let project = await this.db.project.create({
         data: {
+          status: 'ACTIVE',
           end_date: data['end_date'],
           start_date: data['start_date'],
           type: data['type'],
@@ -166,15 +145,11 @@ export class ProfileService implements IProfile {
     });
     throw new Error('Method not implemented.');
   }
-  async AddCooperative(data: CreateCooperativeDto): Promise<{
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    workerProfileId: string;
-  }> {
+  async AddCooperative(data: CreateCooperativeDto): Promise<Cooperative> {
     try {
       let cooperative = await this.db.cooperative.create({
         data: {
+          localGovernmentId: data['localGovernmentId'],
           workerProfileId: data['id'],
         },
       });

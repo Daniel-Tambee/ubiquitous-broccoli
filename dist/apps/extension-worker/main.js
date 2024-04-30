@@ -200,79 +200,96 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c, _d, _e, _f, _g;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CooperativeController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/cooperative/dto/dto.ts");
+const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/cooperative/dto/find_dto.ts");
+const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/cooperative/dto/update_dto.ts");
 let CooperativeController = class CooperativeController {
-    CreateCooperative() {
-        throw new Error('Method not implemented.');
+    constructor(service) {
+        this.service = service;
     }
-    FindByid() {
-        throw new Error('Method not implemented.');
+    CreateCooperative(data) {
+        throw new Error();
     }
-    FindByworkerProfileId() {
-        throw new Error('Method not implemented.');
+    FindByid(data) {
+        throw new Error();
     }
-    UpdateProperty() {
-        throw new Error('Method not implemented.');
+    FindByworkerProfileId(data) {
+        throw new Error();
     }
-    Getfarmers() {
-        throw new Error('Method not implemented.');
+    UpdateProperty(data) {
+        throw new Error();
     }
-    Addfarmer() {
-        throw new Error('Method not implemented.');
+    Getfarmers(data) {
+        throw new Error();
     }
-    Removefarmer() {
-        throw new Error('Method not implemented.');
+    Addfarmer(data) {
+        throw new Error();
+    }
+    Removefarmer(data) {
+        throw new Error();
     }
 };
 __decorate([
     (0, common_1.Post)('CreateCooperative'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_a = typeof Promise !== "undefined" && Promise) === "function" ? _a : Object)
+    __metadata("design:paramtypes", [typeof (_a = typeof dto_1.CreateCooperativeDto !== "undefined" && dto_1.CreateCooperativeDto) === "function" ? _a : Object]),
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
 ], CooperativeController.prototype, "CreateCooperative", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+    __metadata("design:paramtypes", [typeof (_c = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], CooperativeController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('FindByworkerProfileId'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+    __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
 ], CooperativeController.prototype, "FindByworkerProfileId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+    __metadata("design:paramtypes", [typeof (_g = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
 ], CooperativeController.prototype, "UpdateProperty", null);
 __decorate([
     (0, common_1.Post)('Getfarmers'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+    __metadata("design:paramtypes", [typeof (_j = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _j : Object]),
+    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
 ], CooperativeController.prototype, "Getfarmers", null);
 __decorate([
     (0, common_1.Post)('Addfarmer'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+    __metadata("design:paramtypes", [typeof (_l = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
 ], CooperativeController.prototype, "Addfarmer", null);
 __decorate([
     (0, common_1.Post)('Removefarmer'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], CooperativeController.prototype, "Removefarmer", null);
 CooperativeController = __decorate([
     (0, common_1.Controller)('cooperative'),
-    (0, swagger_1.ApiTags)('cooperative')
+    (0, swagger_1.ApiTags)('cooperative'),
+    __metadata("design:paramtypes", [void 0])
 ], CooperativeController);
 exports.CooperativeController = CooperativeController;
 
@@ -320,6 +337,38 @@ exports.CreateCooperativeDto = void 0;
 class CreateCooperativeDto {
 }
 exports.CreateCooperativeDto = CreateCooperativeDto;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/cooperative/dto/find_dto.ts":
+/*!***************************************************************!*\
+  !*** ./apps/extension-worker/src/cooperative/dto/find_dto.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+class FindDto {
+}
+exports.FindDto = FindDto;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/cooperative/dto/update_dto.ts":
+/*!*****************************************************************!*\
+  !*** ./apps/extension-worker/src/cooperative/dto/update_dto.ts ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+class UpdateDto {
+}
+exports.UpdateDto = UpdateDto;
 
 
 /***/ }),
@@ -1744,6 +1793,7 @@ let ProfileService = class ProfileService {
         try {
             let project = await this.db.project.create({
                 data: {
+                    status: 'ACTIVE',
                     end_date: data['end_date'],
                     start_date: data['start_date'],
                     type: data['type'],
@@ -1786,6 +1836,7 @@ let ProfileService = class ProfileService {
         try {
             let cooperative = await this.db.cooperative.create({
                 data: {
+                    localGovernmentId: data['localGovernmentId'],
                     workerProfileId: data['id'],
                 },
             });

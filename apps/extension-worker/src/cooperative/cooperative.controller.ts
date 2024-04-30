@@ -1,37 +1,113 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ICooperative } from './cooperative.interface';
 import { $Enums, Cooperative, FarmerProfile, Prisma } from '@prisma/client';
+import { CreateCooperativeDto } from './dto/dto';
+import { FindDto } from './dto/find_dto';
+import { UpdateDto } from './dto/update_dto';
 
 @Controller('cooperative')
 @ApiTags('cooperative')
 export class CooperativeController implements ICooperative {
+  /**
+   *
+   */
+  // TODO implement this
+  constructor(private readonly service: undefined) {}
   @Post('CreateCooperative')
-  CreateCooperative(): Promise<Cooperative> {
-    throw new Error('Method not implemented.');
+  CreateCooperative(@Body() data: CreateCooperativeDto): Promise<{
+    id: string;
+    localGovernmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    workerProfileId: string;
+  }> {
+    throw new Error();
   }
   @Post('FindByid')
-  FindByid(): Promise<Cooperative> {
-    throw new Error('Method not implemented.');
+  FindByid(@Body() data: FindDto): Promise<{
+    id: string;
+    localGovernmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    workerProfileId: string;
+  }> {
+    throw new Error();
   }
   @Post('FindByworkerProfileId')
-  FindByworkerProfileId(): Promise<Cooperative> {
-    throw new Error('Method not implemented.');
+  FindByworkerProfileId(@Body() data: FindDto): Promise<{
+    id: string;
+    localGovernmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    workerProfileId: string;
+  }> {
+    throw new Error();
   }
   @Post('UpdateProperty')
-  UpdateProperty(): Promise<Cooperative> {
-    throw new Error('Method not implemented.');
+  UpdateProperty(@Body() data: UpdateDto): Promise<{
+    id: string;
+    localGovernmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    workerProfileId: string;
+  }> {
+    throw new Error();
   }
   @Post('Getfarmers')
-  Getfarmers(): Promise<FarmerProfile[]> {
-    throw new Error('Method not implemented.');
+  Getfarmers(@Body() data: FindDto): Promise<
+    {
+      id: string;
+      age: number;
+      sex: $Enums.Gender;
+      address: Prisma.JsonValue;
+      birthday: Date;
+      income: $Enums.IncomeRange;
+      religion: $Enums.Religion;
+      maritalStatus: $Enums.Marital;
+      about: string;
+      photo: Buffer;
+      cooperativeId: string;
+      milestoneId: string[];
+      createdAt: Date;
+      updatedAt: Date;
+      projectId: string;
+      localGovernmentId: string;
+    }[]
+  > {
+    throw new Error();
   }
   @Post('Addfarmer')
-  Addfarmer(): Promise<FarmerProfile[]> {
-    throw new Error('Method not implemented.');
+  Addfarmer(@Body() data: UpdateDto): Promise<
+    {
+      id: string;
+      age: number;
+      sex: $Enums.Gender;
+      address: Prisma.JsonValue;
+      birthday: Date;
+      income: $Enums.IncomeRange;
+      religion: $Enums.Religion;
+      maritalStatus: $Enums.Marital;
+      about: string;
+      photo: Buffer;
+      cooperativeId: string;
+      milestoneId: string[];
+      createdAt: Date;
+      updatedAt: Date;
+      projectId: string;
+      localGovernmentId: string;
+    }[]
+  > {
+    throw new Error();
   }
   @Post('Removefarmer')
-  Removefarmer(): Promise<FarmerProfile[]> {
-    throw new Error('Method not implemented.');
+  Removefarmer(@Body() data: any): Promise<{
+    id: string;
+    localGovernmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    workerProfileId: string;
+  }> {
+    throw new Error();
   }
 }
