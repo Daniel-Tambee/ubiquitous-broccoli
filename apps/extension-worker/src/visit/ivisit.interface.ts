@@ -1,20 +1,27 @@
-import { Visit } from '@prisma/client';
+import { Challenge, Milestone, Photo, Visit } from '@prisma/client';
+import { CreateVisit } from './dto/dto';
+import { UpdateDto } from './dto/update_dto';
+import { FindDto } from './dto/find_dto';
+import { BadRequestException } from '@nestjs/common';
+
+type excluded = 'id' | 'createdAt' | 'updatedAt';
+type photo = Omit<Photo, excluded>;
 
 export interface IVisit {
-  CreateVisit(data): Promise<Visit>;
-  Addphotos(data): Promise<Visit>;
-  Addmilestone(data): Promise<Visit>;
-  Addchallenge(data): Promise<Visit>;
-  Removephotos(data): Promise<Visit>;
-  Removemilestone(data): Promise<Visit>;
-  Removechallenge(data): Promise<Visit>;
-  Getphotos(data): Promise<Visit>;
-  Getmilestone(data): Promise<Visit>;
-  Getchallenge(data): Promise<Visit>;
-  FindByid(data): Promise<Visit>;
-  FindBystatus(data): Promise<Visit>;
-  FindBymilestoneId(data): Promise<Visit>;
-  FindByappointmentId(data): Promise<Visit>;
-  FindByprojectId(data): Promise<Visit>;
-  UpdateProperties(data): Promise<Visit>;
+  CreateVisit(data: CreateVisit): Promise<Visit>;
+  Addphoto(data: photo): Promise<Visit>;
+  Addmilestone(data: UpdateDto): Promise<Visit>;
+  Addchallenge(data: UpdateDto): Promise<Visit>;
+  Removephoto(data): Promise<Visit>;
+  Removemilestone(data: UpdateDto): Promise<Visit>;
+  Removechallenge(data: UpdateDto): Promise<Visit>;
+  Getphotos(data: FindDto): Promise<Photo[]>;
+  Getmilestones(data: FindDto): Promise<Milestone[]>;
+  Getchallenges(data: FindDto): Promise<Challenge[]>;
+  FindByid(data: FindDto): Promise<Visit>;
+  FindBystatus(data: FindDto): Promise<Visit[]>;
+  FindBymilestoneId(data: FindDto): Promise<Visit>;
+  FindByappointmentId(data: FindDto): Promise<Visit>;
+  FindByprojectId(data: FindDto): Promise<Visit>;
+  UpdateProperties(data: UpdateDto): Promise<Visit | BadRequestException>;
 }
