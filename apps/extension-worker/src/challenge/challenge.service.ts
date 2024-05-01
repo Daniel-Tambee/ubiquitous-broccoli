@@ -22,7 +22,7 @@ export class ChallengeService implements IChallenge {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async FindByid(
@@ -43,7 +43,7 @@ export class ChallengeService implements IChallenge {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async FindBytype(
@@ -65,7 +65,7 @@ export class ChallengeService implements IChallenge {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   FindBycustom_felids(
@@ -99,7 +99,7 @@ export class ChallengeService implements IChallenge {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async UpdateProperty(
@@ -128,7 +128,7 @@ export class ChallengeService implements IChallenge {
           : new BadRequestException('pass in a valid property');
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
 }
