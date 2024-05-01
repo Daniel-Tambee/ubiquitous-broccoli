@@ -1,8 +1,8 @@
+import { BadRequestException } from '@nestjs/common';
 import { Challenge, Milestone, Photo, Visit } from '@prisma/client';
 import { CreateVisit } from './dto/dto';
-import { UpdateDto } from './dto/update_dto';
 import { FindDto } from './dto/find_dto';
-import { BadRequestException } from '@nestjs/common';
+import { UpdateDto } from './dto/update_dto';
 
 type excluded = 'id' | 'createdAt' | 'updatedAt';
 type photo = Omit<Photo, excluded>;

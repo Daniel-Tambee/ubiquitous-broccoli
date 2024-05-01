@@ -241,6 +241,276 @@ exports.InterventionModule = InterventionModule;
 
 /***/ }),
 
+/***/ "./apps/extension-worker/src/challenge/challenge.controller.ts":
+/*!*********************************************************************!*\
+  !*** ./apps/extension-worker/src/challenge/challenge.controller.ts ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeController = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/challenge/dto/update_dto.ts");
+const challenge_service_1 = __webpack_require__(/*! ./challenge.service */ "./apps/extension-worker/src/challenge/challenge.service.ts");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+let ChallengeController = class ChallengeController {
+    constructor(service) {
+        this.service = service;
+    }
+    CreateChallenge(data) {
+        return this.service.CreateChallenge(data);
+    }
+    FindByid(data) {
+        return this.service.FindByid(data);
+    }
+    FindBytype(data) {
+        return this.service.FindBytype(data);
+    }
+    FindBycustom_felids(data) {
+        return this.service.FindBycustom_felids(data);
+    }
+    FindByvisitId(data) {
+        return this.service.FindByvisitId(data);
+    }
+    UpdateProperty(data) {
+        return this.service.UpdateProperty(data);
+    }
+};
+__decorate([
+    (0, common_1.Post)('CreateChallenge'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], ChallengeController.prototype, "CreateChallenge", null);
+__decorate([
+    (0, common_1.Post)('FindByid'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof Partial !== "undefined" && Partial) === "function" ? _c : Object]),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+], ChallengeController.prototype, "FindByid", null);
+__decorate([
+    (0, common_1.Post)('FindBytype'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof Partial !== "undefined" && Partial) === "function" ? _e : Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+], ChallengeController.prototype, "FindBytype", null);
+__decorate([
+    (0, common_1.Post)('FindBycustom_felids'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_g = typeof Partial !== "undefined" && Partial) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+], ChallengeController.prototype, "FindBycustom_felids", null);
+__decorate([
+    (0, common_1.Post)('FindByvisitId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_j = typeof Partial !== "undefined" && Partial) === "function" ? _j : Object]),
+    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+], ChallengeController.prototype, "FindByvisitId", null);
+__decorate([
+    (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_l = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
+], ChallengeController.prototype, "UpdateProperty", null);
+ChallengeController = __decorate([
+    (0, common_1.Controller)('challenge'),
+    (0, swagger_1.ApiTags)('Challenge'),
+    __metadata("design:paramtypes", [typeof (_a = typeof challenge_service_1.ChallengeService !== "undefined" && challenge_service_1.ChallengeService) === "function" ? _a : Object])
+], ChallengeController);
+exports.ChallengeController = ChallengeController;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/challenge/challenge.module.ts":
+/*!*****************************************************************!*\
+  !*** ./apps/extension-worker/src/challenge/challenge.module.ts ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const challenge_service_1 = __webpack_require__(/*! ./challenge.service */ "./apps/extension-worker/src/challenge/challenge.service.ts");
+const challenge_controller_1 = __webpack_require__(/*! ./challenge.controller */ "./apps/extension-worker/src/challenge/challenge.controller.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let ChallengeModule = class ChallengeModule {
+};
+ChallengeModule = __decorate([
+    (0, common_1.Module)({
+        providers: [challenge_service_1.ChallengeService, db_service_1.DbService],
+        controllers: [challenge_controller_1.ChallengeController],
+    })
+], ChallengeModule);
+exports.ChallengeModule = ChallengeModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/challenge/challenge.service.ts":
+/*!******************************************************************!*\
+  !*** ./apps/extension-worker/src/challenge/challenge.service.ts ***!
+  \******************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeService = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let ChallengeService = class ChallengeService {
+    constructor(db) {
+        this.db = db;
+    }
+    async CreateChallenge(data) {
+        try {
+            let query = await this.db.challenge.create({
+                data: {
+                    type: data['type'],
+                    custom_fields: data['custom_fields'],
+                    visitId: data['visitId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindByid(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindBytype(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: data['type'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    FindBycustom_felids(data) {
+        throw new Error('Method not implemented.');
+    }
+    async FindByvisitId(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    visitId: data['visitId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async UpdateProperty(data) {
+        try {
+            let query = data['properties']['visitId'] !== undefined
+                ? await this.db.challenge.update({
+                    data: {
+                        visitId: data['properties']['visitId'],
+                    },
+                    where: {
+                        id: data['id'],
+                    },
+                })
+                : data['properties']['type'] !== undefined
+                    ? await this.db.challenge.update({
+                        data: {
+                            visitId: data['properties']['type'],
+                        },
+                        where: {
+                            id: data['id'],
+                        },
+                    })
+                    : new common_1.BadRequestException('pass in a valid property');
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+};
+ChallengeService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], ChallengeService);
+exports.ChallengeService = ChallengeService;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/challenge/dto/update_dto.ts":
+/*!***************************************************************!*\
+  !*** ./apps/extension-worker/src/challenge/dto/update_dto.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+class UpdateDto {
+}
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+
 /***/ "./apps/extension-worker/src/cooperative/cooperative.controller.ts":
 /*!*************************************************************************!*\
   !*** ./apps/extension-worker/src/cooperative/cooperative.controller.ts ***!
@@ -815,7 +1085,10 @@ const milestone_controller_1 = __webpack_require__(/*! ../milestone/milestone.co
 const cooperative_controller_1 = __webpack_require__(/*! ../cooperative/cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
 const farmer_controller_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
 const milestone_service_1 = __webpack_require__(/*! ../milestone/milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
-const visit_module_1 = __webpack_require__(/*! ../visit/visit.module */ "./apps/extension-worker/src/visit/visit.module.ts");
+const challenge_module_1 = __webpack_require__(/*! ../challenge/challenge.module */ "./apps/extension-worker/src/challenge/challenge.module.ts");
+const cooperative_service_1 = __webpack_require__(/*! ../cooperative/cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
+const project_service_1 = __webpack_require__(/*! ../project/project.service */ "./apps/extension-worker/src/project/project.service.ts");
+const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -828,7 +1101,7 @@ ExtensionWorkerModule = __decorate([
             project_module_1.ProjectModule,
             report_module_1.ReportModule,
             profile_module_1.ProfileModule,
-            visit_module_1.VisitModule
+            challenge_module_1.ChallengeModule,
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -846,9 +1119,9 @@ ExtensionWorkerModule = __decorate([
             jwt_1.JwtService,
             db_service_1.DbService,
             milestone_service_1.MilestoneService,
-            project_service_1.ProjectService,
-            profile_service_1.ProfileService,
             cooperative_service_1.CooperativeService,
+            project_service_1.ProjectService,
+            profile_service_1.ProfileService
         ],
     })
 ], ExtensionWorkerModule);
@@ -2929,637 +3202,6 @@ ReportModule = __decorate([
     })
 ], ReportModule);
 exports.ReportModule = ReportModule;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/visit/dto/dto.ts":
-/*!****************************************************!*\
-  !*** ./apps/extension-worker/src/visit/dto/dto.ts ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/visit/dto/find_dto.ts":
-/*!*********************************************************!*\
-  !*** ./apps/extension-worker/src/visit/dto/find_dto.ts ***!
-  \*********************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FindDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class FindDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], FindDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
-], FindDto.prototype, "properties", void 0);
-exports.FindDto = FindDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/visit/dto/update_dto.ts":
-/*!***********************************************************!*\
-  !*** ./apps/extension-worker/src/visit/dto/update_dto.ts ***!
-  \***********************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class UpdateDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], UpdateDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
-], UpdateDto.prototype, "properties", void 0);
-exports.UpdateDto = UpdateDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/visit/visit.controller.ts":
-/*!*************************************************************!*\
-  !*** ./apps/extension-worker/src/visit/visit.controller.ts ***!
-  \*************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.VisitController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/visit/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/visit/dto/find_dto.ts");
-const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/visit/dto/update_dto.ts");
-const visit_service_1 = __webpack_require__(/*! ./visit.service */ "./apps/extension-worker/src/visit/visit.service.ts");
-let VisitController = class VisitController {
-    constructor(service) {
-        this.service = service;
-    }
-    CreateVisit(data) {
-        return this.service.CreateVisit(data);
-    }
-    Addphoto(data) {
-        return this.service.Addphoto(data);
-    }
-    Addmilestone(data) {
-        return this.service.Addmilestone(data);
-    }
-    Addchallenge(data) {
-        return this.service.Addchallenge(data);
-    }
-    Removephoto(data) {
-        return this.service.Removephoto(data);
-    }
-    Removemilestone(data) {
-        return this.service.Removemilestone(data);
-    }
-    Removechallenge(data) {
-        return this.service.Removechallenge(data);
-    }
-    Getphotos(data) {
-        return this.service.Getphotos(data);
-    }
-    Getmilestones(data) {
-        return this.service.Getmilestones(data);
-    }
-    Getchallenges(data) {
-        return this.service.Getchallenges(data);
-    }
-    FindByid(data) {
-        return this.service.FindByid(data);
-    }
-    FindBystatus(data) {
-        return this.service.FindBystatus(data);
-    }
-    FindBymilestoneId(data) {
-        return this.service.FindBymilestoneId(data);
-    }
-    FindByappointmentId(data) {
-        return this.service.FindByappointmentId(data);
-    }
-    FindByprojectId(data) {
-        return this.service.FindByprojectId(data);
-    }
-    UpdateProperties(data) {
-        return this.service.UpdateProperties(data);
-    }
-};
-__decorate([
-    (0, common_1.Post)('CreateVisit'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateVisit !== "undefined" && dto_1.CreateVisit) === "function" ? _b : Object]),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
-], VisitController.prototype, "CreateVisit", null);
-__decorate([
-    (0, common_1.Post)('Addphoto'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
-], VisitController.prototype, "Addphoto", null);
-__decorate([
-    (0, common_1.Post)('Addmilestone'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _e : Object]),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
-], VisitController.prototype, "Addmilestone", null);
-__decorate([
-    (0, common_1.Post)('Addchallenge'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _g : Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
-], VisitController.prototype, "Addchallenge", null);
-__decorate([
-    (0, common_1.Post)('Removephoto'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
-], VisitController.prototype, "Removephoto", null);
-__decorate([
-    (0, common_1.Post)('Removemilestone'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
-], VisitController.prototype, "Removemilestone", null);
-__decorate([
-    (0, common_1.Post)('Removechallenge'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _m : Object]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
-], VisitController.prototype, "Removechallenge", null);
-__decorate([
-    (0, common_1.Post)('Getphotos'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_p = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _p : Object]),
-    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
-], VisitController.prototype, "Getphotos", null);
-__decorate([
-    (0, common_1.Post)('Getmilestones'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
-    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
-], VisitController.prototype, "Getmilestones", null);
-__decorate([
-    (0, common_1.Post)('Getchallenges'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
-    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
-], VisitController.prototype, "Getchallenges", null);
-__decorate([
-    (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_v = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _v : Object]),
-    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
-], VisitController.prototype, "FindByid", null);
-__decorate([
-    (0, common_1.Post)('FindBystatus'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_x = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _x : Object]),
-    __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
-], VisitController.prototype, "FindBystatus", null);
-__decorate([
-    (0, common_1.Post)('FindBymilestoneId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_z = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _z : Object]),
-    __metadata("design:returntype", typeof (_0 = typeof Promise !== "undefined" && Promise) === "function" ? _0 : Object)
-], VisitController.prototype, "FindBymilestoneId", null);
-__decorate([
-    (0, common_1.Post)('FindByappointmentId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_1 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _1 : Object]),
-    __metadata("design:returntype", typeof (_2 = typeof Promise !== "undefined" && Promise) === "function" ? _2 : Object)
-], VisitController.prototype, "FindByappointmentId", null);
-__decorate([
-    (0, common_1.Post)('FindByprojectId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_3 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _3 : Object]),
-    __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
-], VisitController.prototype, "FindByprojectId", null);
-__decorate([
-    (0, common_1.Post)('UpdateProperties'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
-    __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
-], VisitController.prototype, "UpdateProperties", null);
-VisitController = __decorate([
-    (0, common_1.Controller)('visit'),
-    (0, swagger_1.ApiTags)('Visit'),
-    __metadata("design:paramtypes", [typeof (_a = typeof visit_service_1.VisitService !== "undefined" && visit_service_1.VisitService) === "function" ? _a : Object])
-], VisitController);
-exports.VisitController = VisitController;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/visit/visit.module.ts":
-/*!*********************************************************!*\
-  !*** ./apps/extension-worker/src/visit/visit.module.ts ***!
-  \*********************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.VisitModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const visit_service_1 = __webpack_require__(/*! ./visit.service */ "./apps/extension-worker/src/visit/visit.service.ts");
-const visit_controller_1 = __webpack_require__(/*! ./visit.controller */ "./apps/extension-worker/src/visit/visit.controller.ts");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let VisitModule = class VisitModule {
-};
-VisitModule = __decorate([
-    (0, common_1.Module)({
-        providers: [visit_service_1.VisitService, db_service_1.DbService],
-        controllers: [visit_controller_1.VisitController],
-    })
-], VisitModule);
-exports.VisitModule = VisitModule;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/visit/visit.service.ts":
-/*!**********************************************************!*\
-  !*** ./apps/extension-worker/src/visit/visit.service.ts ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.VisitService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let VisitService = class VisitService {
-    constructor(db) {
-        this.db = db;
-    }
-    async CreateVisit(data) {
-        try {
-            let query = await this.db.visit.create({
-                data: {
-                    appointmentId: data['milestoneId'],
-                    projectId: data['projectId'],
-                    status: 'UNCOMPLETED',
-                    milestoneId: data['milestoneId'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Addphoto(data) {
-        try {
-            let query = await this.db.visit.update({
-                where: {
-                    id: data['visitId'],
-                },
-                data: {
-                    photos: {
-                        create: {
-                            data: Buffer.from(data['data']),
-                        },
-                    },
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Addmilestone(data) {
-        try {
-            let query = await this.db.visit.update({
-                where: {
-                    id: data['id'],
-                },
-                data: {
-                    milestoneId: data['properties']['milestoneId'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Addchallenge(data) {
-        try {
-            let query = await this.db.visit.update({
-                where: {
-                    id: data['id'],
-                },
-                data: {
-                    challenge: {
-                        connect: {
-                            id: data['challengeId'],
-                        },
-                    },
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    Removephoto(data) {
-        try {
-        }
-        catch (error) { }
-        throw new Error('Method not implemented.');
-    }
-    async Removemilestone(data) {
-        try {
-            let query = await this.db.visit.update({
-                where: {
-                    id: data['id'],
-                },
-                data: {
-                    milestone: {
-                        disconnect: {
-                            id: data['properties']['milestoneId'],
-                        },
-                    },
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Removechallenge(data) {
-        try {
-            let query = await this.db.visit.update({
-                where: {
-                    id: data['id'],
-                },
-                data: {
-                    challenge: {
-                        disconnect: {
-                            id: data['challengeId'],
-                        },
-                    },
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Getphotos(data) {
-        try {
-            let query = await this.db.photo.findMany({
-                where: {
-                    id: data['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Getmilestones(data) {
-        try {
-            let query = await this.db.milestone.findMany({
-                where: {
-                    id: data['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Getchallenges(data) {
-        try {
-            let query = await this.db.challenge.findMany({
-                where: {
-                    id: data['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindByid(data) {
-        try {
-            let query = await this.db.visit.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindBystatus(data) {
-        try {
-            let query = await this.db.visit.findMany({
-                where: {
-                    id: data['id'],
-                    status: data['properties']['status'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindBymilestoneId(data) {
-        try {
-            let query = await this.db.visit.findFirstOrThrow({
-                where: {
-                    milestone: {
-                        every: {
-                            id: data['properties']['milestoneId'],
-                        },
-                    },
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindByappointmentId(data) {
-        try {
-            let query = await this.db.visit.findFirstOrThrow({
-                where: {
-                    appointment: {
-                        id: data['properties']['appointmentId'],
-                    },
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindByprojectId(data) {
-        try {
-            let query = await this.db.visit.findFirstOrThrow({
-                where: {
-                    Project: {
-                        id: data['properties']['projectId'],
-                    },
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async UpdateProperties(data) {
-        try {
-            let query = data['properties']['milestoneId'] !== undefined
-                ? await this.db.visit.update({
-                    where: {
-                        id: data['id'],
-                    },
-                    data: {
-                        challenge: {
-                            disconnect: {
-                                id: data['challengeId'],
-                            },
-                        },
-                    },
-                })
-                : data['properties']['appointmentId'] !== undefined
-                    ? await this.db.visit.update({
-                        where: {
-                            id: data['id'],
-                        },
-                        data: {
-                            challenge: {
-                                disconnect: {
-                                    id: data['challengeId'],
-                                },
-                            },
-                        },
-                    })
-                    : data['properties']['projectId'] !== undefined
-                        ? await this.db.visit.update({
-                            where: {
-                                id: data['id'],
-                            },
-                            data: {
-                                challenge: {
-                                    disconnect: {
-                                        id: data['challengeId'],
-                                    },
-                                },
-                            },
-                        })
-                        : new common_1.BadRequestException('pass in a valid prop');
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-};
-VisitService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
-], VisitService);
-exports.VisitService = VisitService;
 
 
 /***/ }),
