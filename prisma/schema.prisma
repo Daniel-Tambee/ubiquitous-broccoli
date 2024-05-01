@@ -70,6 +70,8 @@ model WorkerProfile {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   Cooperative   Cooperative[]
+  Visit         Visit[]
+  Challenge     Challenge[]
 }
 
 model AdminProfile {
@@ -183,28 +185,34 @@ model Photo {
 }
 
 model Visit {
-  id            String      @id @default(uuid()) @map("_id")
-  status        VisitStatus
-  appointment   Appointment @relation(fields: [appointmentId], references: [id])
-  milestoneId   String
-  appointmentId String
-  photos        Photo[]
-  milestone     Milestone[]
-  challenge     Challenge[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  Project       Project?    @relation(fields: [projectId], references: [id])
-  projectId     String?
+  id              String         @id @default(uuid()) @map("_id")
+  status          VisitStatus
+  appointment     Appointment    @relation(fields: [appointmentId], references: [id])
+  milestoneId     String
+  appointmentId   String
+  photos          Photo[]
+  milestone       Milestone[]
+  challenge       Challenge[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  Project         Project?       @relation(fields: [projectId], references: [id])
+  projectId       String?
+  worker          WorkerProfile? @relation(fields: [workerProfileId], references: [id])
+  workerProfileId String?
+  intervention    Intervention?  @relation(fields: [interventionId], references: [id])
+  interventionId  String?
 }
 
 model Challenge {
-  id            String        @id @default(uuid()) @map("_id")
-  type          ChallengeType
-  custom_fields Json          @default("{}")
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  Visit         Visit?        @relation(fields: [visitId], references: [id])
-  visitId       String?
+  id              String         @id @default(uuid()) @map("_id")
+  type            ChallengeType
+  worker          WorkerProfile? @relation(fields: [workerProfileId], references: [id])
+  workerProfileId String?
+  custom_fields   Json           @default("{}")
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  Visit           Visit?         @relation(fields: [visitId], references: [id])
+  visitId         String?
 }
 
 model Appointment {
@@ -236,6 +244,7 @@ model Intervention {
   farmerProfileId String?
   Project         Project?          @relation(fields: [projectId], references: [id])
   projectId       String?
+  Visit           Visit[]
 }
 
 enum UserType {
