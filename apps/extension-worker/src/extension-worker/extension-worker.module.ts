@@ -19,9 +19,10 @@ import { MilestoneController } from '../milestone/milestone.controller';
 import { CooperativeController } from '../cooperative/cooperative.controller';
 import { FarmerController } from 'apps/farmer/src/farmer/farmer.controller';
 import { MilestoneService } from '../milestone/milestone.service';
-import { ProjectService } from '../project/project.service';
-import { ProfileService } from '../profile/profile.service';
+import { VisitModule } from '../visit/visit.module';
 import { CooperativeService } from '../cooperative/cooperative.service';
+import { ProfileService } from '../profile/profile.service';
+import { ProjectService } from '../project/project.service';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { CooperativeService } from '../cooperative/cooperative.service';
     ProjectModule,
     ReportModule,
     ProfileModule,
-    CooperativeModule,
+    VisitModule
   ],
   controllers: [
     AuthController,

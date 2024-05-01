@@ -1,7 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { IVisit } from './ivisit.interface';
-import { Visit } from '@prisma/client';
+import { $Enums, Challenge, Milestone, Photo, Visit } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
+import { CreateVisit } from './dto/dto';
+import { FindDto } from './dto/find_dto';
+import { UpdateDto } from './dto/update_dto';
 
 @Injectable()
 export class VisitService implements IVisit {
@@ -9,52 +12,387 @@ export class VisitService implements IVisit {
    *
    */
   constructor(private readonly db: DbService) {}
-  CreateVisit(data: any): Promise<Visit> {
+  async CreateVisit(data: CreateVisit): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.create({
+        data: {
+          appointmentId: data['milestoneId'],
+          projectId: data['projectId'],
+          status: 'UNCOMPLETED',
+          milestoneId: data['milestoneId'],
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+  async Addphoto(
+    data: Partial<{
+      id: string;
+      data: Buffer;
+      createdAt: Date;
+      updatedAt: Date;
+      visitId: string;
+    }>,
+  ): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.update({
+        where: {
+          id: data['visitId'],
+        },
+        data: {
+          photos: {
+            create: {
+              data: Buffer.from(data['data']),
+            },
+          },
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+  async Addmilestone(data: UpdateDto): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.update({
+        where: {
+          id: data['id'],
+        },
+        data: {
+          milestoneId: data['properties']['milestoneId'],
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+  async Addchallenge(data: UpdateDto): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.update({
+        where: {
+          id: data['id'],
+        },
+        data: {
+          challenge: {
+            connect: {
+              id: data['challengeId'],
+            },
+          },
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+  Removephoto(data: any): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+    } catch (error) {}
+
     throw new Error('Method not implemented.');
   }
-  Addphotos(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async Removemilestone(data: UpdateDto): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.update({
+        where: {
+          id: data['id'],
+        },
+        data: {
+          milestone: {
+            disconnect: {
+              id: data['properties']['milestoneId'],
+            },
+          },
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  Addmilestone(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async Removechallenge(data: UpdateDto): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.update({
+        where: {
+          id: data['id'],
+        },
+        data: {
+          challenge: {
+            disconnect: {
+              id: data['challengeId'],
+            },
+          },
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  Addchallenge(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async Getphotos(data: FindDto): Promise<Photo[]> {
+    try {
+      let query = await this.db.photo.findMany({
+        where: {
+          id: data['id'],
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  Removephotos(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async Getmilestones(data: FindDto): Promise<Milestone[]> {
+    try {
+      let query = await this.db.milestone.findMany({
+        where: {
+          id: data['id'],
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  Removemilestone(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+
+  async Getchallenges(data: FindDto): Promise<Challenge[]> {
+    try {
+      let query = await this.db.challenge.findMany({
+        where: {
+          id: data['id'],
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  Removechallenge(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async FindByid(data: FindDto): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.findFirstOrThrow({
+        where: {
+          id: data['id'],
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  Getphotos(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async FindBystatus(data: FindDto): Promise<
+    {
+      id: string;
+      status: $Enums.VisitStatus;
+      milestoneId: string;
+      appointmentId: string;
+      createdAt: Date;
+      updatedAt: Date;
+      projectId: string;
+    }[]
+  > {
+    try {
+      let query = await this.db.visit.findMany({
+        where: {
+          id: data['id'],
+          status: data['properties']['status'],
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  Getmilestone(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async FindBymilestoneId(data: FindDto): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.findFirstOrThrow({
+        where: {
+          milestone: {
+            every: {
+              id: data['properties']['milestoneId'],
+            },
+          },
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  Getchallenge(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async FindByappointmentId(data: FindDto): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.findFirstOrThrow({
+        where: {
+          appointment: {
+            id: data['properties']['appointmentId'],
+          },
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  FindByid(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async FindByprojectId(data: FindDto): Promise<{
+    id: string;
+    status: $Enums.VisitStatus;
+    milestoneId: string;
+    appointmentId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    projectId: string;
+  }> {
+    try {
+      let query = await this.db.visit.findFirstOrThrow({
+        where: {
+          Project: {
+            id: data['properties']['projectId'],
+          },
+        },
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
-  FindBystatus(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
-  }
-  FindBymilestoneId(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
-  }
-  FindByappointmentId(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
-  }
-  FindByprojectId(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
-  }
-  UpdateProperties(data: any): Promise<Visit> {
-    throw new Error('Method not implemented.');
+  async UpdateProperties(data: UpdateDto): Promise<
+    | {
+        id: string;
+        status: $Enums.VisitStatus;
+        milestoneId: string;
+        appointmentId: string;
+        createdAt: Date;
+        updatedAt: Date;
+        projectId: string;
+      }
+    | BadRequestException
+  > {
+    try {
+      let query =
+        data['properties']['milestoneId'] !== undefined
+          ? await this.db.visit.update({
+              where: {
+                id: data['id'],
+              },
+              data: {
+                challenge: {
+                  disconnect: {
+                    id: data['challengeId'],
+                  },
+                },
+              },
+            })
+          : data['properties']['appointmentId'] !== undefined
+          ? await this.db.visit.update({
+              where: {
+                id: data['id'],
+              },
+              data: {
+                challenge: {
+                  disconnect: {
+                    id: data['challengeId'],
+                  },
+                },
+              },
+            })
+          : data['properties']['projectId'] !== undefined
+          ? await this.db.visit.update({
+              where: {
+                id: data['id'],
+              },
+              data: {
+                challenge: {
+                  disconnect: {
+                    id: data['challengeId'],
+                  },
+                },
+              },
+            })
+          : new BadRequestException('pass in a valid prop');
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
 }
