@@ -209,6 +209,7 @@ model Challenge {
 
 model Appointment {
   id        String             @id @default(uuid()) @map("_id")
+  scheduled DateTime
   status    Appointment_Status
   Visit     Visit[]
   createdAt DateTime           @default(now())

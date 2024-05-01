@@ -10,6 +10,7 @@ import { CropModule } from './crop/crop.module';
 import { MilestoneModule } from './milestone/milestone.module';
 import { ReportModule } from './report/report.module';
 import { InterventionModule } from './Intervention/Intervention.module';
+import { AppointmentModule } from './appointment/appointment.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { InterventionModule } from './Intervention/Intervention.module';
     MilestoneModule,
     ReportModule,
     InterventionModule,
+    AppointmentModule,
   ],
   controllers: [AuthController],
   providers: [WorkerService, AuthService],
