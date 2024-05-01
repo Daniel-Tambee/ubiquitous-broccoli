@@ -1,15 +1,18 @@
-import { BadRequestException, Body, Controller } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { IChallenge } from './challenge.interface';
 import { $Enums, Prisma } from '@prisma/client';
 import { UpdateDto } from './dto/update_dto';
 import { ChallengeService } from './challenge.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('challenge')
+@ApiTags('Challenge')
 export class ChallengeController implements IChallenge {
   /**
    *
    */
   constructor(private readonly service: ChallengeService) {}
+  @Post('CreateChallenge')
   CreateChallenge(
     @Body()
     data: {
@@ -27,6 +30,7 @@ export class ChallengeController implements IChallenge {
   }> {
     return this.service.CreateChallenge(data);
   }
+  @Post('FindByid')
   FindByid(
     @Body()
     data: Partial<{
@@ -47,6 +51,7 @@ export class ChallengeController implements IChallenge {
   }> {
     return this.service.FindByid(data);
   }
+  @Post('FindBytype')
   FindBytype(
     @Body()
     data: Partial<{
@@ -67,6 +72,7 @@ export class ChallengeController implements IChallenge {
   }> {
     return this.service.FindBytype(data);
   }
+  @Post('FindBycustom_felids')
   FindBycustom_felids(
     @Body()
     data: Partial<{
@@ -87,6 +93,7 @@ export class ChallengeController implements IChallenge {
   }> {
     return this.service.FindBycustom_felids(data);
   }
+  @Post('FindByvisitId')
   FindByvisitId(
     @Body()
     data: Partial<{
@@ -107,6 +114,8 @@ export class ChallengeController implements IChallenge {
   }> {
     return this.service.FindByvisitId(data);
   }
+
+  @Post('UpdateProperty')
   UpdateProperty(@Body() data: UpdateDto): Promise<
     | {
         id: string;
