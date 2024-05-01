@@ -184,6 +184,63 @@ exports.AdminService = AdminService;
 
 /***/ }),
 
+/***/ "./apps/extension-worker/src/Intervention/Intervention.controller.ts":
+/*!***************************************************************************!*\
+  !*** ./apps/extension-worker/src/Intervention/Intervention.controller.ts ***!
+  \***************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InterventionController = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+let InterventionController = class InterventionController {
+};
+InterventionController = __decorate([
+    (0, common_1.Controller)(' Intervention'),
+    (0, swagger_1.ApiTags)(' Intervention')
+], InterventionController);
+exports.InterventionController = InterventionController;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/Intervention/Intervention.module.ts":
+/*!***********************************************************************!*\
+  !*** ./apps/extension-worker/src/Intervention/Intervention.module.ts ***!
+  \***********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InterventionModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const Intervention_controller_1 = __webpack_require__(/*! ./Intervention.controller */ "./apps/extension-worker/src/Intervention/Intervention.controller.ts");
+let InterventionModule = class InterventionModule {
+};
+InterventionModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [Intervention_controller_1.InterventionController],
+    })
+], InterventionModule);
+exports.InterventionModule = InterventionModule;
+
+
+/***/ }),
+
 /***/ "./apps/extension-worker/src/cooperative/cooperative.controller.ts":
 /*!*************************************************************************!*\
   !*** ./apps/extension-worker/src/cooperative/cooperative.controller.ts ***!
@@ -203,7 +260,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CooperativeController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -211,85 +268,86 @@ const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/cooperative/dto/dto.ts");
 const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/cooperative/dto/find_dto.ts");
 const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/cooperative/dto/update_dto.ts");
+const cooperative_service_1 = __webpack_require__(/*! ./cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
 let CooperativeController = class CooperativeController {
     constructor(service) {
         this.service = service;
     }
     CreateCooperative(data) {
-        throw new Error();
+        return this.service.CreateCooperative(data);
     }
     FindByid(data) {
-        throw new Error();
+        return this.service.FindByid(data);
     }
     FindByworkerProfileId(data) {
-        throw new Error();
+        return this.service.FindByworkerProfileId(data);
     }
     UpdateProperty(data) {
-        throw new Error();
+        return this.service.UpdateProperty(data);
     }
     Getfarmers(data) {
-        throw new Error();
+        return this.service.Getfarmers(data);
     }
     Addfarmer(data) {
-        throw new Error();
+        return this.service.Addfarmer(data);
     }
     Removefarmer(data) {
-        throw new Error();
+        return this.service.Removefarmer(data);
     }
 };
 __decorate([
     (0, common_1.Post)('CreateCooperative'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof dto_1.CreateCooperativeDto !== "undefined" && dto_1.CreateCooperativeDto) === "function" ? _a : Object]),
-    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateCooperativeDto !== "undefined" && dto_1.CreateCooperativeDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], CooperativeController.prototype, "CreateCooperative", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _c : Object]),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], CooperativeController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('FindByworkerProfileId'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], CooperativeController.prototype, "FindByworkerProfileId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _g : Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+    __metadata("design:paramtypes", [typeof (_h = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], CooperativeController.prototype, "UpdateProperty", null);
 __decorate([
     (0, common_1.Post)('Getfarmers'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_j = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _j : Object]),
-    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+    __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], CooperativeController.prototype, "Getfarmers", null);
 __decorate([
     (0, common_1.Post)('Addfarmer'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_l = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _l : Object]),
-    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
+    __metadata("design:paramtypes", [typeof (_m = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], CooperativeController.prototype, "Addfarmer", null);
 __decorate([
     (0, common_1.Post)('Removefarmer'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
 ], CooperativeController.prototype, "Removefarmer", null);
 CooperativeController = __decorate([
     (0, common_1.Controller)('cooperative'),
     (0, swagger_1.ApiTags)('cooperative'),
-    __metadata("design:paramtypes", [void 0])
+    __metadata("design:paramtypes", [typeof (_a = typeof cooperative_service_1.CooperativeService !== "undefined" && cooperative_service_1.CooperativeService) === "function" ? _a : Object])
 ], CooperativeController);
 exports.CooperativeController = CooperativeController;
 
@@ -313,14 +371,187 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CooperativeModule = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const cooperative_controller_1 = __webpack_require__(/*! ./cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
+const cooperative_service_1 = __webpack_require__(/*! ./cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 let CooperativeModule = class CooperativeModule {
 };
 CooperativeModule = __decorate([
     (0, common_1.Module)({
-        controllers: [cooperative_controller_1.CooperativeController]
+        controllers: [cooperative_controller_1.CooperativeController],
+        providers: [cooperative_service_1.CooperativeService, db_service_1.DbService]
     })
 ], CooperativeModule);
 exports.CooperativeModule = CooperativeModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/cooperative/cooperative.service.ts":
+/*!**********************************************************************!*\
+  !*** ./apps/extension-worker/src/cooperative/cooperative.service.ts ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CooperativeService = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let CooperativeService = class CooperativeService {
+    constructor(db) {
+        this.db = db;
+    }
+    async CreateCooperative(data) {
+        try {
+            let lga = await this.db.localGovernment.create({
+                data: {
+                    name: data['name'],
+                },
+            });
+            let query = await this.db.cooperative.create({
+                data: {
+                    workerProfileId: data['workerProfileId'],
+                    localGovernmentId: lga['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindByid(data) {
+        try {
+            let query = await this.db.cooperative.findFirstOrThrow({
+                where: {
+                    id: data['properties']['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindByworkerProfileId(data) {
+        try {
+            let query = await this.db.cooperative.findFirstOrThrow({
+                where: {
+                    id: data['properties']['workerProfileId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async UpdateProperty(data) {
+        try {
+            let query = data['properties']['localGovernmentId'] !== undefined
+                ? await this.db.cooperative.update({
+                    where: {
+                        id: data['properties']['id'],
+                    },
+                    data: {
+                        localGovernmentId: data['properties']['localGovernmentId'],
+                    },
+                })
+                : data['properties']['workerProfileId'] !== undefined
+                    ? await this.db.cooperative.update({
+                        where: {
+                            id: data['properties']['id'],
+                        },
+                        data: {
+                            localGovernmentId: data['properties']['workerProfileId'],
+                        },
+                    })
+                    : new common_1.BadRequestException('pass in a valid prop');
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async Getfarmers(data) {
+        try {
+            let query = await this.db.farmerProfile.findMany({
+                where: {
+                    cooperativeId: data['properties']['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async Addfarmer(data) {
+        try {
+            let query = await this.db.cooperative.update({
+                where: {
+                    id: data['properties']['id'],
+                },
+                data: {
+                    farmers: {
+                        connect: {
+                            id: data['properties']['farmerProfileId'],
+                        },
+                    },
+                },
+            });
+            let farmers = await this.db.farmerProfile.findMany({
+                where: {
+                    cooperativeId: query['id'],
+                },
+            });
+            return farmers;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async Removefarmer(data) {
+        try {
+            let cooperative = await this.db.cooperative.findFirstOrThrow({
+                where: {
+                    id: data['properties']['workerProfileId'],
+                },
+            });
+            let query = await this.db.cooperative.update({
+                where: {
+                    id: cooperative['id'],
+                },
+                data: {
+                    farmers: {
+                        disconnect: {
+                            id: data['properties']['farmerProfileId'],
+                        },
+                    },
+                },
+            });
+            return cooperative;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+};
+CooperativeService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], CooperativeService);
+exports.CooperativeService = CooperativeService;
 
 
 /***/ }),
@@ -333,10 +564,6 @@ exports.CooperativeModule = CooperativeModule;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateCooperativeDto = void 0;
-class CreateCooperativeDto {
-}
-exports.CreateCooperativeDto = CreateCooperativeDto;
 
 
 /***/ }),
@@ -349,10 +576,6 @@ exports.CreateCooperativeDto = CreateCooperativeDto;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FindDto = void 0;
-class FindDto {
-}
-exports.FindDto = FindDto;
 
 
 /***/ }),
@@ -365,10 +588,6 @@ exports.FindDto = FindDto;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
-class UpdateDto {
-}
-exports.UpdateDto = UpdateDto;
 
 
 /***/ }),
@@ -426,63 +645,6 @@ CropModule = __decorate([
     })
 ], CropModule);
 exports.CropModule = CropModule;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/disbursement/disbursement.controller.ts":
-/*!***************************************************************************!*\
-  !*** ./apps/extension-worker/src/disbursement/disbursement.controller.ts ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.DisbursementController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-let DisbursementController = class DisbursementController {
-};
-DisbursementController = __decorate([
-    (0, common_1.Controller)('disbursement'),
-    (0, swagger_1.ApiTags)('disbursement')
-], DisbursementController);
-exports.DisbursementController = DisbursementController;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/disbursement/disbursement.module.ts":
-/*!***********************************************************************!*\
-  !*** ./apps/extension-worker/src/disbursement/disbursement.module.ts ***!
-  \***********************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.DisbursementModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const disbursement_controller_1 = __webpack_require__(/*! ./disbursement.controller */ "./apps/extension-worker/src/disbursement/disbursement.controller.ts");
-let DisbursementModule = class DisbursementModule {
-};
-DisbursementModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [disbursement_controller_1.DisbursementController]
-    })
-], DisbursementModule);
-exports.DisbursementModule = DisbursementModule;
 
 
 /***/ }),
@@ -641,7 +803,7 @@ const worker_service_1 = __webpack_require__(/*! ./worker.service */ "./apps/ext
 const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 const extension_worker_controller_1 = __webpack_require__(/*! ./extension-worker.controller */ "./apps/extension-worker/src/extension-worker/extension-worker.controller.ts");
-const disbursement_module_1 = __webpack_require__(/*! ../disbursement/disbursement.module */ "./apps/extension-worker/src/disbursement/disbursement.module.ts");
+const Intervention_module_1 = __webpack_require__(/*! ../Intervention/Intervention.module */ "./apps/extension-worker/src/Intervention/Intervention.module.ts");
 const cooperative_module_1 = __webpack_require__(/*! ../cooperative/cooperative.module */ "./apps/extension-worker/src/cooperative/cooperative.module.ts");
 const crop_module_1 = __webpack_require__(/*! ../crop/crop.module */ "./apps/extension-worker/src/crop/crop.module.ts");
 const milestone_module_1 = __webpack_require__(/*! ../milestone/milestone.module */ "./apps/extension-worker/src/milestone/milestone.module.ts");
@@ -655,18 +817,20 @@ const farmer_controller_1 = __webpack_require__(/*! apps/farmer/src/farmer/farme
 const milestone_service_1 = __webpack_require__(/*! ../milestone/milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
 const project_service_1 = __webpack_require__(/*! ../project/project.service */ "./apps/extension-worker/src/project/project.service.ts");
 const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
+const cooperative_service_1 = __webpack_require__(/*! ../cooperative/cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            disbursement_module_1.DisbursementModule,
+            Intervention_module_1.InterventionModule,
             cooperative_module_1.CooperativeModule,
             crop_module_1.CropModule,
             milestone_module_1.MilestoneModule,
             project_module_1.ProjectModule,
             report_module_1.ReportModule,
-            profile_module_1.ProfileModule
+            profile_module_1.ProfileModule,
+            cooperative_module_1.CooperativeModule,
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -674,7 +838,7 @@ ExtensionWorkerModule = __decorate([
             milestone_controller_1.MilestoneController,
             cooperative_controller_1.CooperativeController,
             farmer_controller_1.FarmerController,
-            project_controller_1.ProjectController
+            project_controller_1.ProjectController,
         ],
         providers: [
             auth_service_1.AuthService,
@@ -685,7 +849,8 @@ ExtensionWorkerModule = __decorate([
             db_service_1.DbService,
             milestone_service_1.MilestoneService,
             project_service_1.ProjectService,
-            profile_service_1.ProfileService
+            profile_service_1.ProfileService,
+            cooperative_service_1.CooperativeService,
         ],
     })
 ], ExtensionWorkerModule);

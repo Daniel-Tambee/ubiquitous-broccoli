@@ -2,7 +2,7 @@ Notes
 extension worker
 
 1 reports on farms
-2 distribute inputs(being fertilizers)(rigorously monitor disbursement)(extension worker to farmer)(one to many)
+2 distribute inputs(being fertilizers)(rigorously monitor  Intervention)(extension worker to farmer)(one to many)
 3 farmers divided into crop and and livestock
 4 educate farmers 
 5 classify farmers based on income level

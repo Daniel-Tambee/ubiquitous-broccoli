@@ -9,7 +9,7 @@ import { CooperativeModule } from './cooperative/cooperative.module';
 import { CropModule } from './crop/crop.module';
 import { MilestoneModule } from './milestone/milestone.module';
 import { ReportModule } from './report/report.module';
-import { DisbursementModule } from './disbursement/disbursement.module';
+import { InterventionModule } from './Intervention/Intervention.module';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { DisbursementModule } from './disbursement/disbursement.module';
     CropModule,
     MilestoneModule,
     ReportModule,
-    DisbursementModule,
+    InterventionModule,
   ],
   controllers: [AuthController],
   providers: [WorkerService, AuthService],
