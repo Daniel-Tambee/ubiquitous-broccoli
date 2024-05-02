@@ -6,8 +6,7 @@ import { Logger } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(ExtensionWorkerModule);
   app.enableCors({
-    origin: '*',
-    allowedHeaders: [],
+    origin: ['http://localhost:3000', '*'],
   });
   const config = new DocumentBuilder()
     .setTitle('Extension Worker Doc')

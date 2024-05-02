@@ -5214,8 +5214,7 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
     app.enableCors({
-        origin: '*',
-        allowedHeaders: [],
+        origin: ['http://localhost:3000', '*'],
     });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Extension Worker Doc')
