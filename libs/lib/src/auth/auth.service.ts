@@ -45,7 +45,7 @@ export class AuthService implements IAuth {
       return query;
     } catch (error) {
       console.log(error);
-      return error;
+      throw new BadRequestException(error);
     }
   }
   // TODO validate user
@@ -79,7 +79,7 @@ export class AuthService implements IAuth {
           : new UnauthorizedException();
       return access_token;
     } catch (error) {
-      console.log(error);
+      throw new UnauthorizedException(error);
     }
   }
   // TODO find a way to invalidate token
