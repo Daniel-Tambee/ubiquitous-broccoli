@@ -12,15 +12,7 @@ export class VisitService implements IVisit {
    *
    */
   constructor(private readonly db: DbService) {}
-  async CreateVisit(data: CreateVisit): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async CreateVisit(data: CreateVisit): Promise<Visit> {
     try {
       let query = await this.db.visit.create({
         data: {
@@ -43,15 +35,7 @@ export class VisitService implements IVisit {
       updatedAt: Date;
       visitId: string;
     }>,
-  ): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  ): Promise<Visit> {
     try {
       let query = await this.db.visit.update({
         where: {
@@ -70,15 +54,7 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async Addmilestone(data: UpdateDto): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async Addmilestone(data: UpdateDto): Promise<Visit> {
     try {
       let query = await this.db.visit.update({
         where: {
@@ -93,15 +69,7 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async Addchallenge(data: UpdateDto): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async Addchallenge(data: UpdateDto): Promise<Visit> {
     try {
       let query = await this.db.visit.update({
         where: {
@@ -120,29 +88,13 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  Removephoto(data: any): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  Removephoto(data: any): Promise<Visit> {
     try {
     } catch (error) {}
 
     throw new Error('Method not implemented.');
   }
-  async Removemilestone(data: UpdateDto): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async Removemilestone(data: UpdateDto): Promise<Visit> {
     try {
       let query = await this.db.visit.update({
         where: {
@@ -161,15 +113,7 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async Removechallenge(data: UpdateDto): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async Removechallenge(data: UpdateDto): Promise<Visit> {
     try {
       let query = await this.db.visit.update({
         where: {
@@ -225,15 +169,7 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async FindByid(data: FindDto): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async FindByid(data: FindDto): Promise<Visit> {
     try {
       let query = await this.db.visit.findFirstOrThrow({
         where: {
@@ -245,17 +181,7 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async FindBystatus(data: FindDto): Promise<
-    {
-      id: string;
-      status: $Enums.VisitStatus;
-      milestoneId: string;
-      appointmentId: string;
-      createdAt: Date;
-      updatedAt: Date;
-      projectId: string;
-    }[]
-  > {
+  async FindBystatus(data: FindDto): Promise<Visit[]> {
     try {
       let query = await this.db.visit.findMany({
         where: {
@@ -268,15 +194,7 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async FindBymilestoneId(data: FindDto): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async FindBymilestoneId(data: FindDto): Promise<Visit> {
     try {
       let query = await this.db.visit.findFirstOrThrow({
         where: {
@@ -292,15 +210,7 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async FindByappointmentId(data: FindDto): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async FindByappointmentId(data: FindDto): Promise<Visit> {
     try {
       let query = await this.db.visit.findFirstOrThrow({
         where: {
@@ -314,15 +224,7 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async FindByprojectId(data: FindDto): Promise<{
-    id: string;
-    status: $Enums.VisitStatus;
-    milestoneId: string;
-    appointmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    projectId: string;
-  }> {
+  async FindByprojectId(data: FindDto): Promise<Visit> {
     try {
       let query = await this.db.visit.findFirstOrThrow({
         where: {
@@ -336,18 +238,9 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
-  async UpdateProperties(data: UpdateDto): Promise<
-    | {
-        id: string;
-        status: $Enums.VisitStatus;
-        milestoneId: string;
-        appointmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        projectId: string;
-      }
-    | BadRequestException
-  > {
+  async UpdateProperties(
+    data: UpdateDto,
+  ): Promise<Visit | BadRequestException> {
     try {
       let query =
         data['properties']['milestoneId'] !== undefined

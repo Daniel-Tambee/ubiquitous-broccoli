@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { IChallenge } from './challenge.interface';
-import { $Enums, Prisma } from '@prisma/client';
+import { $Enums, Challenge, Prisma, Visit } from '@prisma/client';
 import { UpdateDto } from './dto/update_dto';
 import { ChallengeService } from './challenge.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -20,14 +20,7 @@ export class ChallengeController implements IChallenge {
       custom_fields: Prisma.JsonValue;
       visitId: string;
     },
-  ): Promise<{
-    id: string;
-    type: $Enums.ChallengeType;
-    custom_fields: Prisma.JsonValue;
-    createdAt: Date;
-    updatedAt: Date;
-    visitId: string;
-  }> {
+  ): Promise<Challenge> {
     return this.service.CreateChallenge(data);
   }
   @Post('FindByid')
@@ -41,14 +34,7 @@ export class ChallengeController implements IChallenge {
       updatedAt: Date;
       visitId: string;
     }>,
-  ): Promise<{
-    id: string;
-    type: $Enums.ChallengeType;
-    custom_fields: Prisma.JsonValue;
-    createdAt: Date;
-    updatedAt: Date;
-    visitId: string;
-  }> {
+  ): Promise<Challenge> {
     return this.service.FindByid(data);
   }
   @Post('FindBytype')
@@ -62,14 +48,7 @@ export class ChallengeController implements IChallenge {
       updatedAt: Date;
       visitId: string;
     }>,
-  ): Promise<{
-    id: string;
-    type: $Enums.ChallengeType;
-    custom_fields: Prisma.JsonValue;
-    createdAt: Date;
-    updatedAt: Date;
-    visitId: string;
-  }> {
+  ): Promise<Challenge> {
     return this.service.FindBytype(data);
   }
   @Post('FindBycustom_felids')
@@ -83,14 +62,7 @@ export class ChallengeController implements IChallenge {
       updatedAt: Date;
       visitId: string;
     }>,
-  ): Promise<{
-    id: string;
-    type: $Enums.ChallengeType;
-    custom_fields: Prisma.JsonValue;
-    createdAt: Date;
-    updatedAt: Date;
-    visitId: string;
-  }> {
+  ): Promise<Challenge> {
     return this.service.FindBycustom_felids(data);
   }
   @Post('FindByvisitId')
@@ -104,29 +76,14 @@ export class ChallengeController implements IChallenge {
       updatedAt: Date;
       visitId: string;
     }>,
-  ): Promise<{
-    id: string;
-    type: $Enums.ChallengeType;
-    custom_fields: Prisma.JsonValue;
-    createdAt: Date;
-    updatedAt: Date;
-    visitId: string;
-  }> {
+  ): Promise<Challenge> {
     return this.service.FindByvisitId(data);
   }
 
   @Post('UpdateProperty')
-  UpdateProperty(@Body() data: UpdateDto): Promise<
-    | {
-        id: string;
-        type: $Enums.ChallengeType;
-        custom_fields: Prisma.JsonValue;
-        createdAt: Date;
-        updatedAt: Date;
-        visitId: string;
-      }
-    | BadRequestException
-  > {
+  UpdateProperty(
+    @Body() data: UpdateDto,
+  ): Promise<Challenge | BadRequestException> {
     return this.service.UpdateProperty(data);
   }
 }
