@@ -164,7 +164,7 @@ let AdminService = class AdminService {
         try {
             const user = await this.db.user.findFirstOrThrow({
                 where: {
-                    email: data['property'],
+                    email: data['email'],
                     type: 'ADMIN',
                 },
             });
@@ -1640,7 +1640,7 @@ let WorkerService = class WorkerService {
         try {
             const user = await this.db.user.findFirstOrThrow({
                 where: {
-                    email: data['property'],
+                    email: data['email'],
                     type: 'EXTENSION_WORKER',
                 },
             });
@@ -4619,7 +4619,7 @@ let FarmerService = class FarmerService {
         try {
             const user = await this.db.user.findFirstOrThrow({
                 where: {
-                    email: data['property'],
+                    email: data['email'],
                     type: 'FARMER',
                 },
             });
@@ -4956,11 +4956,6 @@ const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
 class ValidationDto {
 }
-__decorate([
-    (0, swagger_1.ApiPropertyOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], ValidationDto.prototype, "id", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)(),
     (0, swagger_1.ApiProperty)(),
