@@ -72,6 +72,7 @@ model WorkerProfile {
   Cooperative   Cooperative[]
   Visit         Visit[]
   Challenge     Challenge[]
+  Appointment   Appointment[]
 }
 
 model AdminProfile {
@@ -216,12 +217,14 @@ model Challenge {
 }
 
 model Appointment {
-  id        String             @id @default(uuid()) @map("_id")
-  scheduled DateTime
-  status    Appointment_Status
-  Visit     Visit[]
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
+  id              String             @id @default(uuid()) @map("_id")
+  time            DateTime
+  status          Appointment_Status
+  Visit           Visit[]
+  worker          WorkerProfile      @relation(fields: [workerProfileId], references: [id])
+  workerProfileId String
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
 }
 
 model LocalGovernment {
