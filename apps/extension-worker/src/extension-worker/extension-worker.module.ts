@@ -34,6 +34,7 @@ import { ProfileService } from '../profile/profile.service';
     ReportModule,
     ProfileModule,
     ChallengeModule,
+    InterventionModule
   ],
   controllers: [
     AuthController,
