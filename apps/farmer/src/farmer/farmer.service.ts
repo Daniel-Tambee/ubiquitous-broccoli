@@ -189,11 +189,11 @@ export class FarmerService implements IFarmer {
   SignOut() {
     throw new Error('Method not implemented.');
   }
-  async FindByEmail(data: ValidationDto): Promise<User> {
+  async FindByEmail(data: Partial<ValidationDto>): Promise<User> {
     try {
       const user = await this.db.user.findFirstOrThrow({
         where: {
-          email: data['property'],
+          email: data['email'],
           type: 'FARMER',
         },
       });

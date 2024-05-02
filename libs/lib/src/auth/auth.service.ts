@@ -49,7 +49,7 @@ export class AuthService implements IAuth {
     }
   }
   // TODO validate user
-  async SignIn(data: ValidationDto) {
+  async SignIn(data: Partial<ValidationDto>) {
     try {
       let user =
         data['type'] == 'FARMER'

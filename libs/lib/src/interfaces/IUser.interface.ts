@@ -7,7 +7,7 @@ import { FindDto } from 'apps/farmer/src/farmer/dto/find.dto';
 // TODO condense all update methods
 export interface IUser {
   CreateResource(data: CreateUserDto): Promise<User>;
-  FindByEmail(data: ValidationDto): Promise<User>;
+  FindByEmail(data: Partial<ValidationDto>): Promise<User>;
   UpdatePassword(data: UpdateDto): Promise<User>;
   UpdateFirstName(data: UpdateDto);
   UpdateLastName(data: UpdateDto): Promise<User>;
