@@ -35,7 +35,8 @@ import { VisitModule } from '../visit/visit.module';
     ReportModule,
     ProfileModule,
     ChallengeModule,
-    VisitModule
+    VisitModule,
+    InterventionModule
   ],
   controllers: [
     AuthController,

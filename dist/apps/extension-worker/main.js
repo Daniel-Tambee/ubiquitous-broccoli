@@ -197,15 +197,100 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InterventionController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/Intervention/dto/dto.ts");
+const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/Intervention/dto/find_dto.ts");
+const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/Intervention/dto/update_dto.ts");
+const intervention_service_1 = __webpack_require__(/*! ./intervention.service */ "./apps/extension-worker/src/Intervention/intervention.service.ts");
 let InterventionController = class InterventionController {
+    constructor(service) {
+        this.service = service;
+    }
+    createIntervention(data) {
+        return this.service.createIntervention(data);
+    }
+    findById(data) {
+        return this.service.findById(data);
+    }
+    findByAmount(data) {
+        return this.service.findByAmount(data);
+    }
+    findByType(data) {
+        return this.service.findByType(data);
+    }
+    findByFarmerProfileId(data) {
+        return this.service.findByFarmerProfileId(data);
+    }
+    findByProjectId(data) {
+        return this.service.findByProjectId(data);
+    }
+    updateProperty(data) {
+        return this.service.updateProperty(data);
+    }
 };
+__decorate([
+    (0, common_1.Post)('createIntervention'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateInterventionDto !== "undefined" && dto_1.CreateInterventionDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], InterventionController.prototype, "createIntervention", null);
+__decorate([
+    (0, common_1.Post)('findById'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], InterventionController.prototype, "findById", null);
+__decorate([
+    (0, common_1.Post)('findByAmount'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], InterventionController.prototype, "findByAmount", null);
+__decorate([
+    (0, common_1.Post)('findByType'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], InterventionController.prototype, "findByType", null);
+__decorate([
+    (0, common_1.Post)('findByFarmerProfileId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], InterventionController.prototype, "findByFarmerProfileId", null);
+__decorate([
+    (0, common_1.Post)('findByProjectId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+], InterventionController.prototype, "findByProjectId", null);
+__decorate([
+    (0, common_1.Post)('updateProperty'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_p = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+], InterventionController.prototype, "updateProperty", null);
 InterventionController = __decorate([
-    (0, common_1.Controller)(' Intervention'),
-    (0, swagger_1.ApiTags)(' Intervention')
+    (0, common_1.Controller)('Intervention'),
+    (0, swagger_1.ApiTags)('Intervention'),
+    __metadata("design:paramtypes", [typeof (_a = typeof intervention_service_1.InterventionService !== "undefined" && intervention_service_1.InterventionService) === "function" ? _a : Object])
 ], InterventionController);
 exports.InterventionController = InterventionController;
 
@@ -229,14 +314,274 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InterventionModule = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const Intervention_controller_1 = __webpack_require__(/*! ./Intervention.controller */ "./apps/extension-worker/src/Intervention/Intervention.controller.ts");
+const intervention_service_1 = __webpack_require__(/*! ./intervention.service */ "./apps/extension-worker/src/Intervention/intervention.service.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 let InterventionModule = class InterventionModule {
 };
 InterventionModule = __decorate([
     (0, common_1.Module)({
         controllers: [Intervention_controller_1.InterventionController],
+        providers: [intervention_service_1.InterventionService, db_service_1.DbService],
     })
 ], InterventionModule);
 exports.InterventionModule = InterventionModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/Intervention/dto/dto.ts":
+/*!***********************************************************!*\
+  !*** ./apps/extension-worker/src/Intervention/dto/dto.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/Intervention/dto/find_dto.ts":
+/*!****************************************************************!*\
+  !*** ./apps/extension-worker/src/Intervention/dto/find_dto.ts ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class FindDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FindDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
+], FindDto.prototype, "properties", void 0);
+exports.FindDto = FindDto;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/Intervention/dto/update_dto.ts":
+/*!******************************************************************!*\
+  !*** ./apps/extension-worker/src/Intervention/dto/update_dto.ts ***!
+  \******************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class UpdateDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], UpdateDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
+], UpdateDto.prototype, "properties", void 0);
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/Intervention/intervention.service.ts":
+/*!************************************************************************!*\
+  !*** ./apps/extension-worker/src/Intervention/intervention.service.ts ***!
+  \************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InterventionService = void 0;
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+let InterventionService = class InterventionService {
+    constructor(db) {
+        this.db = db;
+    }
+    async createIntervention(data) {
+        try {
+            let query = await this.db.intervention.create({
+                data: {
+                    custom_field: data['custom_field'],
+                    type: data['type'],
+                    amount: data['amount'],
+                    farmerProfileId: data['farmerProfileId'],
+                    projectId: data['projectId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findById(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findByAmount(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    amount: data['properties']['amount'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findByType(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: data['properties']['type'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findByFarmerProfileId(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    farmerProfileId: data['properties']['farmerProfileId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findByProjectId(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    projectId: data['properties']['projectId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async updateProperty(data) {
+        try {
+            let query = data['properties']['amount'] !== undefined
+                ? await this.db.intervention.update({
+                    where: {
+                        id: data['id'],
+                    },
+                    data: {
+                        amount: data['properties']['amount'],
+                    },
+                })
+                : data['properties']['farmerProfileId'] !== undefined
+                    ? await this.db.intervention.update({
+                        where: {
+                            id: data['id'],
+                        },
+                        data: {
+                            farmerProfileId: data['properties']['farmerProfileId'],
+                        },
+                    })
+                    : data['properties']['projectId'] !== undefined
+                        ? await this.db.intervention.update({
+                            where: {
+                                id: data['id'],
+                            },
+                            data: {
+                                projectId: data['properties']['projectId'],
+                            },
+                        })
+                        : data['properties']['type'] !== undefined
+                            ? await this.db.intervention.update({
+                                where: {
+                                    id: data['id'],
+                                },
+                                data: {
+                                    type: data['properties']['type'],
+                                },
+                            })
+                            : data['properties']['custom_field'] !== undefined
+                                ? await this.db.intervention.update({
+                                    where: {
+                                        id: data['id'],
+                                    },
+                                    data: {
+                                        custom_field: data['properties']['custom_field'],
+                                    },
+                                })
+                                : new common_1.BadRequestException('pass in a valid prop');
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+};
+InterventionService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], InterventionService);
+exports.InterventionService = InterventionService;
 
 
 /***/ }),
@@ -1103,7 +1448,8 @@ ExtensionWorkerModule = __decorate([
             report_module_1.ReportModule,
             profile_module_1.ProfileModule,
             challenge_module_1.ChallengeModule,
-            visit_module_1.VisitModule
+            visit_module_1.VisitModule,
+            Intervention_module_1.InterventionModule
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -1909,7 +2255,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateDto = void 0;
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
@@ -1928,7 +2274,7 @@ __decorate([
 ], UpdateDto.prototype, "type", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Object)
+    __metadata("design:type", typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object)
 ], UpdateDto.prototype, "new_value", void 0);
 exports.UpdateDto = UpdateDto;
 
@@ -4867,6 +5213,10 @@ const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
+    app.enableCors({
+        origin: '*',
+        allowedHeaders: [],
+    });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Extension Worker Doc')
         .setVersion('1.0')
