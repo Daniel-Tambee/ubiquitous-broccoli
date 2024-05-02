@@ -9,5 +9,5 @@ export class UpdateDto {
   })
   type: UserType;
   @ApiProperty()
-  new_value: Partial<WorkerProfile>;
+  properties: Partial<WorkerProfile>;
 }

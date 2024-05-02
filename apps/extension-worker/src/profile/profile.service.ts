@@ -53,7 +53,7 @@ export class ProfileService implements IProfile {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async Getprojects(data: FindDto): Promise<Project[]> {
@@ -65,7 +65,7 @@ export class ProfileService implements IProfile {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async Getreports(
@@ -81,7 +81,7 @@ export class ProfileService implements IProfile {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async GetCooperative(data: FindDto): Promise<Cooperative[]> {
@@ -93,7 +93,7 @@ export class ProfileService implements IProfile {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async Addproject(data: CreateProjectDto): Promise<Project> {
@@ -130,7 +130,7 @@ export class ProfileService implements IProfile {
       }
       return project;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   // TODO implement this too
@@ -176,7 +176,7 @@ export class ProfileService implements IProfile {
       }
       return cooperative;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async Removeproject(data: UpdateDto): Promise<boolean> {
@@ -188,14 +188,14 @@ export class ProfileService implements IProfile {
         data: {
           participants: {
             disconnect: {
-              id: data['new_value']['project_id'],
+              id: data['properties']['project_id'],
             },
           },
         },
       });
       return true;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   //TODO Implement this too
@@ -217,14 +217,14 @@ export class ProfileService implements IProfile {
         data: {
           farmers: {
             disconnect: {
-              id: data['new_value']['project_id'],
+              id: data['properties']['project_id'],
             },
           },
         },
       });
       return true;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async findByUserId(data: FindDto): Promise<{
@@ -252,7 +252,7 @@ export class ProfileService implements IProfile {
       });
       return query;
     } catch (error) {
-      new BadRequestException(error);
+      throw new BadRequestException(error);
     }
   }
   async UpdateProperty(data: UpdateDto): Promise<
@@ -275,85 +275,85 @@ export class ProfileService implements IProfile {
 
     try {
       let query =
-        data['new_value']['about'] !== undefined
+        data['properties']['about'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                about: data['new_value']['about'],
+                about: data['properties']['about'],
               },
             })
-          : data['new_value']['age'] !== undefined
+          : data['properties']['age'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                age: data['new_value']['age'],
+                age: data['properties']['age'],
               },
             })
-          : data['new_value']['sex'] !== undefined
+          : data['properties']['sex'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                sex: data['new_value']['sex'],
+                sex: data['properties']['sex'],
               },
             })
-          : data['new_value']['birthday'] !== undefined
+          : data['properties']['birthday'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                birthday: data['new_value']['birthday'],
+                birthday: data['properties']['birthday'],
               },
             })
-          : data['new_value']['address'] !== undefined
+          : data['properties']['address'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                address: data['new_value']['address'],
+                address: data['properties']['address'],
               },
             })
-          : data['new_value']['religion'] !== undefined
+          : data['properties']['religion'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                religion: data['new_value']['religion'],
+                religion: data['properties']['religion'],
               },
             })
-          : data['new_value']['religion'] !== undefined
+          : data['properties']['religion'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                religion: data['new_value']['religion'],
+                religion: data['properties']['religion'],
               },
             })
-          : data['new_value']['maritalStatus'] !== undefined
+          : data['properties']['maritalStatus'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                maritalStatus: data['new_value']['maritalStatus'],
+                maritalStatus: data['properties']['maritalStatus'],
               },
             })
-          : data['new_value']['photo'] !== undefined
+          : data['properties']['photo'] !== undefined
           ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
               data: {
-                photo: Buffer.from(data['new_value']['maritalStatus']),
+                photo: Buffer.from(data['properties']['maritalStatus']),
               },
             })
           : new BadRequestException('specify a proper type to be updated');

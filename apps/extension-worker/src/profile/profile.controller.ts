@@ -29,7 +29,7 @@ export class ProfileController implements IProfile {
   ): Promise<
     { id: string; createdAt: Date; updatedAt: Date; workerProfileId: string }[]
   > {
-    throw new Error('Method not implemented.');
+    return this.profile.Getreports(data);
   }
   @Post('Addreport')
   Addreport(@Body() data: CreateReportDto): Promise<{
@@ -38,46 +38,48 @@ export class ProfileController implements IProfile {
     updatedAt: Date;
     workerProfileId: string;
   }> {
-    throw new Error('Method not implemented.');
+    return this.profile.Addreport(data);
   }
   @Post('CreateProfile')
   CreateProfile(@Body() data: CreateProfileDto): Promise<WorkerProfile> {
-    throw new Error('Method not implemented.');
+    return this.profile.CreateProfile(data);
   }
   @Post('Getprojects')
   Getprojects(@Body() data: FindDto): Promise<Project[]> {
-    throw new Error('Method not implemented.');
+    return this.profile.Getprojects(data);
   }
   @Post('GetCooperative')
   GetCooperative(@Body() data: FindDto): Promise<Cooperative[]> {
-    throw new Error('Method not implemented.');
+    return this.profile.GetCooperative(data);
   }
   @Post('Addproject')
   Addproject(@Body() data: CreateProjectDto): Promise<Project> {
-    throw new Error('Method not implemented.');
+    return this.profile.Addproject(data);
   }
   @Post('AddCooperative')
   AddCooperative(@Body() data: CreateCooperativeDto): Promise<Cooperative> {
-    throw new Error('Method not implemented.');
+    return this.profile.AddCooperative(data);
   }
   @Post('Removeproject')
   Removeproject(@Body() data: UpdateDto): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    return this.profile.Removeproject(data);
   }
   @Post('Removereport')
   Removereport(@Body() data: UpdateDto): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    return this.profile.Removereport(data);
   }
   @Post('RemoveCooperative')
   RemoveCooperative(@Body() data: UpdateDto): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    return this.profile.RemoveCooperative(data);
   }
   @Post('findByUserId')
   findByUserId(@Body() data: FindDto): Promise<WorkerProfile> {
-    throw new Error('Method not implemented.');
+    return this.profile.findByUserId(data);
   }
   @Post('UpdateProperty')
-  UpdateProperty(@Body() data: UpdateDto): Promise<WorkerProfile|BadRequestException> {
+  UpdateProperty(
+    @Body() data: UpdateDto,
+  ): Promise<WorkerProfile | BadRequestException> {
     return this.profile.UpdateProperty(data);
   }
 }
