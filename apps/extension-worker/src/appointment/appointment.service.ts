@@ -65,10 +65,10 @@ export class AppointmentService implements IAppointment {
           },
         },
       });
+      return query;
     } catch (error) {
       throw new BadRequestException(undefined, error);
     }
-    throw new Error('Method not implemented.');
   }
   async RemoveVisit(data: UpdateDto): Promise<Appointment> {
     try {
@@ -84,11 +84,12 @@ export class AppointmentService implements IAppointment {
           },
         },
       });
+      return query;
     } catch (error) {
       throw new BadRequestException(undefined, error);
     }
-    throw new Error('Method not implemented.');
   }
+  
   async findByid(data: FindDto): Promise<Appointment> {
     try {
       let query = await this.db.appointment.findFirstOrThrow({
