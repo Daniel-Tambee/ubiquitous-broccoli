@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { IVisit } from './ivisit.interface';
-import { $Enums, Challenge, Milestone, Photo, Visit } from '@prisma/client';
+import { Challenge, Milestone, Photo, Visit } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
 import { CreateVisit } from './dto/dto';
 import { FindDto } from './dto/find_dto';
@@ -279,6 +279,17 @@ export class VisitService implements IVisit {
                   disconnect: {
                     id: data['challengeId'],
                   },
+                },
+              },
+            })
+          : data['properties']['workerProfileId'] !== undefined
+          ? await this.db.visit.update({
+              where: {
+                id: data['id'],
+              },
+              data: {
+                workerProfileId: {
+                  set: data['properties']['workerProfileId'],
                 },
               },
             })

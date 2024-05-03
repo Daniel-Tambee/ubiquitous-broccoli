@@ -751,6 +751,7 @@ let ChallengeService = class ChallengeService {
                     type: data['type'],
                     custom_fields: data['custom_fields'],
                     visitId: data['visitId'],
+                    workerProfileId: data['workerProfileId'],
                 },
             });
             return query;
@@ -823,7 +824,16 @@ let ChallengeService = class ChallengeService {
                             id: data['id'],
                         },
                     })
-                    : new common_1.BadRequestException('pass in a valid property');
+                    : data['properties']['workerProfileId'] !== undefined
+                        ? await this.db.challenge.update({
+                            data: {
+                                workerProfileId: data['properties']['workerProfileId'],
+                            },
+                            where: {
+                                id: data['id'],
+                            },
+                        })
+                        : new common_1.BadRequestException('pass in a valid property');
             return query;
         }
         catch (error) {
@@ -4168,7 +4178,18 @@ let VisitService = class VisitService {
                                 },
                             },
                         })
-                        : new common_1.BadRequestException('pass in a valid prop');
+                        : data['properties']['workerProfileId'] !== undefined
+                            ? await this.db.visit.update({
+                                where: {
+                                    id: data['id'],
+                                },
+                                data: {
+                                    workerProfileId: {
+                                        set: data['properties']['workerProfileId'],
+                                    },
+                                },
+                            })
+                            : new common_1.BadRequestException('pass in a valid prop');
             return query;
         }
         catch (error) {

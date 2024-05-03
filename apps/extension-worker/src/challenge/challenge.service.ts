@@ -18,6 +18,7 @@ export class ChallengeService implements IChallenge {
           type: data['type'],
           custom_fields: data['custom_fields'],
           visitId: data['visitId'],
+          workerProfileId: data['workerProfileId'],
         },
       });
       return query;
@@ -120,6 +121,15 @@ export class ChallengeService implements IChallenge {
           ? await this.db.challenge.update({
               data: {
                 visitId: data['properties']['type'],
+              },
+              where: {
+                id: data['id'],
+              },
+            })
+          : data['properties']['workerProfileId'] !== undefined
+          ? await this.db.challenge.update({
+              data: {
+                workerProfileId: data['properties']['workerProfileId'],
               },
               where: {
                 id: data['id'],

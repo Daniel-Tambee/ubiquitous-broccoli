@@ -1,5 +1,4 @@
 import { Challenge } from '@prisma/client';
 
-type keys = 'createdAt' | 'updatedAt' | 'id';
-type fields = Omit<Challenge, keys>;
-export type CreateChallengeDto = Partial<fields>;
+type excluded = 'createdAt' | 'updatedAt' | 'id';
+export type CreateChallengeDto = Partial<Omit<Challenge, excluded>>;
