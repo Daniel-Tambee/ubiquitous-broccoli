@@ -1864,6 +1864,7 @@ const visit_module_1 = __webpack_require__(/*! ../visit/visit.module */ "./apps/
 const appointment_module_1 = __webpack_require__(/*! ../appointment/appointment.module */ "./apps/extension-worker/src/appointment/appointment.module.ts");
 const appointment_controller_1 = __webpack_require__(/*! ../appointment/appointment.controller */ "./apps/extension-worker/src/appointment/appointment.controller.ts");
 const appointment_service_1 = __webpack_require__(/*! ../appointment/appointment.service */ "./apps/extension-worker/src/appointment/appointment.service.ts");
+const farmer_module_1 = __webpack_require__(/*! apps/farmer/src/farmer.module */ "./apps/farmer/src/farmer.module.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -1880,6 +1881,7 @@ ExtensionWorkerModule = __decorate([
             visit_module_1.VisitModule,
             Intervention_module_1.InterventionModule,
             appointment_module_1.AppointmentModule,
+            farmer_module_1.FarmerModule,
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -1888,7 +1890,7 @@ ExtensionWorkerModule = __decorate([
             cooperative_controller_1.CooperativeController,
             farmer_controller_1.FarmerController,
             project_controller_1.ProjectController,
-            appointment_controller_1.AppointmentController
+            appointment_controller_1.AppointmentController,
         ],
         providers: [
             auth_service_1.AuthService,
@@ -1901,7 +1903,8 @@ ExtensionWorkerModule = __decorate([
             cooperative_service_1.CooperativeService,
             project_service_1.ProjectService,
             profile_service_1.ProfileService,
-            appointment_service_1.AppointmentService
+            appointment_service_1.AppointmentService,
+            farmer_service_1.FarmerService,
         ],
     })
 ], ExtensionWorkerModule);
@@ -4624,6 +4627,52 @@ exports.VisitService = VisitService;
 
 /***/ }),
 
+/***/ "./apps/farmer/src/farmer.module.ts":
+/*!******************************************!*\
+  !*** ./apps/farmer/src/farmer.module.ts ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FarmerModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const auth_controller_1 = __webpack_require__(/*! @app/lib/auth/auth.controller */ "./libs/lib/src/auth/auth.controller.ts");
+const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
+const farmer_module_1 = __webpack_require__(/*! ./farmer/farmer.module */ "./apps/farmer/src/farmer/farmer.module.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const farmer_service_1 = __webpack_require__(/*! ./farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
+const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const farmer_controller_1 = __webpack_require__(/*! ./farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
+let FarmerModule = class FarmerModule {
+};
+FarmerModule = __decorate([
+    (0, common_1.Module)({
+        imports: [farmer_module_1.Farmer],
+        controllers: [auth_controller_1.AuthController, farmer_controller_1.FarmerController],
+        providers: [
+            auth_service_1.AuthService,
+            farmer_service_1.FarmerService,
+            db_service_1.DbService,
+            admin_service_1.AdminService,
+            worker_service_1.WorkerService,
+            jwt_1.JwtService,
+        ],
+    })
+], FarmerModule);
+exports.FarmerModule = FarmerModule;
+
+
+/***/ }),
+
 /***/ "./apps/farmer/src/farmer/dto/dto.ts":
 /*!*******************************************!*\
   !*** ./apps/farmer/src/farmer/dto/dto.ts ***!
@@ -4640,7 +4689,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateDto = void 0;
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
@@ -4661,8 +4710,8 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'new value for the property',
     }),
-    __metadata("design:type", Object)
-], UpdateDto.prototype, "new_value", void 0);
+    __metadata("design:type", typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object)
+], UpdateDto.prototype, "property", void 0);
 exports.UpdateDto = UpdateDto;
 
 
@@ -4726,123 +4775,64 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const login_auth_dto_1 = __webpack_require__(/*! @app/lib/auth/dto/login-auth.dto */ "./libs/lib/src/auth/dto/login-auth.dto.ts");
 const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
-const famrer_guard_1 = __webpack_require__(/*! @app/lib/auth/famrer.guard */ "./libs/lib/src/auth/famrer.guard.ts");
+const extension_worker_guard_1 = __webpack_require__(/*! @app/lib/auth/extension-worker.guard */ "./libs/lib/src/auth/extension-worker.guard.ts");
 let FarmerController = class FarmerController {
     constructor(farmer) {
         this.farmer = farmer;
     }
-    UpdateProperties(data) {
-        return this.farmer.UpdateProperties(data);
-    }
-    UpdatePassword(data) {
-        return this.farmer.UpdatePassword(data);
-    }
-    FindById(data) {
-        return this.farmer.FindById(data);
-    }
-    FindByPhone_Number(data) {
-        return this.farmer.FindByPhone_Number(data);
-    }
-    FindByFirst_name(data) {
-        return this.farmer.FindByFirst_name(data);
-    }
-    UpdateFirstName(data) {
-        return this.farmer.UpdateFirstName(data);
-    }
-    UpdateLastName(data) {
-        return this.farmer.UpdateLastName(data);
-    }
-    UpdatePhoneNumber(data) {
-        return this.farmer.UpdatePhoneNumber(data);
-    }
-    CreateResource(data) {
-        throw new Error('Method not implemented.');
-    }
-    FindByEmail(data) {
-        return this.farmer.FindByEmail(data);
-    }
-    SignOut() {
-        return this.farmer.SignOut();
+    Create_Farmer(data) {
+        return this.farmer.CreateResource(data);
     }
 };
 __decorate([
-    (0, common_1.Post)('UpdateProperties'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('Createfarmer'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [typeof (_b = typeof farmer_service_1.CreateFarmerDto !== "undefined" && farmer_service_1.CreateFarmerDto) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
-], FarmerController.prototype, "UpdateProperties", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _c : Object]),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
-], FarmerController.prototype, "UpdatePassword", null);
-__decorate([
-    (0, common_1.Post)('FindById'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
-], FarmerController.prototype, "FindById", null);
-__decorate([
-    (0, common_1.Post)('FindByPhone_Number'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _g : Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
-], FarmerController.prototype, "FindByPhone_Number", null);
-__decorate([
-    (0, common_1.Post)('FindByFirst_name'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_j = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _j : Object]),
-    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
-], FarmerController.prototype, "FindByFirst_name", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_l = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _l : Object]),
-    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
-], FarmerController.prototype, "UpdateFirstName", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_o = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _o : Object]),
-    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
-], FarmerController.prototype, "UpdateLastName", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_q = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _q : Object]),
-    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
-], FarmerController.prototype, "UpdatePhoneNumber", null);
-__decorate([
-    (0, common_1.Post)('FindByEmail'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_s = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _s : Object]),
-    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
-], FarmerController.prototype, "FindByEmail", null);
+], FarmerController.prototype, "Create_Farmer", null);
 FarmerController = __decorate([
     (0, common_1.Controller)('farmer'),
     (0, swagger_1.ApiTags)('Farmer'),
-    (0, common_1.UseGuards)(famrer_guard_1.FamrerGuard),
+    (0, common_1.UseGuards)(extension_worker_guard_1.ExtensionWorkerGuard),
     __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object])
 ], FarmerController);
 exports.FarmerController = FarmerController;
+
+
+/***/ }),
+
+/***/ "./apps/farmer/src/farmer/farmer.module.ts":
+/*!*************************************************!*\
+  !*** ./apps/farmer/src/farmer/farmer.module.ts ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Farmer = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let Farmer = class Farmer {
+};
+Farmer = __decorate([
+    (0, common_1.Module)({
+        providers: [farmer_service_1.FarmerService, db_service_1.DbService]
+    })
+], Farmer);
+exports.Farmer = Farmer;
 
 
 /***/ }),
@@ -4874,47 +4864,135 @@ let FarmerService = class FarmerService {
     }
     async UpdateProperties(data) {
         try {
-            let query = data['new_value']['first_name'] !== undefined
+            let query = data['property']['first_name'] !== undefined
                 ? await this.db.user.update({
                     data: {
-                        first_name: data['new_value']['first_name'],
+                        first_name: data['property']['first_name'],
                     },
                     where: {
                         id: data['id'],
                         type: 'FARMER',
                     },
                 })
-                : data['new_value']['last_name'] !== undefined
+                : data['property']['last_name'] !== undefined
                     ? await this.db.user.update({
                         data: {
-                            last_name: data['new_value']['last_name'],
+                            last_name: data['property']['last_name'],
                         },
                         where: {
                             id: data['id'],
                             type: 'FARMER',
                         },
                     })
-                    : data['new_value']['phone_number'] !== undefined
+                    : data['property']['phone_number'] !== undefined
                         ? await this.db.user.update({
                             data: {
-                                phone_number: data['new_value']['phone_number'],
+                                phone_number: data['property']['phone_number'],
                             },
                             where: {
                                 id: data['id'],
                                 type: 'FARMER',
                             },
                         })
-                        : data['new_value']['email'] !== undefined
+                        : data['property']['email'] !== undefined
                             ? await this.db.user.update({
                                 data: {
-                                    email: data['new_value']['email'],
+                                    email: data['property']['email'],
                                 },
                                 where: {
                                     id: data['id'],
                                     type: 'FARMER',
                                 },
                             })
-                            : new common_1.BadRequestException('pass in a valid property  please');
+                            : data['property']['age'] !== undefined
+                                ? await this.db.user.update({
+                                    data: {
+                                        Farmer: {
+                                            update: {
+                                                age: data['property']['age'],
+                                            },
+                                        },
+                                    },
+                                    where: {
+                                        id: data['id'],
+                                        type: 'FARMER',
+                                    },
+                                })
+                                : data['property']['birthday'] !== undefined
+                                    ? await this.db.user.update({
+                                        data: {
+                                            Farmer: {
+                                                update: {
+                                                    birthday: data['property']['birthday'],
+                                                },
+                                            },
+                                        },
+                                        where: {
+                                            id: data['id'],
+                                            type: 'FARMER',
+                                        },
+                                    })
+                                    : data['property']['maritalStatus'] !== undefined
+                                        ? await this.db.user.update({
+                                            data: {
+                                                Farmer: {
+                                                    update: {
+                                                        maritalStatus: data['property']['maritalStatus'],
+                                                    },
+                                                },
+                                            },
+                                            where: {
+                                                id: data['id'],
+                                                type: 'FARMER',
+                                            },
+                                        })
+                                        : data['property']['religion'] !== undefined
+                                            ? await this.db.user.update({
+                                                data: {
+                                                    Farmer: {
+                                                        update: {
+                                                            religion: data['property']['religion'],
+                                                        },
+                                                    },
+                                                },
+                                                where: {
+                                                    id: data['id'],
+                                                    type: 'FARMER',
+                                                },
+                                            })
+                                            : data['property']['photo'] !== undefined
+                                                ? await this.db.user.update({
+                                                    data: {
+                                                        Farmer: {
+                                                            update: {
+                                                                photo: Buffer.from(data['property']['photo']),
+                                                            },
+                                                        },
+                                                    },
+                                                    where: {
+                                                        id: data['id'],
+                                                        type: 'FARMER',
+                                                    },
+                                                })
+                                                : data['property']['lga'] !== undefined
+                                                    ? await this.db.user.update({
+                                                        data: {
+                                                            Farmer: {
+                                                                update: {
+                                                                    lga: {
+                                                                        update: {
+                                                                            name: data['property']['lga'],
+                                                                        },
+                                                                    },
+                                                                },
+                                                            },
+                                                        },
+                                                        where: {
+                                                            id: data['id'],
+                                                            type: 'FARMER',
+                                                        },
+                                                    })
+                                                    : new common_1.BadRequestException('pass in a valid property  please');
             return query;
         }
         catch (error) {
@@ -4929,7 +5007,7 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                 },
                 data: {
-                    first_name: data['new_value'],
+                    first_name: data['property']['first_name'],
                 },
             });
             return user;
@@ -4946,7 +5024,7 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                 },
                 data: {
-                    last_name: data['new_value'],
+                    last_name: data['property']['last_name'],
                 },
             });
             return user;
@@ -4963,7 +5041,7 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                 },
                 data: {
-                    phone_number: data['new_value'],
+                    phone_number: data['property']['phone_number'],
                 },
             });
             return user;
@@ -5020,11 +5098,11 @@ let FarmerService = class FarmerService {
         try {
             const user = await this.db.user.update({
                 where: {
-                    email: data['property'],
+                    id: data['id'],
                     type: 'FARMER',
                 },
                 data: {
-                    password: data['new_value'],
+                    password: data['property']['password'],
                 },
             });
             return user;
@@ -5040,15 +5118,35 @@ let FarmerService = class FarmerService {
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
-                    password: data['password'],
+                    password: '',
                     phone_number: data['phone_number'],
                     type: 'FARMER',
+                    Farmer: {
+                        create: {
+                            address: {},
+                            photo: Buffer.from(data['photo']),
+                            age: data['age'],
+                            birthday: data['birthday'],
+                            income: 'SMALL',
+                            maritalStatus: data['maritalStatus'],
+                            religion: data['religion'],
+                            sex: data['sex'],
+                            lga: {
+                                create: {
+                                    name: data['lga'],
+                                },
+                            },
+                        },
+                    },
+                },
+                include: {
+                    Farmer: true,
                 },
             });
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(undefined, error);
         }
     }
     SignOut() {
@@ -5454,47 +5552,6 @@ ExtensionWorkerGuard = __decorate([
     (0, common_1.Injectable)()
 ], ExtensionWorkerGuard);
 exports.ExtensionWorkerGuard = ExtensionWorkerGuard;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/famrer.guard.ts":
-/*!*******************************************!*\
-  !*** ./libs/lib/src/auth/famrer.guard.ts ***!
-  \*******************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FamrerGuard = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-let FamrerGuard = class FamrerGuard {
-    canActivate(context) {
-        try {
-            const type = context.switchToHttp().getRequest()['body']['type'];
-            const valid = type == 'FARMER' ? true : false;
-            if (valid == false) {
-                throw new common_1.ForbiddenException('wrong server');
-            }
-            else {
-                return valid;
-            }
-        }
-        catch (error) {
-            throw new common_1.ForbiddenException('wrong server');
-        }
-    }
-};
-FamrerGuard = __decorate([
-    (0, common_1.Injectable)()
-], FamrerGuard);
-exports.FamrerGuard = FamrerGuard;
 
 
 /***/ }),
