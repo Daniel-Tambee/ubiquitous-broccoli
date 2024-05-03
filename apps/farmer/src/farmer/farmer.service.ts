@@ -1,6 +1,4 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { IFarmer } from './ifarmer.interface';
-import { CreateUserDto } from '@app/lib/auth/dto/create-auth.dto';
 import { User, WorkerProfile } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
 import { FindDto } from './dto/find.dto';
@@ -161,11 +159,11 @@ export class FarmerService {
     try {
       const user = await this.db.user.update({
         where: {
-          email: data['property'],
+          id: data['id'],
           type: 'FARMER',
         },
         data: {
-          password: data['new_value'],
+          password: data['property']['password'],
         },
       });
       return user;

@@ -15,5 +15,5 @@ export class UpdateDto {
   @ApiProperty({
     description: 'new value for the property',
   })
-  new_value: keyof User;
+  property: Partial<User>;
 }

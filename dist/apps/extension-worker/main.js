@@ -4689,7 +4689,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateDto = void 0;
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
@@ -4710,8 +4710,8 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'new value for the property',
     }),
-    __metadata("design:type", Object)
-], UpdateDto.prototype, "new_value", void 0);
+    __metadata("design:type", typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object)
+], UpdateDto.prototype, "property", void 0);
 exports.UpdateDto = UpdateDto;
 
 
@@ -5010,11 +5010,11 @@ let FarmerService = class FarmerService {
         try {
             const user = await this.db.user.update({
                 where: {
-                    email: data['property'],
+                    id: data['id'],
                     type: 'FARMER',
                 },
                 data: {
-                    password: data['new_value'],
+                    password: data['property']['password'],
                 },
             });
             return user;
