@@ -1,14 +1,18 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { IFarmer } from './ifarmer.interface';
 import { CreateUserDto } from '@app/lib/auth/dto/create-auth.dto';
-import { User } from '@prisma/client';
+import { User, WorkerProfile } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
 import { FindDto } from './dto/find.dto';
 import { UpdateDto } from './dto/dto';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 
+type union = WorkerProfile | User;
+type excluded = 'id' | 'createdAt' | 'updatedAt';
+export type CreateFarmerDto = Partial<Omit<union, excluded>>;
+
 @Injectable()
-export class FarmerService implements IFarmer {
+export class FarmerService {
   /**
    *
    */
@@ -169,16 +173,35 @@ export class FarmerService implements IFarmer {
       return error;
     }
   }
-  async CreateResource(data: CreateUserDto): Promise<User> {
+  async CreateResource(data: CreateFarmerDto): Promise<User> {
     try {
       const user = await this.db.user.create({
         data: {
           email: data['email'],
           first_name: data['first_name'],
           last_name: data['last_name'],
-          password: data['password'],
+          password: '',
           phone_number: data['phone_number'],
           type: 'FARMER',
+          Farmer: {
+            create: {
+              address: {},
+              age: data['age'],
+              birthday: data['birthday'],
+              income: 'SMALL',
+              maritalStatus: data['maritalStatus'],
+              religion: data['religion'],
+              sex: data['sex'],
+              lga: {
+                create: {
+                  name: data['lga'],
+                },
+              },
+            },
+          },
+        },
+        include: {
+          workerProfile: true,
         },
       });
       return user;

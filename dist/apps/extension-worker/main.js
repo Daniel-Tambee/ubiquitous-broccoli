@@ -4726,120 +4726,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const login_auth_dto_1 = __webpack_require__(/*! @app/lib/auth/dto/login-auth.dto */ "./libs/lib/src/auth/dto/login-auth.dto.ts");
 const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
-const famrer_guard_1 = __webpack_require__(/*! @app/lib/auth/famrer.guard */ "./libs/lib/src/auth/famrer.guard.ts");
+const extension_worker_guard_1 = __webpack_require__(/*! @app/lib/auth/extension-worker.guard */ "./libs/lib/src/auth/extension-worker.guard.ts");
 let FarmerController = class FarmerController {
     constructor(farmer) {
         this.farmer = farmer;
     }
-    UpdateProperties(data) {
-        return this.farmer.UpdateProperties(data);
-    }
-    UpdatePassword(data) {
-        return this.farmer.UpdatePassword(data);
-    }
-    FindById(data) {
-        return this.farmer.FindById(data);
-    }
-    FindByPhone_Number(data) {
-        return this.farmer.FindByPhone_Number(data);
-    }
-    FindByFirst_name(data) {
-        return this.farmer.FindByFirst_name(data);
-    }
-    UpdateFirstName(data) {
-        return this.farmer.UpdateFirstName(data);
-    }
-    UpdateLastName(data) {
-        return this.farmer.UpdateLastName(data);
-    }
-    UpdatePhoneNumber(data) {
-        return this.farmer.UpdatePhoneNumber(data);
-    }
-    CreateResource(data) {
-        throw new Error('Method not implemented.');
-    }
-    FindByEmail(data) {
-        return this.farmer.FindByEmail(data);
-    }
-    SignOut() {
-        return this.farmer.SignOut();
+    Create_Farmer(data) {
+        return this.farmer.CreateResource(data);
     }
 };
 __decorate([
-    (0, common_1.Post)('UpdateProperties'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('Create farmer'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [typeof (_b = typeof farmer_service_1.CreateFarmerDto !== "undefined" && farmer_service_1.CreateFarmerDto) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
-], FarmerController.prototype, "UpdateProperties", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _c : Object]),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
-], FarmerController.prototype, "UpdatePassword", null);
-__decorate([
-    (0, common_1.Post)('FindById'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
-], FarmerController.prototype, "FindById", null);
-__decorate([
-    (0, common_1.Post)('FindByPhone_Number'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _g : Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
-], FarmerController.prototype, "FindByPhone_Number", null);
-__decorate([
-    (0, common_1.Post)('FindByFirst_name'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_j = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _j : Object]),
-    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
-], FarmerController.prototype, "FindByFirst_name", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_l = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _l : Object]),
-    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
-], FarmerController.prototype, "UpdateFirstName", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_o = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _o : Object]),
-    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
-], FarmerController.prototype, "UpdateLastName", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_q = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _q : Object]),
-    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
-], FarmerController.prototype, "UpdatePhoneNumber", null);
-__decorate([
-    (0, common_1.Post)('FindByEmail'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_s = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _s : Object]),
-    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
-], FarmerController.prototype, "FindByEmail", null);
+], FarmerController.prototype, "Create_Farmer", null);
 FarmerController = __decorate([
     (0, common_1.Controller)('farmer'),
     (0, swagger_1.ApiTags)('Farmer'),
-    (0, common_1.UseGuards)(famrer_guard_1.FamrerGuard),
+    (0, common_1.UseGuards)(extension_worker_guard_1.ExtensionWorkerGuard),
     __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object])
 ], FarmerController);
 exports.FarmerController = FarmerController;
@@ -5040,9 +4951,28 @@ let FarmerService = class FarmerService {
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
-                    password: data['password'],
+                    password: '',
                     phone_number: data['phone_number'],
                     type: 'FARMER',
+                    Farmer: {
+                        create: {
+                            address: {},
+                            age: data['age'],
+                            birthday: data['birthday'],
+                            income: 'SMALL',
+                            maritalStatus: data['maritalStatus'],
+                            religion: data['religion'],
+                            sex: data['sex'],
+                            lga: {
+                                create: {
+                                    name: data['lga'],
+                                },
+                            },
+                        },
+                    },
+                },
+                include: {
+                    workerProfile: true,
                 },
             });
             return user;
@@ -5454,47 +5384,6 @@ ExtensionWorkerGuard = __decorate([
     (0, common_1.Injectable)()
 ], ExtensionWorkerGuard);
 exports.ExtensionWorkerGuard = ExtensionWorkerGuard;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/famrer.guard.ts":
-/*!*******************************************!*\
-  !*** ./libs/lib/src/auth/famrer.guard.ts ***!
-  \*******************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FamrerGuard = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-let FamrerGuard = class FamrerGuard {
-    canActivate(context) {
-        try {
-            const type = context.switchToHttp().getRequest()['body']['type'];
-            const valid = type == 'FARMER' ? true : false;
-            if (valid == false) {
-                throw new common_1.ForbiddenException('wrong server');
-            }
-            else {
-                return valid;
-            }
-        }
-        catch (error) {
-            throw new common_1.ForbiddenException('wrong server');
-        }
-    }
-};
-FamrerGuard = __decorate([
-    (0, common_1.Injectable)()
-], FamrerGuard);
-exports.FamrerGuard = FamrerGuard;
 
 
 /***/ }),
