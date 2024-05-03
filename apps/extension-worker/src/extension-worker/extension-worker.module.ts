@@ -24,6 +24,7 @@ import { CooperativeService } from '../cooperative/cooperative.service';
 import { ProjectService } from '../project/project.service';
 import { ProfileService } from '../profile/profile.service';
 import { VisitModule } from '../visit/visit.module';
+import { AppointmentModule } from '../appointment/appointment.module';
 
 @Module({
   imports: [
@@ -36,7 +37,8 @@ import { VisitModule } from '../visit/visit.module';
     ProfileModule,
     ChallengeModule,
     VisitModule,
-    InterventionModule
+    InterventionModule,
+    AppointmentModule,
   ],
   controllers: [
     AuthController,
@@ -56,7 +58,7 @@ import { VisitModule } from '../visit/visit.module';
     MilestoneService,
     CooperativeService,
     ProjectService,
-    ProfileService
+    ProfileService,
   ],
 })
-export class ExtensionWorkerModule { }
+export class ExtensionWorkerModule {}

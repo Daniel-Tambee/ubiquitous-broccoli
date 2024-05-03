@@ -1,11 +1,589 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({
+/******/ 	var __webpack_modules__ = ([
+/* 0 */,
+/* 1 */
+/***/ ((module) => {
 
-/***/ "./apps/admin/src/admin/admin.service.ts":
-/*!***********************************************!*\
-  !*** ./apps/admin/src/admin/admin.service.ts ***!
-  \***********************************************/
+module.exports = require("@nestjs/core");
+
+/***/ }),
+/* 2 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ExtensionWorkerModule = void 0;
+const auth_controller_1 = __webpack_require__(3);
+const auth_service_1 = __webpack_require__(5);
+const common_1 = __webpack_require__(4);
+const admin_service_1 = __webpack_require__(9);
+const farmer_service_1 = __webpack_require__(6);
+const worker_service_1 = __webpack_require__(10);
+const jwt_1 = __webpack_require__(12);
+const db_service_1 = __webpack_require__(7);
+const extension_worker_controller_1 = __webpack_require__(18);
+const Intervention_module_1 = __webpack_require__(21);
+const cooperative_module_1 = __webpack_require__(27);
+const crop_module_1 = __webpack_require__(33);
+const milestone_module_1 = __webpack_require__(35);
+const profile_module_1 = __webpack_require__(41);
+const project_module_1 = __webpack_require__(49);
+const report_module_1 = __webpack_require__(54);
+const project_controller_1 = __webpack_require__(50);
+const milestone_controller_1 = __webpack_require__(36);
+const cooperative_controller_1 = __webpack_require__(28);
+const farmer_controller_1 = __webpack_require__(56);
+const milestone_service_1 = __webpack_require__(40);
+const challenge_module_1 = __webpack_require__(58);
+const cooperative_service_1 = __webpack_require__(32);
+const project_service_1 = __webpack_require__(53);
+const profile_service_1 = __webpack_require__(48);
+const visit_module_1 = __webpack_require__(62);
+let ExtensionWorkerModule = class ExtensionWorkerModule {
+};
+ExtensionWorkerModule = __decorate([
+    (0, common_1.Module)({
+        imports: [
+            Intervention_module_1.InterventionModule,
+            cooperative_module_1.CooperativeModule,
+            crop_module_1.CropModule,
+            milestone_module_1.MilestoneModule,
+            project_module_1.ProjectModule,
+            report_module_1.ReportModule,
+            profile_module_1.ProfileModule,
+            challenge_module_1.ChallengeModule,
+            visit_module_1.VisitModule,
+            Intervention_module_1.InterventionModule
+        ],
+        controllers: [
+            auth_controller_1.AuthController,
+            extension_worker_controller_1.ExtensionWorkerController,
+            milestone_controller_1.MilestoneController,
+            cooperative_controller_1.CooperativeController,
+            farmer_controller_1.FarmerController,
+            project_controller_1.ProjectController,
+        ],
+        providers: [
+            auth_service_1.AuthService,
+            farmer_service_1.FarmerService,
+            admin_service_1.AdminService,
+            worker_service_1.WorkerService,
+            jwt_1.JwtService,
+            db_service_1.DbService,
+            milestone_service_1.MilestoneService,
+            cooperative_service_1.CooperativeService,
+            project_service_1.ProjectService,
+            profile_service_1.ProfileService
+        ],
+    })
+], ExtensionWorkerModule);
+exports.ExtensionWorkerModule = ExtensionWorkerModule;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AuthController = void 0;
+const common_1 = __webpack_require__(4);
+const auth_service_1 = __webpack_require__(5);
+const create_auth_dto_1 = __webpack_require__(13);
+const swagger_1 = __webpack_require__(15);
+const login_auth_dto_1 = __webpack_require__(16);
+const dto_1 = __webpack_require__(17);
+let AuthController = class AuthController {
+    constructor(authService) {
+        this.authService = authService;
+    }
+    validate(data) {
+        throw new Error('Method not implemented.');
+    }
+    Signup(info) {
+        return this.authService.Signup(info);
+    }
+    SignIn(data) {
+        return this.authService.SignIn(data);
+    }
+    SignOut(data) {
+        return this.authService.SignOut(data);
+    }
+    ForgotPassword(data) {
+        return this.authService.ForgotPassword(data);
+    }
+};
+__decorate([
+    (0, common_1.Post)('Signup'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "Signup", null);
+__decorate([
+    (0, common_1.Post)('SignIn'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "SignIn", null);
+__decorate([
+    (0, common_1.Post)('SignOut'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "SignOut", null);
+__decorate([
+    (0, common_1.Post)('ForgotPassword'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "ForgotPassword", null);
+AuthController = __decorate([
+    (0, common_1.Controller)('auth'),
+    (0, swagger_1.ApiTags)('Auth'),
+    __metadata("design:paramtypes", [typeof (_a = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" ? _a : Object])
+], AuthController);
+exports.AuthController = AuthController;
+
+
+/***/ }),
+/* 4 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/common");
+
+/***/ }),
+/* 5 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+var _a, _b, _c, _d;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AuthService = void 0;
+const common_1 = __webpack_require__(4);
+const farmer_service_1 = __webpack_require__(6);
+const admin_service_1 = __webpack_require__(9);
+const worker_service_1 = __webpack_require__(10);
+const argon2_1 = __webpack_require__(11);
+const jwt_1 = __webpack_require__(12);
+let AuthService = class AuthService {
+    constructor(farmer, admin, extensionWorker, jwtService) {
+        this.farmer = farmer;
+        this.admin = admin;
+        this.extensionWorker = extensionWorker;
+        this.jwtService = jwtService;
+    }
+    async Signup(info) {
+        try {
+            info['password'] = await (0, argon2_1.hash)(info['password'], {
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+                type: 2,
+            });
+            let query = info['type'] == 'FARMER'
+                ? this.farmer.CreateResource(info)
+                : info['type'] == 'ADMIN'
+                    ? this.admin.CreateResource(info)
+                    : info['type'] == 'EXTENSION_WORKER'
+                        ? this.extensionWorker.CreateResource(info)
+                        : new common_1.BadRequestException('Please Specify User Type');
+            return query;
+        }
+        catch (error) {
+            console.log(error);
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async SignIn(data) {
+        try {
+            let user = data['type'] == 'FARMER'
+                ? await this.farmer.FindByEmail(data)
+                : data['type'] == 'ADMIN'
+                    ? await this.admin.FindByEmail(data)
+                    : data['type'] == 'EXTENSION_WORKER'
+                        ? await this.extensionWorker.FindByEmail(data)
+                        : new Error('Cant Find Any Users By that email');
+            console.log(user);
+            const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+            });
+            const access_token = verification == true
+                ? {
+                    access_token: this.jwtService.sign(data, {
+                        secret: process.env.HASH_SECRET || 'hash',
+                    }),
+                }
+                : new common_1.UnauthorizedException();
+            return access_token;
+        }
+        catch (error) {
+            throw new common_1.UnauthorizedException(error);
+        }
+    }
+    async SignOut(data) {
+        throw new Error('Method not implemented.');
+    }
+    async validate(data) {
+        try {
+            let user = data['type'] == 'FARMER'
+                ? this.farmer.FindByEmail(data)
+                : data['type'] == 'ADMIN'
+                    ? this.admin.FindByEmail(data)
+                    : data['type'] == 'EXTENSION_WORKER'
+                        ? this.extensionWorker.FindByEmail(data)
+                        : new Error('Cant Find Any Users By that email');
+            const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+            });
+            if (user && verification) {
+                const result = __rest(user, []);
+                return result;
+            }
+            else {
+                throw new common_1.UnauthorizedException();
+            }
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async ForgotPassword(data) {
+        try {
+            let hashed = await (0, argon2_1.hash)(data['new_value'], {
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+                type: 2,
+            });
+            data['password'] = hashed;
+            let user = data['type'] == 'FARMER'
+                ? this.farmer.UpdatePassword(data)
+                : data['type'] == 'ADMIN'
+                    ? this.admin.UpdatePassword(data)
+                    : data['type'] == 'EXTENSION_WORKER'
+                        ? this.extensionWorker.UpdatePassword(data)
+                        : new Error('Cant Find Any Users By that email');
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+};
+AuthService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object, typeof (_b = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _b : Object, typeof (_c = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _c : Object, typeof (_d = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _d : Object])
+], AuthService);
+exports.AuthService = AuthService;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FarmerService = void 0;
+const common_1 = __webpack_require__(4);
+const db_service_1 = __webpack_require__(7);
+let FarmerService = class FarmerService {
+    constructor(db) {
+        this.db = db;
+    }
+    async UpdateProperties(data) {
+        try {
+            let query = data['new_value']['first_name'] !== undefined
+                ? await this.db.user.update({
+                    data: {
+                        first_name: data['new_value']['first_name'],
+                    },
+                    where: {
+                        id: data['id'],
+                        type: 'FARMER',
+                    },
+                })
+                : data['new_value']['last_name'] !== undefined
+                    ? await this.db.user.update({
+                        data: {
+                            last_name: data['new_value']['last_name'],
+                        },
+                        where: {
+                            id: data['id'],
+                            type: 'FARMER',
+                        },
+                    })
+                    : data['new_value']['phone_number'] !== undefined
+                        ? await this.db.user.update({
+                            data: {
+                                phone_number: data['new_value']['phone_number'],
+                            },
+                            where: {
+                                id: data['id'],
+                                type: 'FARMER',
+                            },
+                        })
+                        : data['new_value']['email'] !== undefined
+                            ? await this.db.user.update({
+                                data: {
+                                    email: data['new_value']['email'],
+                                },
+                                where: {
+                                    id: data['id'],
+                                    type: 'FARMER',
+                                },
+                            })
+                            : new common_1.BadRequestException('pass in a valid property  please');
+            return query;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdateFirstName(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                },
+                data: {
+                    first_name: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdateLastName(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                },
+                data: {
+                    last_name: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdatePhoneNumber(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                },
+                data: {
+                    phone_number: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindById(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByPhone_Number(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                    phone_number: data['property'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async FindByFirst_name(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: 'FARMER',
+                    first_name: data['property'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async UpdatePassword(data) {
+        try {
+            const user = await this.db.user.update({
+                where: {
+                    email: data['property'],
+                    type: 'FARMER',
+                },
+                data: {
+                    password: data['new_value'],
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    async CreateResource(data) {
+        try {
+            const user = await this.db.user.create({
+                data: {
+                    email: data['email'],
+                    first_name: data['first_name'],
+                    last_name: data['last_name'],
+                    password: data['password'],
+                    phone_number: data['phone_number'],
+                    type: 'FARMER',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            return error;
+        }
+    }
+    SignOut() {
+        throw new Error('Method not implemented.');
+    }
+    async FindByEmail(data) {
+        try {
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    email: data['email'],
+                    type: 'FARMER',
+                },
+            });
+            return user;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+};
+FarmerService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], FarmerService);
+exports.FarmerService = FarmerService;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DbService = void 0;
+const common_1 = __webpack_require__(4);
+const client_1 = __webpack_require__(8);
+let DbService = class DbService extends client_1.PrismaClient {
+    constructor() {
+        super({
+            datasourceUrl: process.env.DATABASE_URL,
+        });
+    }
+};
+DbService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [])
+], DbService);
+exports.DbService = DbService;
+
+
+/***/ }),
+/* 8 */
+/***/ ((module) => {
+
+module.exports = require("@prisma/client");
+
+/***/ }),
+/* 9 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -21,8 +599,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(4);
+const db_service_1 = __webpack_require__(7);
 let AdminService = class AdminService {
     constructor(db) {
         this.db = db;
@@ -183,1315 +761,7 @@ exports.AdminService = AdminService;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/Intervention/Intervention.controller.ts":
-/*!***************************************************************************!*\
-  !*** ./apps/extension-worker/src/Intervention/Intervention.controller.ts ***!
-  \***************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.InterventionController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/Intervention/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/Intervention/dto/find_dto.ts");
-const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/Intervention/dto/update_dto.ts");
-const intervention_service_1 = __webpack_require__(/*! ./intervention.service */ "./apps/extension-worker/src/Intervention/intervention.service.ts");
-let InterventionController = class InterventionController {
-    constructor(service) {
-        this.service = service;
-    }
-    createIntervention(data) {
-        return this.service.createIntervention(data);
-    }
-    findById(data) {
-        return this.service.findById(data);
-    }
-    findByAmount(data) {
-        return this.service.findByAmount(data);
-    }
-    findByType(data) {
-        return this.service.findByType(data);
-    }
-    findByFarmerProfileId(data) {
-        return this.service.findByFarmerProfileId(data);
-    }
-    findByProjectId(data) {
-        return this.service.findByProjectId(data);
-    }
-    updateProperty(data) {
-        return this.service.updateProperty(data);
-    }
-};
-__decorate([
-    (0, common_1.Post)('createIntervention'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateInterventionDto !== "undefined" && dto_1.CreateInterventionDto) === "function" ? _b : Object]),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
-], InterventionController.prototype, "createIntervention", null);
-__decorate([
-    (0, common_1.Post)('findById'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
-    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
-], InterventionController.prototype, "findById", null);
-__decorate([
-    (0, common_1.Post)('findByAmount'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
-    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
-], InterventionController.prototype, "findByAmount", null);
-__decorate([
-    (0, common_1.Post)('findByType'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
-], InterventionController.prototype, "findByType", null);
-__decorate([
-    (0, common_1.Post)('findByFarmerProfileId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
-], InterventionController.prototype, "findByFarmerProfileId", null);
-__decorate([
-    (0, common_1.Post)('findByProjectId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
-], InterventionController.prototype, "findByProjectId", null);
-__decorate([
-    (0, common_1.Post)('updateProperty'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_p = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _p : Object]),
-    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
-], InterventionController.prototype, "updateProperty", null);
-InterventionController = __decorate([
-    (0, common_1.Controller)('Intervention'),
-    (0, swagger_1.ApiTags)('Intervention'),
-    __metadata("design:paramtypes", [typeof (_a = typeof intervention_service_1.InterventionService !== "undefined" && intervention_service_1.InterventionService) === "function" ? _a : Object])
-], InterventionController);
-exports.InterventionController = InterventionController;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/Intervention/Intervention.module.ts":
-/*!***********************************************************************!*\
-  !*** ./apps/extension-worker/src/Intervention/Intervention.module.ts ***!
-  \***********************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.InterventionModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const Intervention_controller_1 = __webpack_require__(/*! ./Intervention.controller */ "./apps/extension-worker/src/Intervention/Intervention.controller.ts");
-const intervention_service_1 = __webpack_require__(/*! ./intervention.service */ "./apps/extension-worker/src/Intervention/intervention.service.ts");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let InterventionModule = class InterventionModule {
-};
-InterventionModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [Intervention_controller_1.InterventionController],
-        providers: [intervention_service_1.InterventionService, db_service_1.DbService],
-    })
-], InterventionModule);
-exports.InterventionModule = InterventionModule;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/Intervention/dto/dto.ts":
-/*!***********************************************************!*\
-  !*** ./apps/extension-worker/src/Intervention/dto/dto.ts ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/Intervention/dto/find_dto.ts":
-/*!****************************************************************!*\
-  !*** ./apps/extension-worker/src/Intervention/dto/find_dto.ts ***!
-  \****************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FindDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class FindDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], FindDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
-], FindDto.prototype, "properties", void 0);
-exports.FindDto = FindDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/Intervention/dto/update_dto.ts":
-/*!******************************************************************!*\
-  !*** ./apps/extension-worker/src/Intervention/dto/update_dto.ts ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class UpdateDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], UpdateDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
-], UpdateDto.prototype, "properties", void 0);
-exports.UpdateDto = UpdateDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/Intervention/intervention.service.ts":
-/*!************************************************************************!*\
-  !*** ./apps/extension-worker/src/Intervention/intervention.service.ts ***!
-  \************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.InterventionService = void 0;
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-let InterventionService = class InterventionService {
-    constructor(db) {
-        this.db = db;
-    }
-    async createIntervention(data) {
-        try {
-            let query = await this.db.intervention.create({
-                data: {
-                    custom_field: data['custom_field'],
-                    type: data['type'],
-                    amount: data['amount'],
-                    farmerProfileId: data['farmerProfileId'],
-                    projectId: data['projectId'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async findById(data) {
-        try {
-            let query = await this.db.intervention.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async findByAmount(data) {
-        try {
-            let query = await this.db.intervention.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    amount: data['properties']['amount'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async findByType(data) {
-        try {
-            let query = await this.db.intervention.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    type: data['properties']['type'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async findByFarmerProfileId(data) {
-        try {
-            let query = await this.db.intervention.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    farmerProfileId: data['properties']['farmerProfileId'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async findByProjectId(data) {
-        try {
-            let query = await this.db.intervention.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    projectId: data['properties']['projectId'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async updateProperty(data) {
-        try {
-            let query = data['properties']['amount'] !== undefined
-                ? await this.db.intervention.update({
-                    where: {
-                        id: data['id'],
-                    },
-                    data: {
-                        amount: data['properties']['amount'],
-                    },
-                })
-                : data['properties']['farmerProfileId'] !== undefined
-                    ? await this.db.intervention.update({
-                        where: {
-                            id: data['id'],
-                        },
-                        data: {
-                            farmerProfileId: data['properties']['farmerProfileId'],
-                        },
-                    })
-                    : data['properties']['projectId'] !== undefined
-                        ? await this.db.intervention.update({
-                            where: {
-                                id: data['id'],
-                            },
-                            data: {
-                                projectId: data['properties']['projectId'],
-                            },
-                        })
-                        : data['properties']['type'] !== undefined
-                            ? await this.db.intervention.update({
-                                where: {
-                                    id: data['id'],
-                                },
-                                data: {
-                                    type: data['properties']['type'],
-                                },
-                            })
-                            : data['properties']['custom_field'] !== undefined
-                                ? await this.db.intervention.update({
-                                    where: {
-                                        id: data['id'],
-                                    },
-                                    data: {
-                                        custom_field: data['properties']['custom_field'],
-                                    },
-                                })
-                                : new common_1.BadRequestException('pass in a valid prop');
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-};
-InterventionService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
-], InterventionService);
-exports.InterventionService = InterventionService;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/challenge/challenge.controller.ts":
-/*!*********************************************************************!*\
-  !*** ./apps/extension-worker/src/challenge/challenge.controller.ts ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ChallengeController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/challenge/dto/update_dto.ts");
-const challenge_service_1 = __webpack_require__(/*! ./challenge.service */ "./apps/extension-worker/src/challenge/challenge.service.ts");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-let ChallengeController = class ChallengeController {
-    constructor(service) {
-        this.service = service;
-    }
-    CreateChallenge(data) {
-        return this.service.CreateChallenge(data);
-    }
-    FindByid(data) {
-        return this.service.FindByid(data);
-    }
-    FindBytype(data) {
-        return this.service.FindBytype(data);
-    }
-    FindBycustom_felids(data) {
-        return this.service.FindBycustom_felids(data);
-    }
-    FindByvisitId(data) {
-        return this.service.FindByvisitId(data);
-    }
-    UpdateProperty(data) {
-        return this.service.UpdateProperty(data);
-    }
-};
-__decorate([
-    (0, common_1.Post)('CreateChallenge'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
-], ChallengeController.prototype, "CreateChallenge", null);
-__decorate([
-    (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof Partial !== "undefined" && Partial) === "function" ? _c : Object]),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
-], ChallengeController.prototype, "FindByid", null);
-__decorate([
-    (0, common_1.Post)('FindBytype'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof Partial !== "undefined" && Partial) === "function" ? _e : Object]),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
-], ChallengeController.prototype, "FindBytype", null);
-__decorate([
-    (0, common_1.Post)('FindBycustom_felids'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof Partial !== "undefined" && Partial) === "function" ? _g : Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
-], ChallengeController.prototype, "FindBycustom_felids", null);
-__decorate([
-    (0, common_1.Post)('FindByvisitId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_j = typeof Partial !== "undefined" && Partial) === "function" ? _j : Object]),
-    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
-], ChallengeController.prototype, "FindByvisitId", null);
-__decorate([
-    (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_l = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _l : Object]),
-    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
-], ChallengeController.prototype, "UpdateProperty", null);
-ChallengeController = __decorate([
-    (0, common_1.Controller)('challenge'),
-    (0, swagger_1.ApiTags)('Challenge'),
-    __metadata("design:paramtypes", [typeof (_a = typeof challenge_service_1.ChallengeService !== "undefined" && challenge_service_1.ChallengeService) === "function" ? _a : Object])
-], ChallengeController);
-exports.ChallengeController = ChallengeController;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/challenge/challenge.module.ts":
-/*!*****************************************************************!*\
-  !*** ./apps/extension-worker/src/challenge/challenge.module.ts ***!
-  \*****************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ChallengeModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const challenge_service_1 = __webpack_require__(/*! ./challenge.service */ "./apps/extension-worker/src/challenge/challenge.service.ts");
-const challenge_controller_1 = __webpack_require__(/*! ./challenge.controller */ "./apps/extension-worker/src/challenge/challenge.controller.ts");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let ChallengeModule = class ChallengeModule {
-};
-ChallengeModule = __decorate([
-    (0, common_1.Module)({
-        providers: [challenge_service_1.ChallengeService, db_service_1.DbService],
-        controllers: [challenge_controller_1.ChallengeController],
-    })
-], ChallengeModule);
-exports.ChallengeModule = ChallengeModule;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/challenge/challenge.service.ts":
-/*!******************************************************************!*\
-  !*** ./apps/extension-worker/src/challenge/challenge.service.ts ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ChallengeService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let ChallengeService = class ChallengeService {
-    constructor(db) {
-        this.db = db;
-    }
-    async CreateChallenge(data) {
-        try {
-            let query = await this.db.challenge.create({
-                data: {
-                    type: data['type'],
-                    custom_fields: data['custom_fields'],
-                    visitId: data['visitId'],
-                    workerProfileId: data['workerProfileId'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindByid(data) {
-        try {
-            let query = await this.db.challenge.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindBytype(data) {
-        try {
-            let query = await this.db.challenge.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    type: data['type'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    FindBycustom_felids(data) {
-        throw new Error('Method not implemented.');
-    }
-    async FindByvisitId(data) {
-        try {
-            let query = await this.db.challenge.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    visitId: data['visitId'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async UpdateProperty(data) {
-        try {
-            let query = data['properties']['visitId'] !== undefined
-                ? await this.db.challenge.update({
-                    data: {
-                        visitId: data['properties']['visitId'],
-                    },
-                    where: {
-                        id: data['id'],
-                    },
-                })
-                : data['properties']['type'] !== undefined
-                    ? await this.db.challenge.update({
-                        data: {
-                            visitId: data['properties']['type'],
-                        },
-                        where: {
-                            id: data['id'],
-                        },
-                    })
-                    : data['properties']['workerProfileId'] !== undefined
-                        ? await this.db.challenge.update({
-                            data: {
-                                workerProfileId: data['properties']['workerProfileId'],
-                            },
-                            where: {
-                                id: data['id'],
-                            },
-                        })
-                        : new common_1.BadRequestException('pass in a valid property');
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-};
-ChallengeService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
-], ChallengeService);
-exports.ChallengeService = ChallengeService;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/challenge/dto/update_dto.ts":
-/*!***************************************************************!*\
-  !*** ./apps/extension-worker/src/challenge/dto/update_dto.ts ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
-class UpdateDto {
-}
-exports.UpdateDto = UpdateDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/cooperative/cooperative.controller.ts":
-/*!*************************************************************************!*\
-  !*** ./apps/extension-worker/src/cooperative/cooperative.controller.ts ***!
-  \*************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CooperativeController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/cooperative/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/cooperative/dto/find_dto.ts");
-const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/cooperative/dto/update_dto.ts");
-const cooperative_service_1 = __webpack_require__(/*! ./cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
-let CooperativeController = class CooperativeController {
-    constructor(service) {
-        this.service = service;
-    }
-    CreateCooperative(data) {
-        return this.service.CreateCooperative(data);
-    }
-    FindByid(data) {
-        return this.service.FindByid(data);
-    }
-    FindByworkerProfileId(data) {
-        return this.service.FindByworkerProfileId(data);
-    }
-    UpdateProperty(data) {
-        return this.service.UpdateProperty(data);
-    }
-    Getfarmers(data) {
-        return this.service.Getfarmers(data);
-    }
-    Addfarmer(data) {
-        return this.service.Addfarmer(data);
-    }
-    Removefarmer(data) {
-        return this.service.Removefarmer(data);
-    }
-};
-__decorate([
-    (0, common_1.Post)('CreateCooperative'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateCooperativeDto !== "undefined" && dto_1.CreateCooperativeDto) === "function" ? _b : Object]),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
-], CooperativeController.prototype, "CreateCooperative", null);
-__decorate([
-    (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
-    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
-], CooperativeController.prototype, "FindByid", null);
-__decorate([
-    (0, common_1.Post)('FindByworkerProfileId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
-    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
-], CooperativeController.prototype, "FindByworkerProfileId", null);
-__decorate([
-    (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_h = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _h : Object]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
-], CooperativeController.prototype, "UpdateProperty", null);
-__decorate([
-    (0, common_1.Post)('Getfarmers'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
-], CooperativeController.prototype, "Getfarmers", null);
-__decorate([
-    (0, common_1.Post)('Addfarmer'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _m : Object]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
-], CooperativeController.prototype, "Addfarmer", null);
-__decorate([
-    (0, common_1.Post)('Removefarmer'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
-], CooperativeController.prototype, "Removefarmer", null);
-CooperativeController = __decorate([
-    (0, common_1.Controller)('cooperative'),
-    (0, swagger_1.ApiTags)('cooperative'),
-    __metadata("design:paramtypes", [typeof (_a = typeof cooperative_service_1.CooperativeService !== "undefined" && cooperative_service_1.CooperativeService) === "function" ? _a : Object])
-], CooperativeController);
-exports.CooperativeController = CooperativeController;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/cooperative/cooperative.module.ts":
-/*!*********************************************************************!*\
-  !*** ./apps/extension-worker/src/cooperative/cooperative.module.ts ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CooperativeModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const cooperative_controller_1 = __webpack_require__(/*! ./cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
-const cooperative_service_1 = __webpack_require__(/*! ./cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let CooperativeModule = class CooperativeModule {
-};
-CooperativeModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [cooperative_controller_1.CooperativeController],
-        providers: [cooperative_service_1.CooperativeService, db_service_1.DbService]
-    })
-], CooperativeModule);
-exports.CooperativeModule = CooperativeModule;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/cooperative/cooperative.service.ts":
-/*!**********************************************************************!*\
-  !*** ./apps/extension-worker/src/cooperative/cooperative.service.ts ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CooperativeService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let CooperativeService = class CooperativeService {
-    constructor(db) {
-        this.db = db;
-    }
-    async CreateCooperative(data) {
-        try {
-            let lga = await this.db.localGovernment.create({
-                data: {
-                    name: data['name'],
-                },
-            });
-            let query = await this.db.cooperative.create({
-                data: {
-                    workerProfileId: data['workerProfileId'],
-                    localGovernmentId: lga['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindByid(data) {
-        try {
-            let query = await this.db.cooperative.findFirstOrThrow({
-                where: {
-                    id: data['properties']['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async FindByworkerProfileId(data) {
-        try {
-            let query = await this.db.cooperative.findFirstOrThrow({
-                where: {
-                    id: data['properties']['workerProfileId'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async UpdateProperty(data) {
-        try {
-            let query = data['properties']['localGovernmentId'] !== undefined
-                ? await this.db.cooperative.update({
-                    where: {
-                        id: data['properties']['id'],
-                    },
-                    data: {
-                        localGovernmentId: data['properties']['localGovernmentId'],
-                    },
-                })
-                : data['properties']['workerProfileId'] !== undefined
-                    ? await this.db.cooperative.update({
-                        where: {
-                            id: data['properties']['id'],
-                        },
-                        data: {
-                            localGovernmentId: data['properties']['workerProfileId'],
-                        },
-                    })
-                    : new common_1.BadRequestException('pass in a valid prop');
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Getfarmers(data) {
-        try {
-            let query = await this.db.farmerProfile.findMany({
-                where: {
-                    cooperativeId: data['properties']['id'],
-                },
-            });
-            return query;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Addfarmer(data) {
-        try {
-            let query = await this.db.cooperative.update({
-                where: {
-                    id: data['properties']['id'],
-                },
-                data: {
-                    farmers: {
-                        connect: {
-                            id: data['properties']['farmerProfileId'],
-                        },
-                    },
-                },
-            });
-            let farmers = await this.db.farmerProfile.findMany({
-                where: {
-                    cooperativeId: query['id'],
-                },
-            });
-            return farmers;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-    async Removefarmer(data) {
-        try {
-            let cooperative = await this.db.cooperative.findFirstOrThrow({
-                where: {
-                    id: data['properties']['workerProfileId'],
-                },
-            });
-            let query = await this.db.cooperative.update({
-                where: {
-                    id: cooperative['id'],
-                },
-                data: {
-                    farmers: {
-                        disconnect: {
-                            id: data['properties']['farmerProfileId'],
-                        },
-                    },
-                },
-            });
-            return cooperative;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(error);
-        }
-    }
-};
-CooperativeService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
-], CooperativeService);
-exports.CooperativeService = CooperativeService;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/cooperative/dto/dto.ts":
-/*!**********************************************************!*\
-  !*** ./apps/extension-worker/src/cooperative/dto/dto.ts ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/cooperative/dto/find_dto.ts":
-/*!***************************************************************!*\
-  !*** ./apps/extension-worker/src/cooperative/dto/find_dto.ts ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/cooperative/dto/update_dto.ts":
-/*!*****************************************************************!*\
-  !*** ./apps/extension-worker/src/cooperative/dto/update_dto.ts ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/crop/crop.controller.ts":
-/*!***********************************************************!*\
-  !*** ./apps/extension-worker/src/crop/crop.controller.ts ***!
-  \***********************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CropController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-let CropController = class CropController {
-};
-CropController = __decorate([
-    (0, common_1.Controller)('crop'),
-    (0, swagger_1.ApiTags)('crop')
-], CropController);
-exports.CropController = CropController;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/crop/crop.module.ts":
-/*!*******************************************************!*\
-  !*** ./apps/extension-worker/src/crop/crop.module.ts ***!
-  \*******************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CropModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const crop_controller_1 = __webpack_require__(/*! ./crop.controller */ "./apps/extension-worker/src/crop/crop.controller.ts");
-let CropModule = class CropModule {
-};
-CropModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [crop_controller_1.CropController]
-    })
-], CropModule);
-exports.CropModule = CropModule;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/extension-worker/extension-worker.controller.ts":
-/*!***********************************************************************************!*\
-  !*** ./apps/extension-worker/src/extension-worker/extension-worker.controller.ts ***!
-  \***********************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ExtensionWorkerController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const login_auth_dto_1 = __webpack_require__(/*! @app/lib/auth/dto/login-auth.dto */ "./libs/lib/src/auth/dto/login-auth.dto.ts");
-const dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
-const worker_service_1 = __webpack_require__(/*! ./worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const extension_worker_guard_1 = __webpack_require__(/*! @app/lib/auth/extension-worker.guard */ "./libs/lib/src/auth/extension-worker.guard.ts");
-let ExtensionWorkerController = class ExtensionWorkerController {
-    constructor(worker) {
-        this.worker = worker;
-    }
-    UpdatePassword(data) {
-        return this.worker.UpdatePassword(data);
-    }
-    FindById(data) {
-        return this.worker.FindById(data);
-    }
-    FindByPhone_Number(data) {
-        return this.worker.FindByPhone_Number(data);
-    }
-    FindByFirst_name(data) {
-        return this.worker.FindByFirst_name(data);
-    }
-    UpdateFirstName(data) {
-        return this.worker.UpdateFirstName(data);
-    }
-    UpdateLastName(data) {
-        return this.worker.UpdateLastName(data);
-    }
-    UpdatePhoneNumber(data) {
-        return this.worker.UpdatePhoneNumber(data);
-    }
-    CreateResource(data) {
-        throw new Error('Method not implemented.');
-    }
-    FindByEmail(data) {
-        return this.worker.FindByEmail(data);
-    }
-    SignOut() {
-        return this.worker.SignOut();
-    }
-};
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
-], ExtensionWorkerController.prototype, "UpdatePassword", null);
-__decorate([
-    (0, common_1.Post)('FindById'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
-    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
-], ExtensionWorkerController.prototype, "FindById", null);
-__decorate([
-    (0, common_1.Post)('FindByPhone_Number'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
-    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
-], ExtensionWorkerController.prototype, "FindByPhone_Number", null);
-__decorate([
-    (0, common_1.Post)('FindByFirst_name'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
-], ExtensionWorkerController.prototype, "FindByFirst_name", null);
-__decorate([
-    (0, common_1.Post)('UpdateFirstName'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
-], ExtensionWorkerController.prototype, "UpdateFirstName", null);
-__decorate([
-    (0, common_1.Post)('UpdateLastName'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
-], ExtensionWorkerController.prototype, "UpdateLastName", null);
-__decorate([
-    (0, common_1.Post)('UpdatePhoneNumber'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_p = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _p : Object]),
-    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
-], ExtensionWorkerController.prototype, "UpdatePhoneNumber", null);
-__decorate([
-    (0, common_1.Post)('FindByEmail'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_r = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _r : Object]),
-    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
-], ExtensionWorkerController.prototype, "FindByEmail", null);
-ExtensionWorkerController = __decorate([
-    (0, common_1.Controller)('extension-worker'),
-    (0, swagger_1.ApiTags)('Extension Worker'),
-    (0, common_1.UseGuards)(extension_worker_guard_1.ExtensionWorkerGuard),
-    __metadata("design:paramtypes", [typeof (_a = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _a : Object])
-], ExtensionWorkerController);
-exports.ExtensionWorkerController = ExtensionWorkerController;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/extension-worker/extension-worker.module.ts":
-/*!*******************************************************************************!*\
-  !*** ./apps/extension-worker/src/extension-worker/extension-worker.module.ts ***!
-  \*******************************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ExtensionWorkerModule = void 0;
-const auth_controller_1 = __webpack_require__(/*! @app/lib/auth/auth.controller */ "./libs/lib/src/auth/auth.controller.ts");
-const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
-const farmer_service_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
-const worker_service_1 = __webpack_require__(/*! ./worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
-const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-const extension_worker_controller_1 = __webpack_require__(/*! ./extension-worker.controller */ "./apps/extension-worker/src/extension-worker/extension-worker.controller.ts");
-const Intervention_module_1 = __webpack_require__(/*! ../Intervention/Intervention.module */ "./apps/extension-worker/src/Intervention/Intervention.module.ts");
-const cooperative_module_1 = __webpack_require__(/*! ../cooperative/cooperative.module */ "./apps/extension-worker/src/cooperative/cooperative.module.ts");
-const crop_module_1 = __webpack_require__(/*! ../crop/crop.module */ "./apps/extension-worker/src/crop/crop.module.ts");
-const milestone_module_1 = __webpack_require__(/*! ../milestone/milestone.module */ "./apps/extension-worker/src/milestone/milestone.module.ts");
-const profile_module_1 = __webpack_require__(/*! ../profile/profile.module */ "./apps/extension-worker/src/profile/profile.module.ts");
-const project_module_1 = __webpack_require__(/*! ../project/project.module */ "./apps/extension-worker/src/project/project.module.ts");
-const report_module_1 = __webpack_require__(/*! ../report/report.module */ "./apps/extension-worker/src/report/report.module.ts");
-const project_controller_1 = __webpack_require__(/*! ../project/project.controller */ "./apps/extension-worker/src/project/project.controller.ts");
-const milestone_controller_1 = __webpack_require__(/*! ../milestone/milestone.controller */ "./apps/extension-worker/src/milestone/milestone.controller.ts");
-const cooperative_controller_1 = __webpack_require__(/*! ../cooperative/cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
-const farmer_controller_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
-const milestone_service_1 = __webpack_require__(/*! ../milestone/milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
-const challenge_module_1 = __webpack_require__(/*! ../challenge/challenge.module */ "./apps/extension-worker/src/challenge/challenge.module.ts");
-const cooperative_service_1 = __webpack_require__(/*! ../cooperative/cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
-const project_service_1 = __webpack_require__(/*! ../project/project.service */ "./apps/extension-worker/src/project/project.service.ts");
-const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
-const visit_module_1 = __webpack_require__(/*! ../visit/visit.module */ "./apps/extension-worker/src/visit/visit.module.ts");
-let ExtensionWorkerModule = class ExtensionWorkerModule {
-};
-ExtensionWorkerModule = __decorate([
-    (0, common_1.Module)({
-        imports: [
-            Intervention_module_1.InterventionModule,
-            cooperative_module_1.CooperativeModule,
-            crop_module_1.CropModule,
-            milestone_module_1.MilestoneModule,
-            project_module_1.ProjectModule,
-            report_module_1.ReportModule,
-            profile_module_1.ProfileModule,
-            challenge_module_1.ChallengeModule,
-            visit_module_1.VisitModule,
-            Intervention_module_1.InterventionModule
-        ],
-        controllers: [
-            auth_controller_1.AuthController,
-            extension_worker_controller_1.ExtensionWorkerController,
-            milestone_controller_1.MilestoneController,
-            cooperative_controller_1.CooperativeController,
-            farmer_controller_1.FarmerController,
-            project_controller_1.ProjectController,
-        ],
-        providers: [
-            auth_service_1.AuthService,
-            farmer_service_1.FarmerService,
-            admin_service_1.AdminService,
-            worker_service_1.WorkerService,
-            jwt_1.JwtService,
-            db_service_1.DbService,
-            milestone_service_1.MilestoneService,
-            cooperative_service_1.CooperativeService,
-            project_service_1.ProjectService,
-            profile_service_1.ProfileService
-        ],
-    })
-], ExtensionWorkerModule);
-exports.ExtensionWorkerModule = ExtensionWorkerModule;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/extension-worker/worker.service.ts":
-/*!**********************************************************************!*\
-  !*** ./apps/extension-worker/src/extension-worker/worker.service.ts ***!
-  \**********************************************************************/
+/* 10 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1507,8 +777,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.WorkerService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(4);
+const db_service_1 = __webpack_require__(7);
 let WorkerService = class WorkerService {
     constructor(db) {
         this.db = db;
@@ -1669,11 +939,19 @@ exports.WorkerService = WorkerService;
 
 
 /***/ }),
+/* 11 */
+/***/ ((module) => {
 
-/***/ "./apps/extension-worker/src/milestone/dto/dto.ts":
-/*!********************************************************!*\
-  !*** ./apps/extension-worker/src/milestone/dto/dto.ts ***!
-  \********************************************************/
+module.exports = require("argon2");
+
+/***/ }),
+/* 12 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/jwt");
+
+/***/ }),
+/* 13 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1686,76 +964,1128 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateMilestoneDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class CreateMilestoneDto {
+exports.CreateUserDto = void 0;
+const client_1 = __webpack_require__(8);
+const class_validator_1 = __webpack_require__(14);
+const swagger_1 = __webpack_require__(15);
+class CreateUserDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Array)
-], CreateMilestoneDto.prototype, "Farmers", void 0);
-__decorate([
+    (0, class_validator_1.IsString)(),
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateMilestoneDto.prototype, "text", void 0);
+], CreateUserDto.prototype, "password", void 0);
 __decorate([
+    (0, class_validator_1.IsString)(),
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateMilestoneDto.prototype, "start_date", void 0);
+], CreateUserDto.prototype, "first_name", void 0);
 __decorate([
+    (0, class_validator_1.IsString)(),
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateMilestoneDto.prototype, "end_date", void 0);
+], CreateUserDto.prototype, "last_name", void 0);
 __decorate([
+    (0, class_validator_1.IsEmail)(),
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateMilestoneDto.prototype, "recommendationId", void 0);
+], CreateUserDto.prototype, "email", void 0);
 __decorate([
+    (0, class_validator_1.IsPhoneNumber)('NG'),
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateMilestoneDto.prototype, "projectId", void 0);
-exports.CreateMilestoneDto = CreateMilestoneDto;
+], CreateUserDto.prototype, "phone_number", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(client_1.UserType),
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], CreateUserDto.prototype, "type", void 0);
+exports.CreateUserDto = CreateUserDto;
 
 
 /***/ }),
+/* 14 */
+/***/ ((module) => {
 
-/***/ "./apps/extension-worker/src/milestone/dto/find_dto.ts":
-/*!*************************************************************!*\
-  !*** ./apps/extension-worker/src/milestone/dto/find_dto.ts ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+module.exports = require("@nestjs/class-validator");
+
+/***/ }),
+/* 15 */
+/***/ ((module) => {
+
+module.exports = require("@nestjs/swagger");
+
+/***/ }),
+/* 16 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FindDto = void 0;
-class FindDto {
+exports.ValidationDto = void 0;
+const class_validator_1 = __webpack_require__(14);
+const swagger_1 = __webpack_require__(15);
+const client_1 = __webpack_require__(8);
+class ValidationDto {
 }
-exports.FindDto = FindDto;
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], ValidationDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], ValidationDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(client_1.UserType),
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], ValidationDto.prototype, "type", void 0);
+exports.ValidationDto = ValidationDto;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/milestone/dto/update_dto.ts":
-/*!***************************************************************!*\
-  !*** ./apps/extension-worker/src/milestone/dto/update_dto.ts ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/* 17 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateDto = void 0;
+const swagger_1 = __webpack_require__(15);
+const client_1 = __webpack_require__(8);
 class UpdateDto {
 }
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], UpdateDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], UpdateDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'new value for the property',
+    }),
+    __metadata("design:type", Object)
+], UpdateDto.prototype, "new_value", void 0);
 exports.UpdateDto = UpdateDto;
 
 
 /***/ }),
+/* 18 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./apps/extension-worker/src/milestone/milestone.controller.ts":
-/*!*********************************************************************!*\
-  !*** ./apps/extension-worker/src/milestone/milestone.controller.ts ***!
-  \*********************************************************************/
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ExtensionWorkerController = void 0;
+const common_1 = __webpack_require__(4);
+const login_auth_dto_1 = __webpack_require__(16);
+const dto_1 = __webpack_require__(17);
+const find_dto_1 = __webpack_require__(19);
+const worker_service_1 = __webpack_require__(10);
+const swagger_1 = __webpack_require__(15);
+const extension_worker_guard_1 = __webpack_require__(20);
+let ExtensionWorkerController = class ExtensionWorkerController {
+    constructor(worker) {
+        this.worker = worker;
+    }
+    UpdatePassword(data) {
+        return this.worker.UpdatePassword(data);
+    }
+    FindById(data) {
+        return this.worker.FindById(data);
+    }
+    FindByPhone_Number(data) {
+        return this.worker.FindByPhone_Number(data);
+    }
+    FindByFirst_name(data) {
+        return this.worker.FindByFirst_name(data);
+    }
+    UpdateFirstName(data) {
+        return this.worker.UpdateFirstName(data);
+    }
+    UpdateLastName(data) {
+        return this.worker.UpdateLastName(data);
+    }
+    UpdatePhoneNumber(data) {
+        return this.worker.UpdatePhoneNumber(data);
+    }
+    CreateResource(data) {
+        throw new Error('Method not implemented.');
+    }
+    FindByEmail(data) {
+        return this.worker.FindByEmail(data);
+    }
+    SignOut() {
+        return this.worker.SignOut();
+    }
+};
+__decorate([
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], ExtensionWorkerController.prototype, "UpdatePassword", null);
+__decorate([
+    (0, common_1.Post)('FindById'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], ExtensionWorkerController.prototype, "FindById", null);
+__decorate([
+    (0, common_1.Post)('FindByPhone_Number'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], ExtensionWorkerController.prototype, "FindByPhone_Number", null);
+__decorate([
+    (0, common_1.Post)('FindByFirst_name'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], ExtensionWorkerController.prototype, "FindByFirst_name", null);
+__decorate([
+    (0, common_1.Post)('UpdateFirstName'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_k = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], ExtensionWorkerController.prototype, "UpdateFirstName", null);
+__decorate([
+    (0, common_1.Post)('UpdateLastName'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+], ExtensionWorkerController.prototype, "UpdateLastName", null);
+__decorate([
+    (0, common_1.Post)('UpdatePhoneNumber'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_p = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+], ExtensionWorkerController.prototype, "UpdatePhoneNumber", null);
+__decorate([
+    (0, common_1.Post)('FindByEmail'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_r = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+], ExtensionWorkerController.prototype, "FindByEmail", null);
+ExtensionWorkerController = __decorate([
+    (0, common_1.Controller)('extension-worker'),
+    (0, swagger_1.ApiTags)('Extension Worker'),
+    (0, common_1.UseGuards)(extension_worker_guard_1.ExtensionWorkerGuard),
+    __metadata("design:paramtypes", [typeof (_a = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _a : Object])
+], ExtensionWorkerController);
+exports.ExtensionWorkerController = ExtensionWorkerController;
+
+
+/***/ }),
+/* 19 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+const swagger_1 = __webpack_require__(15);
+const client_1 = __webpack_require__(8);
+class FindDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FindDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], FindDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Object)
+], FindDto.prototype, "property", void 0);
+exports.FindDto = FindDto;
+
+
+/***/ }),
+/* 20 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ExtensionWorkerGuard = void 0;
+const common_1 = __webpack_require__(4);
+let ExtensionWorkerGuard = class ExtensionWorkerGuard {
+    canActivate(context) {
+        try {
+            const type = context.switchToHttp().getRequest()['body']['type'];
+            const valid = type == 'EXTENSION_WORKER' ? true : false;
+            if (valid == false) {
+                throw new common_1.ForbiddenException('wrong server');
+            }
+            else {
+                return valid;
+            }
+        }
+        catch (error) {
+            throw new common_1.ForbiddenException('wrong server');
+        }
+    }
+};
+ExtensionWorkerGuard = __decorate([
+    (0, common_1.Injectable)()
+], ExtensionWorkerGuard);
+exports.ExtensionWorkerGuard = ExtensionWorkerGuard;
+
+
+/***/ }),
+/* 21 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InterventionModule = void 0;
+const common_1 = __webpack_require__(4);
+const Intervention_controller_1 = __webpack_require__(22);
+const intervention_service_1 = __webpack_require__(26);
+const db_service_1 = __webpack_require__(7);
+let InterventionModule = class InterventionModule {
+};
+InterventionModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [Intervention_controller_1.InterventionController],
+        providers: [intervention_service_1.InterventionService, db_service_1.DbService],
+    })
+], InterventionModule);
+exports.InterventionModule = InterventionModule;
+
+
+/***/ }),
+/* 22 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InterventionController = void 0;
+const common_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(15);
+const dto_1 = __webpack_require__(23);
+const find_dto_1 = __webpack_require__(24);
+const update_dto_1 = __webpack_require__(25);
+const intervention_service_1 = __webpack_require__(26);
+let InterventionController = class InterventionController {
+    constructor(service) {
+        this.service = service;
+    }
+    createIntervention(data) {
+        return this.service.createIntervention(data);
+    }
+    findById(data) {
+        return this.service.findById(data);
+    }
+    findByAmount(data) {
+        return this.service.findByAmount(data);
+    }
+    findByType(data) {
+        return this.service.findByType(data);
+    }
+    findByFarmerProfileId(data) {
+        return this.service.findByFarmerProfileId(data);
+    }
+    findByProjectId(data) {
+        return this.service.findByProjectId(data);
+    }
+    updateProperty(data) {
+        return this.service.updateProperty(data);
+    }
+};
+__decorate([
+    (0, common_1.Post)('createIntervention'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateInterventionDto !== "undefined" && dto_1.CreateInterventionDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], InterventionController.prototype, "createIntervention", null);
+__decorate([
+    (0, common_1.Post)('findById'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], InterventionController.prototype, "findById", null);
+__decorate([
+    (0, common_1.Post)('findByAmount'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], InterventionController.prototype, "findByAmount", null);
+__decorate([
+    (0, common_1.Post)('findByType'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], InterventionController.prototype, "findByType", null);
+__decorate([
+    (0, common_1.Post)('findByFarmerProfileId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], InterventionController.prototype, "findByFarmerProfileId", null);
+__decorate([
+    (0, common_1.Post)('findByProjectId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+], InterventionController.prototype, "findByProjectId", null);
+__decorate([
+    (0, common_1.Post)('updateProperty'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_p = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+], InterventionController.prototype, "updateProperty", null);
+InterventionController = __decorate([
+    (0, common_1.Controller)('Intervention'),
+    (0, swagger_1.ApiTags)('Intervention'),
+    __metadata("design:paramtypes", [typeof (_a = typeof intervention_service_1.InterventionService !== "undefined" && intervention_service_1.InterventionService) === "function" ? _a : Object])
+], InterventionController);
+exports.InterventionController = InterventionController;
+
+
+/***/ }),
+/* 23 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 24 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+const swagger_1 = __webpack_require__(15);
+class FindDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FindDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
+], FindDto.prototype, "properties", void 0);
+exports.FindDto = FindDto;
+
+
+/***/ }),
+/* 25 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+const swagger_1 = __webpack_require__(15);
+class UpdateDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], UpdateDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
+], UpdateDto.prototype, "properties", void 0);
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+/* 26 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InterventionService = void 0;
+const db_service_1 = __webpack_require__(7);
+const common_1 = __webpack_require__(4);
+let InterventionService = class InterventionService {
+    constructor(db) {
+        this.db = db;
+    }
+    async createIntervention(data) {
+        try {
+            let query = await this.db.intervention.create({
+                data: {
+                    custom_field: data['custom_field'],
+                    type: data['type'],
+                    amount: data['amount'],
+                    farmerProfileId: data['farmerProfileId'],
+                    projectId: data['projectId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findById(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findByAmount(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    amount: data['properties']['amount'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findByType(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: data['properties']['type'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findByFarmerProfileId(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    farmerProfileId: data['properties']['farmerProfileId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async findByProjectId(data) {
+        try {
+            let query = await this.db.intervention.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    projectId: data['properties']['projectId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async updateProperty(data) {
+        try {
+            let query = data['properties']['amount'] !== undefined
+                ? await this.db.intervention.update({
+                    where: {
+                        id: data['id'],
+                    },
+                    data: {
+                        amount: data['properties']['amount'],
+                    },
+                })
+                : data['properties']['farmerProfileId'] !== undefined
+                    ? await this.db.intervention.update({
+                        where: {
+                            id: data['id'],
+                        },
+                        data: {
+                            farmerProfileId: data['properties']['farmerProfileId'],
+                        },
+                    })
+                    : data['properties']['projectId'] !== undefined
+                        ? await this.db.intervention.update({
+                            where: {
+                                id: data['id'],
+                            },
+                            data: {
+                                projectId: data['properties']['projectId'],
+                            },
+                        })
+                        : data['properties']['type'] !== undefined
+                            ? await this.db.intervention.update({
+                                where: {
+                                    id: data['id'],
+                                },
+                                data: {
+                                    type: data['properties']['type'],
+                                },
+                            })
+                            : data['properties']['custom_field'] !== undefined
+                                ? await this.db.intervention.update({
+                                    where: {
+                                        id: data['id'],
+                                    },
+                                    data: {
+                                        custom_field: data['properties']['custom_field'],
+                                    },
+                                })
+                                : new common_1.BadRequestException('pass in a valid prop');
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+};
+InterventionService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], InterventionService);
+exports.InterventionService = InterventionService;
+
+
+/***/ }),
+/* 27 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CooperativeModule = void 0;
+const common_1 = __webpack_require__(4);
+const cooperative_controller_1 = __webpack_require__(28);
+const cooperative_service_1 = __webpack_require__(32);
+const db_service_1 = __webpack_require__(7);
+let CooperativeModule = class CooperativeModule {
+};
+CooperativeModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [cooperative_controller_1.CooperativeController],
+        providers: [cooperative_service_1.CooperativeService, db_service_1.DbService]
+    })
+], CooperativeModule);
+exports.CooperativeModule = CooperativeModule;
+
+
+/***/ }),
+/* 28 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CooperativeController = void 0;
+const common_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(15);
+const dto_1 = __webpack_require__(29);
+const find_dto_1 = __webpack_require__(30);
+const update_dto_1 = __webpack_require__(31);
+const cooperative_service_1 = __webpack_require__(32);
+let CooperativeController = class CooperativeController {
+    constructor(service) {
+        this.service = service;
+    }
+    CreateCooperative(data) {
+        return this.service.CreateCooperative(data);
+    }
+    FindByid(data) {
+        return this.service.FindByid(data);
+    }
+    FindByworkerProfileId(data) {
+        return this.service.FindByworkerProfileId(data);
+    }
+    UpdateProperty(data) {
+        return this.service.UpdateProperty(data);
+    }
+    Getfarmers(data) {
+        return this.service.Getfarmers(data);
+    }
+    Addfarmer(data) {
+        return this.service.Addfarmer(data);
+    }
+    Removefarmer(data) {
+        return this.service.Removefarmer(data);
+    }
+};
+__decorate([
+    (0, common_1.Post)('CreateCooperative'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateCooperativeDto !== "undefined" && dto_1.CreateCooperativeDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], CooperativeController.prototype, "CreateCooperative", null);
+__decorate([
+    (0, common_1.Post)('FindByid'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], CooperativeController.prototype, "FindByid", null);
+__decorate([
+    (0, common_1.Post)('FindByworkerProfileId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], CooperativeController.prototype, "FindByworkerProfileId", null);
+__decorate([
+    (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], CooperativeController.prototype, "UpdateProperty", null);
+__decorate([
+    (0, common_1.Post)('Getfarmers'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], CooperativeController.prototype, "Getfarmers", null);
+__decorate([
+    (0, common_1.Post)('Addfarmer'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_m = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+], CooperativeController.prototype, "Addfarmer", null);
+__decorate([
+    (0, common_1.Post)('Removefarmer'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
+], CooperativeController.prototype, "Removefarmer", null);
+CooperativeController = __decorate([
+    (0, common_1.Controller)('cooperative'),
+    (0, swagger_1.ApiTags)('cooperative'),
+    __metadata("design:paramtypes", [typeof (_a = typeof cooperative_service_1.CooperativeService !== "undefined" && cooperative_service_1.CooperativeService) === "function" ? _a : Object])
+], CooperativeController);
+exports.CooperativeController = CooperativeController;
+
+
+/***/ }),
+/* 29 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 30 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 31 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 32 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CooperativeService = void 0;
+const common_1 = __webpack_require__(4);
+const db_service_1 = __webpack_require__(7);
+let CooperativeService = class CooperativeService {
+    constructor(db) {
+        this.db = db;
+    }
+    async CreateCooperative(data) {
+        try {
+            let lga = await this.db.localGovernment.create({
+                data: {
+                    name: data['name'],
+                },
+            });
+            let query = await this.db.cooperative.create({
+                data: {
+                    workerProfileId: data['workerProfileId'],
+                    localGovernmentId: lga['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindByid(data) {
+        try {
+            let query = await this.db.cooperative.findFirstOrThrow({
+                where: {
+                    id: data['properties']['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindByworkerProfileId(data) {
+        try {
+            let query = await this.db.cooperative.findFirstOrThrow({
+                where: {
+                    id: data['properties']['workerProfileId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async UpdateProperty(data) {
+        try {
+            let query = data['properties']['localGovernmentId'] !== undefined
+                ? await this.db.cooperative.update({
+                    where: {
+                        id: data['properties']['id'],
+                    },
+                    data: {
+                        localGovernmentId: data['properties']['localGovernmentId'],
+                    },
+                })
+                : data['properties']['workerProfileId'] !== undefined
+                    ? await this.db.cooperative.update({
+                        where: {
+                            id: data['properties']['id'],
+                        },
+                        data: {
+                            localGovernmentId: data['properties']['workerProfileId'],
+                        },
+                    })
+                    : new common_1.BadRequestException('pass in a valid prop');
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async Getfarmers(data) {
+        try {
+            let query = await this.db.farmerProfile.findMany({
+                where: {
+                    cooperativeId: data['properties']['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async Addfarmer(data) {
+        try {
+            let query = await this.db.cooperative.update({
+                where: {
+                    id: data['properties']['id'],
+                },
+                data: {
+                    farmers: {
+                        connect: {
+                            id: data['properties']['farmerProfileId'],
+                        },
+                    },
+                },
+            });
+            let farmers = await this.db.farmerProfile.findMany({
+                where: {
+                    cooperativeId: query['id'],
+                },
+            });
+            return farmers;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async Removefarmer(data) {
+        try {
+            let cooperative = await this.db.cooperative.findFirstOrThrow({
+                where: {
+                    id: data['properties']['workerProfileId'],
+                },
+            });
+            let query = await this.db.cooperative.update({
+                where: {
+                    id: cooperative['id'],
+                },
+                data: {
+                    farmers: {
+                        disconnect: {
+                            id: data['properties']['farmerProfileId'],
+                        },
+                    },
+                },
+            });
+            return cooperative;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+};
+CooperativeService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], CooperativeService);
+exports.CooperativeService = CooperativeService;
+
+
+/***/ }),
+/* 33 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CropModule = void 0;
+const common_1 = __webpack_require__(4);
+const crop_controller_1 = __webpack_require__(34);
+let CropModule = class CropModule {
+};
+CropModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [crop_controller_1.CropController]
+    })
+], CropModule);
+exports.CropModule = CropModule;
+
+
+/***/ }),
+/* 34 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CropController = void 0;
+const common_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(15);
+let CropController = class CropController {
+};
+CropController = __decorate([
+    (0, common_1.Controller)('crop'),
+    (0, swagger_1.ApiTags)('crop')
+], CropController);
+exports.CropController = CropController;
+
+
+/***/ }),
+/* 35 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MilestoneModule = void 0;
+const common_1 = __webpack_require__(4);
+const milestone_controller_1 = __webpack_require__(36);
+const milestone_service_1 = __webpack_require__(40);
+const db_service_1 = __webpack_require__(7);
+let MilestoneModule = class MilestoneModule {
+};
+MilestoneModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [milestone_controller_1.MilestoneController],
+        providers: [milestone_service_1.MilestoneService, db_service_1.DbService]
+    })
+], MilestoneModule);
+exports.MilestoneModule = MilestoneModule;
+
+
+/***/ }),
+/* 36 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1774,12 +2104,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MilestoneController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/milestone/dto/find_dto.ts");
-const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/milestone/dto/update_dto.ts");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/milestone/dto/dto.ts");
-const milestone_service_1 = __webpack_require__(/*! ./milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
+const common_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(15);
+const find_dto_1 = __webpack_require__(37);
+const update_dto_1 = __webpack_require__(38);
+const dto_1 = __webpack_require__(39);
+const milestone_service_1 = __webpack_require__(40);
 let MilestoneController = class MilestoneController {
     constructor(milestone) {
         this.milestone = milestone;
@@ -1894,11 +2224,31 @@ exports.MilestoneController = MilestoneController;
 
 
 /***/ }),
+/* 37 */
+/***/ ((__unused_webpack_module, exports) => {
 
-/***/ "./apps/extension-worker/src/milestone/milestone.module.ts":
-/*!*****************************************************************!*\
-  !*** ./apps/extension-worker/src/milestone/milestone.module.ts ***!
-  \*****************************************************************/
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+class FindDto {
+}
+exports.FindDto = FindDto;
+
+
+/***/ }),
+/* 38 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+class UpdateDto {
+}
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+/* 39 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1908,29 +2258,43 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.MilestoneModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const milestone_controller_1 = __webpack_require__(/*! ./milestone.controller */ "./apps/extension-worker/src/milestone/milestone.controller.ts");
-const milestone_service_1 = __webpack_require__(/*! ./milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let MilestoneModule = class MilestoneModule {
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-MilestoneModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [milestone_controller_1.MilestoneController],
-        providers: [milestone_service_1.MilestoneService, db_service_1.DbService]
-    })
-], MilestoneModule);
-exports.MilestoneModule = MilestoneModule;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateMilestoneDto = void 0;
+const swagger_1 = __webpack_require__(15);
+class CreateMilestoneDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Array)
+], CreateMilestoneDto.prototype, "Farmers", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "text", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "start_date", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "end_date", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "recommendationId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "projectId", void 0);
+exports.CreateMilestoneDto = CreateMilestoneDto;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/milestone/milestone.service.ts":
-/*!******************************************************************!*\
-  !*** ./apps/extension-worker/src/milestone/milestone.service.ts ***!
-  \******************************************************************/
+/* 40 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1946,8 +2310,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MilestoneService = void 0;
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(7);
+const common_1 = __webpack_require__(4);
 let MilestoneService = class MilestoneService {
     constructor(db) {
         this.db = db;
@@ -2134,11 +2498,7 @@ exports.MilestoneService = MilestoneService;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/profile/dto/dto.ts":
-/*!******************************************************!*\
-  !*** ./apps/extension-worker/src/profile/dto/dto.ts ***!
-  \******************************************************/
+/* 41 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2148,153 +2508,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateProfileDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
-class CreateProfileDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], CreateProfileDto.prototype, "age", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.Gender,
-    }),
-    __metadata("design:type", typeof (_a = typeof client_1.Gender !== "undefined" && client_1.Gender) === "function" ? _a : Object)
-], CreateProfileDto.prototype, "sex", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateProfileDto.prototype, "birthday", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateProfileDto.prototype, "address", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.Religion,
-    }),
-    __metadata("design:type", typeof (_b = typeof client_1.Religion !== "undefined" && client_1.Religion) === "function" ? _b : Object)
-], CreateProfileDto.prototype, "religion", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.Marital,
-    }),
-    __metadata("design:type", typeof (_c = typeof client_1.Marital !== "undefined" && client_1.Marital) === "function" ? _c : Object)
-], CreateProfileDto.prototype, "maritalStatus", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        description: 'the id of the base user',
-    }),
-    __metadata("design:type", String)
-], CreateProfileDto.prototype, "userId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateProfileDto.prototype, "about", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_d = typeof Buffer !== "undefined" && Buffer) === "function" ? _d : Object)
-], CreateProfileDto.prototype, "photo", void 0);
-exports.CreateProfileDto = CreateProfileDto;
+exports.ProfileModule = void 0;
+const common_1 = __webpack_require__(4);
+const profile_controller_1 = __webpack_require__(42);
+const profile_service_1 = __webpack_require__(48);
+const db_service_1 = __webpack_require__(7);
+let ProfileModule = class ProfileModule {
+};
+ProfileModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [profile_controller_1.ProfileController],
+        providers: [profile_service_1.ProfileService, db_service_1.DbService],
+    })
+], ProfileModule);
+exports.ProfileModule = ProfileModule;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/profile/dto/find_dto.ts":
-/*!***********************************************************!*\
-  !*** ./apps/extension-worker/src/profile/dto/find_dto.ts ***!
-  \***********************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FindDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
-class FindDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], FindDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.UserType,
-    }),
-    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
-], FindDto.prototype, "type", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Object)
-], FindDto.prototype, "property", void 0);
-exports.FindDto = FindDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/profile/dto/update_dto.ts":
-/*!*************************************************************!*\
-  !*** ./apps/extension-worker/src/profile/dto/update_dto.ts ***!
-  \*************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a, _b;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
-class UpdateDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], UpdateDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.UserType,
-    }),
-    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
-], UpdateDto.prototype, "type", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object)
-], UpdateDto.prototype, "new_value", void 0);
-exports.UpdateDto = UpdateDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/profile/profile.controller.ts":
-/*!*****************************************************************!*\
-  !*** ./apps/extension-worker/src/profile/profile.controller.ts ***!
-  \*****************************************************************/
+/* 42 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2313,51 +2545,51 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProfileController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ../cooperative/dto/dto */ "./apps/extension-worker/src/cooperative/dto/dto.ts");
-const dto_2 = __webpack_require__(/*! ../project/dto/dto */ "./apps/extension-worker/src/project/dto/dto.ts");
-const dto_3 = __webpack_require__(/*! ../report/dto/dto */ "./apps/extension-worker/src/report/dto/dto.ts");
-const dto_4 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/profile/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/profile/dto/find_dto.ts");
-const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/profile/dto/update_dto.ts");
-const profile_service_1 = __webpack_require__(/*! ./profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
+const common_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(15);
+const dto_1 = __webpack_require__(29);
+const dto_2 = __webpack_require__(43);
+const dto_3 = __webpack_require__(44);
+const dto_4 = __webpack_require__(45);
+const find_dto_1 = __webpack_require__(46);
+const update_dto_1 = __webpack_require__(47);
+const profile_service_1 = __webpack_require__(48);
 let ProfileController = class ProfileController {
     constructor(profile) {
         this.profile = profile;
     }
     Getreports(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Getreports(data);
     }
     Addreport(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Addreport(data);
     }
     CreateProfile(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.CreateProfile(data);
     }
     Getprojects(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Getprojects(data);
     }
     GetCooperative(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.GetCooperative(data);
     }
     Addproject(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Addproject(data);
     }
     AddCooperative(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.AddCooperative(data);
     }
     Removeproject(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Removeproject(data);
     }
     Removereport(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Removereport(data);
     }
     RemoveCooperative(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.RemoveCooperative(data);
     }
     findByUserId(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.findByUserId(data);
     }
     UpdateProperty(data) {
         return this.profile.UpdateProperty(data);
@@ -2456,11 +2688,27 @@ exports.ProfileController = ProfileController;
 
 
 /***/ }),
+/* 43 */
+/***/ ((__unused_webpack_module, exports) => {
 
-/***/ "./apps/extension-worker/src/profile/profile.module.ts":
-/*!*************************************************************!*\
-  !*** ./apps/extension-worker/src/profile/profile.module.ts ***!
-  \*************************************************************/
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 44 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateReportDto = void 0;
+class CreateReportDto {
+}
+exports.CreateReportDto = CreateReportDto;
+
+
+/***/ }),
+/* 45 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2470,29 +2718,141 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ProfileModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const profile_controller_1 = __webpack_require__(/*! ./profile.controller */ "./apps/extension-worker/src/profile/profile.controller.ts");
-const profile_service_1 = __webpack_require__(/*! ./profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let ProfileModule = class ProfileModule {
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-ProfileModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [profile_controller_1.ProfileController],
-        providers: [profile_service_1.ProfileService, db_service_1.DbService],
-    })
-], ProfileModule);
-exports.ProfileModule = ProfileModule;
+var _a, _b, _c, _d;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateProfileDto = void 0;
+const swagger_1 = __webpack_require__(15);
+const client_1 = __webpack_require__(8);
+class CreateProfileDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], CreateProfileDto.prototype, "age", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.Gender,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.Gender !== "undefined" && client_1.Gender) === "function" ? _a : Object)
+], CreateProfileDto.prototype, "sex", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateProfileDto.prototype, "birthday", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateProfileDto.prototype, "address", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.Religion,
+    }),
+    __metadata("design:type", typeof (_b = typeof client_1.Religion !== "undefined" && client_1.Religion) === "function" ? _b : Object)
+], CreateProfileDto.prototype, "religion", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.Marital,
+    }),
+    __metadata("design:type", typeof (_c = typeof client_1.Marital !== "undefined" && client_1.Marital) === "function" ? _c : Object)
+], CreateProfileDto.prototype, "maritalStatus", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'the id of the base user',
+    }),
+    __metadata("design:type", String)
+], CreateProfileDto.prototype, "userId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateProfileDto.prototype, "about", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_d = typeof Buffer !== "undefined" && Buffer) === "function" ? _d : Object)
+], CreateProfileDto.prototype, "photo", void 0);
+exports.CreateProfileDto = CreateProfileDto;
 
 
 /***/ }),
+/* 46 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./apps/extension-worker/src/profile/profile.service.ts":
-/*!**************************************************************!*\
-  !*** ./apps/extension-worker/src/profile/profile.service.ts ***!
-  \**************************************************************/
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+const swagger_1 = __webpack_require__(15);
+const client_1 = __webpack_require__(8);
+class FindDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FindDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], FindDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Object)
+], FindDto.prototype, "property", void 0);
+exports.FindDto = FindDto;
+
+
+/***/ }),
+/* 47 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+const swagger_1 = __webpack_require__(15);
+const client_1 = __webpack_require__(8);
+class UpdateDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], UpdateDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
+], UpdateDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object)
+], UpdateDto.prototype, "properties", void 0);
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+/* 48 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2508,8 +2868,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProfileService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(4);
+const db_service_1 = __webpack_require__(7);
 let ProfileService = class ProfileService {
     constructor(db) {
         this.db = db;
@@ -2541,7 +2901,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Getprojects(data) {
@@ -2554,7 +2914,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Getreports(data) {
@@ -2567,7 +2927,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async GetCooperative(data) {
@@ -2580,7 +2940,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Addproject(data) {
@@ -2617,7 +2977,7 @@ let ProfileService = class ProfileService {
             return project;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Addreport(data) {
@@ -2657,7 +3017,7 @@ let ProfileService = class ProfileService {
             return cooperative;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Removeproject(data) {
@@ -2669,7 +3029,7 @@ let ProfileService = class ProfileService {
                 data: {
                     participants: {
                         disconnect: {
-                            id: data['new_value']['project_id'],
+                            id: data['properties']['project_id'],
                         },
                     },
                 },
@@ -2677,7 +3037,7 @@ let ProfileService = class ProfileService {
             return true;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Removereport(data) {
@@ -2698,7 +3058,7 @@ let ProfileService = class ProfileService {
                 data: {
                     farmers: {
                         disconnect: {
-                            id: data['new_value']['project_id'],
+                            id: data['properties']['project_id'],
                         },
                     },
                 },
@@ -2706,7 +3066,7 @@ let ProfileService = class ProfileService {
             return true;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async findByUserId(data) {
@@ -2723,91 +3083,91 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdateProperty(data) {
         console.log(data);
         try {
-            let query = data['new_value']['about'] !== undefined
+            let query = data['properties']['about'] !== undefined
                 ? await this.db.workerProfile.update({
                     where: {
                         id: data['id'],
                     },
                     data: {
-                        about: data['new_value']['about'],
+                        about: data['properties']['about'],
                     },
                 })
-                : data['new_value']['age'] !== undefined
+                : data['properties']['age'] !== undefined
                     ? await this.db.workerProfile.update({
                         where: {
                             id: data['id'],
                         },
                         data: {
-                            age: data['new_value']['age'],
+                            age: data['properties']['age'],
                         },
                     })
-                    : data['new_value']['sex'] !== undefined
+                    : data['properties']['sex'] !== undefined
                         ? await this.db.workerProfile.update({
                             where: {
                                 id: data['id'],
                             },
                             data: {
-                                sex: data['new_value']['sex'],
+                                sex: data['properties']['sex'],
                             },
                         })
-                        : data['new_value']['birthday'] !== undefined
+                        : data['properties']['birthday'] !== undefined
                             ? await this.db.workerProfile.update({
                                 where: {
                                     id: data['id'],
                                 },
                                 data: {
-                                    birthday: data['new_value']['birthday'],
+                                    birthday: data['properties']['birthday'],
                                 },
                             })
-                            : data['new_value']['address'] !== undefined
+                            : data['properties']['address'] !== undefined
                                 ? await this.db.workerProfile.update({
                                     where: {
                                         id: data['id'],
                                     },
                                     data: {
-                                        address: data['new_value']['address'],
+                                        address: data['properties']['address'],
                                     },
                                 })
-                                : data['new_value']['religion'] !== undefined
+                                : data['properties']['religion'] !== undefined
                                     ? await this.db.workerProfile.update({
                                         where: {
                                             id: data['id'],
                                         },
                                         data: {
-                                            religion: data['new_value']['religion'],
+                                            religion: data['properties']['religion'],
                                         },
                                     })
-                                    : data['new_value']['religion'] !== undefined
+                                    : data['properties']['religion'] !== undefined
                                         ? await this.db.workerProfile.update({
                                             where: {
                                                 id: data['id'],
                                             },
                                             data: {
-                                                religion: data['new_value']['religion'],
+                                                religion: data['properties']['religion'],
                                             },
                                         })
-                                        : data['new_value']['maritalStatus'] !== undefined
+                                        : data['properties']['maritalStatus'] !== undefined
                                             ? await this.db.workerProfile.update({
                                                 where: {
                                                     id: data['id'],
                                                 },
                                                 data: {
-                                                    maritalStatus: data['new_value']['maritalStatus'],
+                                                    maritalStatus: data['properties']['maritalStatus'],
                                                 },
                                             })
-                                            : data['new_value']['photo'] !== undefined
+                                            : data['properties']['photo'] !== undefined
                                                 ? await this.db.workerProfile.update({
                                                     where: {
                                                         id: data['id'],
                                                     },
                                                     data: {
-                                                        photo: Buffer.from(data['new_value']['maritalStatus']),
+                                                        photo: Buffer.from(data['properties']['maritalStatus']),
                                                     },
                                                 })
                                                 : new common_1.BadRequestException('specify a proper type to be updated');
@@ -2826,27 +3186,7 @@ exports.ProfileService = ProfileService;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/project/dto/dto.ts":
-/*!******************************************************!*\
-  !*** ./apps/extension-worker/src/project/dto/dto.ts ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateProjectDto = void 0;
-class CreateProjectDto {
-}
-exports.CreateProjectDto = CreateProjectDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/project/dto/find_dto.ts":
-/*!***********************************************************!*\
-  !*** ./apps/extension-worker/src/project/dto/find_dto.ts ***!
-  \***********************************************************/
+/* 49 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2856,47 +3196,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ProjectModule = void 0;
+const common_1 = __webpack_require__(4);
+const project_controller_1 = __webpack_require__(50);
+const project_service_1 = __webpack_require__(53);
+const db_service_1 = __webpack_require__(7);
+const profile_service_1 = __webpack_require__(48);
+let ProjectModule = class ProjectModule {
 };
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FindDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class FindDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], FindDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Object)
-], FindDto.prototype, "property", void 0);
-exports.FindDto = FindDto;
+ProjectModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [project_controller_1.ProjectController],
+        providers: [project_service_1.ProjectService, db_service_1.DbService, profile_service_1.ProfileService],
+    })
+], ProjectModule);
+exports.ProjectModule = ProjectModule;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/project/dto/update_dto.ts":
-/*!*************************************************************!*\
-  !*** ./apps/extension-worker/src/project/dto/update_dto.ts ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
-class UpdateDto {
-}
-exports.UpdateDto = UpdateDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/project/project.controller.ts":
-/*!*****************************************************************!*\
-  !*** ./apps/extension-worker/src/project/project.controller.ts ***!
-  \*****************************************************************/
+/* 50 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2915,12 +3234,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProjectController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/project/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/project/dto/find_dto.ts");
-const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/project/dto/update_dto.ts");
-const project_service_1 = __webpack_require__(/*! ./project.service */ "./apps/extension-worker/src/project/project.service.ts");
+const common_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(15);
+const dto_1 = __webpack_require__(43);
+const find_dto_1 = __webpack_require__(51);
+const update_dto_1 = __webpack_require__(52);
+const project_service_1 = __webpack_require__(53);
 let ProjectController = class ProjectController {
     constructor(project) {
         this.project = project;
@@ -3160,11 +3479,7 @@ exports.ProjectController = ProjectController;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/project/project.module.ts":
-/*!*************************************************************!*\
-  !*** ./apps/extension-worker/src/project/project.module.ts ***!
-  \*************************************************************/
+/* 51 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3174,30 +3489,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ProjectModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const project_controller_1 = __webpack_require__(/*! ./project.controller */ "./apps/extension-worker/src/project/project.controller.ts");
-const project_service_1 = __webpack_require__(/*! ./project.service */ "./apps/extension-worker/src/project/project.service.ts");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
-let ProjectModule = class ProjectModule {
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-ProjectModule = __decorate([
-    (0, common_1.Module)({
-        controllers: [project_controller_1.ProjectController],
-        providers: [project_service_1.ProjectService, db_service_1.DbService, profile_service_1.ProfileService],
-    })
-], ProjectModule);
-exports.ProjectModule = ProjectModule;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+const swagger_1 = __webpack_require__(15);
+class FindDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FindDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Object)
+], FindDto.prototype, "property", void 0);
+exports.FindDto = FindDto;
 
 
 /***/ }),
+/* 52 */
+/***/ ((__unused_webpack_module, exports) => {
 
-/***/ "./apps/extension-worker/src/project/project.service.ts":
-/*!**************************************************************!*\
-  !*** ./apps/extension-worker/src/project/project.service.ts ***!
-  \**************************************************************/
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+class UpdateDto {
+}
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+/* 53 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3213,10 +3537,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProjectService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/project/dto/find_dto.ts");
+const common_1 = __webpack_require__(4);
+const db_service_1 = __webpack_require__(7);
+const profile_service_1 = __webpack_require__(48);
+const find_dto_1 = __webpack_require__(51);
 let ProjectService = class ProjectService {
     constructor(db, profile) {
         this.db = db;
@@ -3490,55 +3814,7 @@ exports.ProjectService = ProjectService;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/report/dto/dto.ts":
-/*!*****************************************************!*\
-  !*** ./apps/extension-worker/src/report/dto/dto.ts ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateReportDto = void 0;
-class CreateReportDto {
-}
-exports.CreateReportDto = CreateReportDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/report/report.controller.ts":
-/*!***************************************************************!*\
-  !*** ./apps/extension-worker/src/report/report.controller.ts ***!
-  \***************************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ReportController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-let ReportController = class ReportController {
-};
-ReportController = __decorate([
-    (0, common_1.Controller)('report'),
-    (0, swagger_1.ApiTags)('report')
-], ReportController);
-exports.ReportController = ReportController;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/report/report.module.ts":
-/*!***********************************************************!*\
-  !*** ./apps/extension-worker/src/report/report.module.ts ***!
-  \***********************************************************/
+/* 54 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3550,8 +3826,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReportModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const report_controller_1 = __webpack_require__(/*! ./report.controller */ "./apps/extension-worker/src/report/report.controller.ts");
+const common_1 = __webpack_require__(4);
+const report_controller_1 = __webpack_require__(55);
 let ReportModule = class ReportModule {
 };
 ReportModule = __decorate([
@@ -3563,23 +3839,7 @@ exports.ReportModule = ReportModule;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/visit/dto/dto.ts":
-/*!****************************************************!*\
-  !*** ./apps/extension-worker/src/visit/dto/dto.ts ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/visit/dto/find_dto.ts":
-/*!*********************************************************!*\
-  !*** ./apps/extension-worker/src/visit/dto/find_dto.ts ***!
-  \*********************************************************/
+/* 55 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3589,67 +3849,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FindDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class FindDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], FindDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
-], FindDto.prototype, "properties", void 0);
-exports.FindDto = FindDto;
+exports.ReportController = void 0;
+const common_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(15);
+let ReportController = class ReportController {
+};
+ReportController = __decorate([
+    (0, common_1.Controller)('report'),
+    (0, swagger_1.ApiTags)('report')
+], ReportController);
+exports.ReportController = ReportController;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/visit/dto/update_dto.ts":
-/*!***********************************************************!*\
-  !*** ./apps/extension-worker/src/visit/dto/update_dto.ts ***!
-  \***********************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class UpdateDto {
-}
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], UpdateDto.prototype, "id", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
-], UpdateDto.prototype, "properties", void 0);
-exports.UpdateDto = UpdateDto;
-
-
-/***/ }),
-
-/***/ "./apps/extension-worker/src/visit/visit.controller.ts":
-/*!*************************************************************!*\
-  !*** ./apps/extension-worker/src/visit/visit.controller.ts ***!
-  \*************************************************************/
+/* 56 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3665,194 +3879,425 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.VisitController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/visit/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/visit/dto/find_dto.ts");
-const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/visit/dto/update_dto.ts");
-const visit_service_1 = __webpack_require__(/*! ./visit.service */ "./apps/extension-worker/src/visit/visit.service.ts");
-let VisitController = class VisitController {
-    constructor(service) {
-        this.service = service;
-    }
-    CreateVisit(data) {
-        return this.service.CreateVisit(data);
-    }
-    Addphoto(data) {
-        return this.service.Addphoto(data);
-    }
-    Addmilestone(data) {
-        return this.service.Addmilestone(data);
-    }
-    Addchallenge(data) {
-        return this.service.Addchallenge(data);
-    }
-    Removephoto(data) {
-        return this.service.Removephoto(data);
-    }
-    Removemilestone(data) {
-        return this.service.Removemilestone(data);
-    }
-    Removechallenge(data) {
-        return this.service.Removechallenge(data);
-    }
-    Getphotos(data) {
-        return this.service.Getphotos(data);
-    }
-    Getmilestones(data) {
-        return this.service.Getmilestones(data);
-    }
-    Getchallenges(data) {
-        return this.service.Getchallenges(data);
-    }
-    FindByid(data) {
-        return this.service.FindByid(data);
-    }
-    FindBystatus(data) {
-        return this.service.FindBystatus(data);
-    }
-    FindBymilestoneId(data) {
-        return this.service.FindBymilestoneId(data);
-    }
-    FindByappointmentId(data) {
-        return this.service.FindByappointmentId(data);
-    }
-    FindByprojectId(data) {
-        return this.service.FindByprojectId(data);
+exports.FarmerController = void 0;
+const common_1 = __webpack_require__(4);
+const login_auth_dto_1 = __webpack_require__(16);
+const farmer_service_1 = __webpack_require__(6);
+const swagger_1 = __webpack_require__(15);
+const dto_1 = __webpack_require__(17);
+const find_dto_1 = __webpack_require__(19);
+const famrer_guard_1 = __webpack_require__(57);
+let FarmerController = class FarmerController {
+    constructor(farmer) {
+        this.farmer = farmer;
     }
     UpdateProperties(data) {
-        return this.service.UpdateProperties(data);
+        return this.farmer.UpdateProperties(data);
+    }
+    UpdatePassword(data) {
+        return this.farmer.UpdatePassword(data);
+    }
+    FindById(data) {
+        return this.farmer.FindById(data);
+    }
+    FindByPhone_Number(data) {
+        return this.farmer.FindByPhone_Number(data);
+    }
+    FindByFirst_name(data) {
+        return this.farmer.FindByFirst_name(data);
+    }
+    UpdateFirstName(data) {
+        return this.farmer.UpdateFirstName(data);
+    }
+    UpdateLastName(data) {
+        return this.farmer.UpdateLastName(data);
+    }
+    UpdatePhoneNumber(data) {
+        return this.farmer.UpdatePhoneNumber(data);
+    }
+    CreateResource(data) {
+        throw new Error('Method not implemented.');
+    }
+    FindByEmail(data) {
+        return this.farmer.FindByEmail(data);
+    }
+    SignOut() {
+        return this.farmer.SignOut();
     }
 };
-__decorate([
-    (0, common_1.Post)('CreateVisit'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateVisit !== "undefined" && dto_1.CreateVisit) === "function" ? _b : Object]),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
-], VisitController.prototype, "CreateVisit", null);
-__decorate([
-    (0, common_1.Post)('Addphoto'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
-], VisitController.prototype, "Addphoto", null);
-__decorate([
-    (0, common_1.Post)('Addmilestone'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _e : Object]),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
-], VisitController.prototype, "Addmilestone", null);
-__decorate([
-    (0, common_1.Post)('Addchallenge'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _g : Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
-], VisitController.prototype, "Addchallenge", null);
-__decorate([
-    (0, common_1.Post)('Removephoto'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
-], VisitController.prototype, "Removephoto", null);
-__decorate([
-    (0, common_1.Post)('Removemilestone'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
-], VisitController.prototype, "Removemilestone", null);
-__decorate([
-    (0, common_1.Post)('Removechallenge'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _m : Object]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
-], VisitController.prototype, "Removechallenge", null);
-__decorate([
-    (0, common_1.Post)('Getphotos'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_p = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _p : Object]),
-    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
-], VisitController.prototype, "Getphotos", null);
-__decorate([
-    (0, common_1.Post)('Getmilestones'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
-    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
-], VisitController.prototype, "Getmilestones", null);
-__decorate([
-    (0, common_1.Post)('Getchallenges'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
-    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
-], VisitController.prototype, "Getchallenges", null);
-__decorate([
-    (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_v = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _v : Object]),
-    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
-], VisitController.prototype, "FindByid", null);
-__decorate([
-    (0, common_1.Post)('FindBystatus'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_x = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _x : Object]),
-    __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
-], VisitController.prototype, "FindBystatus", null);
-__decorate([
-    (0, common_1.Post)('FindBymilestoneId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_z = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _z : Object]),
-    __metadata("design:returntype", typeof (_0 = typeof Promise !== "undefined" && Promise) === "function" ? _0 : Object)
-], VisitController.prototype, "FindBymilestoneId", null);
-__decorate([
-    (0, common_1.Post)('FindByappointmentId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_1 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _1 : Object]),
-    __metadata("design:returntype", typeof (_2 = typeof Promise !== "undefined" && Promise) === "function" ? _2 : Object)
-], VisitController.prototype, "FindByappointmentId", null);
-__decorate([
-    (0, common_1.Post)('FindByprojectId'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_3 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _3 : Object]),
-    __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
-], VisitController.prototype, "FindByprojectId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperties'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
-    __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
-], VisitController.prototype, "UpdateProperties", null);
-VisitController = __decorate([
-    (0, common_1.Controller)('visit'),
-    (0, swagger_1.ApiTags)('Visit'),
-    __metadata("design:paramtypes", [typeof (_a = typeof visit_service_1.VisitService !== "undefined" && visit_service_1.VisitService) === "function" ? _a : Object])
-], VisitController);
-exports.VisitController = VisitController;
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "UpdateProperties", null);
+__decorate([
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+], FarmerController.prototype, "UpdatePassword", null);
+__decorate([
+    (0, common_1.Post)('FindById'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+], FarmerController.prototype, "FindById", null);
+__decorate([
+    (0, common_1.Post)('FindByPhone_Number'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_g = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+], FarmerController.prototype, "FindByPhone_Number", null);
+__decorate([
+    (0, common_1.Post)('FindByFirst_name'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_j = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _j : Object]),
+    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+], FarmerController.prototype, "FindByFirst_name", null);
+__decorate([
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_l = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
+], FarmerController.prototype, "UpdateFirstName", null);
+__decorate([
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_o = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _o : Object]),
+    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
+], FarmerController.prototype, "UpdateLastName", null);
+__decorate([
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_q = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _q : Object]),
+    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
+], FarmerController.prototype, "UpdatePhoneNumber", null);
+__decorate([
+    (0, common_1.Post)('FindByEmail'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_s = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _s : Object]),
+    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
+], FarmerController.prototype, "FindByEmail", null);
+FarmerController = __decorate([
+    (0, common_1.Controller)('farmer'),
+    (0, swagger_1.ApiTags)('Farmer'),
+    (0, common_1.UseGuards)(famrer_guard_1.FamrerGuard),
+    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object])
+], FarmerController);
+exports.FarmerController = FarmerController;
 
 
 /***/ }),
+/* 57 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./apps/extension-worker/src/visit/visit.module.ts":
-/*!*********************************************************!*\
-  !*** ./apps/extension-worker/src/visit/visit.module.ts ***!
-  \*********************************************************/
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FamrerGuard = void 0;
+const common_1 = __webpack_require__(4);
+let FamrerGuard = class FamrerGuard {
+    canActivate(context) {
+        try {
+            const type = context.switchToHttp().getRequest()['body']['type'];
+            const valid = type == 'FARMER' ? true : false;
+            if (valid == false) {
+                throw new common_1.ForbiddenException('wrong server');
+            }
+            else {
+                return valid;
+            }
+        }
+        catch (error) {
+            throw new common_1.ForbiddenException('wrong server');
+        }
+    }
+};
+FamrerGuard = __decorate([
+    (0, common_1.Injectable)()
+], FamrerGuard);
+exports.FamrerGuard = FamrerGuard;
+
+
+/***/ }),
+/* 58 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeModule = void 0;
+const common_1 = __webpack_require__(4);
+const challenge_service_1 = __webpack_require__(59);
+const challenge_controller_1 = __webpack_require__(60);
+const db_service_1 = __webpack_require__(7);
+let ChallengeModule = class ChallengeModule {
+};
+ChallengeModule = __decorate([
+    (0, common_1.Module)({
+        providers: [challenge_service_1.ChallengeService, db_service_1.DbService],
+        controllers: [challenge_controller_1.ChallengeController],
+    })
+], ChallengeModule);
+exports.ChallengeModule = ChallengeModule;
+
+
+/***/ }),
+/* 59 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeService = void 0;
+const common_1 = __webpack_require__(4);
+const db_service_1 = __webpack_require__(7);
+let ChallengeService = class ChallengeService {
+    constructor(db) {
+        this.db = db;
+    }
+    async CreateChallenge(data) {
+        try {
+            let query = await this.db.challenge.create({
+                data: {
+                    type: data['type'],
+                    custom_fields: data['custom_fields'],
+                    visitId: data['visitId'],
+                    workerProfileId: data['workerProfileId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindByid(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async FindBytype(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    type: data['type'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    FindBycustom_felids(data) {
+        throw new Error('Method not implemented.');
+    }
+    async FindByvisitId(data) {
+        try {
+            let query = await this.db.challenge.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    visitId: data['visitId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async UpdateProperty(data) {
+        try {
+            let query = data['properties']['visitId'] !== undefined
+                ? await this.db.challenge.update({
+                    data: {
+                        visitId: data['properties']['visitId'],
+                    },
+                    where: {
+                        id: data['id'],
+                    },
+                })
+                : data['properties']['type'] !== undefined
+                    ? await this.db.challenge.update({
+                        data: {
+                            visitId: data['properties']['type'],
+                        },
+                        where: {
+                            id: data['id'],
+                        },
+                    })
+                    : data['properties']['workerProfileId'] !== undefined
+                        ? await this.db.challenge.update({
+                            data: {
+                                workerProfileId: data['properties']['workerProfileId'],
+                            },
+                            where: {
+                                id: data['id'],
+                            },
+                        })
+                        : new common_1.BadRequestException('pass in a valid property');
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+};
+ChallengeService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], ChallengeService);
+exports.ChallengeService = ChallengeService;
+
+
+/***/ }),
+/* 60 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ChallengeController = void 0;
+const common_1 = __webpack_require__(4);
+const update_dto_1 = __webpack_require__(61);
+const challenge_service_1 = __webpack_require__(59);
+const swagger_1 = __webpack_require__(15);
+let ChallengeController = class ChallengeController {
+    constructor(service) {
+        this.service = service;
+    }
+    CreateChallenge(data) {
+        return this.service.CreateChallenge(data);
+    }
+    FindByid(data) {
+        return this.service.FindByid(data);
+    }
+    FindBytype(data) {
+        return this.service.FindBytype(data);
+    }
+    FindBycustom_felids(data) {
+        return this.service.FindBycustom_felids(data);
+    }
+    FindByvisitId(data) {
+        return this.service.FindByvisitId(data);
+    }
+    UpdateProperty(data) {
+        return this.service.UpdateProperty(data);
+    }
+};
+__decorate([
+    (0, common_1.Post)('CreateChallenge'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], ChallengeController.prototype, "CreateChallenge", null);
+__decorate([
+    (0, common_1.Post)('FindByid'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof Partial !== "undefined" && Partial) === "function" ? _c : Object]),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+], ChallengeController.prototype, "FindByid", null);
+__decorate([
+    (0, common_1.Post)('FindBytype'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof Partial !== "undefined" && Partial) === "function" ? _e : Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+], ChallengeController.prototype, "FindBytype", null);
+__decorate([
+    (0, common_1.Post)('FindBycustom_felids'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_g = typeof Partial !== "undefined" && Partial) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+], ChallengeController.prototype, "FindBycustom_felids", null);
+__decorate([
+    (0, common_1.Post)('FindByvisitId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_j = typeof Partial !== "undefined" && Partial) === "function" ? _j : Object]),
+    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+], ChallengeController.prototype, "FindByvisitId", null);
+__decorate([
+    (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_l = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
+], ChallengeController.prototype, "UpdateProperty", null);
+ChallengeController = __decorate([
+    (0, common_1.Controller)('challenge'),
+    (0, swagger_1.ApiTags)('Challenge'),
+    __metadata("design:paramtypes", [typeof (_a = typeof challenge_service_1.ChallengeService !== "undefined" && challenge_service_1.ChallengeService) === "function" ? _a : Object])
+], ChallengeController);
+exports.ChallengeController = ChallengeController;
+
+
+/***/ }),
+/* 61 */
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+class UpdateDto {
+}
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+/* 62 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3864,10 +4309,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.VisitModule = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const visit_service_1 = __webpack_require__(/*! ./visit.service */ "./apps/extension-worker/src/visit/visit.service.ts");
-const visit_controller_1 = __webpack_require__(/*! ./visit.controller */ "./apps/extension-worker/src/visit/visit.controller.ts");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(4);
+const visit_service_1 = __webpack_require__(63);
+const visit_controller_1 = __webpack_require__(64);
+const db_service_1 = __webpack_require__(7);
 let VisitModule = class VisitModule {
 };
 VisitModule = __decorate([
@@ -3880,11 +4325,7 @@ exports.VisitModule = VisitModule;
 
 
 /***/ }),
-
-/***/ "./apps/extension-worker/src/visit/visit.service.ts":
-/*!**********************************************************!*\
-  !*** ./apps/extension-worker/src/visit/visit.service.ts ***!
-  \**********************************************************/
+/* 63 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3900,8 +4341,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.VisitService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(4);
+const db_service_1 = __webpack_require__(7);
 let VisitService = class VisitService {
     constructor(db) {
         this.db = db;
@@ -4205,11 +4646,7 @@ exports.VisitService = VisitService;
 
 
 /***/ }),
-
-/***/ "./apps/farmer/src/farmer/dto/dto.ts":
-/*!*******************************************!*\
-  !*** ./apps/farmer/src/farmer/dto/dto.ts ***!
-  \*******************************************/
+/* 64 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4222,38 +4659,201 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
-class UpdateDto {
-}
+exports.VisitController = void 0;
+const common_1 = __webpack_require__(4);
+const swagger_1 = __webpack_require__(15);
+const dto_1 = __webpack_require__(65);
+const find_dto_1 = __webpack_require__(66);
+const update_dto_1 = __webpack_require__(67);
+const visit_service_1 = __webpack_require__(63);
+let VisitController = class VisitController {
+    constructor(service) {
+        this.service = service;
+    }
+    CreateVisit(data) {
+        return this.service.CreateVisit(data);
+    }
+    Addphoto(data) {
+        return this.service.Addphoto(data);
+    }
+    Addmilestone(data) {
+        return this.service.Addmilestone(data);
+    }
+    Addchallenge(data) {
+        return this.service.Addchallenge(data);
+    }
+    Removephoto(data) {
+        return this.service.Removephoto(data);
+    }
+    Removemilestone(data) {
+        return this.service.Removemilestone(data);
+    }
+    Removechallenge(data) {
+        return this.service.Removechallenge(data);
+    }
+    Getphotos(data) {
+        return this.service.Getphotos(data);
+    }
+    Getmilestones(data) {
+        return this.service.Getmilestones(data);
+    }
+    Getchallenges(data) {
+        return this.service.Getchallenges(data);
+    }
+    FindByid(data) {
+        return this.service.FindByid(data);
+    }
+    FindBystatus(data) {
+        return this.service.FindBystatus(data);
+    }
+    FindBymilestoneId(data) {
+        return this.service.FindBymilestoneId(data);
+    }
+    FindByappointmentId(data) {
+        return this.service.FindByappointmentId(data);
+    }
+    FindByprojectId(data) {
+        return this.service.FindByprojectId(data);
+    }
+    UpdateProperties(data) {
+        return this.service.UpdateProperties(data);
+    }
+};
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], UpdateDto.prototype, "id", void 0);
+    (0, common_1.Post)('CreateVisit'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateVisit !== "undefined" && dto_1.CreateVisit) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], VisitController.prototype, "CreateVisit", null);
 __decorate([
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.UserType,
-    }),
-    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
-], UpdateDto.prototype, "type", void 0);
+    (0, common_1.Post)('Addphoto'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+], VisitController.prototype, "Addphoto", null);
 __decorate([
-    (0, swagger_1.ApiProperty)({
-        description: 'new value for the property',
-    }),
-    __metadata("design:type", Object)
-], UpdateDto.prototype, "new_value", void 0);
-exports.UpdateDto = UpdateDto;
+    (0, common_1.Post)('Addmilestone'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+], VisitController.prototype, "Addmilestone", null);
+__decorate([
+    (0, common_1.Post)('Addchallenge'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_g = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+], VisitController.prototype, "Addchallenge", null);
+__decorate([
+    (0, common_1.Post)('Removephoto'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], VisitController.prototype, "Removephoto", null);
+__decorate([
+    (0, common_1.Post)('Removemilestone'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], VisitController.prototype, "Removemilestone", null);
+__decorate([
+    (0, common_1.Post)('Removechallenge'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_m = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+], VisitController.prototype, "Removechallenge", null);
+__decorate([
+    (0, common_1.Post)('Getphotos'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_p = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+], VisitController.prototype, "Getphotos", null);
+__decorate([
+    (0, common_1.Post)('Getmilestones'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+], VisitController.prototype, "Getmilestones", null);
+__decorate([
+    (0, common_1.Post)('Getchallenges'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
+    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
+], VisitController.prototype, "Getchallenges", null);
+__decorate([
+    (0, common_1.Post)('FindByid'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_v = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _v : Object]),
+    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
+], VisitController.prototype, "FindByid", null);
+__decorate([
+    (0, common_1.Post)('FindBystatus'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_x = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _x : Object]),
+    __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
+], VisitController.prototype, "FindBystatus", null);
+__decorate([
+    (0, common_1.Post)('FindBymilestoneId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_z = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _z : Object]),
+    __metadata("design:returntype", typeof (_0 = typeof Promise !== "undefined" && Promise) === "function" ? _0 : Object)
+], VisitController.prototype, "FindBymilestoneId", null);
+__decorate([
+    (0, common_1.Post)('FindByappointmentId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_1 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _1 : Object]),
+    __metadata("design:returntype", typeof (_2 = typeof Promise !== "undefined" && Promise) === "function" ? _2 : Object)
+], VisitController.prototype, "FindByappointmentId", null);
+__decorate([
+    (0, common_1.Post)('FindByprojectId'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_3 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _3 : Object]),
+    __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
+], VisitController.prototype, "FindByprojectId", null);
+__decorate([
+    (0, common_1.Post)('UpdateProperties'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
+    __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
+], VisitController.prototype, "UpdateProperties", null);
+VisitController = __decorate([
+    (0, common_1.Controller)('visit'),
+    (0, swagger_1.ApiTags)('Visit'),
+    __metadata("design:paramtypes", [typeof (_a = typeof visit_service_1.VisitService !== "undefined" && visit_service_1.VisitService) === "function" ? _a : Object])
+], VisitController);
+exports.VisitController = VisitController;
 
 
 /***/ }),
+/* 65 */
+/***/ ((__unused_webpack_module, exports) => {
 
-/***/ "./apps/farmer/src/farmer/dto/find.dto.ts":
-/*!************************************************!*\
-  !*** ./apps/farmer/src/farmer/dto/find.dto.ts ***!
-  \************************************************/
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+/* 66 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4269,8 +4869,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FindDto = void 0;
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
+const swagger_1 = __webpack_require__(15);
 class FindDto {
 }
 __decorate([
@@ -4278,161 +4877,14 @@ __decorate([
     __metadata("design:type", String)
 ], FindDto.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.UserType,
-    }),
-    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
-], FindDto.prototype, "type", void 0);
-__decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Object)
-], FindDto.prototype, "property", void 0);
+    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
+], FindDto.prototype, "properties", void 0);
 exports.FindDto = FindDto;
 
 
 /***/ }),
-
-/***/ "./apps/farmer/src/farmer/farmer.controller.ts":
-/*!*****************************************************!*\
-  !*** ./apps/farmer/src/farmer/farmer.controller.ts ***!
-  \*****************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FarmerController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const login_auth_dto_1 = __webpack_require__(/*! @app/lib/auth/dto/login-auth.dto */ "./libs/lib/src/auth/dto/login-auth.dto.ts");
-const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
-const find_dto_1 = __webpack_require__(/*! ./dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
-const famrer_guard_1 = __webpack_require__(/*! @app/lib/auth/famrer.guard */ "./libs/lib/src/auth/famrer.guard.ts");
-let FarmerController = class FarmerController {
-    constructor(farmer) {
-        this.farmer = farmer;
-    }
-    UpdateProperties(data) {
-        return this.farmer.UpdateProperties(data);
-    }
-    UpdatePassword(data) {
-        return this.farmer.UpdatePassword(data);
-    }
-    FindById(data) {
-        return this.farmer.FindById(data);
-    }
-    FindByPhone_Number(data) {
-        return this.farmer.FindByPhone_Number(data);
-    }
-    FindByFirst_name(data) {
-        return this.farmer.FindByFirst_name(data);
-    }
-    UpdateFirstName(data) {
-        return this.farmer.UpdateFirstName(data);
-    }
-    UpdateLastName(data) {
-        return this.farmer.UpdateLastName(data);
-    }
-    UpdatePhoneNumber(data) {
-        return this.farmer.UpdatePhoneNumber(data);
-    }
-    CreateResource(data) {
-        throw new Error('Method not implemented.');
-    }
-    FindByEmail(data) {
-        return this.farmer.FindByEmail(data);
-    }
-    SignOut() {
-        return this.farmer.SignOut();
-    }
-};
-__decorate([
-    (0, common_1.Post)('UpdateProperties'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
-    __metadata("design:returntype", void 0)
-], FarmerController.prototype, "UpdateProperties", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _c : Object]),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
-], FarmerController.prototype, "UpdatePassword", null);
-__decorate([
-    (0, common_1.Post)('FindById'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
-], FarmerController.prototype, "FindById", null);
-__decorate([
-    (0, common_1.Post)('FindByPhone_Number'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _g : Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
-], FarmerController.prototype, "FindByPhone_Number", null);
-__decorate([
-    (0, common_1.Post)('FindByFirst_name'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_j = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _j : Object]),
-    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
-], FarmerController.prototype, "FindByFirst_name", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_l = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _l : Object]),
-    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
-], FarmerController.prototype, "UpdateFirstName", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_o = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _o : Object]),
-    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
-], FarmerController.prototype, "UpdateLastName", null);
-__decorate([
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_q = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _q : Object]),
-    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
-], FarmerController.prototype, "UpdatePhoneNumber", null);
-__decorate([
-    (0, common_1.Post)('FindByEmail'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_s = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _s : Object]),
-    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
-], FarmerController.prototype, "FindByEmail", null);
-FarmerController = __decorate([
-    (0, common_1.Controller)('farmer'),
-    (0, swagger_1.ApiTags)('Farmer'),
-    (0, common_1.UseGuards)(famrer_guard_1.FamrerGuard),
-    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object])
-], FarmerController);
-exports.FarmerController = FarmerController;
-
-
-/***/ }),
-
-/***/ "./apps/farmer/src/farmer/farmer.service.ts":
-/*!**************************************************!*\
-  !*** ./apps/farmer/src/farmer/farmer.service.ts ***!
-  \**************************************************/
+/* 67 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4447,747 +4899,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FarmerService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-let FarmerService = class FarmerService {
-    constructor(db) {
-        this.db = db;
-    }
-    async UpdateProperties(data) {
-        try {
-            let query = data['new_value']['first_name'] !== undefined
-                ? await this.db.user.update({
-                    data: {
-                        first_name: data['new_value']['first_name'],
-                    },
-                    where: {
-                        id: data['id'],
-                        type: 'FARMER',
-                    },
-                })
-                : data['new_value']['last_name'] !== undefined
-                    ? await this.db.user.update({
-                        data: {
-                            last_name: data['new_value']['last_name'],
-                        },
-                        where: {
-                            id: data['id'],
-                            type: 'FARMER',
-                        },
-                    })
-                    : data['new_value']['phone_number'] !== undefined
-                        ? await this.db.user.update({
-                            data: {
-                                phone_number: data['new_value']['phone_number'],
-                            },
-                            where: {
-                                id: data['id'],
-                                type: 'FARMER',
-                            },
-                        })
-                        : data['new_value']['email'] !== undefined
-                            ? await this.db.user.update({
-                                data: {
-                                    email: data['new_value']['email'],
-                                },
-                                where: {
-                                    id: data['id'],
-                                    type: 'FARMER',
-                                },
-                            })
-                            : new common_1.BadRequestException('pass in a valid property  please');
-            return query;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async UpdateFirstName(data) {
-        try {
-            const user = await this.db.user.update({
-                where: {
-                    id: data['id'],
-                    type: 'FARMER',
-                },
-                data: {
-                    first_name: data['new_value'],
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async UpdateLastName(data) {
-        try {
-            const user = await this.db.user.update({
-                where: {
-                    id: data['id'],
-                    type: 'FARMER',
-                },
-                data: {
-                    last_name: data['new_value'],
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async UpdatePhoneNumber(data) {
-        try {
-            const user = await this.db.user.update({
-                where: {
-                    id: data['id'],
-                    type: 'FARMER',
-                },
-                data: {
-                    phone_number: data['new_value'],
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async FindById(data) {
-        try {
-            const user = await this.db.user.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    type: 'FARMER',
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async FindByPhone_Number(data) {
-        try {
-            const user = await this.db.user.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    type: 'FARMER',
-                    phone_number: data['property'],
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async FindByFirst_name(data) {
-        try {
-            const user = await this.db.user.findFirstOrThrow({
-                where: {
-                    id: data['id'],
-                    type: 'FARMER',
-                    first_name: data['property'],
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async UpdatePassword(data) {
-        try {
-            const user = await this.db.user.update({
-                where: {
-                    email: data['property'],
-                    type: 'FARMER',
-                },
-                data: {
-                    password: data['new_value'],
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async CreateResource(data) {
-        try {
-            const user = await this.db.user.create({
-                data: {
-                    email: data['email'],
-                    first_name: data['first_name'],
-                    last_name: data['last_name'],
-                    password: data['password'],
-                    phone_number: data['phone_number'],
-                    type: 'FARMER',
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    SignOut() {
-        throw new Error('Method not implemented.');
-    }
-    async FindByEmail(data) {
-        try {
-            const user = await this.db.user.findFirstOrThrow({
-                where: {
-                    email: data['email'],
-                    type: 'FARMER',
-                },
-            });
-            return user;
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-};
-FarmerService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
-], FarmerService);
-exports.FarmerService = FarmerService;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/auth.controller.ts":
-/*!**********************************************!*\
-  !*** ./libs/lib/src/auth/auth.controller.ts ***!
-  \**********************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a, _b, _c, _d;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.AuthController = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const auth_service_1 = __webpack_require__(/*! ./auth.service */ "./libs/lib/src/auth/auth.service.ts");
-const create_auth_dto_1 = __webpack_require__(/*! ./dto/create-auth.dto */ "./libs/lib/src/auth/dto/create-auth.dto.ts");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const login_auth_dto_1 = __webpack_require__(/*! ./dto/login-auth.dto */ "./libs/lib/src/auth/dto/login-auth.dto.ts");
-const dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
-let AuthController = class AuthController {
-    constructor(authService) {
-        this.authService = authService;
-    }
-    validate(data) {
-        throw new Error('Method not implemented.');
-    }
-    Signup(info) {
-        return this.authService.Signup(info);
-    }
-    SignIn(data) {
-        return this.authService.SignIn(data);
-    }
-    SignOut(data) {
-        return this.authService.SignOut(data);
-    }
-    ForgotPassword(data) {
-        return this.authService.ForgotPassword(data);
-    }
-};
-__decorate([
-    (0, common_1.Post)('Signup'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _b : Object]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "Signup", null);
-__decorate([
-    (0, common_1.Post)('SignIn'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _c : Object]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "SignIn", null);
-__decorate([
-    (0, common_1.Post)('SignOut'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "SignOut", null);
-__decorate([
-    (0, common_1.Post)('ForgotPassword'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _d : Object]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "ForgotPassword", null);
-AuthController = __decorate([
-    (0, common_1.Controller)('auth'),
-    (0, swagger_1.ApiTags)('Auth'),
-    __metadata("design:paramtypes", [typeof (_a = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" ? _a : Object])
-], AuthController);
-exports.AuthController = AuthController;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/auth.service.ts":
-/*!*******************************************!*\
-  !*** ./libs/lib/src/auth/auth.service.ts ***!
-  \*******************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-var _a, _b, _c, _d;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.AuthService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const farmer_service_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
-const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
-const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
-const argon2_1 = __webpack_require__(/*! argon2 */ "argon2");
-const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
-let AuthService = class AuthService {
-    constructor(farmer, admin, extensionWorker, jwtService) {
-        this.farmer = farmer;
-        this.admin = admin;
-        this.extensionWorker = extensionWorker;
-        this.jwtService = jwtService;
-    }
-    async Signup(info) {
-        try {
-            info['password'] = await (0, argon2_1.hash)(info['password'], {
-                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-                type: 2,
-            });
-            let query = info['type'] == 'FARMER'
-                ? this.farmer.CreateResource(info)
-                : info['type'] == 'ADMIN'
-                    ? this.admin.CreateResource(info)
-                    : info['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.CreateResource(info)
-                        : new common_1.BadRequestException('Please Specify User Type');
-            return query;
-        }
-        catch (error) {
-            console.log(error);
-            return error;
-        }
-    }
-    async SignIn(data) {
-        try {
-            let user = data['type'] == 'FARMER'
-                ? await this.farmer.FindByEmail(data)
-                : data['type'] == 'ADMIN'
-                    ? await this.admin.FindByEmail(data)
-                    : data['type'] == 'EXTENSION_WORKER'
-                        ? await this.extensionWorker.FindByEmail(data)
-                        : new Error('Cant Find Any Users By that email');
-            console.log(user);
-            const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
-                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-            });
-            const access_token = verification == true
-                ? {
-                    access_token: this.jwtService.sign(data, {
-                        secret: process.env.HASH_SECRET || 'hash',
-                    }),
-                }
-                : new common_1.UnauthorizedException();
-            return access_token;
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-    async SignOut(data) {
-        throw new Error('Method not implemented.');
-    }
-    async validate(data) {
-        try {
-            let user = data['type'] == 'FARMER'
-                ? this.farmer.FindByEmail(data)
-                : data['type'] == 'ADMIN'
-                    ? this.admin.FindByEmail(data)
-                    : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.FindByEmail(data)
-                        : new Error('Cant Find Any Users By that email');
-            const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
-                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-            });
-            if (user && verification) {
-                const result = __rest(user, []);
-                return result;
-            }
-            else {
-                throw new common_1.UnauthorizedException();
-            }
-        }
-        catch (error) {
-            return error;
-        }
-    }
-    async ForgotPassword(data) {
-        try {
-            let hashed = await (0, argon2_1.hash)(data['new_value'], {
-                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-                type: 2,
-            });
-            data['password'] = hashed;
-            let user = data['type'] == 'FARMER'
-                ? this.farmer.UpdatePassword(data)
-                : data['type'] == 'ADMIN'
-                    ? this.admin.UpdatePassword(data)
-                    : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.UpdatePassword(data)
-                        : new Error('Cant Find Any Users By that email');
-            return user;
-        }
-        catch (error) {
-            return error;
-        }
-    }
-};
-AuthService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object, typeof (_b = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _b : Object, typeof (_c = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _c : Object, typeof (_d = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _d : Object])
-], AuthService);
-exports.AuthService = AuthService;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/dto/create-auth.dto.ts":
-/*!**************************************************!*\
-  !*** ./libs/lib/src/auth/dto/create-auth.dto.ts ***!
-  \**************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateUserDto = void 0;
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
-const class_validator_1 = __webpack_require__(/*! @nestjs/class-validator */ "@nestjs/class-validator");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-class CreateUserDto {
+exports.UpdateDto = void 0;
+const swagger_1 = __webpack_require__(15);
+class UpdateDto {
 }
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "password", void 0);
+], UpdateDto.prototype, "id", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "first_name", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "last_name", void 0);
-__decorate([
-    (0, class_validator_1.IsEmail)(),
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsPhoneNumber)('NG'),
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "phone_number", void 0);
-__decorate([
-    (0, class_validator_1.IsEnum)(client_1.UserType),
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.UserType,
-    }),
-    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
-], CreateUserDto.prototype, "type", void 0);
-exports.CreateUserDto = CreateUserDto;
+    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
+], UpdateDto.prototype, "properties", void 0);
+exports.UpdateDto = UpdateDto;
 
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/dto/login-auth.dto.ts":
-/*!*************************************************!*\
-  !*** ./libs/lib/src/auth/dto/login-auth.dto.ts ***!
-  \*************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ValidationDto = void 0;
-const class_validator_1 = __webpack_require__(/*! @nestjs/class-validator */ "@nestjs/class-validator");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
-class ValidationDto {
-}
-__decorate([
-    (0, class_validator_1.IsEmail)(),
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], ValidationDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], ValidationDto.prototype, "password", void 0);
-__decorate([
-    (0, class_validator_1.IsEnum)(client_1.UserType),
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.UserType,
-    }),
-    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
-], ValidationDto.prototype, "type", void 0);
-exports.ValidationDto = ValidationDto;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/extension-worker.guard.ts":
-/*!*****************************************************!*\
-  !*** ./libs/lib/src/auth/extension-worker.guard.ts ***!
-  \*****************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ExtensionWorkerGuard = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-let ExtensionWorkerGuard = class ExtensionWorkerGuard {
-    canActivate(context) {
-        try {
-            const type = context.switchToHttp().getRequest()['body']['type'];
-            const valid = type == 'EXTENSION_WORKER' ? true : false;
-            if (valid == false) {
-                throw new common_1.ForbiddenException('wrong server');
-            }
-            else {
-                return valid;
-            }
-        }
-        catch (error) {
-            throw new common_1.ForbiddenException('wrong server');
-        }
-    }
-};
-ExtensionWorkerGuard = __decorate([
-    (0, common_1.Injectable)()
-], ExtensionWorkerGuard);
-exports.ExtensionWorkerGuard = ExtensionWorkerGuard;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/famrer.guard.ts":
-/*!*******************************************!*\
-  !*** ./libs/lib/src/auth/famrer.guard.ts ***!
-  \*******************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.FamrerGuard = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-let FamrerGuard = class FamrerGuard {
-    canActivate(context) {
-        try {
-            const type = context.switchToHttp().getRequest()['body']['type'];
-            const valid = type == 'FARMER' ? true : false;
-            if (valid == false) {
-                throw new common_1.ForbiddenException('wrong server');
-            }
-            else {
-                return valid;
-            }
-        }
-        catch (error) {
-            throw new common_1.ForbiddenException('wrong server');
-        }
-    }
-};
-FamrerGuard = __decorate([
-    (0, common_1.Injectable)()
-], FamrerGuard);
-exports.FamrerGuard = FamrerGuard;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/db/db.service.ts":
-/*!***************************************!*\
-  !*** ./libs/lib/src/db/db.service.ts ***!
-  \***************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.DbService = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
-let DbService = class DbService extends client_1.PrismaClient {
-    constructor() {
-        super({
-            datasourceUrl: process.env.DATABASE_URL,
-        });
-    }
-};
-DbService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
-], DbService);
-exports.DbService = DbService;
-
-
-/***/ }),
-
-/***/ "@nestjs/class-validator":
-/*!******************************************!*\
-  !*** external "@nestjs/class-validator" ***!
-  \******************************************/
-/***/ ((module) => {
-
-module.exports = require("@nestjs/class-validator");
-
-/***/ }),
-
-/***/ "@nestjs/common":
-/*!*********************************!*\
-  !*** external "@nestjs/common" ***!
-  \*********************************/
-/***/ ((module) => {
-
-module.exports = require("@nestjs/common");
-
-/***/ }),
-
-/***/ "@nestjs/core":
-/*!*******************************!*\
-  !*** external "@nestjs/core" ***!
-  \*******************************/
-/***/ ((module) => {
-
-module.exports = require("@nestjs/core");
-
-/***/ }),
-
-/***/ "@nestjs/jwt":
-/*!******************************!*\
-  !*** external "@nestjs/jwt" ***!
-  \******************************/
-/***/ ((module) => {
-
-module.exports = require("@nestjs/jwt");
-
-/***/ }),
-
-/***/ "@nestjs/swagger":
-/*!**********************************!*\
-  !*** external "@nestjs/swagger" ***!
-  \**********************************/
-/***/ ((module) => {
-
-module.exports = require("@nestjs/swagger");
-
-/***/ }),
-
-/***/ "@prisma/client":
-/*!*********************************!*\
-  !*** external "@prisma/client" ***!
-  \*********************************/
-/***/ ((module) => {
-
-module.exports = require("@prisma/client");
-
-/***/ }),
-
-/***/ "argon2":
-/*!*************************!*\
-  !*** external "argon2" ***!
-  \*************************/
-/***/ ((module) => {
-
-module.exports = require("argon2");
 
 /***/ })
-
-/******/ 	});
+/******/ 	]);
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
@@ -5218,15 +4946,12 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 var exports = __webpack_exports__;
-/*!*******************************************!*\
-  !*** ./apps/extension-worker/src/main.ts ***!
-  \*******************************************/
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __webpack_require__(/*! @nestjs/core */ "@nestjs/core");
-const extension_worker_module_1 = __webpack_require__(/*! ./extension-worker/extension-worker.module */ "./apps/extension-worker/src/extension-worker/extension-worker.module.ts");
-const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const core_1 = __webpack_require__(1);
+const extension_worker_module_1 = __webpack_require__(2);
+const swagger_1 = __webpack_require__(15);
+const common_1 = __webpack_require__(4);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
     app.enableCors({
