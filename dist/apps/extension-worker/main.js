@@ -586,6 +586,422 @@ exports.InterventionService = InterventionService;
 
 /***/ }),
 
+/***/ "./apps/extension-worker/src/appointment/appointment.controller.ts":
+/*!*************************************************************************!*\
+  !*** ./apps/extension-worker/src/appointment/appointment.controller.ts ***!
+  \*************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AppointmentController = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/appointment/dto/find_dto.ts");
+const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/appointment/dto/update_dto.ts");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const appointment_service_1 = __webpack_require__(/*! ./appointment.service */ "./apps/extension-worker/src/appointment/appointment.service.ts");
+let AppointmentController = class AppointmentController {
+    constructor(service) {
+        this.service = service;
+    }
+    ScheduleAppointment(data) {
+        return this.service.ScheduleAppointment(data);
+    }
+    GetVisits(data) {
+        return this.service.GetVisits(data);
+    }
+    AddVisit(data) {
+        return this.service.AddVisit(data);
+    }
+    RemoveVisit(data) {
+        return this.service.RemoveVisit(data);
+    }
+    findByid(data) {
+        return this.service.findByid(data);
+    }
+    findByTime(data) {
+        return this.service.findByTime(data);
+    }
+    findByStatus(data) {
+        return this.service.findByStatus(data);
+    }
+    findByworkerProfileId(data) {
+        return this.service.findByworkerProfileId(data);
+    }
+    UpdateProperty(data) {
+        return this.service.UpdateProperty(data);
+    }
+};
+__decorate([
+    (0, common_1.Post)('ScheduleAppointment'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object]),
+    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], AppointmentController.prototype, "ScheduleAppointment", null);
+__decorate([
+    (0, common_1.Post)('GetVisits'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], AppointmentController.prototype, "GetVisits", null);
+__decorate([
+    (0, common_1.Post)('AddVisit'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_f = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], AppointmentController.prototype, "AddVisit", null);
+__decorate([
+    (0, common_1.Post)('RemoveVisit'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], AppointmentController.prototype, "RemoveVisit", null);
+__decorate([
+    (0, common_1.Post)('findByid'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], AppointmentController.prototype, "findByid", null);
+__decorate([
+    (0, common_1.Post)(''),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+], AppointmentController.prototype, "findByTime", null);
+__decorate([
+    (0, common_1.Post)('findByTime'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_p = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+], AppointmentController.prototype, "findByStatus", null);
+__decorate([
+    (0, common_1.Post)('findByworkerProfileId'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+], AppointmentController.prototype, "findByworkerProfileId", null);
+__decorate([
+    (0, common_1.Post)('UpdateProperty'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_t = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _t : Object]),
+    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
+], AppointmentController.prototype, "UpdateProperty", null);
+AppointmentController = __decorate([
+    (0, common_1.Controller)('appointment'),
+    (0, swagger_1.ApiTags)('appointment'),
+    __metadata("design:paramtypes", [typeof (_a = typeof appointment_service_1.AppointmentService !== "undefined" && appointment_service_1.AppointmentService) === "function" ? _a : Object])
+], AppointmentController);
+exports.AppointmentController = AppointmentController;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/appointment/appointment.module.ts":
+/*!*********************************************************************!*\
+  !*** ./apps/extension-worker/src/appointment/appointment.module.ts ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AppointmentModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const appointment_service_1 = __webpack_require__(/*! ./appointment.service */ "./apps/extension-worker/src/appointment/appointment.service.ts");
+const appointment_controller_1 = __webpack_require__(/*! ./appointment.controller */ "./apps/extension-worker/src/appointment/appointment.controller.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let AppointmentModule = class AppointmentModule {
+};
+AppointmentModule = __decorate([
+    (0, common_1.Module)({
+        providers: [appointment_service_1.AppointmentService, db_service_1.DbService],
+        controllers: [appointment_controller_1.AppointmentController],
+    })
+], AppointmentModule);
+exports.AppointmentModule = AppointmentModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/appointment/appointment.service.ts":
+/*!**********************************************************************!*\
+  !*** ./apps/extension-worker/src/appointment/appointment.service.ts ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AppointmentService = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let AppointmentService = class AppointmentService {
+    constructor(db) {
+        this.db = db;
+    }
+    async ScheduleAppointment(data) {
+        try {
+            let query = await this.db.appointment.create({
+                data: {
+                    status: data['status'],
+                    time: data['time'],
+                    workerProfileId: data['workerProfileId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+    }
+    async GetVisits(data) {
+        try {
+            let query = await this.db.visit.findMany({
+                where: {
+                    appointmentId: data['properties']['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+    }
+    async AddVisit(data) {
+        try {
+            let query = await this.db.appointment.update({
+                where: {
+                    id: data['id'],
+                },
+                data: {
+                    Visit: {
+                        connect: {
+                            id: data['properties']['visitId'],
+                        },
+                    },
+                },
+            });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+        throw new Error('Method not implemented.');
+    }
+    async RemoveVisit(data) {
+        try {
+            let query = await this.db.appointment.update({
+                where: {
+                    id: data['id'],
+                },
+                data: {
+                    Visit: {
+                        disconnect: {
+                            id: data['properties']['visitId'],
+                        },
+                    },
+                },
+            });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+        throw new Error('Method not implemented.');
+    }
+    async findByid(data) {
+        try {
+            let query = await this.db.appointment.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+    }
+    async findByTime(data) {
+        try {
+            let query = await this.db.appointment.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    time: data['properties']['time'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+    }
+    async findByStatus(data) {
+        try {
+            let query = await this.db.appointment.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    status: data['properties']['status'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+    }
+    async findByworkerProfileId(data) {
+        try {
+            let query = await this.db.appointment.findFirstOrThrow({
+                where: {
+                    id: data['id'],
+                    workerProfileId: data['properties']['workerProfileId'],
+                },
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+    }
+    async UpdateProperty(data) {
+        try {
+            let query = data['properties']['status'] !== undefined
+                ? await this.db.appointment.update({
+                    where: {
+                        id: data['id'],
+                    },
+                    data: {
+                        status: data['properties']['status'],
+                    },
+                })
+                : data['properties']['time'] !== undefined
+                    ? await this.db.appointment.update({
+                        where: {
+                            id: data['id'],
+                        },
+                        data: {
+                            time: data['properties']['time'],
+                        },
+                    })
+                    : data['properties']['workerProfileId'] !== undefined
+                        ? await this.db.appointment.update({
+                            where: {
+                                id: data['id'],
+                            },
+                            data: {
+                                workerProfileId: data['properties']['workerProfileId'],
+                            },
+                        })
+                        : new common_1.BadRequestException('please pass in a valid property');
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
+    }
+};
+AppointmentService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], AppointmentService);
+exports.AppointmentService = AppointmentService;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/appointment/dto/find_dto.ts":
+/*!***************************************************************!*\
+  !*** ./apps/extension-worker/src/appointment/dto/find_dto.ts ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FindDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class FindDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], FindDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
+], FindDto.prototype, "properties", void 0);
+exports.FindDto = FindDto;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/appointment/dto/update_dto.ts":
+/*!*****************************************************************!*\
+  !*** ./apps/extension-worker/src/appointment/dto/update_dto.ts ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class UpdateDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], UpdateDto.prototype, "id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_a = typeof Partial !== "undefined" && Partial) === "function" ? _a : Object)
+], UpdateDto.prototype, "properties", void 0);
+exports.UpdateDto = UpdateDto;
+
+
+/***/ }),
+
 /***/ "./apps/extension-worker/src/challenge/challenge.controller.ts":
 /*!*********************************************************************!*\
   !*** ./apps/extension-worker/src/challenge/challenge.controller.ts ***!
@@ -1445,6 +1861,9 @@ const cooperative_service_1 = __webpack_require__(/*! ../cooperative/cooperative
 const project_service_1 = __webpack_require__(/*! ../project/project.service */ "./apps/extension-worker/src/project/project.service.ts");
 const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
 const visit_module_1 = __webpack_require__(/*! ../visit/visit.module */ "./apps/extension-worker/src/visit/visit.module.ts");
+const appointment_module_1 = __webpack_require__(/*! ../appointment/appointment.module */ "./apps/extension-worker/src/appointment/appointment.module.ts");
+const appointment_controller_1 = __webpack_require__(/*! ../appointment/appointment.controller */ "./apps/extension-worker/src/appointment/appointment.controller.ts");
+const appointment_service_1 = __webpack_require__(/*! ../appointment/appointment.service */ "./apps/extension-worker/src/appointment/appointment.service.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -1459,7 +1878,8 @@ ExtensionWorkerModule = __decorate([
             profile_module_1.ProfileModule,
             challenge_module_1.ChallengeModule,
             visit_module_1.VisitModule,
-            Intervention_module_1.InterventionModule
+            Intervention_module_1.InterventionModule,
+            appointment_module_1.AppointmentModule,
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -1468,6 +1888,7 @@ ExtensionWorkerModule = __decorate([
             cooperative_controller_1.CooperativeController,
             farmer_controller_1.FarmerController,
             project_controller_1.ProjectController,
+            appointment_controller_1.AppointmentController
         ],
         providers: [
             auth_service_1.AuthService,
@@ -1479,7 +1900,8 @@ ExtensionWorkerModule = __decorate([
             milestone_service_1.MilestoneService,
             cooperative_service_1.CooperativeService,
             project_service_1.ProjectService,
-            profile_service_1.ProfileService
+            profile_service_1.ProfileService,
+            appointment_service_1.AppointmentService
         ],
     })
 ], ExtensionWorkerModule);
@@ -2285,7 +2707,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object)
-], UpdateDto.prototype, "new_value", void 0);
+], UpdateDto.prototype, "properties", void 0);
 exports.UpdateDto = UpdateDto;
 
 
@@ -2327,37 +2749,37 @@ let ProfileController = class ProfileController {
         this.profile = profile;
     }
     Getreports(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Getreports(data);
     }
     Addreport(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Addreport(data);
     }
     CreateProfile(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.CreateProfile(data);
     }
     Getprojects(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Getprojects(data);
     }
     GetCooperative(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.GetCooperative(data);
     }
     Addproject(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Addproject(data);
     }
     AddCooperative(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.AddCooperative(data);
     }
     Removeproject(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Removeproject(data);
     }
     Removereport(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.Removereport(data);
     }
     RemoveCooperative(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.RemoveCooperative(data);
     }
     findByUserId(data) {
-        throw new Error('Method not implemented.');
+        return this.profile.findByUserId(data);
     }
     UpdateProperty(data) {
         return this.profile.UpdateProperty(data);
@@ -2541,7 +2963,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Getprojects(data) {
@@ -2554,7 +2976,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Getreports(data) {
@@ -2567,7 +2989,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async GetCooperative(data) {
@@ -2580,7 +3002,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Addproject(data) {
@@ -2617,7 +3039,7 @@ let ProfileService = class ProfileService {
             return project;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Addreport(data) {
@@ -2657,7 +3079,7 @@ let ProfileService = class ProfileService {
             return cooperative;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Removeproject(data) {
@@ -2669,7 +3091,7 @@ let ProfileService = class ProfileService {
                 data: {
                     participants: {
                         disconnect: {
-                            id: data['new_value']['project_id'],
+                            id: data['properties']['project_id'],
                         },
                     },
                 },
@@ -2677,7 +3099,7 @@ let ProfileService = class ProfileService {
             return true;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async Removereport(data) {
@@ -2698,7 +3120,7 @@ let ProfileService = class ProfileService {
                 data: {
                     farmers: {
                         disconnect: {
-                            id: data['new_value']['project_id'],
+                            id: data['properties']['project_id'],
                         },
                     },
                 },
@@ -2706,7 +3128,7 @@ let ProfileService = class ProfileService {
             return true;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async findByUserId(data) {
@@ -2723,91 +3145,91 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdateProperty(data) {
         console.log(data);
         try {
-            let query = data['new_value']['about'] !== undefined
+            let query = data['properties']['about'] !== undefined
                 ? await this.db.workerProfile.update({
                     where: {
                         id: data['id'],
                     },
                     data: {
-                        about: data['new_value']['about'],
+                        about: data['properties']['about'],
                     },
                 })
-                : data['new_value']['age'] !== undefined
+                : data['properties']['age'] !== undefined
                     ? await this.db.workerProfile.update({
                         where: {
                             id: data['id'],
                         },
                         data: {
-                            age: data['new_value']['age'],
+                            age: data['properties']['age'],
                         },
                     })
-                    : data['new_value']['sex'] !== undefined
+                    : data['properties']['sex'] !== undefined
                         ? await this.db.workerProfile.update({
                             where: {
                                 id: data['id'],
                             },
                             data: {
-                                sex: data['new_value']['sex'],
+                                sex: data['properties']['sex'],
                             },
                         })
-                        : data['new_value']['birthday'] !== undefined
+                        : data['properties']['birthday'] !== undefined
                             ? await this.db.workerProfile.update({
                                 where: {
                                     id: data['id'],
                                 },
                                 data: {
-                                    birthday: data['new_value']['birthday'],
+                                    birthday: data['properties']['birthday'],
                                 },
                             })
-                            : data['new_value']['address'] !== undefined
+                            : data['properties']['address'] !== undefined
                                 ? await this.db.workerProfile.update({
                                     where: {
                                         id: data['id'],
                                     },
                                     data: {
-                                        address: data['new_value']['address'],
+                                        address: data['properties']['address'],
                                     },
                                 })
-                                : data['new_value']['religion'] !== undefined
+                                : data['properties']['religion'] !== undefined
                                     ? await this.db.workerProfile.update({
                                         where: {
                                             id: data['id'],
                                         },
                                         data: {
-                                            religion: data['new_value']['religion'],
+                                            religion: data['properties']['religion'],
                                         },
                                     })
-                                    : data['new_value']['religion'] !== undefined
+                                    : data['properties']['religion'] !== undefined
                                         ? await this.db.workerProfile.update({
                                             where: {
                                                 id: data['id'],
                                             },
                                             data: {
-                                                religion: data['new_value']['religion'],
+                                                religion: data['properties']['religion'],
                                             },
                                         })
-                                        : data['new_value']['maritalStatus'] !== undefined
+                                        : data['properties']['maritalStatus'] !== undefined
                                             ? await this.db.workerProfile.update({
                                                 where: {
                                                     id: data['id'],
                                                 },
                                                 data: {
-                                                    maritalStatus: data['new_value']['maritalStatus'],
+                                                    maritalStatus: data['properties']['maritalStatus'],
                                                 },
                                             })
-                                            : data['new_value']['photo'] !== undefined
+                                            : data['properties']['photo'] !== undefined
                                                 ? await this.db.workerProfile.update({
                                                     where: {
                                                         id: data['id'],
                                                     },
                                                     data: {
-                                                        photo: Buffer.from(data['new_value']['maritalStatus']),
+                                                        photo: Buffer.from(data['properties']['maritalStatus']),
                                                     },
                                                 })
                                                 : new common_1.BadRequestException('specify a proper type to be updated');
@@ -2835,10 +3257,6 @@ exports.ProfileService = ProfileService;
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CreateProjectDto = void 0;
-class CreateProjectDto {
-}
-exports.CreateProjectDto = CreateProjectDto;
 
 
 /***/ }),
@@ -4806,7 +5224,7 @@ let AuthService = class AuthService {
         }
         catch (error) {
             console.log(error);
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async SignIn(data) {
@@ -4832,7 +5250,7 @@ let AuthService = class AuthService {
             return access_token;
         }
         catch (error) {
-            console.log(error);
+            throw new common_1.UnauthorizedException(error);
         }
     }
     async SignOut(data) {
