@@ -186,6 +186,7 @@ export class FarmerService {
           Farmer: {
             create: {
               address: {},
+              photo: Buffer.from(data['photo']),
               age: data['age'],
               birthday: data['birthday'],
               income: 'SMALL',
@@ -206,7 +207,7 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(undefined, error);
     }
   }
   SignOut() {

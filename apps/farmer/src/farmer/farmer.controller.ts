@@ -11,7 +11,7 @@ export class FarmerController {
    *
    */
   constructor(private readonly farmer: FarmerService) {}
-  @Post('Create farmer')
+  @Post('Createfarmer')
   Create_Farmer(data: CreateFarmerDto) {
     return this.farmer.CreateResource(data);
   }

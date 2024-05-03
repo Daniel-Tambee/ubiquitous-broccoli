@@ -27,6 +27,7 @@ import { VisitModule } from '../visit/visit.module';
 import { AppointmentModule } from '../appointment/appointment.module';
 import { AppointmentController } from '../appointment/appointment.controller';
 import { AppointmentService } from '../appointment/appointment.service';
+import { FarmerModule } from 'apps/farmer/src/farmer.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { AppointmentService } from '../appointment/appointment.service';
     VisitModule,
     InterventionModule,
     AppointmentModule,
+    FarmerModule,
   ],
   controllers: [
     AuthController,
@@ -49,7 +51,7 @@ import { AppointmentService } from '../appointment/appointment.service';
     CooperativeController,
     FarmerController,
     ProjectController,
-    AppointmentController
+    AppointmentController,
   ],
   providers: [
     AuthService,
@@ -62,7 +64,8 @@ import { AppointmentService } from '../appointment/appointment.service';
     CooperativeService,
     ProjectService,
     ProfileService,
-    AppointmentService
+    AppointmentService,
+    FarmerService,
   ],
 })
 export class ExtensionWorkerModule {}

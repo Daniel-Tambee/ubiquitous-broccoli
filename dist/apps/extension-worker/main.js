@@ -1864,6 +1864,7 @@ const visit_module_1 = __webpack_require__(/*! ../visit/visit.module */ "./apps/
 const appointment_module_1 = __webpack_require__(/*! ../appointment/appointment.module */ "./apps/extension-worker/src/appointment/appointment.module.ts");
 const appointment_controller_1 = __webpack_require__(/*! ../appointment/appointment.controller */ "./apps/extension-worker/src/appointment/appointment.controller.ts");
 const appointment_service_1 = __webpack_require__(/*! ../appointment/appointment.service */ "./apps/extension-worker/src/appointment/appointment.service.ts");
+const farmer_module_1 = __webpack_require__(/*! apps/farmer/src/farmer.module */ "./apps/farmer/src/farmer.module.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -1880,6 +1881,7 @@ ExtensionWorkerModule = __decorate([
             visit_module_1.VisitModule,
             Intervention_module_1.InterventionModule,
             appointment_module_1.AppointmentModule,
+            farmer_module_1.FarmerModule,
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -1888,7 +1890,7 @@ ExtensionWorkerModule = __decorate([
             cooperative_controller_1.CooperativeController,
             farmer_controller_1.FarmerController,
             project_controller_1.ProjectController,
-            appointment_controller_1.AppointmentController
+            appointment_controller_1.AppointmentController,
         ],
         providers: [
             auth_service_1.AuthService,
@@ -1901,7 +1903,8 @@ ExtensionWorkerModule = __decorate([
             cooperative_service_1.CooperativeService,
             project_service_1.ProjectService,
             profile_service_1.ProfileService,
-            appointment_service_1.AppointmentService
+            appointment_service_1.AppointmentService,
+            farmer_service_1.FarmerService,
         ],
     })
 ], ExtensionWorkerModule);
@@ -4624,6 +4627,52 @@ exports.VisitService = VisitService;
 
 /***/ }),
 
+/***/ "./apps/farmer/src/farmer.module.ts":
+/*!******************************************!*\
+  !*** ./apps/farmer/src/farmer.module.ts ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FarmerModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const auth_controller_1 = __webpack_require__(/*! @app/lib/auth/auth.controller */ "./libs/lib/src/auth/auth.controller.ts");
+const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
+const farmer_module_1 = __webpack_require__(/*! ./farmer/farmer.module */ "./apps/farmer/src/farmer/farmer.module.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const farmer_service_1 = __webpack_require__(/*! ./farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
+const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const farmer_controller_1 = __webpack_require__(/*! ./farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
+let FarmerModule = class FarmerModule {
+};
+FarmerModule = __decorate([
+    (0, common_1.Module)({
+        imports: [farmer_module_1.Farmer],
+        controllers: [auth_controller_1.AuthController, farmer_controller_1.FarmerController],
+        providers: [
+            auth_service_1.AuthService,
+            farmer_service_1.FarmerService,
+            db_service_1.DbService,
+            admin_service_1.AdminService,
+            worker_service_1.WorkerService,
+            jwt_1.JwtService,
+        ],
+    })
+], FarmerModule);
+exports.FarmerModule = FarmerModule;
+
+
+/***/ }),
+
 /***/ "./apps/farmer/src/farmer/dto/dto.ts":
 /*!*******************************************!*\
   !*** ./apps/farmer/src/farmer/dto/dto.ts ***!
@@ -4742,7 +4791,7 @@ let FarmerController = class FarmerController {
     }
 };
 __decorate([
-    (0, common_1.Post)('Create farmer'),
+    (0, common_1.Post)('Createfarmer'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof farmer_service_1.CreateFarmerDto !== "undefined" && farmer_service_1.CreateFarmerDto) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
@@ -4754,6 +4803,36 @@ FarmerController = __decorate([
     __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object])
 ], FarmerController);
 exports.FarmerController = FarmerController;
+
+
+/***/ }),
+
+/***/ "./apps/farmer/src/farmer/farmer.module.ts":
+/*!*************************************************!*\
+  !*** ./apps/farmer/src/farmer/farmer.module.ts ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Farmer = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let Farmer = class Farmer {
+};
+Farmer = __decorate([
+    (0, common_1.Module)({
+        providers: [farmer_service_1.FarmerService, db_service_1.DbService]
+    })
+], Farmer);
+exports.Farmer = Farmer;
 
 
 /***/ }),
@@ -4957,6 +5036,7 @@ let FarmerService = class FarmerService {
                     Farmer: {
                         create: {
                             address: {},
+                            photo: Buffer.from(data['photo']),
                             age: data['age'],
                             birthday: data['birthday'],
                             income: 'SMALL',
@@ -4978,7 +5058,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(undefined, error);
         }
     }
     SignOut() {
