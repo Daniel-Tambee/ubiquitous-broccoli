@@ -106,7 +106,7 @@ export class WorkerService implements Iworker {
     try {
       const user = await this.db.user.update({
         where: {
-          email: data['property'],
+          email: data['property']['email'],
           type: 'EXTENSION_WORKER',
         },
         data: {

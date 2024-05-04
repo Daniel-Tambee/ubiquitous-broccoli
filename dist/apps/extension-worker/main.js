@@ -126,7 +126,7 @@ let AdminService = class AdminService {
         try {
             const user = await this.db.user.update({
                 where: {
-                    email: data['property'],
+                    email: data['property']['email'],
                     type: 'ADMIN',
                 },
                 data: {
@@ -805,11 +805,11 @@ let AppointmentService = class AppointmentService {
                     },
                 },
             });
+            return query;
         }
         catch (error) {
             throw new common_1.BadRequestException(undefined, error);
         }
-        throw new Error('Method not implemented.');
     }
     async RemoveVisit(data) {
         try {
@@ -825,11 +825,11 @@ let AppointmentService = class AppointmentService {
                     },
                 },
             });
+            return query;
         }
         catch (error) {
             throw new common_1.BadRequestException(undefined, error);
         }
-        throw new Error('Method not implemented.');
     }
     async findByid(data) {
         try {
@@ -2037,7 +2037,7 @@ let WorkerService = class WorkerService {
         try {
             const user = await this.db.user.update({
                 where: {
-                    email: data['property'],
+                    email: data['property']['email'],
                     type: 'EXTENSION_WORKER',
                 },
                 data: {

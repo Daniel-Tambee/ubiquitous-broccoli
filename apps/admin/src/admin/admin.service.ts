@@ -106,7 +106,7 @@ export class AdminService implements IAdmin {
     try {
       const user = await this.db.user.update({
         where: {
-          email: data['property'],
+          email: data['property']['email'],
           type: 'ADMIN',
         },
         data: {
