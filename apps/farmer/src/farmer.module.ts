@@ -11,7 +11,7 @@ import { FarmerController } from './farmer/farmer.controller';
 
 @Module({
   imports: [Farmer],
-  controllers: [AuthController,FarmerController],
+  controllers: [FarmerController],
   providers: [
     AuthService,
     FarmerService,

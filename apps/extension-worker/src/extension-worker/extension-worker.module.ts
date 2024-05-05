@@ -49,7 +49,6 @@ import { FarmerModule } from 'apps/farmer/src/farmer.module';
     ExtensionWorkerController,
     MilestoneController,
     CooperativeController,
-    FarmerController,
     ProjectController,
     AppointmentController,
   ],
@@ -65,7 +64,6 @@ import { FarmerModule } from 'apps/farmer/src/farmer.module';
     ProjectService,
     ProfileService,
     AppointmentService,
-    FarmerService,
   ],
 })
 export class ExtensionWorkerModule {}

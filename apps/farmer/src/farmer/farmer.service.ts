@@ -261,6 +261,8 @@ export class FarmerService {
   }
   async CreateResource(data: CreateFarmerDto): Promise<User> {
     try {
+      console.log(data);
+
       const user = await this.db.user.create({
         data: {
           email: data['email'],
@@ -273,7 +275,7 @@ export class FarmerService {
             create: {
               address: {},
               photo: Buffer.from(data['photo']),
-              age: data['age'],
+              age: Number(data['age']),
               birthday: data['birthday'],
               income: 'SMALL',
               maritalStatus: data['maritalStatus'],
@@ -293,6 +295,8 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
+      console.log(error);
+
       throw new BadRequestException(undefined, error);
     }
   }

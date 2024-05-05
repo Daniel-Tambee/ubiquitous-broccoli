@@ -1,18 +1,22 @@
-import { Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { CreateFarmerDto, FarmerService } from './farmer.service';
 import { ApiTags } from '@nestjs/swagger';
-import { ExtensionWorkerGuard } from '@app/lib/auth/extension-worker.guard';
+import { UpdateDto } from './dto/dto';
 
 @Controller('farmer')
-@ApiTags('Farmer')
-@UseGuards(ExtensionWorkerGuard)
+@ApiTags('farmer')
+// @UseGuards(ExtensionWorkerGuard)
 export class FarmerController {
   /**
    *
    */
   constructor(private readonly farmer: FarmerService) {}
   @Post('Createfarmer')
-  Create_Farmer(data: CreateFarmerDto) {
+  Create_Farmer(@Body() data: CreateFarmerDto) {
     return this.farmer.CreateResource(data);
+  }
+  @Post('UpdateProperty')
+  UpdateProperty(@Body() data: UpdateDto) {
+    return this.farmer.UpdateProperties(data);
   }
 }

@@ -1854,7 +1854,6 @@ const report_module_1 = __webpack_require__(/*! ../report/report.module */ "./ap
 const project_controller_1 = __webpack_require__(/*! ../project/project.controller */ "./apps/extension-worker/src/project/project.controller.ts");
 const milestone_controller_1 = __webpack_require__(/*! ../milestone/milestone.controller */ "./apps/extension-worker/src/milestone/milestone.controller.ts");
 const cooperative_controller_1 = __webpack_require__(/*! ../cooperative/cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
-const farmer_controller_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
 const milestone_service_1 = __webpack_require__(/*! ../milestone/milestone.service */ "./apps/extension-worker/src/milestone/milestone.service.ts");
 const challenge_module_1 = __webpack_require__(/*! ../challenge/challenge.module */ "./apps/extension-worker/src/challenge/challenge.module.ts");
 const cooperative_service_1 = __webpack_require__(/*! ../cooperative/cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
@@ -1888,7 +1887,6 @@ ExtensionWorkerModule = __decorate([
             extension_worker_controller_1.ExtensionWorkerController,
             milestone_controller_1.MilestoneController,
             cooperative_controller_1.CooperativeController,
-            farmer_controller_1.FarmerController,
             project_controller_1.ProjectController,
             appointment_controller_1.AppointmentController,
         ],
@@ -1904,7 +1902,6 @@ ExtensionWorkerModule = __decorate([
             project_service_1.ProjectService,
             profile_service_1.ProfileService,
             appointment_service_1.AppointmentService,
-            farmer_service_1.FarmerService,
         ],
     })
 ], ExtensionWorkerModule);
@@ -4643,7 +4640,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerModule = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const auth_controller_1 = __webpack_require__(/*! @app/lib/auth/auth.controller */ "./libs/lib/src/auth/auth.controller.ts");
 const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
 const farmer_module_1 = __webpack_require__(/*! ./farmer/farmer.module */ "./apps/farmer/src/farmer/farmer.module.ts");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
@@ -4657,7 +4653,7 @@ let FarmerModule = class FarmerModule {
 FarmerModule = __decorate([
     (0, common_1.Module)({
         imports: [farmer_module_1.Farmer],
-        controllers: [auth_controller_1.AuthController, farmer_controller_1.FarmerController],
+        controllers: [farmer_controller_1.FarmerController],
         providers: [
             auth_service_1.AuthService,
             farmer_service_1.FarmerService,
@@ -4775,13 +4771,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const extension_worker_guard_1 = __webpack_require__(/*! @app/lib/auth/extension-worker.guard */ "./libs/lib/src/auth/extension-worker.guard.ts");
+const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
 let FarmerController = class FarmerController {
     constructor(farmer) {
         this.farmer = farmer;
@@ -4789,17 +4788,27 @@ let FarmerController = class FarmerController {
     Create_Farmer(data) {
         return this.farmer.CreateResource(data);
     }
+    UpdateProperty(data) {
+        return this.farmer.UpdateProperties(data);
+    }
 };
 __decorate([
     (0, common_1.Post)('Createfarmer'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof farmer_service_1.CreateFarmerDto !== "undefined" && farmer_service_1.CreateFarmerDto) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "Create_Farmer", null);
+__decorate([
+    (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "UpdateProperty", null);
 FarmerController = __decorate([
     (0, common_1.Controller)('farmer'),
-    (0, swagger_1.ApiTags)('Farmer'),
-    (0, common_1.UseGuards)(extension_worker_guard_1.ExtensionWorkerGuard),
+    (0, swagger_1.ApiTags)('farmer'),
     __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object])
 ], FarmerController);
 exports.FarmerController = FarmerController;
@@ -5113,6 +5122,7 @@ let FarmerService = class FarmerService {
     }
     async CreateResource(data) {
         try {
+            console.log(data);
             const user = await this.db.user.create({
                 data: {
                     email: data['email'],
@@ -5125,7 +5135,7 @@ let FarmerService = class FarmerService {
                         create: {
                             address: {},
                             photo: Buffer.from(data['photo']),
-                            age: data['age'],
+                            age: Number(data['age']),
                             birthday: data['birthday'],
                             income: 'SMALL',
                             maritalStatus: data['maritalStatus'],
@@ -5146,6 +5156,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadRequestException(undefined, error);
         }
     }
