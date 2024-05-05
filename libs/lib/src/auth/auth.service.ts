@@ -69,7 +69,11 @@ export class AuthService implements IAuth {
         },
       );
 
-      const access_token =
+      user['access_token'] = this.jwtService.sign(data, {
+        secret: process.env.HASH_SECRET || 'hash',
+      });
+
+      /*       const access_token =
         verification == true
           ? {
               access_token: this.jwtService.sign(data, {
@@ -77,7 +81,7 @@ export class AuthService implements IAuth {
               }),
             }
           : new UnauthorizedException();
-      return access_token;
+ */ return user;
     } catch (error) {
       throw new UnauthorizedException(error);
     }
