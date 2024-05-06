@@ -19,7 +19,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.CreateProject(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('Addparticipant')
@@ -27,7 +27,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.Addparticipant(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('Addmilestones')
@@ -35,7 +35,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.Addmilestones(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('Getparticipants')
@@ -43,7 +43,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.Getparticipants(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('Removeparticipants')
@@ -51,7 +51,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.Removeparticipants(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('Getmilestones')
@@ -59,7 +59,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.Getmilestones(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('Removemilestones')
@@ -67,7 +67,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.Removemilestones(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('FindByid')
@@ -75,7 +75,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.FindByid(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('FindBytype')
@@ -83,7 +83,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.FindBytype(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('FindByparticipants')
@@ -91,7 +91,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.FindByparticipants(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('FindBymilestones')
@@ -99,7 +99,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.FindBymilestones(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('FindBystart_date')
@@ -107,7 +107,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.FindBystart_date(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('FindByend_date')
@@ -115,7 +115,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.FindByend_date(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('FindByworkerProfileId')
@@ -123,7 +123,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.FindByworkerProfileId(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   @Post('UpdateProperty')
@@ -133,7 +133,7 @@ export class ProjectController implements IProject {
     try {
       return this.project.UpdateProperty(data);
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
 }

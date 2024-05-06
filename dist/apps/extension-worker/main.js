@@ -41,7 +41,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdateLastName(data) {
@@ -58,7 +58,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdatePhoneNumber(data) {
@@ -75,7 +75,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindById(data) {
@@ -89,7 +89,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByPhone_Number(data) {
@@ -104,7 +104,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByFirst_name(data) {
@@ -119,7 +119,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdatePassword(data) {
@@ -136,7 +136,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async CreateResource(data) {
@@ -154,7 +154,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     SignOut() {
@@ -1949,7 +1949,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdateLastName(data) {
@@ -1966,7 +1966,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdatePhoneNumber(data) {
@@ -1983,7 +1983,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindById(data) {
@@ -1997,7 +1997,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByPhone_Number(data) {
@@ -2012,7 +2012,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByFirst_name(data) {
@@ -2027,7 +2027,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdatePassword(data) {
@@ -2044,7 +2044,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async CreateResource(data) {
@@ -2062,7 +2062,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     SignOut() {
@@ -2544,7 +2544,7 @@ let MilestoneService = class MilestoneService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
 };
@@ -3236,7 +3236,7 @@ let ProfileService = class ProfileService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
 };
@@ -3348,7 +3348,7 @@ let ProjectController = class ProjectController {
             return this.project.CreateProject(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     Addparticipant(data) {
@@ -3356,7 +3356,7 @@ let ProjectController = class ProjectController {
             return this.project.Addparticipant(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     Addmilestones(data) {
@@ -3364,7 +3364,7 @@ let ProjectController = class ProjectController {
             return this.project.Addmilestones(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     Getparticipants(data) {
@@ -3372,7 +3372,7 @@ let ProjectController = class ProjectController {
             return this.project.Getparticipants(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     Removeparticipants(data) {
@@ -3380,7 +3380,7 @@ let ProjectController = class ProjectController {
             return this.project.Removeparticipants(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     Getmilestones(data) {
@@ -3388,7 +3388,7 @@ let ProjectController = class ProjectController {
             return this.project.Getmilestones(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     Removemilestones(data) {
@@ -3396,7 +3396,7 @@ let ProjectController = class ProjectController {
             return this.project.Removemilestones(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     FindByid(data) {
@@ -3404,7 +3404,7 @@ let ProjectController = class ProjectController {
             return this.project.FindByid(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     FindBytype(data) {
@@ -3412,7 +3412,7 @@ let ProjectController = class ProjectController {
             return this.project.FindBytype(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     FindByparticipants(data) {
@@ -3420,7 +3420,7 @@ let ProjectController = class ProjectController {
             return this.project.FindByparticipants(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     FindBymilestones(data) {
@@ -3428,7 +3428,7 @@ let ProjectController = class ProjectController {
             return this.project.FindBymilestones(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     FindBystart_date(data) {
@@ -3436,7 +3436,7 @@ let ProjectController = class ProjectController {
             return this.project.FindBystart_date(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     FindByend_date(data) {
@@ -3444,7 +3444,7 @@ let ProjectController = class ProjectController {
             return this.project.FindByend_date(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     FindByworkerProfileId(data) {
@@ -3452,7 +3452,7 @@ let ProjectController = class ProjectController {
             return this.project.FindByworkerProfileId(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     UpdateProperty(data) {
@@ -3460,7 +3460,7 @@ let ProjectController = class ProjectController {
             return this.project.UpdateProperty(data);
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
 };
@@ -3646,7 +3646,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async Addparticipant(data) {
@@ -3666,7 +3666,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async Addmilestones(data) {
@@ -3686,7 +3686,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async Getparticipants(data) {
@@ -3699,7 +3699,7 @@ let ProjectService = class ProjectService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async Removeparticipants(data) {
@@ -3719,7 +3719,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async Getmilestones(data) {
@@ -3732,7 +3732,7 @@ let ProjectService = class ProjectService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async Removemilestones(data) {
@@ -3752,7 +3752,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByid(data) {
@@ -3765,7 +3765,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindBytype(data) {
@@ -3779,7 +3779,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByparticipants(data) {
@@ -3797,7 +3797,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindBymilestones(data) {
@@ -3815,7 +3815,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindBystart_date(data) {
@@ -3829,7 +3829,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByend_date(data) {
@@ -3843,7 +3843,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByworkerProfileId(data) {
@@ -3857,7 +3857,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdateProperty(data) {
@@ -3896,7 +3896,7 @@ let ProjectService = class ProjectService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
 };
@@ -5005,7 +5005,7 @@ let FarmerService = class FarmerService {
             return query;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdateFirstName(data) {
@@ -5022,7 +5022,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdateLastName(data) {
@@ -5039,7 +5039,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdatePhoneNumber(data) {
@@ -5056,7 +5056,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindById(data) {
@@ -5070,7 +5070,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByPhone_Number(data) {
@@ -5085,7 +5085,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async FindByFirst_name(data) {
@@ -5100,7 +5100,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async UpdatePassword(data) {
@@ -5117,7 +5117,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async CreateResource(data) {
@@ -5133,7 +5133,7 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                     Farmer: {
                         create: {
-                            address: {},
+                            address: data['address'] !== undefined ? data['address'] : {},
                             photo: Buffer.from(data['photo']),
                             age: Number(data['age']),
                             birthday: data['birthday'],
@@ -5144,6 +5144,12 @@ let FarmerService = class FarmerService {
                             lga: {
                                 create: {
                                     name: data['lga'],
+                                },
+                            },
+                            household: {
+                                create: {
+                                    size: Number(data['house_hold_size']),
+                                    number: Number(data['house_hold_number']),
                                 },
                             },
                         },
@@ -5349,14 +5355,10 @@ let AuthService = class AuthService {
             const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
                 secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
             });
-            const access_token = verification == true
-                ? {
-                    access_token: this.jwtService.sign(data, {
-                        secret: process.env.HASH_SECRET || 'hash',
-                    }),
-                }
-                : new common_1.UnauthorizedException();
-            return access_token;
+            user['access_token'] = this.jwtService.sign(data, {
+                secret: process.env.HASH_SECRET || 'hash',
+            });
+            return user;
         }
         catch (error) {
             throw new common_1.UnauthorizedException(error);
@@ -5386,7 +5388,7 @@ let AuthService = class AuthService {
             }
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
     async ForgotPassword(data) {
@@ -5406,7 +5408,7 @@ let AuthService = class AuthService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new common_1.BadRequestException(error);
         }
     }
 };

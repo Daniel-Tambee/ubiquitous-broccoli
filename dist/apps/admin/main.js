@@ -241,7 +241,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdateLastName(data) {
@@ -258,7 +258,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdatePhoneNumber(data) {
@@ -275,7 +275,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindById(data) {
@@ -289,7 +289,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindByPhone_Number(data) {
@@ -304,7 +304,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindByFirst_name(data) {
@@ -319,7 +319,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdatePassword(data) {
@@ -336,7 +336,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async CreateResource(data) {
@@ -354,7 +354,7 @@ let AdminService = class AdminService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     SignOut() {
@@ -423,7 +423,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdateLastName(data) {
@@ -440,7 +440,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdatePhoneNumber(data) {
@@ -457,7 +457,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindById(data) {
@@ -471,7 +471,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindByPhone_Number(data) {
@@ -486,7 +486,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindByFirst_name(data) {
@@ -501,7 +501,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdatePassword(data) {
@@ -518,7 +518,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async CreateResource(data) {
@@ -536,7 +536,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     SignOut() {
@@ -697,7 +697,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdateLastName(data) {
@@ -714,7 +714,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdatePhoneNumber(data) {
@@ -731,7 +731,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindById(data) {
@@ -745,7 +745,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindByPhone_Number(data) {
@@ -760,7 +760,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async FindByFirst_name(data) {
@@ -775,7 +775,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async UpdatePassword(data) {
@@ -792,7 +792,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async CreateResource(data) {
@@ -810,7 +810,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     SignOut() {
@@ -1027,7 +1027,7 @@ let AuthService = class AuthService {
         }
         catch (error) {
             console.log(error);
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async SignIn(data) {
@@ -1080,7 +1080,7 @@ let AuthService = class AuthService {
             }
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
     async ForgotPassword(data) {
@@ -1100,7 +1100,7 @@ let AuthService = class AuthService {
             return user;
         }
         catch (error) {
-            return error;
+            throw new BadRequestException(error);
         }
     }
 };

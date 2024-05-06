@@ -155,6 +155,7 @@ model Report {
 
 model HouseHold {
   id              String         @id @default(uuid()) @map("_id")
+  number          Int
   size            Int
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt

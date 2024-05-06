@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { IAdmin } from './iadmin.interface';
 import { CreateUserDto } from '@app/lib/auth/dto/create-auth.dto';
 import { User } from '@prisma/client';
@@ -26,7 +26,7 @@ export class AdminService implements IAdmin {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async UpdateLastName(data: UpdateDto): Promise<User> {
@@ -42,7 +42,7 @@ export class AdminService implements IAdmin {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async UpdatePhoneNumber(data: UpdateDto): Promise<User> {
@@ -58,7 +58,7 @@ export class AdminService implements IAdmin {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindById(data: FindDto): Promise<User> {
@@ -71,7 +71,7 @@ export class AdminService implements IAdmin {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindByPhone_Number(data: FindDto): Promise<User> {
@@ -85,7 +85,7 @@ export class AdminService implements IAdmin {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindByFirst_name(data: FindDto): Promise<User> {
@@ -99,7 +99,7 @@ export class AdminService implements IAdmin {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async UpdatePassword(data: UpdateDto): Promise<User> {
@@ -115,7 +115,7 @@ export class AdminService implements IAdmin {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async CreateResource(data: CreateUserDto): Promise<User> {
@@ -132,7 +132,7 @@ export class AdminService implements IAdmin {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   SignOut() {

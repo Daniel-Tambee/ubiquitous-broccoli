@@ -150,7 +150,7 @@ export class FarmerService {
           : new BadRequestException('pass in a valid property  please');
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
 
@@ -167,7 +167,7 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async UpdateLastName(data: UpdateDto): Promise<User> {
@@ -183,7 +183,7 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async UpdatePhoneNumber(data: UpdateDto): Promise<User> {
@@ -199,7 +199,7 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindById(data: FindDto): Promise<User> {
@@ -212,7 +212,7 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindByPhone_Number(data: FindDto): Promise<User> {
@@ -226,7 +226,7 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindByFirst_name(data: FindDto): Promise<User> {
@@ -240,7 +240,7 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async UpdatePassword(data: UpdateDto): Promise<User> {
@@ -256,7 +256,7 @@ export class FarmerService {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async CreateResource(data: CreateFarmerDto): Promise<User> {
@@ -273,7 +273,7 @@ export class FarmerService {
           type: 'FARMER',
           Farmer: {
             create: {
-              address: {},
+              address: data['address'] !== undefined ? data['address'] : {},
               photo: Buffer.from(data['photo']),
               age: Number(data['age']),
               birthday: data['birthday'],
@@ -284,6 +284,12 @@ export class FarmerService {
               lga: {
                 create: {
                   name: data['lga'],
+                },
+              },
+              household: {
+                create: {
+                  size: Number(data['house_hold_size']),
+                  number: Number(data['house_hold_number']),
                 },
               },
             },

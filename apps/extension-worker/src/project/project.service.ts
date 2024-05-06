@@ -21,7 +21,7 @@ export class ProjectService implements IProject {
       const query = await this.profile.Addproject(data);
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async Addparticipant(data: UpdateDto): Promise<Project> {
@@ -40,7 +40,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async Addmilestones(data: UpdateDto): Promise<Project> {
@@ -59,7 +59,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async Getparticipants(data: FindDto): Promise<FarmerProfile[]> {
@@ -71,7 +71,7 @@ export class ProjectService implements IProject {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async Removeparticipants(data: UpdateDto): Promise<Project> {
@@ -90,7 +90,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async Getmilestones(data: FindDto): Promise<Milestone[]> {
@@ -102,7 +102,7 @@ export class ProjectService implements IProject {
       });
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async Removemilestones(data: UpdateDto): Promise<Project> {
@@ -121,7 +121,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindByid(data: FindDto): Promise<Project> {
@@ -133,7 +133,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindBytype(data: FindDto): Promise<Project> {
@@ -146,7 +146,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindByparticipants(data: FindDto): Promise<Project> {
@@ -163,7 +163,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindBymilestones(data: FindDto): Promise<Project> {
@@ -180,7 +180,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindBystart_date(data: FindDto): Promise<Project> {
@@ -193,7 +193,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
 
@@ -207,7 +207,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async FindByworkerProfileId(data: FindDto): Promise<Project> {
@@ -220,7 +220,7 @@ export class ProjectService implements IProject {
       });
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   async UpdateProperty(
@@ -261,7 +261,7 @@ export class ProjectService implements IProject {
           : new BadRequestException('pass in a valid property');
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
 }

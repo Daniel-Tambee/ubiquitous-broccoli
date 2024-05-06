@@ -177,7 +177,7 @@ export class MilestoneService implements IMilestone {
           : new BadRequestException('pass in a valid property');
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
 }

@@ -118,7 +118,7 @@ export class AuthService implements IAuth {
         throw new UnauthorizedException();
       }
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
   // TODO add them to db
@@ -140,7 +140,7 @@ export class AuthService implements IAuth {
           : new Error('Cant Find Any Users By that email');
       return user;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
 }

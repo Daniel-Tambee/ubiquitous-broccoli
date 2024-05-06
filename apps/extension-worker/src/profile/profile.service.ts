@@ -359,7 +359,7 @@ export class ProfileService implements IProfile {
           : new BadRequestException('specify a proper type to be updated');
       return query;
     } catch (error) {
-      return error;
+      throw new BadRequestException(error);
     }
   }
 }
