@@ -35,9 +35,7 @@ export class AuthService implements IAuth {
       });
 
       let query =
-        info['type'] == 'FARMER'
-          ? this.farmer.CreateResource(info)
-          : info['type'] == 'ADMIN'
+        info['type'] == 'ADMIN'
           ? this.admin.CreateResource(info)
           : info['type'] == 'EXTENSION_WORKER'
           ? this.extensionWorker.CreateResource(info)
@@ -74,7 +72,7 @@ export class AuthService implements IAuth {
       });
 
       /*       const access_token =
-        verification == true
+        verification == true.
           ? {
               access_token: this.jwtService.sign(data, {
                 secret: process.env.HASH_SECRET || 'hash',
@@ -144,3 +142,4 @@ export class AuthService implements IAuth {
     }
   }
 }
+6;

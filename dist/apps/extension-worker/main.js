@@ -1709,10 +1709,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExtensionWorkerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const create_auth_dto_1 = __webpack_require__(/*! @app/lib/auth/dto/create-auth.dto */ "./libs/lib/src/auth/dto/create-auth.dto.ts");
 const login_auth_dto_1 = __webpack_require__(/*! @app/lib/auth/dto/login-auth.dto */ "./libs/lib/src/auth/dto/login-auth.dto.ts");
 const dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
 const find_dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
@@ -1745,7 +1746,7 @@ let ExtensionWorkerController = class ExtensionWorkerController {
         return this.worker.UpdatePhoneNumber(data);
     }
     CreateResource(data) {
-        throw new Error('Method not implemented.');
+        return this.worker.CreateResource(data);
     }
     FindByEmail(data) {
         return this.worker.FindByEmail(data);
@@ -1803,11 +1804,17 @@ __decorate([
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], ExtensionWorkerController.prototype, "UpdatePhoneNumber", null);
 __decorate([
+    (0, common_1.Post)('createExtensionWorker'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_r = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+], ExtensionWorkerController.prototype, "CreateResource", null);
+__decorate([
     (0, common_1.Post)('FindByEmail'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_r = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _r : Object]),
-    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+    __metadata("design:paramtypes", [typeof (_t = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _t : Object]),
+    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
 ], ExtensionWorkerController.prototype, "FindByEmail", null);
 ExtensionWorkerController = __decorate([
     (0, common_1.Controller)('extension-worker'),
@@ -4685,9 +4692,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b;
+var _a, _b, _c, _d, _e, _f, _g;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UpdateDto = void 0;
+exports.CreateFarmerDto = exports.UpdateDto = void 0;
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
 class UpdateDto {
@@ -4709,6 +4716,81 @@ __decorate([
     __metadata("design:type", typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object)
 ], UpdateDto.prototype, "property", void 0);
 exports.UpdateDto = UpdateDto;
+class CreateFarmerDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "first_name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "last_name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "email", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "password", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "phone_number", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.UserType,
+    }),
+    __metadata("design:type", typeof (_c = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _c : Object)
+], CreateFarmerDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], CreateFarmerDto.prototype, "age", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.Gender,
+    }),
+    __metadata("design:type", typeof (_d = typeof client_1.Gender !== "undefined" && client_1.Gender) === "function" ? _d : Object)
+], CreateFarmerDto.prototype, "sex", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Object)
+], CreateFarmerDto.prototype, "address", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "birthday", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.Religion,
+    }),
+    __metadata("design:type", typeof (_e = typeof client_1.Religion !== "undefined" && client_1.Religion) === "function" ? _e : Object)
+], CreateFarmerDto.prototype, "religion", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.Marital,
+    }),
+    __metadata("design:type", typeof (_f = typeof client_1.Marital !== "undefined" && client_1.Marital) === "function" ? _f : Object)
+], CreateFarmerDto.prototype, "maritalStatus", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", typeof (_g = typeof Buffer !== "undefined" && Buffer) === "function" ? _g : Object)
+], CreateFarmerDto.prototype, "photo", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], CreateFarmerDto.prototype, "household_size", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Number)
+], CreateFarmerDto.prototype, "household_number", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "lga", void 0);
+exports.CreateFarmerDto = CreateFarmerDto;
 
 
 /***/ }),
@@ -4774,16 +4856,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c;
+var _a, _b, _c, _d, _e, _f, _g;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const farmer_service_1 = __webpack_require__(/*! ./farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/farmer/src/farmer/dto/dto.ts");
+const find_dto_1 = __webpack_require__(/*! ./dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
 let FarmerController = class FarmerController {
     constructor(farmer) {
         this.farmer = farmer;
+    }
+    FindByEmail(data) {
+        return this.farmer.FindByEmail(data);
+    }
+    FindById(data) {
+        return this.farmer.FindById(data);
+    }
+    FindByPhone_Number(data) {
+        return this.farmer.FindByPhone_Number(data);
+    }
+    FindByFirst_name(data) {
+        return this.farmer.FindByFirst_name(data);
     }
     Create_Farmer(data) {
         return this.farmer.CreateResource(data);
@@ -4793,17 +4888,41 @@ let FarmerController = class FarmerController {
     }
 };
 __decorate([
+    (0, common_1.Post)('FindByEmail'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "FindByEmail", null);
+__decorate([
+    (0, common_1.Post)('FindById'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "FindById", null);
+__decorate([
+    (0, common_1.Post)('FindByPhone_Number'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "FindByPhone_Number", null);
+__decorate([
+    (0, common_1.Post)('FindByFirst_name'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "FindByFirst_name", null);
+__decorate([
     (0, common_1.Post)('Createfarmer'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof farmer_service_1.CreateFarmerDto !== "undefined" && farmer_service_1.CreateFarmerDto) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [typeof (_f = typeof dto_1.CreateFarmerDto !== "undefined" && dto_1.CreateFarmerDto) === "function" ? _f : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "Create_Farmer", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_c = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _c : Object]),
+    __metadata("design:paramtypes", [typeof (_g = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _g : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "UpdateProperty", null);
 FarmerController = __decorate([
@@ -5066,6 +5185,9 @@ let FarmerService = class FarmerService {
                     id: data['id'],
                     type: 'FARMER',
                 },
+                include: {
+                    Farmer: true,
+                },
             });
             return user;
         }
@@ -5081,6 +5203,9 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                     phone_number: data['property'],
                 },
+                include: {
+                    Farmer: true,
+                },
             });
             return user;
         }
@@ -5095,6 +5220,9 @@ let FarmerService = class FarmerService {
                     id: data['id'],
                     type: 'FARMER',
                     first_name: data['property'],
+                },
+                include: {
+                    Farmer: true,
                 },
             });
             return user;
@@ -5148,8 +5276,8 @@ let FarmerService = class FarmerService {
                             },
                             household: {
                                 create: {
-                                    size: Number(data['house_hold_size']),
-                                    number: Number(data['house_hold_number']),
+                                    size: Number(data['household_size']),
+                                    number: Number(data['household_number']),
                                 },
                             },
                         },
@@ -5163,7 +5291,9 @@ let FarmerService = class FarmerService {
         }
         catch (error) {
             console.log(error);
-            throw new common_1.BadRequestException(undefined, error);
+            throw new common_1.BadRequestException(undefined, {
+                description: error,
+            });
         }
     }
     SignOut() {
@@ -5175,6 +5305,9 @@ let FarmerService = class FarmerService {
                 where: {
                     email: data['email'],
                     type: 'FARMER',
+                },
+                include: {
+                    Farmer: true,
                 },
             });
             return user;
@@ -5328,13 +5461,11 @@ let AuthService = class AuthService {
                 secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
                 type: 2,
             });
-            let query = info['type'] == 'FARMER'
-                ? this.farmer.CreateResource(info)
-                : info['type'] == 'ADMIN'
-                    ? this.admin.CreateResource(info)
-                    : info['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.CreateResource(info)
-                        : new common_1.BadRequestException('Please Specify User Type');
+            let query = info['type'] == 'ADMIN'
+                ? this.admin.CreateResource(info)
+                : info['type'] == 'EXTENSION_WORKER'
+                    ? this.extensionWorker.CreateResource(info)
+                    : new common_1.BadRequestException('Please Specify User Type');
             return query;
         }
         catch (error) {
@@ -5417,6 +5548,7 @@ AuthService = __decorate([
     __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object, typeof (_b = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _b : Object, typeof (_c = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _c : Object, typeof (_d = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _d : Object])
 ], AuthService);
 exports.AuthService = AuthService;
+6;
 
 
 /***/ }),
@@ -5541,20 +5673,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExtensionWorkerGuard = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
 let ExtensionWorkerGuard = class ExtensionWorkerGuard {
+    constructor(jwt) {
+        this.jwt = jwt;
+    }
     canActivate(context) {
         try {
-            const type = context.switchToHttp().getRequest()['body']['type'];
-            const valid = type == 'EXTENSION_WORKER' ? true : false;
-            if (valid == false) {
-                throw new common_1.ForbiddenException('wrong server');
-            }
-            else {
-                return valid;
-            }
+            const token = context.switchToHttp().getRequest()['headers']['authorization'];
+            const decoded = this.jwt.decode(token, {
+                json: true,
+            });
+            const type = decoded['type'] !== 'EXTENSION_WORKER' ? false : true;
+            return type;
         }
         catch (error) {
             throw new common_1.ForbiddenException('wrong server');
@@ -5562,7 +5700,8 @@ let ExtensionWorkerGuard = class ExtensionWorkerGuard {
     }
 };
 ExtensionWorkerGuard = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _a : Object])
 ], ExtensionWorkerGuard);
 exports.ExtensionWorkerGuard = ExtensionWorkerGuard;
 

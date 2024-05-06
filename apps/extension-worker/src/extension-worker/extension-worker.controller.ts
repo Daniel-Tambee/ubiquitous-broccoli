@@ -41,8 +41,9 @@ export class ExtensionWorkerController implements Iworker {
   UpdatePhoneNumber(@Body() data: UpdateDto): Promise<User> {
     return this.worker.UpdatePhoneNumber(data);
   }
+  @Post('createExtensionWorker')
   CreateResource(data: CreateUserDto): Promise<User> {
-    throw new Error('Method not implemented.');
+    return this.worker.CreateResource(data);
   }
   @Post('FindByEmail')
   FindByEmail(@Body() data: ValidationDto): Promise<User> {

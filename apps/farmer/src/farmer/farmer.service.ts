@@ -2,13 +2,13 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { User, WorkerProfile } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
 import { FindDto } from './dto/find.dto';
-import { UpdateDto } from './dto/dto';
+import { CreateFarmerDto, UpdateDto } from './dto/dto';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 
-type union = WorkerProfile | User;
+/* type union = WorkerProfile | User;
 type excluded = 'id' | 'createdAt' | 'updatedAt';
 export type CreateFarmerDto = Partial<Omit<union, excluded>>;
-
+ */
 @Injectable()
 export class FarmerService {
   /**
@@ -209,6 +209,9 @@ export class FarmerService {
           id: data['id'],
           type: 'FARMER',
         },
+        include: {
+          Farmer: true,
+        },
       });
       return user;
     } catch (error) {
@@ -223,6 +226,9 @@ export class FarmerService {
           type: 'FARMER',
           phone_number: data['property'],
         },
+        include: {
+          Farmer: true,
+        },
       });
       return user;
     } catch (error) {
@@ -236,6 +242,9 @@ export class FarmerService {
           id: data['id'],
           type: 'FARMER',
           first_name: data['property'],
+        },
+        include: {
+          Farmer: true,
         },
       });
       return user;
@@ -288,8 +297,8 @@ export class FarmerService {
               },
               household: {
                 create: {
-                  size: Number(data['house_hold_size']),
-                  number: Number(data['house_hold_number']),
+                  size: Number(data['household_size']),
+                  number: Number(data['household_number']),
                 },
               },
             },
@@ -303,7 +312,9 @@ export class FarmerService {
     } catch (error) {
       console.log(error);
 
-      throw new BadRequestException(undefined, error);
+      throw new BadRequestException(undefined, {
+        description: error,
+      });
     }
   }
   SignOut() {
@@ -315,6 +326,9 @@ export class FarmerService {
         where: {
           email: data['email'],
           type: 'FARMER',
+        },
+        include: {
+          Farmer: true,
         },
       });
       return user;
