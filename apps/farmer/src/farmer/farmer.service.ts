@@ -282,7 +282,8 @@ export class FarmerService {
           type: 'FARMER',
           Farmer: {
             create: {
-              address: data['address'] !== undefined ? data['address'] : {},
+              address:
+                data['address'] !== undefined ? data['address'] : JSON,
               photo: Buffer.from(data['photo']),
               age: Number(data['age']),
               birthday: data['birthday'],
