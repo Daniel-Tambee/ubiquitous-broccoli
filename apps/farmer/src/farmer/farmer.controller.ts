@@ -2,10 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { FarmerService } from './farmer.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
-import { IFarmer } from './ifarmer.interface';
-import { CreateUserDto } from '@app/lib/auth/dto/create-auth.dto';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
-import { $Enums } from '@prisma/client';
 import { FindDto } from './dto/find.dto';
 
 @Controller('farmer')

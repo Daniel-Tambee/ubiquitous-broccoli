@@ -13,7 +13,6 @@ import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 import { FindDto } from 'apps/farmer/src/farmer/dto/find.dto';
 import { WorkerService } from './worker.service';
 import { ApiTags } from '@nestjs/swagger';
-import { ExtensionWorkerGuard } from '@app/lib/auth/extension-worker.guard';
 
 @Controller('extension-worker')
 @ApiTags('Extension Worker')
