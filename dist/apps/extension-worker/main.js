@@ -1709,7 +1709,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExtensionWorkerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -1719,7 +1719,6 @@ const dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/dto */ "./apps/
 const find_dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
 const worker_service_1 = __webpack_require__(/*! ./worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
-const extension_worker_guard_1 = __webpack_require__(/*! @app/lib/auth/extension-worker.guard */ "./libs/lib/src/auth/extension-worker.guard.ts");
 let ExtensionWorkerController = class ExtensionWorkerController {
     constructor(worker) {
         this.worker = worker;
@@ -1736,20 +1735,17 @@ let ExtensionWorkerController = class ExtensionWorkerController {
     FindByFirst_name(data) {
         return this.worker.FindByFirst_name(data);
     }
-    UpdateFirstName(data) {
-        return this.worker.UpdateFirstName(data);
-    }
-    UpdateLastName(data) {
-        return this.worker.UpdateLastName(data);
-    }
-    UpdatePhoneNumber(data) {
-        return this.worker.UpdatePhoneNumber(data);
-    }
     CreateResource(data) {
         return this.worker.CreateResource(data);
     }
+    UpdateProperty(data) {
+        return this.worker.UpdateProperties(data);
+    }
     FindByEmail(data) {
         return this.worker.FindByEmail(data);
+    }
+    getAllWorkers() {
+        return this.worker.getAllWorkers();
     }
     SignOut() {
         return this.worker.SignOut();
@@ -1783,43 +1779,34 @@ __decorate([
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], ExtensionWorkerController.prototype, "FindByFirst_name", null);
 __decorate([
-    (0, common_1.Post)('UpdateFirstName'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('createExtensionWorker'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _k : Object]),
+    __metadata("design:paramtypes", [typeof (_k = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
-], ExtensionWorkerController.prototype, "UpdateFirstName", null);
+], ExtensionWorkerController.prototype, "CreateResource", null);
 __decorate([
-    (0, common_1.Post)('UpdateLastName'),
+    (0, common_1.Post)('UpdateProperty'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
-], ExtensionWorkerController.prototype, "UpdateLastName", null);
-__decorate([
-    (0, common_1.Post)('UpdatePhoneNumber'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_p = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _p : Object]),
-    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
-], ExtensionWorkerController.prototype, "UpdatePhoneNumber", null);
-__decorate([
-    (0, common_1.Post)('createExtensionWorker'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_r = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _r : Object]),
-    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
-], ExtensionWorkerController.prototype, "CreateResource", null);
+], ExtensionWorkerController.prototype, "UpdateProperty", null);
 __decorate([
     (0, common_1.Post)('FindByEmail'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_t = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _t : Object]),
-    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
+    __metadata("design:paramtypes", [typeof (_p = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _p : Object]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], ExtensionWorkerController.prototype, "FindByEmail", null);
+__decorate([
+    (0, common_1.Post)('getAllWorkers'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ExtensionWorkerController.prototype, "getAllWorkers", null);
 ExtensionWorkerController = __decorate([
     (0, common_1.Controller)('extension-worker'),
     (0, swagger_1.ApiTags)('Extension Worker'),
-    (0, common_1.UseGuards)(extension_worker_guard_1.ExtensionWorkerGuard),
     __metadata("design:paramtypes", [typeof (_a = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _a : Object])
 ], ExtensionWorkerController);
 exports.ExtensionWorkerController = ExtensionWorkerController;
@@ -1941,6 +1928,154 @@ const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/l
 let WorkerService = class WorkerService {
     constructor(db) {
         this.db = db;
+        this.UpdateProperties = async (data) => {
+            console.log(data);
+            try {
+                let query = data['property']['email'] !== undefined
+                    ? await this.db.user.update({
+                        data: {
+                            email: data['property']['email'],
+                        },
+                        where: {
+                            id: data['id'],
+                            type: 'EXTENSION_WORKER',
+                        },
+                    })
+                    : data['property']['first_name'] !== undefined
+                        ? await this.db.user.update({
+                            data: {
+                                first_name: data['property']['first_name'],
+                            },
+                            where: {
+                                id: data['id'],
+                                type: 'EXTENSION_WORKER',
+                            },
+                        })
+                        : data['property']['phone_number'] !== undefined
+                            ? await this.db.user.update({
+                                data: {
+                                    phone_number: data['property']['phone_number'],
+                                },
+                                where: {
+                                    id: data['id'],
+                                    type: 'EXTENSION_WORKER',
+                                },
+                            })
+                            : data['property']['password'] !== undefined
+                                ? await this.db.user.update({
+                                    data: {
+                                        password: data['property']['password'],
+                                    },
+                                    where: {
+                                        id: data['id'],
+                                        type: 'EXTENSION_WORKER',
+                                    },
+                                })
+                                : data['property']['birthday'] !== undefined
+                                    ? await this.db.user.update({
+                                        data: {
+                                            workerProfile: {
+                                                update: {
+                                                    birthday: data['property']['birthday'],
+                                                },
+                                            },
+                                        },
+                                        where: {
+                                            id: data['id'],
+                                            type: 'EXTENSION_WORKER',
+                                        },
+                                    })
+                                    : data['property']['age'] !== undefined
+                                        ? await this.db.user.update({
+                                            data: {
+                                                workerProfile: {
+                                                    update: {
+                                                        age: data['property']['age'],
+                                                    },
+                                                },
+                                            },
+                                            where: {
+                                                id: data['id'],
+                                                type: 'EXTENSION_WORKER',
+                                            },
+                                        })
+                                        : data['property']['religion'] !== undefined
+                                            ? await this.db.user.update({
+                                                data: {
+                                                    workerProfile: {
+                                                        update: {
+                                                            religion: data['property']['religion'],
+                                                        },
+                                                    },
+                                                },
+                                                where: {
+                                                    id: data['id'],
+                                                    type: 'EXTENSION_WORKER',
+                                                },
+                                            })
+                                            : data['property']['maritalStatus'] !== undefined
+                                                ? await this.db.user.update({
+                                                    data: {
+                                                        workerProfile: {
+                                                            update: {
+                                                                maritalStatus: data['property']['maritalStatus'],
+                                                            },
+                                                        },
+                                                    },
+                                                    where: {
+                                                        id: data['id'],
+                                                        type: 'EXTENSION_WORKER',
+                                                    },
+                                                })
+                                                : data['property']['sex'] !== undefined
+                                                    ? await this.db.user.update({
+                                                        data: {
+                                                            workerProfile: {
+                                                                update: {
+                                                                    sex: data['property']['sex'],
+                                                                },
+                                                            },
+                                                        },
+                                                        where: {
+                                                            id: data['id'],
+                                                            type: 'EXTENSION_WORKER',
+                                                        },
+                                                    })
+                                                    : data['property']['address'] !== undefined
+                                                        ? await this.db.user.update({
+                                                            data: {
+                                                                workerProfile: {
+                                                                    update: {
+                                                                        address: JSON.parse(data['property']['address']),
+                                                                    },
+                                                                },
+                                                            },
+                                                            where: {
+                                                                id: data['id'],
+                                                                type: 'EXTENSION_WORKER',
+                                                            },
+                                                            include: {
+                                                                workerProfile: {
+                                                                    include: {
+                                                                        Appointment: true,
+                                                                        Challenge: true,
+                                                                        Cooperative: true,
+                                                                        projects: true,
+                                                                        reports: true,
+                                                                        Visit: true,
+                                                                    },
+                                                                },
+                                                            },
+                                                        })
+                                                        : new common_1.BadRequestException('Please pass in a valid property');
+                return query;
+            }
+            catch (error) {
+                new common_1.BadRequestException(error, {
+                    cause: error,
+                });
+            }
+        };
     }
     async UpdateFirstName(data) {
         try {
@@ -1999,6 +2134,19 @@ let WorkerService = class WorkerService {
                 where: {
                     id: data['id'],
                     type: 'EXTENSION_WORKER',
+                },
+                include: {
+                    workerProfile: {
+                        include: {
+                            Appointment: true,
+                            Challenge: true,
+                            Cooperative: true,
+                            projects: true,
+                            reports: true,
+                            User: true,
+                            Visit: true,
+                        },
+                    },
                 },
             });
             return user;
@@ -2088,6 +2236,10 @@ let WorkerService = class WorkerService {
         catch (error) {
             console.log(error);
         }
+    }
+    async getAllWorkers() {
+        let query = await this.db.workerProfile.findMany({});
+        return query;
     }
 };
 WorkerService = __decorate([
@@ -4883,6 +5035,9 @@ let FarmerController = class FarmerController {
     Create_Farmer(data) {
         return this.farmer.CreateResource(data);
     }
+    getAllFarmers() {
+        return this.farmer.getAllFarmers();
+    }
     UpdateProperty(data) {
         return this.farmer.UpdateProperties(data);
     }
@@ -4918,6 +5073,12 @@ __decorate([
     __metadata("design:paramtypes", [typeof (_f = typeof dto_1.CreateFarmerDto !== "undefined" && dto_1.CreateFarmerDto) === "function" ? _f : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "Create_Farmer", null);
+__decorate([
+    (0, common_1.Post)('getAllFarmers'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "getAllFarmers", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
     __param(0, (0, common_1.Body)()),
@@ -5119,6 +5280,14 @@ let FarmerService = class FarmerService {
                                                             id: data['id'],
                                                             type: 'FARMER',
                                                         },
+                                                        include: {
+                                                            Farmer: {
+                                                                include: {
+                                                                    lga: true,
+                                                                    household: true,
+                                                                },
+                                                            },
+                                                        },
                                                     })
                                                     : new common_1.BadRequestException('pass in a valid property  please');
             return query;
@@ -5186,7 +5355,17 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                 },
                 include: {
-                    Farmer: true,
+                    Farmer: {
+                        include: {
+                            Cooperative: true,
+                            household: true,
+                            Intervention: true,
+                            lga: true,
+                            Milestone: true,
+                            Project: true,
+                            User: true,
+                        },
+                    },
                 },
             });
             return user;
@@ -5284,7 +5463,12 @@ let FarmerService = class FarmerService {
                     },
                 },
                 include: {
-                    Farmer: true,
+                    Farmer: {
+                        include: {
+                            lga: true,
+                            household: true,
+                        },
+                    },
                 },
             });
             return user;
@@ -5314,6 +5498,24 @@ let FarmerService = class FarmerService {
         }
         catch (error) {
             console.log(error);
+        }
+    }
+    async getAllFarmers() {
+        try {
+            let query = await this.db.farmerProfile.findMany({
+                include: {
+                    User: true,
+                    lga: true,
+                    household: true,
+                },
+                relationLoadStrategy: 'query',
+            });
+            return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error, {
+                description: error,
+            });
         }
     }
 };
@@ -5656,54 +5858,6 @@ __decorate([
     __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
 ], ValidationDto.prototype, "type", void 0);
 exports.ValidationDto = ValidationDto;
-
-
-/***/ }),
-
-/***/ "./libs/lib/src/auth/extension-worker.guard.ts":
-/*!*****************************************************!*\
-  !*** ./libs/lib/src/auth/extension-worker.guard.ts ***!
-  \*****************************************************/
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ExtensionWorkerGuard = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
-let ExtensionWorkerGuard = class ExtensionWorkerGuard {
-    constructor(jwt) {
-        this.jwt = jwt;
-    }
-    canActivate(context) {
-        try {
-            const token = context.switchToHttp().getRequest()['headers']['authorization'];
-            const decoded = this.jwt.decode(token, {
-                json: true,
-            });
-            const type = decoded['type'] !== 'EXTENSION_WORKER' ? false : true;
-            return type;
-        }
-        catch (error) {
-            throw new common_1.ForbiddenException('wrong server');
-        }
-    }
-};
-ExtensionWorkerGuard = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _a : Object])
-], ExtensionWorkerGuard);
-exports.ExtensionWorkerGuard = ExtensionWorkerGuard;
 
 
 /***/ }),

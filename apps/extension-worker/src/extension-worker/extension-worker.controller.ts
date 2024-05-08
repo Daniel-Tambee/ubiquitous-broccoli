@@ -1,4 +1,10 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { Iworker } from './iworker.interface';
 import { CreateUserDto } from '@app/lib/auth/dto/create-auth.dto';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
@@ -11,8 +17,8 @@ import { ExtensionWorkerGuard } from '@app/lib/auth/extension-worker.guard';
 
 @Controller('extension-worker')
 @ApiTags('Extension Worker')
-@UseGuards(ExtensionWorkerGuard)
-export class ExtensionWorkerController implements Iworker {
+// @UseGuards(ExtensionWorkerGuard)
+export class ExtensionWorkerController {
   constructor(private readonly worker: WorkerService) {}
   UpdatePassword(@Body() data: UpdateDto): Promise<User> {
     return this.worker.UpdatePassword(data);
@@ -29,7 +35,7 @@ export class ExtensionWorkerController implements Iworker {
   FindByFirst_name(@Body() data: FindDto): Promise<User> {
     return this.worker.FindByFirst_name(data);
   }
-  @Post('UpdateFirstName')
+  /*   @Post('UpdateFirstName')
   UpdateFirstName(@Body() data: UpdateDto): Promise<User> {
     return this.worker.UpdateFirstName(data);
   }
@@ -41,13 +47,22 @@ export class ExtensionWorkerController implements Iworker {
   UpdatePhoneNumber(@Body() data: UpdateDto): Promise<User> {
     return this.worker.UpdatePhoneNumber(data);
   }
-  @Post('createExtensionWorker')
+ */ @Post('createExtensionWorker')
   CreateResource(data: CreateUserDto): Promise<User> {
     return this.worker.CreateResource(data);
   }
+  @Post('UpdateProperty')
+  UpdateProperty(@Body() data: UpdateDto): Promise<User | BadRequestException> {
+    return this.worker.UpdateProperties(data);
+  }
+  BadRequestException;
   @Post('FindByEmail')
   FindByEmail(@Body() data: ValidationDto): Promise<User> {
     return this.worker.FindByEmail(data);
+  }
+  @Post('getAllWorkers')
+  getAllWorkers() {
+    return this.worker.getAllWorkers();
   }
   SignOut() {
     return this.worker.SignOut();

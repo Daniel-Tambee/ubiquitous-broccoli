@@ -1,5 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { User, WorkerProfile } from '@prisma/client';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
+import { FarmerProfile, User, WorkerProfile } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
 import { FindDto } from './dto/find.dto';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
@@ -146,6 +150,14 @@ export class FarmerService {
                 id: data['id'],
                 type: 'FARMER',
               },
+              include: {
+                Farmer: {
+                  include: {
+                    lga: true,
+                    household: true,
+                  },
+                },
+              },
             })
           : new BadRequestException('pass in a valid property  please');
       return query;
@@ -210,7 +222,17 @@ export class FarmerService {
           type: 'FARMER',
         },
         include: {
-          Farmer: true,
+          Farmer: {
+            include: {
+              Cooperative: true,
+              household: true,
+              Intervention: true,
+              lga: true,
+              Milestone: true,
+              Project: true,
+              User: true,
+            },
+          },
         },
       });
       return user;
@@ -282,8 +304,7 @@ export class FarmerService {
           type: 'FARMER',
           Farmer: {
             create: {
-              address:
-                data['address'] !== undefined ? data['address'] : JSON,
+              address: data['address'] !== undefined ? data['address'] : JSON,
               photo: Buffer.from(data['photo']),
               age: Number(data['age']),
               birthday: data['birthday'],
@@ -306,7 +327,12 @@ export class FarmerService {
           },
         },
         include: {
-          Farmer: true,
+          Farmer: {
+            include: {
+              lga: true,
+              household: true,
+            },
+          },
         },
       });
       return user;
@@ -335,6 +361,24 @@ export class FarmerService {
       return user;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async getAllFarmers(): Promise<FarmerProfile[]> {
+    try {
+      let query = await this.db.farmerProfile.findMany({
+        include: {
+          User: true,
+          lga: true,
+          household: true,
+        },
+        relationLoadStrategy: 'query',
+      });
+      return query;
+    } catch (error) {
+      throw new BadRequestException(error, {
+        description: error,
+      });
     }
   }
 }

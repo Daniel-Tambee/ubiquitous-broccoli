@@ -36,6 +36,10 @@ export class FarmerController {
   Create_Farmer(@Body() data: CreateFarmerDto) {
     return this.farmer.CreateResource(data);
   }
+  @Post('getAllFarmers')
+  getAllFarmers() {
+    return this.farmer.getAllFarmers();
+  }
   @Post('UpdateProperty')
   UpdateProperty(@Body() data: UpdateDto) {
     return this.farmer.UpdateProperties(data);

@@ -68,6 +68,19 @@ export class WorkerService implements Iworker {
           id: data['id'],
           type: 'EXTENSION_WORKER',
         },
+        include: {
+          workerProfile: {
+            include: {
+              Appointment: true,
+              Challenge: true,
+              Cooperative: true,
+              projects: true,
+              reports: true,
+              User: true,
+              Visit: true,
+            },
+          },
+        },
       });
       return user;
     } catch (error) {
@@ -151,4 +164,159 @@ export class WorkerService implements Iworker {
       console.log(error);
     }
   }
+  async getAllWorkers() {
+    let query = await this.db.workerProfile.findMany({});
+    return query;
+  }
+
+  UpdateProperties = async (
+    data: UpdateDto,
+  ): Promise<User | BadRequestException> => {
+    console.log(data);
+    try {
+      let query =
+        data['property']['email'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                email: data['property']['email'],
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['first_name'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                first_name: data['property']['first_name'],
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['phone_number'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                phone_number: data['property']['phone_number'],
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['password'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                password: data['property']['password'],
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['birthday'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                workerProfile: {
+                  update: {
+                    birthday: data['property']['birthday'],
+                  },
+                },
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['age'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                workerProfile: {
+                  update: {
+                    age: data['property']['age'],
+                  },
+                },
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['religion'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                workerProfile: {
+                  update: {
+                    religion: data['property']['religion'],
+                  },
+                },
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['maritalStatus'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                workerProfile: {
+                  update: {
+                    maritalStatus: data['property']['maritalStatus'],
+                  },
+                },
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['sex'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                workerProfile: {
+                  update: {
+                    sex: data['property']['sex'],
+                  },
+                },
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+            })
+          : data['property']['address'] !== undefined
+          ? await this.db.user.update({
+              data: {
+                workerProfile: {
+                  update: {
+                    address: JSON.parse(data['property']['address']),
+                  },
+                },
+              },
+              where: {
+                id: data['id'],
+                type: 'EXTENSION_WORKER',
+              },
+              include: {
+                workerProfile: {
+                  include: {
+                    Appointment: true,
+                    Challenge: true,
+                    Cooperative: true,
+                    projects: true,
+                    reports: true,
+                    Visit: true,
+                  },
+                },
+              },
+            })
+          : new BadRequestException('Please pass in a valid property');
+      return query;
+    } catch (error) {
+      new BadRequestException(error, {
+        cause: error,
+      });
+    }
+  };
 }
