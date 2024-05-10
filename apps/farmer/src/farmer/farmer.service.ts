@@ -368,7 +368,11 @@ export class FarmerService {
     try {
       let query = await this.db.farmerProfile.findMany({
         include: {
-          User: true,
+          User: {
+            where: {
+              type: 'FARMER',
+            },
+          },
           lga: true,
           household: true,
         },
