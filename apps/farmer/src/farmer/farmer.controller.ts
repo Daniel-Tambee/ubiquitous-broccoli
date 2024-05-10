@@ -18,15 +18,15 @@ export class FarmerController {
     return this.farmer.FindByEmail(data);
   }
   @Post('FindById')
-  FindById(data: FindDto) {
+  FindById(@Body() data: FindDto) {
     return this.farmer.FindById(data);
   }
   @Post('FindByPhone_Number')
-  FindByPhone_Number(data: FindDto) {
+  FindByPhone_Number(@Body() data: FindDto) {
     return this.farmer.FindByPhone_Number(data);
   }
   @Post('FindByFirst_name')
-  FindByFirst_name(data: FindDto) {
+  FindByFirst_name(@Body() data: FindDto) {
     return this.farmer.FindByFirst_name(data);
   }
   @Post('Createfarmer')

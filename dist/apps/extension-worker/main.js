@@ -5058,18 +5058,21 @@ __decorate([
 ], FarmerController.prototype, "FindByEmail", null);
 __decorate([
     (0, common_1.Post)('FindById'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_c = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _c : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "FindById", null);
 __decorate([
     (0, common_1.Post)('FindByPhone_Number'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "FindByPhone_Number", null);
 __decorate([
     (0, common_1.Post)('FindByFirst_name'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
     __metadata("design:returntype", void 0)
@@ -5379,6 +5382,7 @@ let FarmerService = class FarmerService {
             return user;
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadRequestException(error);
         }
     }
