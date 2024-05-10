@@ -165,7 +165,15 @@ export class WorkerService implements Iworker {
     }
   }
   async getAllWorkers() {
-    let query = await this.db.workerProfile.findMany({});
+    let query = await this.db.workerProfile.findMany({
+      where: {
+        User: {
+          every: {
+            type: 'EXTENSION_WORKER',
+          },
+        },
+      },
+    });
     return query;
   }
 
