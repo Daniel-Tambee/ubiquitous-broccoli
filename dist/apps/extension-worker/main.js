@@ -5510,17 +5510,10 @@ let FarmerService = class FarmerService {
     }
     async getAllFarmers() {
         try {
-            let query = await this.db.farmerProfile.findMany({
-                include: {
-                    User: {
-                        where: {
-                            type: 'FARMER',
-                        },
-                    },
-                    lga: true,
-                    household: true,
+            let query = await this.db.user.findMany({
+                where: {
+                    type: 'FARMER',
                 },
-                relationLoadStrategy: 'query',
             });
             return query;
         }

@@ -364,19 +364,12 @@ export class FarmerService {
     }
   }
 
-  async getAllFarmers(): Promise<FarmerProfile[]> {
+  async getAllFarmers(): Promise<any[]> {
     try {
-      let query = await this.db.farmerProfile.findMany({
-        include: {
-          User: {
-            where: {
-              type: 'FARMER',
-            },
-          },
-          lga: true,
-          household: true,
+      let query = await this.db.user.findMany({
+        where: {
+          type: 'FARMER',
         },
-        relationLoadStrategy: 'query',
       });
       return query;
     } catch (error) {
