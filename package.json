@@ -45,6 +45,7 @@
     "argon2": "^0.30.3",
     "axios": "^1.6.3",
     "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
     "buffer-to-stream": "^1.0.0",
     "cache-manager": "^5.4.0",
     "centrifuge": "^5.0.1",

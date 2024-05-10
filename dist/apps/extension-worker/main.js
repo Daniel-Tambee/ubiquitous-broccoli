@@ -5971,6 +5971,16 @@ module.exports = require("@prisma/client");
 
 module.exports = require("argon2");
 
+/***/ }),
+
+/***/ "body-parser":
+/*!******************************!*\
+  !*** external "body-parser" ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = require("body-parser");
+
 /***/ })
 
 /******/ 	});
@@ -6013,6 +6023,7 @@ const core_1 = __webpack_require__(/*! @nestjs/core */ "@nestjs/core");
 const extension_worker_module_1 = __webpack_require__(/*! ./extension-worker/extension-worker.module */ "./apps/extension-worker/src/extension-worker/extension-worker.module.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const bodyParser = __webpack_require__(/*! body-parser */ "body-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
     app.enableCors({
@@ -6024,6 +6035,8 @@ async function bootstrap() {
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);
+    app.use(bodyParser.json({ limit: '50mb' }));
+    app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     await app.listen(process.env.WORKER_PORT || 3000);
     const logger = new common_1.Logger('Extension Worker Logic', {
         timestamp: true,
