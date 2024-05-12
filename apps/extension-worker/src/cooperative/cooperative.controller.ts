@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ICooperative } from './cooperative.interface';
-import { $Enums, Prisma } from '@prisma/client';
+import { $Enums, FarmerProfile, Prisma } from '@prisma/client';
 import { CreateCooperativeDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -58,49 +58,11 @@ export class CooperativeController implements ICooperative {
     return this.service.UpdateProperty(data);
   }
   @Post('Getfarmers')
-  Getfarmers(@Body() data: FindDto): Promise<
-    {
-      id: string;
-      age: number;
-      sex: $Enums.Gender;
-      address: Prisma.JsonValue;
-      birthday: Date;
-      income: $Enums.IncomeRange;
-      religion: $Enums.Religion;
-      maritalStatus: $Enums.Marital;
-      about: string;
-      photo: Buffer;
-      cooperativeId: string;
-      milestoneId: string[];
-      createdAt: Date;
-      updatedAt: Date;
-      projectId: string;
-      localGovernmentId: string;
-    }[]
-  > {
+  Getfarmers(@Body() data: FindDto): Promise<FarmerProfile[]> {
     return this.service.Getfarmers(data);
   }
   @Post('Addfarmer')
-  Addfarmer(@Body() data: UpdateDto): Promise<
-    {
-      id: string;
-      age: number;
-      sex: $Enums.Gender;
-      address: Prisma.JsonValue;
-      birthday: Date;
-      income: $Enums.IncomeRange;
-      religion: $Enums.Religion;
-      maritalStatus: $Enums.Marital;
-      about: string;
-      photo: Buffer;
-      cooperativeId: string;
-      milestoneId: string[];
-      createdAt: Date;
-      updatedAt: Date;
-      projectId: string;
-      localGovernmentId: string;
-    }[]
-  > {
+  Addfarmer(@Body() data: UpdateDto): Promise<FarmerProfile[]> {
     return this.service.Addfarmer(data);
   }
   @Post('Removefarmer')
