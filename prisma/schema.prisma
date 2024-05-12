@@ -3,11 +3,11 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["relationJoins"]
+  previewFeatures = ["relationJoins", "fullTextIndex"]
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -43,8 +43,7 @@ model FarmerProfile {
   household         HouseHold[]
   Cooperative       Cooperative?    @relation(fields: [cooperativeId], references: [id])
   cooperativeId     String?
-  Milestone         Milestone[]     @relation(fields: [milestoneId], references: [id])
-  milestoneId       String[]
+  Milestone         Milestone[]
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   Intervention      Intervention[]
@@ -128,7 +127,7 @@ model Crop {
 
 model Milestone {
   id               String          @id @default(uuid()) @map("_id")
-  Farmer           FarmerProfile[] @relation(fields: [farmerProfile], references: [id])
+  Farmer           FarmerProfile[]
   farmerProfile    String[]
   text             String
   start_date       DateTime

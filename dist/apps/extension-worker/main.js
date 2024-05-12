@@ -5514,9 +5514,17 @@ let FarmerService = class FarmerService {
     }
     async getAllFarmers() {
         try {
-            let query = await this.db.user.findMany({
+            let query = await this.db.farmerProfile.findMany({
                 where: {
-                    type: 'FARMER',
+                    User: {
+                        every: {
+                            type: 'FARMER',
+                        },
+                    },
+                },
+                include: {
+                    lga: true,
+                    household: true,
                 },
             });
             return query;
