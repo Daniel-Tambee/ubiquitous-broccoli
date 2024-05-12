@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ICooperative } from './cooperative.interface';
-import { $Enums, Prisma } from '@prisma/client';
+import { $Enums, FarmerProfile, Prisma } from '@prisma/client';
 import { CreateCooperativeDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -108,26 +108,7 @@ export class CooperativeService implements ICooperative {
       throw new BadRequestException(error);
     }
   }
-  async Getfarmers(data: FindDto): Promise<
-    {
-      id: string;
-      age: number;
-      sex: $Enums.Gender;
-      address: Prisma.JsonValue;
-      birthday: Date;
-      income: $Enums.IncomeRange;
-      religion: $Enums.Religion;
-      maritalStatus: $Enums.Marital;
-      about: string;
-      photo: Buffer;
-      cooperativeId: string;
-      milestoneId: string[];
-      createdAt: Date;
-      updatedAt: Date;
-      projectId: string;
-      localGovernmentId: string;
-    }[]
-  > {
+  async Getfarmers(data: FindDto): Promise<FarmerProfile[]> {
     try {
       let query = await this.db.farmerProfile.findMany({
         where: {
@@ -139,26 +120,7 @@ export class CooperativeService implements ICooperative {
       throw new BadRequestException(error);
     }
   }
-  async Addfarmer(data: UpdateDto): Promise<
-    {
-      id: string;
-      age: number;
-      sex: $Enums.Gender;
-      address: Prisma.JsonValue;
-      birthday: Date;
-      income: $Enums.IncomeRange;
-      religion: $Enums.Religion;
-      maritalStatus: $Enums.Marital;
-      about: string;
-      photo: Buffer;
-      cooperativeId: string;
-      milestoneId: string[];
-      createdAt: Date;
-      updatedAt: Date;
-      projectId: string;
-      localGovernmentId: string;
-    }[]
-  > {
+  async Addfarmer(data: UpdateDto): Promise<FarmerProfile[]> {
     try {
       let query = await this.db.cooperative.update({
         where: {

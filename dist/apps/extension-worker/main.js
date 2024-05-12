@@ -2582,7 +2582,7 @@ let MilestoneService = class MilestoneService {
         try {
             let query = await this.db.farmerProfile.findMany({
                 where: {
-                    milestoneId: data['property']['milestone_id'],
+                    Milestone: data['property']['milestone_id'],
                 },
             });
             return query;
