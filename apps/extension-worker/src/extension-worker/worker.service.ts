@@ -134,7 +134,7 @@ export class WorkerService implements Iworker {
           workerProfile: {
             create: {
               address: data['address'] !== undefined ? data['address'] : JSON,
-              age: data['age'],
+              age: Number(data['age']),
               birthday: data['birthday'],
               maritalStatus: data['maritalStatus'],
               religion: data['religion'],
