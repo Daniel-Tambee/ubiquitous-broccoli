@@ -2137,7 +2137,16 @@ let WorkerService = class WorkerService {
                     type: 'EXTENSION_WORKER',
                 },
                 include: {
-                    workerProfile: true,
+                    workerProfile: {
+                        include: {
+                            Appointment: true,
+                            Challenge: true,
+                            Cooperative: true,
+                            projects: true,
+                            reports: true,
+                            Visit: true,
+                        },
+                    },
                 },
             });
             return user;
@@ -2240,9 +2249,21 @@ let WorkerService = class WorkerService {
         }
     }
     async getAllWorkers() {
-        let query = await this.db.workerProfile.findMany({
+        let query = await this.db.user.findMany({
+            where: {
+                type: 'EXTENSION_WORKER',
+            },
             include: {
-                User: true,
+                workerProfile: {
+                    include: {
+                        Appointment: true,
+                        Challenge: true,
+                        Cooperative: true,
+                        projects: true,
+                        reports: true,
+                        Visit: true,
+                    },
+                },
             },
         });
         return query;
