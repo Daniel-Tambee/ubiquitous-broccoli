@@ -5368,7 +5368,16 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                 },
                 include: {
-                    Farmer: true,
+                    Farmer: {
+                        include: {
+                            lga: true,
+                            Cooperative: true,
+                            household: true,
+                            Intervention: true,
+                            Project: true,
+                            Milestone: true,
+                        },
+                    },
                 },
             });
             return user;
