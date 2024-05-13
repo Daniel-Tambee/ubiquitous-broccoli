@@ -2241,12 +2241,8 @@ let WorkerService = class WorkerService {
     }
     async getAllWorkers() {
         let query = await this.db.workerProfile.findMany({
-            where: {
-                User: {
-                    every: {
-                        type: 'EXTENSION_WORKER',
-                    },
-                },
+            include: {
+                User: true,
             },
         });
         return query;
