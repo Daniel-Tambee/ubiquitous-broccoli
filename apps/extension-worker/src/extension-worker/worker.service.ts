@@ -133,7 +133,7 @@ export class WorkerService implements Iworker {
           type: 'EXTENSION_WORKER',
           workerProfile: {
             create: {
-              address: JSON.parse(data['address']),
+              address: data['address'],
               age: data['age'],
               birthday: data['birthday'],
               maritalStatus: data['maritalStatus'],
