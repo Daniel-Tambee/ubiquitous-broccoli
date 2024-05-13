@@ -2212,6 +2212,16 @@ let WorkerService = class WorkerService {
                     password: data['password'],
                     phone_number: data['phone_number'],
                     type: 'EXTENSION_WORKER',
+                    workerProfile: {
+                        create: {
+                            address: JSON.parse(data['address']),
+                            age: data['age'],
+                            birthday: data['birthday'],
+                            maritalStatus: data['maritalStatus'],
+                            religion: data['religion'],
+                            sex: data['sex'],
+                        },
+                    },
                 },
             });
             return user;
