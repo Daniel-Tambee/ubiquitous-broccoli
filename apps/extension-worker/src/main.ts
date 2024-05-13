@@ -22,6 +22,6 @@ async function bootstrap() {
   const logger: Logger = new Logger('Extension Worker Logic', {
     timestamp: true,
   });
-  logger.log('app running on ' + process.env.WORKER_PORT);
+  logger.log('app running on ' + 3000);
 }
 bootstrap();
