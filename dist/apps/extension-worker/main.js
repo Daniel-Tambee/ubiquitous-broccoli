@@ -5511,23 +5511,10 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                 },
             });
-            const resultPromises = query.map(async (farmer) => {
-                farmer.workerProfileId = undefined;
-                if (!farmer.farmerProfile) {
-                    farmer.farmerProfile = undefined;
-                }
-                else {
-                    const farmerId = farmer.farmerProfile;
-                    farmer.farmerProfile = await this.db.farmerProfile.findUnique({
-                        where: { id: farmerId },
-                        include: {}
-                    });
-                }
-                return farmer;
+            query.forEach((Farmer) => {
+                delete Farmer['workerProfileId'];
             });
-            const result = await Promise.all(resultPromises);
-            console.log('result  result', result);
-            return result;
+            return query;
         }
         catch (error) {
             console.log(error);

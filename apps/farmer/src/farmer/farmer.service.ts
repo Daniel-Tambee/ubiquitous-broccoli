@@ -8,6 +8,7 @@ import { DbService } from '@app/lib/db/db.service';
 import { FindDto } from './dto/find.dto';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
+import { Farmer } from './farmer.module';
 
 /* type union = WorkerProfile | User;
 type excluded = 'id' | 'createdAt' | 'updatedAt';
@@ -364,24 +365,11 @@ export class FarmerService {
         },
       });
 
-      const resultPromises = query.map(async (farmer: any) => {
-        farmer.workerProfileId = undefined;
-        if (!farmer.farmerProfile) {
-          farmer.farmerProfile = undefined;
-        } else {
-          const farmerId: string = farmer.farmerProfile;
-          farmer.farmerProfile = await this.db.farmerProfile.findUnique({
-            where: { id: farmerId }, 
-            include:{
-              // Provide the required 'where' argument
-          }});
-        }
-        return farmer;
+      query.forEach((Farmer) => {
+        delete Farmer['workerProfileId'];
       });
 
-      const result = await Promise.all(resultPromises);
-      console.log('result  result', result);
-      return result;
+      return query;
     } catch (error) {
       console.log(error);
       throw new BadRequestException(error, {
