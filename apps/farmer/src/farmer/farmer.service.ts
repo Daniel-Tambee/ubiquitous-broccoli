@@ -373,6 +373,9 @@ export class FarmerService {
           type: 'FARMER',
         },
       });
+      query.forEach(farmer => {
+        delete farmer['workerProfileId']
+      });
       return query;
     } catch (error) {
       throw new BadRequestException(error, {
