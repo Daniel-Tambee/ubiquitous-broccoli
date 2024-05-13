@@ -2200,7 +2200,7 @@ let WorkerService = class WorkerService {
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
-                    password: "",
+                    password: data['password'],
                     phone_number: data['phone_number'],
                     type: 'EXTENSION_WORKER',
                     workerProfile: {
@@ -2218,6 +2218,7 @@ let WorkerService = class WorkerService {
             return user;
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadRequestException(error);
         }
     }
