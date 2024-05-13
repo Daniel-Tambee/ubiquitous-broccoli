@@ -374,7 +374,7 @@ export class FarmerService {
             where: { id: farmerId }, 
             include:{
               // Provide the required 'where' argument
-          });
+          }});
         }
         return farmer;
       });

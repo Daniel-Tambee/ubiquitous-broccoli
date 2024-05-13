@@ -1780,6 +1780,7 @@ __decorate([
 ], ExtensionWorkerController.prototype, "FindByFirst_name", null);
 __decorate([
     (0, common_1.Post)('createExtensionWorker'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
@@ -2136,17 +2137,7 @@ let WorkerService = class WorkerService {
                     type: 'EXTENSION_WORKER',
                 },
                 include: {
-                    workerProfile: {
-                        include: {
-                            Appointment: true,
-                            Challenge: true,
-                            Cooperative: true,
-                            projects: true,
-                            reports: true,
-                            User: true,
-                            Visit: true,
-                        },
-                    },
+                    workerProfile: true,
                 },
             });
             return user;
@@ -2209,7 +2200,7 @@ let WorkerService = class WorkerService {
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
-                    password: data['password'],
+                    password: "",
                     phone_number: data['phone_number'],
                     type: 'EXTENSION_WORKER',
                     workerProfile: {
@@ -5376,17 +5367,7 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                 },
                 include: {
-                    Farmer: {
-                        include: {
-                            Cooperative: true,
-                            household: true,
-                            Intervention: true,
-                            lga: true,
-                            Milestone: true,
-                            Project: true,
-                            User: true,
-                        },
-                    },
+                    Farmer: true,
                 },
             });
             return user;
@@ -5538,12 +5519,13 @@ let FarmerService = class FarmerService {
                     const farmerId = farmer.farmerProfile;
                     farmer.farmerProfile = await this.db.farmerProfile.findUnique({
                         where: { id: farmerId },
+                        include: {}
                     });
                 }
                 return farmer;
             });
             const result = await Promise.all(resultPromises);
-            console.log("result  result", result);
+            console.log('result  result', result);
             return result;
         }
         catch (error) {
