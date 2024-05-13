@@ -222,17 +222,7 @@ export class FarmerService {
           type: 'FARMER',
         },
         include: {
-          Farmer: {
-            include: {
-              Cooperative: true,
-              household: true,
-              Intervention: true,
-              lga: true,
-              Milestone: true,
-              Project: true,
-              User: true,
-            },
-          },
+          Farmer: true,
         },
       });
       return user;
@@ -368,16 +358,30 @@ export class FarmerService {
 
   async getAllFarmers(): Promise<any[]> {
     try {
-      let query = await this.db.user.findMany({
+      const query = await this.db.user.findMany({
         where: {
           type: 'FARMER',
         },
       });
-      query.forEach(farmer => {
-        delete farmer['workerProfileId']
+
+      const resultPromises = query.map(async (farmer: any) => {
+        farmer.workerProfileId = undefined;
+        if (!farmer.farmerProfile) {
+          farmer.farmerProfile = undefined;
+        } else {
+          const farmerId: string = farmer.farmerProfile;
+          farmer.farmerProfile = await this.db.farmerProfile.findUnique({
+            where: { id: farmerId }, // Provide the required 'where' argument
+          });
+        }
+        return farmer;
       });
-      return query;
+
+      const result = await Promise.all(resultPromises);
+      console.log('result  result', result);
+      return result;
     } catch (error) {
+      console.log(error);
       throw new BadRequestException(error, {
         description: error,
       });

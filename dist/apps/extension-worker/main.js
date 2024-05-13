@@ -5524,17 +5524,30 @@ let FarmerService = class FarmerService {
     }
     async getAllFarmers() {
         try {
-            let query = await this.db.user.findMany({
+            const query = await this.db.user.findMany({
                 where: {
                     type: 'FARMER',
                 },
             });
-            query.forEach(farmer => {
-                delete farmer['workerProfileId'];
+            const resultPromises = query.map(async (farmer) => {
+                farmer.workerProfileId = undefined;
+                if (!farmer.farmerProfile) {
+                    farmer.farmerProfile = undefined;
+                }
+                else {
+                    const farmerId = farmer.farmerProfile;
+                    farmer.farmerProfile = await this.db.farmerProfile.findUnique({
+                        where: { id: farmerId },
+                    });
+                }
+                return farmer;
             });
-            return query;
+            const result = await Promise.all(resultPromises);
+            console.log("result  result", result);
+            return result;
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadRequestException(error, {
                 description: error,
             });

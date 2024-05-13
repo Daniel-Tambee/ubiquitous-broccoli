@@ -69,17 +69,7 @@ export class WorkerService implements Iworker {
           type: 'EXTENSION_WORKER',
         },
         include: {
-          workerProfile: {
-            include: {
-              Appointment: true,
-              Challenge: true,
-              Cooperative: true,
-              projects: true,
-              reports: true,
-              User: true,
-              Visit: true,
-            },
-          },
+          workerProfile: true,
         },
       });
       return user;
