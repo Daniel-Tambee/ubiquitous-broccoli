@@ -371,7 +371,9 @@ export class FarmerService {
         } else {
           const farmerId: string = farmer.farmerProfile;
           farmer.farmerProfile = await this.db.farmerProfile.findUnique({
-            where: { id: farmerId }, // Provide the required 'where' argument
+            where: { id: farmerId }, 
+            include:{
+              // Provide the required 'where' argument
           });
         }
         return farmer;

@@ -47,7 +47,7 @@ export class ExtensionWorkerController {
     return this.worker.UpdatePhoneNumber(data);
   }
  */ @Post('createExtensionWorker')
-  CreateResource(data: CreateUserDto): Promise<User> {
+  CreateResource(@Body() data: CreateUserDto): Promise<User> {
     return this.worker.CreateResource(data);
   }
   @Post('UpdateProperty')
