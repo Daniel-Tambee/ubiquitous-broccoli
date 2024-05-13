@@ -2205,7 +2205,7 @@ let WorkerService = class WorkerService {
                     type: 'EXTENSION_WORKER',
                     workerProfile: {
                         create: {
-                            address: data['address'],
+                            address: data['address'] !== undefined ? data['address'] : JSON,
                             age: data['age'],
                             birthday: data['birthday'],
                             maritalStatus: data['maritalStatus'],
