@@ -7,7 +7,7 @@ import * as bodyParser from 'body-parser';
 async function bootstrap() {
   const app = await NestFactory.create(ExtensionWorkerModule);
   app.enableCors({
-    origin: ['http://localhost:3000', '*'],
+    origin: '*',
   });
   const config = new DocumentBuilder()
     .setTitle('Extension Worker Doc')
@@ -20,9 +20,9 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       disableErrorMessages: false,
-      whitelist: true, 
-      forbidNonWhitelisted: true, 
-      transform: true, 
+      // whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
     }),
   );
   await app.listen(process.env.WORKER_PORT || 3000);

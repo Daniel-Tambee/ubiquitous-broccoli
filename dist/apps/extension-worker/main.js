@@ -4876,12 +4876,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var _a, _b, _c, _d, _e, _f, _g;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateFarmerDto = exports.UpdateDto = void 0;
+const class_validator_1 = __webpack_require__(/*! @nestjs/class-validator */ "@nestjs/class-validator");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
 class UpdateDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UpdateDto.prototype, "id", void 0);
 __decorate([
@@ -4901,22 +4903,27 @@ class CreateFarmerDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "first_name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "last_name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "email", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "password", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "phone_number", void 0);
 __decorate([
@@ -4927,6 +4934,7 @@ __decorate([
 ], CreateFarmerDto.prototype, "type", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], CreateFarmerDto.prototype, "age", void 0);
 __decorate([
@@ -4937,38 +4945,48 @@ __decorate([
 ], CreateFarmerDto.prototype, "sex", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Object)
 ], CreateFarmerDto.prototype, "address", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "birthday", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         enum: client_1.Religion,
     }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", typeof (_e = typeof client_1.Religion !== "undefined" && client_1.Religion) === "function" ? _e : Object)
 ], CreateFarmerDto.prototype, "religion", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         enum: client_1.Marital,
     }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", typeof (_f = typeof client_1.Marital !== "undefined" && client_1.Marital) === "function" ? _f : Object)
 ], CreateFarmerDto.prototype, "maritalStatus", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", typeof (_g = typeof Buffer !== "undefined" && Buffer) === "function" ? _g : Object)
 ], CreateFarmerDto.prototype, "photo", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], CreateFarmerDto.prototype, "household_size", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
 ], CreateFarmerDto.prototype, "household_number", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)({
+        message: 'lga cant be empty',
+    }),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "lga", void 0);
 exports.CreateFarmerDto = CreateFarmerDto;
@@ -6118,7 +6136,7 @@ const bodyParser = __webpack_require__(/*! body-parser */ "body-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
     app.enableCors({
-        origin: ['http://localhost:3000', '*'],
+        origin: '*',
     });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Extension Worker Doc')
@@ -6130,7 +6148,6 @@ async function bootstrap() {
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.useGlobalPipes(new common_1.ValidationPipe({
         disableErrorMessages: false,
-        whitelist: true,
         forbidNonWhitelisted: true,
         transform: true,
     }));
