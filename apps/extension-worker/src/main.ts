@@ -8,6 +8,9 @@ async function bootstrap() {
   const app = await NestFactory.create(ExtensionWorkerModule);
   app.enableCors({
     origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept',
+    credentials: true,
   });
   const config = new DocumentBuilder()
     .setTitle('Extension Worker Doc')

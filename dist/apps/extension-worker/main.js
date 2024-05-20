@@ -6137,6 +6137,9 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
     app.enableCors({
         origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        allowedHeaders: 'Content-Type, Accept',
+        credentials: true,
     });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Extension Worker Doc')
