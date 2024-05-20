@@ -13,38 +13,38 @@ import { AdminGuard } from '@app/lib/auth/admin.guard';
 @UseGuards(AdminGuard)
 export class AdminController {
   constructor(private readonly admin: AdminService) {}
-  UpdatePassword(@Body() data: UpdateDto): Promise<User> {
+  UpdatePassword(@Body(new ValidationPipe())() data: UpdateDto): Promise<User> {
     return this.admin.UpdatePassword(data);
   }
   @Post('FindById')
-  FindById(@Body() data: FindDto): Promise<User> {
+  FindById(@Body(new ValidationPipe())() data: FindDto): Promise<User> {
     return this.admin.FindById(data);
   }
   @Post('FindByPhone_Number')
-  FindByPhone_Number(@Body() data: FindDto): Promise<User> {
+  FindByPhone_Number(@Body(new ValidationPipe())() data: FindDto): Promise<User> {
     return this.admin.FindByPhone_Number(data);
   }
   @Post('FindByFirst_name')
-  FindByFirst_name(@Body() data: FindDto): Promise<User> {
+  FindByFirst_name(@Body(new ValidationPipe())() data: FindDto): Promise<User> {
     return this.admin.FindByFirst_name(data);
   }
   @Post('UpdateFirstName')
-  UpdateFirstName(@Body() data: UpdateDto): Promise<User> {
+  UpdateFirstName(@Body(new ValidationPipe())() data: UpdateDto): Promise<User> {
     return this.admin.UpdateFirstName(data);
   }
   @Post('UpdateLastName')
-  UpdateLastName(@Body() data: UpdateDto): Promise<User> {
+  UpdateLastName(@Body(new ValidationPipe())() data: UpdateDto): Promise<User> {
     return this.admin.UpdateLastName(data);
   }
   @Post('UpdatePhoneNumber')
-  UpdatePhoneNumber(@Body() data: UpdateDto): Promise<User> {
+  UpdatePhoneNumber(@Body(new ValidationPipe())() data: UpdateDto): Promise<User> {
     return this.admin.UpdatePhoneNumber(data);
   }
   CreateResource(data: CreateUserDto): Promise<User> {
     throw new Error('Method not implemented.');
   }
   @Post('FindByEmail')
-  FindByEmail(@Body() data: ValidationDto): Promise<User> {
+  FindByEmail(@Body(new ValidationPipe())() data: ValidationDto): Promise<User> {
     return this.admin.FindByEmail(data);
   }
   SignOut() {

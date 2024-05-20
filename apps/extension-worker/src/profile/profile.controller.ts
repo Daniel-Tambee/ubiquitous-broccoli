@@ -1,4 +1,10 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IProfile } from './profile.interface';
 import {
@@ -25,14 +31,14 @@ export class ProfileController implements IProfile {
   constructor(private readonly profile: ProfileService) {}
   @Post('Getreports')
   Getreports(
-    @Body() data: FindDto,
+    @Body(new ValidationPipe()) data: FindDto,
   ): Promise<
     { id: string; createdAt: Date; updatedAt: Date; workerProfileId: string }[]
   > {
     return this.profile.Getreports(data);
   }
   @Post('Addreport')
-  Addreport(@Body() data: CreateReportDto): Promise<{
+  Addreport(@Body(new ValidationPipe()) data: CreateReportDto): Promise<{
     id: string;
     createdAt: Date;
     updatedAt: Date;
@@ -41,44 +47,56 @@ export class ProfileController implements IProfile {
     return this.profile.Addreport(data);
   }
   @Post('CreateProfile')
-  CreateProfile(@Body() data: CreateProfileDto): Promise<WorkerProfile> {
+  CreateProfile(
+    @Body(new ValidationPipe()) data: CreateProfileDto,
+  ): Promise<WorkerProfile> {
     return this.profile.CreateProfile(data);
   }
   @Post('Getprojects')
-  Getprojects(@Body() data: FindDto): Promise<Project[]> {
+  Getprojects(@Body(new ValidationPipe()) data: FindDto): Promise<Project[]> {
     return this.profile.Getprojects(data);
   }
   @Post('GetCooperative')
-  GetCooperative(@Body() data: FindDto): Promise<Cooperative[]> {
+  GetCooperative(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<Cooperative[]> {
     return this.profile.GetCooperative(data);
   }
   @Post('Addproject')
-  Addproject(@Body() data: CreateProjectDto): Promise<Project> {
+  Addproject(
+    @Body(new ValidationPipe()) data: CreateProjectDto,
+  ): Promise<Project> {
     return this.profile.Addproject(data);
   }
   @Post('AddCooperative')
-  AddCooperative(@Body() data: CreateCooperativeDto): Promise<Cooperative> {
+  AddCooperative(
+    @Body(new ValidationPipe()) data: CreateCooperativeDto,
+  ): Promise<Cooperative> {
     return this.profile.AddCooperative(data);
   }
   @Post('Removeproject')
-  Removeproject(@Body() data: UpdateDto): Promise<boolean> {
+  Removeproject(@Body(new ValidationPipe()) data: UpdateDto): Promise<boolean> {
     return this.profile.Removeproject(data);
   }
   @Post('Removereport')
-  Removereport(@Body() data: UpdateDto): Promise<boolean> {
+  Removereport(@Body(new ValidationPipe()) data: UpdateDto): Promise<boolean> {
     return this.profile.Removereport(data);
   }
   @Post('RemoveCooperative')
-  RemoveCooperative(@Body() data: UpdateDto): Promise<boolean> {
+  RemoveCooperative(
+    @Body(new ValidationPipe()) data: UpdateDto,
+  ): Promise<boolean> {
     return this.profile.RemoveCooperative(data);
   }
   @Post('findByUserId')
-  findByUserId(@Body() data: FindDto): Promise<WorkerProfile> {
+  findByUserId(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<WorkerProfile> {
     return this.profile.findByUserId(data);
   }
   @Post('UpdateProperty')
   UpdateProperty(
-    @Body() data: UpdateDto,
+    @Body(new ValidationPipe()) data: UpdateDto,
   ): Promise<WorkerProfile | BadRequestException> {
     return this.profile.UpdateProperty(data);
   }

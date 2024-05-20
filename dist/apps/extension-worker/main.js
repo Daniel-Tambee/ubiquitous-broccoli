@@ -240,49 +240,49 @@ let InterventionController = class InterventionController {
 };
 __decorate([
     (0, common_1.Post)('createIntervention'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateInterventionDto !== "undefined" && dto_1.CreateInterventionDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], InterventionController.prototype, "createIntervention", null);
 __decorate([
     (0, common_1.Post)('findById'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], InterventionController.prototype, "findById", null);
 __decorate([
     (0, common_1.Post)('findByAmount'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], InterventionController.prototype, "findByAmount", null);
 __decorate([
     (0, common_1.Post)('findByType'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], InterventionController.prototype, "findByType", null);
 __decorate([
     (0, common_1.Post)('findByFarmerProfileId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], InterventionController.prototype, "findByFarmerProfileId", null);
 __decorate([
     (0, common_1.Post)('findByProjectId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], InterventionController.prototype, "findByProjectId", null);
 __decorate([
     (0, common_1.Post)('updateProperty'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_p = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _p : Object]),
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
@@ -1053,42 +1053,42 @@ let ChallengeController = class ChallengeController {
 };
 __decorate([
     (0, common_1.Post)('CreateChallenge'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
 ], ChallengeController.prototype, "CreateChallenge", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_c = typeof Partial !== "undefined" && Partial) === "function" ? _c : Object]),
     __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], ChallengeController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('FindBytype'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_e = typeof Partial !== "undefined" && Partial) === "function" ? _e : Object]),
     __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
 ], ChallengeController.prototype, "FindBytype", null);
 __decorate([
     (0, common_1.Post)('FindBycustom_felids'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_g = typeof Partial !== "undefined" && Partial) === "function" ? _g : Object]),
     __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
 ], ChallengeController.prototype, "FindBycustom_felids", null);
 __decorate([
     (0, common_1.Post)('FindByvisitId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_j = typeof Partial !== "undefined" && Partial) === "function" ? _j : Object]),
     __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
 ], ChallengeController.prototype, "FindByvisitId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_l = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _l : Object]),
     __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
@@ -1338,49 +1338,49 @@ let CooperativeController = class CooperativeController {
 };
 __decorate([
     (0, common_1.Post)('CreateCooperative'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateCooperativeDto !== "undefined" && dto_1.CreateCooperativeDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], CooperativeController.prototype, "CreateCooperative", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], CooperativeController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('FindByworkerProfileId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], CooperativeController.prototype, "FindByworkerProfileId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_h = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _h : Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], CooperativeController.prototype, "UpdateProperty", null);
 __decorate([
     (0, common_1.Post)('Getfarmers'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], CooperativeController.prototype, "Getfarmers", null);
 __decorate([
     (0, common_1.Post)('Addfarmer'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], CooperativeController.prototype, "Addfarmer", null);
 __decorate([
     (0, common_1.Post)('Removefarmer'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
@@ -1752,49 +1752,49 @@ let ExtensionWorkerController = class ExtensionWorkerController {
     }
 };
 __decorate([
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], ExtensionWorkerController.prototype, "UpdatePassword", null);
 __decorate([
     (0, common_1.Post)('FindById'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], ExtensionWorkerController.prototype, "FindById", null);
 __decorate([
     (0, common_1.Post)('FindByPhone_Number'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], ExtensionWorkerController.prototype, "FindByPhone_Number", null);
 __decorate([
     (0, common_1.Post)('FindByFirst_name'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], ExtensionWorkerController.prototype, "FindByFirst_name", null);
 __decorate([
     (0, common_1.Post)('createExtensionWorker'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], ExtensionWorkerController.prototype, "CreateResource", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], ExtensionWorkerController.prototype, "UpdateProperty", null);
 __decorate([
     (0, common_1.Post)('FindByEmail'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_p = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _p : Object]),
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
@@ -2425,70 +2425,70 @@ let MilestoneController = class MilestoneController {
 };
 __decorate([
     (0, common_1.Post)('CreateMilestone'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateMilestoneDto !== "undefined" && dto_1.CreateMilestoneDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], MilestoneController.prototype, "CreateMilestone", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], MilestoneController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('GetFarmers'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], MilestoneController.prototype, "GetFarmers", null);
 __decorate([
     (0, common_1.Post)('AddFarmers'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_h = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _h : Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], MilestoneController.prototype, "AddFarmers", null);
 __decorate([
     (0, common_1.Post)('RemoveFarmers'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], MilestoneController.prototype, "RemoveFarmers", null);
 __decorate([
     (0, common_1.Post)('FindBytext'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], MilestoneController.prototype, "FindBytext", null);
 __decorate([
     (0, common_1.Post)('FindByisAchieved'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_p = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _p : Object]),
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], MilestoneController.prototype, "FindByisAchieved", null);
 __decorate([
     (0, common_1.Post)('FindByrecommendationId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
     __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
 ], MilestoneController.prototype, "FindByrecommendationId", null);
 __decorate([
     (0, common_1.Post)('FindByprojectId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
     __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
 ], MilestoneController.prototype, "FindByprojectId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_v = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _v : Object]),
     __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
@@ -2973,84 +2973,84 @@ let ProfileController = class ProfileController {
 };
 __decorate([
     (0, common_1.Post)('Getreports'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], ProfileController.prototype, "Getreports", null);
 __decorate([
     (0, common_1.Post)('Addreport'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof dto_3.CreateReportDto !== "undefined" && dto_3.CreateReportDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], ProfileController.prototype, "Addreport", null);
 __decorate([
     (0, common_1.Post)('CreateProfile'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof dto_4.CreateProfileDto !== "undefined" && dto_4.CreateProfileDto) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], ProfileController.prototype, "CreateProfile", null);
 __decorate([
     (0, common_1.Post)('Getprojects'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], ProfileController.prototype, "Getprojects", null);
 __decorate([
     (0, common_1.Post)('GetCooperative'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], ProfileController.prototype, "GetCooperative", null);
 __decorate([
     (0, common_1.Post)('Addproject'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof dto_2.CreateProjectDto !== "undefined" && dto_2.CreateProjectDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], ProfileController.prototype, "Addproject", null);
 __decorate([
     (0, common_1.Post)('AddCooperative'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_p = typeof dto_1.CreateCooperativeDto !== "undefined" && dto_1.CreateCooperativeDto) === "function" ? _p : Object]),
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], ProfileController.prototype, "AddCooperative", null);
 __decorate([
     (0, common_1.Post)('Removeproject'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_r = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _r : Object]),
     __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
 ], ProfileController.prototype, "Removeproject", null);
 __decorate([
     (0, common_1.Post)('Removereport'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_t = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _t : Object]),
     __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
 ], ProfileController.prototype, "Removereport", null);
 __decorate([
     (0, common_1.Post)('RemoveCooperative'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_v = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _v : Object]),
     __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
 ], ProfileController.prototype, "RemoveCooperative", null);
 __decorate([
     (0, common_1.Post)('findByUserId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_x = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _x : Object]),
     __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
 ], ProfileController.prototype, "findByUserId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_z = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _z : Object]),
     __metadata("design:returntype", typeof (_0 = typeof Promise !== "undefined" && Promise) === "function" ? _0 : Object)
@@ -3652,105 +3652,105 @@ let ProjectController = class ProjectController {
 };
 __decorate([
     (0, common_1.Post)('CreateProject'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateProjectDto !== "undefined" && dto_1.CreateProjectDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], ProjectController.prototype, "CreateProject", null);
 __decorate([
     (0, common_1.Post)('Addparticipant'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], ProjectController.prototype, "Addparticipant", null);
 __decorate([
     (0, common_1.Post)('Addmilestones'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], ProjectController.prototype, "Addmilestones", null);
 __decorate([
     (0, common_1.Post)('Getparticipants'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], ProjectController.prototype, "Getparticipants", null);
 __decorate([
     (0, common_1.Post)('Removeparticipants'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], ProjectController.prototype, "Removeparticipants", null);
 __decorate([
     (0, common_1.Post)('Getmilestones'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], ProjectController.prototype, "Getmilestones", null);
 __decorate([
     (0, common_1.Post)('Removemilestones'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_p = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _p : Object]),
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], ProjectController.prototype, "Removemilestones", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
     __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
 ], ProjectController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('FindBytype'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
     __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
 ], ProjectController.prototype, "FindBytype", null);
 __decorate([
     (0, common_1.Post)('FindByparticipants'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_v = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _v : Object]),
     __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
 ], ProjectController.prototype, "FindByparticipants", null);
 __decorate([
     (0, common_1.Post)('FindBymilestones'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_x = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _x : Object]),
     __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
 ], ProjectController.prototype, "FindBymilestones", null);
 __decorate([
     (0, common_1.Post)('FindBystart_date'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_z = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _z : Object]),
     __metadata("design:returntype", typeof (_0 = typeof Promise !== "undefined" && Promise) === "function" ? _0 : Object)
 ], ProjectController.prototype, "FindBystart_date", null);
 __decorate([
     (0, common_1.Post)('FindByend_date'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_1 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _1 : Object]),
     __metadata("design:returntype", typeof (_2 = typeof Promise !== "undefined" && Promise) === "function" ? _2 : Object)
 ], ProjectController.prototype, "FindByend_date", null);
 __decorate([
     (0, common_1.Post)('FindByworkerProfileId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_3 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _3 : Object]),
     __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
 ], ProjectController.prototype, "FindByworkerProfileId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
     __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
@@ -4333,112 +4333,112 @@ let VisitController = class VisitController {
 };
 __decorate([
     (0, common_1.Post)('CreateVisit'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateVisit !== "undefined" && dto_1.CreateVisit) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], VisitController.prototype, "CreateVisit", null);
 __decorate([
     (0, common_1.Post)('Addphoto'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], VisitController.prototype, "Addphoto", null);
 __decorate([
     (0, common_1.Post)('Addmilestone'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_e = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _e : Object]),
     __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
 ], VisitController.prototype, "Addmilestone", null);
 __decorate([
     (0, common_1.Post)('Addchallenge'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_g = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _g : Object]),
     __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
 ], VisitController.prototype, "Addchallenge", null);
 __decorate([
     (0, common_1.Post)('Removephoto'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], VisitController.prototype, "Removephoto", null);
 __decorate([
     (0, common_1.Post)('Removemilestone'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], VisitController.prototype, "Removemilestone", null);
 __decorate([
     (0, common_1.Post)('Removechallenge'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], VisitController.prototype, "Removechallenge", null);
 __decorate([
     (0, common_1.Post)('Getphotos'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_p = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _p : Object]),
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], VisitController.prototype, "Getphotos", null);
 __decorate([
     (0, common_1.Post)('Getmilestones'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
     __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
 ], VisitController.prototype, "Getmilestones", null);
 __decorate([
     (0, common_1.Post)('Getchallenges'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
     __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
 ], VisitController.prototype, "Getchallenges", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_v = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _v : Object]),
     __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
 ], VisitController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('FindBystatus'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_x = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _x : Object]),
     __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
 ], VisitController.prototype, "FindBystatus", null);
 __decorate([
     (0, common_1.Post)('FindBymilestoneId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_z = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _z : Object]),
     __metadata("design:returntype", typeof (_0 = typeof Promise !== "undefined" && Promise) === "function" ? _0 : Object)
 ], VisitController.prototype, "FindBymilestoneId", null);
 __decorate([
     (0, common_1.Post)('FindByappointmentId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_1 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _1 : Object]),
     __metadata("design:returntype", typeof (_2 = typeof Promise !== "undefined" && Promise) === "function" ? _2 : Object)
 ], VisitController.prototype, "FindByappointmentId", null);
 __decorate([
     (0, common_1.Post)('FindByprojectId'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_3 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _3 : Object]),
     __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
 ], VisitController.prototype, "FindByprojectId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperties'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
     __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
@@ -5035,7 +5035,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -5065,6 +5065,9 @@ let FarmerController = class FarmerController {
     getAllFarmers() {
         return this.farmer.getAllFarmers();
     }
+    getAllProjects(data) {
+        return this.farmer.getAllProjects(data);
+    }
     UpdateProperty(data) {
         return this.farmer.UpdateProperties(data);
     }
@@ -5077,28 +5080,28 @@ __decorate([
 ], FarmerController.prototype, "FindByEmail", null);
 __decorate([
     (0, common_1.Post)('FindById'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_c = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _c : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "FindById", null);
 __decorate([
     (0, common_1.Post)('FindByPhone_Number'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "FindByPhone_Number", null);
 __decorate([
     (0, common_1.Post)('FindByFirst_name'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_e = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _e : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "FindByFirst_name", null);
 __decorate([
     (0, common_1.Post)('Createfarmer'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof dto_1.CreateFarmerDto !== "undefined" && dto_1.CreateFarmerDto) === "function" ? _f : Object]),
     __metadata("design:returntype", void 0)
@@ -5110,10 +5113,17 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "getAllFarmers", null);
 __decorate([
-    (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('getAllProjects'),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _g : Object]),
+    __metadata("design:paramtypes", [typeof (_g = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", void 0)
+], FarmerController.prototype, "getAllProjects", null);
+__decorate([
+    (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_h = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _h : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "UpdateProperty", null);
 FarmerController = __decorate([
@@ -5562,6 +5572,26 @@ let FarmerService = class FarmerService {
             });
         }
     }
+    async getAllProjects(data) {
+        try {
+            const projects = await this.db.project.findMany({});
+            let results = [];
+            projects.forEach((project) => {
+                project['participantsId'].forEach((farmer) => {
+                    if (farmer == data['id']) {
+                        results.push(project);
+                    }
+                });
+            });
+            return projects;
+        }
+        catch (error) {
+            console.error('Error fetching projects:', error);
+            throw new common_1.BadRequestException('Failed to fetch projects', {
+                description: error.message,
+            });
+        }
+    }
 };
 FarmerService = __decorate([
     (0, common_1.Injectable)(),
@@ -5622,28 +5652,28 @@ let AuthController = class AuthController {
 };
 __decorate([
     (0, common_1.Post)('Signup'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "Signup", null);
 __decorate([
     (0, common_1.Post)('SignIn'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_c = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _c : Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "SignIn", null);
 __decorate([
     (0, common_1.Post)('SignOut'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "SignOut", null);
 __decorate([
     (0, common_1.Post)('ForgotPassword'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
@@ -6076,6 +6106,12 @@ async function bootstrap() {
     swagger_1.SwaggerModule.setup('api', app, document);
     app.use(bodyParser.json({ limit: '50mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+    app.useGlobalPipes(new common_1.ValidationPipe({
+        disableErrorMessages: false,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+    }));
     await app.listen(process.env.WORKER_PORT || 3000);
     const logger = new common_1.Logger('Extension Worker Logic', {
         timestamp: true,

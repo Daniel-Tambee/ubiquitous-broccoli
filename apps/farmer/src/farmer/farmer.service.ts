@@ -400,4 +400,25 @@ export class FarmerService {
       });
     }
   }
+
+  async getAllProjects(data: FindDto) {
+    try {
+      // Fetch projects where all participants have the specified user ID
+      const projects = await this.db.project.findMany({});
+      let results = [];
+      projects.forEach((project) => {
+        project['participantsId'].forEach((farmer) => {
+          if (farmer == data['id']) {
+            results.push(project);
+          }
+        });
+      });
+      return projects;
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      throw new BadRequestException('Failed to fetch projects', {
+        description: error.message,
+      });
+    }
+  }
 }

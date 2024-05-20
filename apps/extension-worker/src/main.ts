@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ExtensionWorkerModule } from './extension-worker/extension-worker.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
@@ -17,7 +17,14 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      disableErrorMessages: false,
+      whitelist: true, 
+      forbidNonWhitelisted: true, 
+      transform: true, 
+    }),
+  );
   await app.listen(process.env.WORKER_PORT || 3000);
   const logger: Logger = new Logger('Extension Worker Logic', {
     timestamp: true,

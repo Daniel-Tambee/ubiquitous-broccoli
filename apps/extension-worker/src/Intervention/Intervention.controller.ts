@@ -1,4 +1,10 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IIntervention } from './Intervention.interface';
 import { Prisma, $Enums } from '@prisma/client';
@@ -15,7 +21,9 @@ export class InterventionController implements IIntervention {
    */
   constructor(private readonly service: InterventionService) {}
   @Post('createIntervention')
-  createIntervention(@Body() data: CreateInterventionDto): Promise<{
+  createIntervention(
+    @Body(new ValidationPipe()) data: CreateInterventionDto,
+  ): Promise<{
     id: string;
     amount: number;
     custom_field: Prisma.JsonValue;
@@ -28,7 +36,7 @@ export class InterventionController implements IIntervention {
     return this.service.createIntervention(data);
   }
   @Post('findById')
-  findById(@Body() data: FindDto): Promise<{
+  findById(@Body(new ValidationPipe()) data: FindDto): Promise<{
     id: string;
     amount: number;
     custom_field: Prisma.JsonValue;
@@ -41,7 +49,7 @@ export class InterventionController implements IIntervention {
     return this.service.findById(data);
   }
   @Post('findByAmount')
-  findByAmount(@Body() data: FindDto): Promise<{
+  findByAmount(@Body(new ValidationPipe()) data: FindDto): Promise<{
     id: string;
     amount: number;
     custom_field: Prisma.JsonValue;
@@ -54,7 +62,7 @@ export class InterventionController implements IIntervention {
     return this.service.findByAmount(data);
   }
   @Post('findByType')
-  findByType(@Body() data: FindDto): Promise<{
+  findByType(@Body(new ValidationPipe()) data: FindDto): Promise<{
     id: string;
     amount: number;
     custom_field: Prisma.JsonValue;
@@ -67,7 +75,7 @@ export class InterventionController implements IIntervention {
     return this.service.findByType(data);
   }
   @Post('findByFarmerProfileId')
-  findByFarmerProfileId(@Body() data: FindDto): Promise<{
+  findByFarmerProfileId(@Body(new ValidationPipe()) data: FindDto): Promise<{
     id: string;
     amount: number;
     custom_field: Prisma.JsonValue;
@@ -80,7 +88,7 @@ export class InterventionController implements IIntervention {
     return this.service.findByFarmerProfileId(data);
   }
   @Post('findByProjectId')
-  findByProjectId(@Body() data: FindDto): Promise<{
+  findByProjectId(@Body(new ValidationPipe()) data: FindDto): Promise<{
     id: string;
     amount: number;
     custom_field: Prisma.JsonValue;
@@ -93,7 +101,7 @@ export class InterventionController implements IIntervention {
     return this.service.findByProjectId(data);
   }
   @Post('updateProperty')
-  updateProperty(@Body() data: UpdateDto): Promise<
+  updateProperty(@Body(new ValidationPipe()) data: UpdateDto): Promise<
     | {
         id: string;
         amount: number;

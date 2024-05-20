@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { IChallenge } from './challenge.interface';
 import { $Enums, Challenge, Prisma, Visit } from '@prisma/client';
 import { UpdateDto } from './dto/update_dto';
@@ -14,7 +14,7 @@ export class ChallengeController implements IChallenge {
   constructor(private readonly service: ChallengeService) {}
   @Post('CreateChallenge')
   CreateChallenge(
-    @Body()
+    @Body(new ValidationPipe())
     data: {
       type: $Enums.ChallengeType;
       custom_fields: Prisma.JsonValue;
@@ -25,7 +25,7 @@ export class ChallengeController implements IChallenge {
   }
   @Post('FindByid')
   FindByid(
-    @Body()
+    @Body(new ValidationPipe())
     data: Partial<{
       id: string;
       type: $Enums.ChallengeType;
@@ -39,7 +39,7 @@ export class ChallengeController implements IChallenge {
   }
   @Post('FindBytype')
   FindBytype(
-    @Body()
+    @Body(new ValidationPipe())
     data: Partial<{
       id: string;
       type: $Enums.ChallengeType;
@@ -53,7 +53,7 @@ export class ChallengeController implements IChallenge {
   }
   @Post('FindBycustom_felids')
   FindBycustom_felids(
-    @Body()
+    @Body(new ValidationPipe())
     data: Partial<{
       id: string;
       type: $Enums.ChallengeType;
@@ -67,7 +67,7 @@ export class ChallengeController implements IChallenge {
   }
   @Post('FindByvisitId')
   FindByvisitId(
-    @Body()
+    @Body(new ValidationPipe())
     data: Partial<{
       id: string;
       type: $Enums.ChallengeType;
@@ -82,7 +82,7 @@ export class ChallengeController implements IChallenge {
 
   @Post('UpdateProperty')
   UpdateProperty(
-    @Body() data: UpdateDto,
+    @Body(new ValidationPipe()) data: UpdateDto,
   ): Promise<Challenge | BadRequestException> {
     return this.service.UpdateProperty(data);
   }

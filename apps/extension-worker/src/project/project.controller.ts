@@ -1,4 +1,10 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IProject } from './project.interface';
 import { FarmerProfile, Milestone, Project } from '@prisma/client';
@@ -15,7 +21,9 @@ export class ProjectController implements IProject {
    */
   constructor(private readonly project: ProjectService) {}
   @Post('CreateProject')
-  CreateProject(@Body() data: CreateProjectDto): Promise<Project> {
+  CreateProject(
+    @Body(new ValidationPipe()) data: CreateProjectDto,
+  ): Promise<Project> {
     try {
       return this.project.CreateProject(data);
     } catch (error) {
@@ -23,7 +31,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('Addparticipant')
-  Addparticipant(@Body() data: UpdateDto): Promise<Project> {
+  Addparticipant(
+    @Body(new ValidationPipe()) data: UpdateDto,
+  ): Promise<Project> {
     try {
       return this.project.Addparticipant(data);
     } catch (error) {
@@ -31,7 +41,7 @@ export class ProjectController implements IProject {
     }
   }
   @Post('Addmilestones')
-  Addmilestones(@Body() data: UpdateDto): Promise<Project> {
+  Addmilestones(@Body(new ValidationPipe()) data: UpdateDto): Promise<Project> {
     try {
       return this.project.Addmilestones(data);
     } catch (error) {
@@ -39,7 +49,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('Getparticipants')
-  Getparticipants(@Body() data: FindDto): Promise<FarmerProfile[]> {
+  Getparticipants(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<FarmerProfile[]> {
     try {
       return this.project.Getparticipants(data);
     } catch (error) {
@@ -47,7 +59,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('Removeparticipants')
-  Removeparticipants(@Body() data: UpdateDto): Promise<Project> {
+  Removeparticipants(
+    @Body(new ValidationPipe()) data: UpdateDto,
+  ): Promise<Project> {
     try {
       return this.project.Removeparticipants(data);
     } catch (error) {
@@ -55,7 +69,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('Getmilestones')
-  Getmilestones(@Body() data: FindDto): Promise<Milestone[]> {
+  Getmilestones(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<Milestone[]> {
     try {
       return this.project.Getmilestones(data);
     } catch (error) {
@@ -63,7 +79,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('Removemilestones')
-  Removemilestones(@Body() data: UpdateDto): Promise<Project> {
+  Removemilestones(
+    @Body(new ValidationPipe()) data: UpdateDto,
+  ): Promise<Project> {
     try {
       return this.project.Removemilestones(data);
     } catch (error) {
@@ -71,7 +89,7 @@ export class ProjectController implements IProject {
     }
   }
   @Post('FindByid')
-  FindByid(@Body() data: FindDto): Promise<Project> {
+  FindByid(@Body(new ValidationPipe()) data: FindDto): Promise<Project> {
     try {
       return this.project.FindByid(data);
     } catch (error) {
@@ -79,7 +97,7 @@ export class ProjectController implements IProject {
     }
   }
   @Post('FindBytype')
-  FindBytype(@Body() data: FindDto): Promise<Project> {
+  FindBytype(@Body(new ValidationPipe()) data: FindDto): Promise<Project> {
     try {
       return this.project.FindBytype(data);
     } catch (error) {
@@ -87,7 +105,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('FindByparticipants')
-  FindByparticipants(@Body() data: FindDto): Promise<Project> {
+  FindByparticipants(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<Project> {
     try {
       return this.project.FindByparticipants(data);
     } catch (error) {
@@ -95,7 +115,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('FindBymilestones')
-  FindBymilestones(@Body() data: FindDto): Promise<Project> {
+  FindBymilestones(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<Project> {
     try {
       return this.project.FindBymilestones(data);
     } catch (error) {
@@ -103,7 +125,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('FindBystart_date')
-  FindBystart_date(@Body() data: FindDto): Promise<Project> {
+  FindBystart_date(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<Project> {
     try {
       return this.project.FindBystart_date(data);
     } catch (error) {
@@ -111,7 +135,7 @@ export class ProjectController implements IProject {
     }
   }
   @Post('FindByend_date')
-  FindByend_date(@Body() data: FindDto): Promise<Project> {
+  FindByend_date(@Body(new ValidationPipe()) data: FindDto): Promise<Project> {
     try {
       return this.project.FindByend_date(data);
     } catch (error) {
@@ -119,7 +143,9 @@ export class ProjectController implements IProject {
     }
   }
   @Post('FindByworkerProfileId')
-  FindByworkerProfileId(@Body() data: FindDto): Promise<Project> {
+  FindByworkerProfileId(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<Project> {
     try {
       return this.project.FindByworkerProfileId(data);
     } catch (error) {
@@ -128,7 +154,7 @@ export class ProjectController implements IProject {
   }
   @Post('UpdateProperty')
   UpdateProperty(
-    @Body() data: UpdateDto,
+    @Body(new ValidationPipe()) data: UpdateDto,
   ): Promise<Project | BadRequestException> {
     try {
       return this.project.UpdateProperty(data);

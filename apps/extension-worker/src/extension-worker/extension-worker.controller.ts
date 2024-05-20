@@ -4,6 +4,7 @@ import {
   Controller,
   Post,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Iworker } from './iworker.interface';
 import { CreateUserDto } from '@app/lib/auth/dto/create-auth.dto';
@@ -19,44 +20,48 @@ import { ApiTags } from '@nestjs/swagger';
 // @UseGuards(ExtensionWorkerGuard)
 export class ExtensionWorkerController {
   constructor(private readonly worker: WorkerService) {}
-  UpdatePassword(@Body() data: UpdateDto): Promise<User> {
+  UpdatePassword(@Body(new ValidationPipe()) data: UpdateDto): Promise<User> {
     return this.worker.UpdatePassword(data);
   }
   @Post('FindById')
-  FindById(@Body() data: FindDto): Promise<User> {
+  FindById(@Body(new ValidationPipe()) data: FindDto): Promise<User> {
     return this.worker.FindById(data);
   }
   @Post('FindByPhone_Number')
-  FindByPhone_Number(@Body() data: FindDto): Promise<User> {
+  FindByPhone_Number(@Body(new ValidationPipe()) data: FindDto): Promise<User> {
     return this.worker.FindByPhone_Number(data);
   }
   @Post('FindByFirst_name')
-  FindByFirst_name(@Body() data: FindDto): Promise<User> {
+  FindByFirst_name(@Body(new ValidationPipe()) data: FindDto): Promise<User> {
     return this.worker.FindByFirst_name(data);
   }
   /*   @Post('UpdateFirstName')
-  UpdateFirstName(@Body() data: UpdateDto): Promise<User> {
+  UpdateFirstName(@Body(new ValidationPipe()) data: UpdateDto): Promise<User> {
     return this.worker.UpdateFirstName(data);
   }
   @Post('UpdateLastName')
-  UpdateLastName(@Body() data: UpdateDto): Promise<User> {
+  UpdateLastName(@Body(new ValidationPipe()) data: UpdateDto): Promise<User> {
     return this.worker.UpdateLastName(data);
   }
   @Post('UpdatePhoneNumber')
-  UpdatePhoneNumber(@Body() data: UpdateDto): Promise<User> {
+  UpdatePhoneNumber(@Body(new ValidationPipe()) data: UpdateDto): Promise<User> {
     return this.worker.UpdatePhoneNumber(data);
   }
  */ @Post('createExtensionWorker')
-  CreateResource(@Body() data: CreateUserDto): Promise<User> {
+  CreateResource(
+    @Body(new ValidationPipe()) data: CreateUserDto,
+  ): Promise<User> {
     return this.worker.CreateResource(data);
   }
   @Post('UpdateProperty')
-  UpdateProperty(@Body() data: UpdateDto): Promise<User | BadRequestException> {
+  UpdateProperty(
+    @Body(new ValidationPipe()) data: UpdateDto,
+  ): Promise<User | BadRequestException> {
     return this.worker.UpdateProperties(data);
   }
   BadRequestException;
   @Post('FindByEmail')
-  FindByEmail(@Body() data: ValidationDto): Promise<User> {
+  FindByEmail(@Body(new ValidationPipe()) data: ValidationDto): Promise<User> {
     return this.worker.FindByEmail(data);
   }
   @Post('getAllWorkers')

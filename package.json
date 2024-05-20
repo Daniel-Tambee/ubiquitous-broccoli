@@ -49,6 +49,8 @@
     "buffer-to-stream": "^1.0.0",
     "cache-manager": "^5.4.0",
     "centrifuge": "^5.0.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "cloudinary": "^1.37.1",
     "dotenv": "^16.0.3",
     "flutterwave-node-v3": "^1.1.6",

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { FarmerService } from './farmer.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
@@ -18,27 +18,31 @@ export class FarmerController {
     return this.farmer.FindByEmail(data);
   }
   @Post('FindById')
-  FindById(@Body() data: FindDto) {
+  FindById(@Body(new ValidationPipe()) data: FindDto) {
     return this.farmer.FindById(data);
   }
   @Post('FindByPhone_Number')
-  FindByPhone_Number(@Body() data: FindDto) {
+  FindByPhone_Number(@Body(new ValidationPipe()) data: FindDto) {
     return this.farmer.FindByPhone_Number(data);
   }
   @Post('FindByFirst_name')
-  FindByFirst_name(@Body() data: FindDto) {
+  FindByFirst_name(@Body(new ValidationPipe()) data: FindDto) {
     return this.farmer.FindByFirst_name(data);
   }
   @Post('Createfarmer')
-  Create_Farmer(@Body() data: CreateFarmerDto) {
+  Create_Farmer(@Body(new ValidationPipe()) data: CreateFarmerDto) {
     return this.farmer.CreateResource(data);
   }
   @Post('getAllFarmers')
   getAllFarmers() {
     return this.farmer.getAllFarmers();
   }
+  @Post('getAllProjects')
+  getAllProjects(@Body(new ValidationPipe()) data: FindDto) {
+    return this.farmer.getAllProjects(data);
+  }
   @Post('UpdateProperty')
-  UpdateProperty(@Body() data: UpdateDto) {
+  UpdateProperty(@Body(new ValidationPipe()) data: UpdateDto) {
     return this.farmer.UpdateProperties(data);
   }
 }

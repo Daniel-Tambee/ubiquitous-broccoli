@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-auth.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -14,19 +14,19 @@ export class AuthController implements IAuth {
     throw new Error('Method not implemented.');
   }
   @Post('Signup')
-  Signup(@Body() info: CreateUserDto) {
+  Signup(@Body(new ValidationPipe()) info: CreateUserDto) {
     return this.authService.Signup(info);
   }
   @Post('SignIn')
-  SignIn(@Body() data: ValidationDto) {
+  SignIn(@Body(new ValidationPipe()) data: ValidationDto) {
     return this.authService.SignIn(data);
   }
   @Post('SignOut')
-  SignOut(@Body() data) {
+  SignOut(@Body(new ValidationPipe()) data) {
     return this.authService.SignOut(data);
   }
   @Post('ForgotPassword')
-  ForgotPassword(@Body() data: UpdateDto) {
+  ForgotPassword(@Body(new ValidationPipe()) data: UpdateDto) {
     return this.authService.ForgotPassword(data);
   }
 }

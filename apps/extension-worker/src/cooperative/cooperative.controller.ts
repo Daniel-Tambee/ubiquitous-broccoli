@@ -1,4 +1,10 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ICooperative } from './cooperative.interface';
 import { $Enums, FarmerProfile, Prisma } from '@prisma/client';
@@ -15,7 +21,9 @@ export class CooperativeController implements ICooperative {
    */
   constructor(private readonly service: CooperativeService) {}
   @Post('CreateCooperative')
-  CreateCooperative(@Body() data: CreateCooperativeDto): Promise<{
+  CreateCooperative(
+    @Body(new ValidationPipe()) data: CreateCooperativeDto,
+  ): Promise<{
     id: string;
     localGovernmentId: string;
     createdAt: Date;
@@ -25,7 +33,7 @@ export class CooperativeController implements ICooperative {
     return this.service.CreateCooperative(data);
   }
   @Post('FindByid')
-  FindByid(@Body() data: FindDto): Promise<{
+  FindByid(@Body(new ValidationPipe()) data: FindDto): Promise<{
     id: string;
     localGovernmentId: string;
     createdAt: Date;
@@ -35,7 +43,7 @@ export class CooperativeController implements ICooperative {
     return this.service.FindByid(data);
   }
   @Post('FindByworkerProfileId')
-  FindByworkerProfileId(@Body() data: FindDto): Promise<{
+  FindByworkerProfileId(@Body(new ValidationPipe()) data: FindDto): Promise<{
     id: string;
     localGovernmentId: string;
     createdAt: Date;
@@ -45,7 +53,7 @@ export class CooperativeController implements ICooperative {
     return this.service.FindByworkerProfileId(data);
   }
   @Post('UpdateProperty')
-  UpdateProperty(@Body() data: UpdateDto): Promise<
+  UpdateProperty(@Body(new ValidationPipe()) data: UpdateDto): Promise<
     | {
         id: string;
         localGovernmentId: string;
@@ -58,19 +66,19 @@ export class CooperativeController implements ICooperative {
     return this.service.UpdateProperty(data);
   }
   @Post('Getfarmers')
-  Getfarmers(@Body() data: FindDto): Promise<
-    FarmerProfile[]
-  > {
+  Getfarmers(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<FarmerProfile[]> {
     return this.service.Getfarmers(data);
   }
   @Post('Addfarmer')
-  Addfarmer(@Body() data: UpdateDto): Promise<
-    FarmerProfile[]
-  > {
+  Addfarmer(
+    @Body(new ValidationPipe()) data: UpdateDto,
+  ): Promise<FarmerProfile[]> {
     return this.service.Addfarmer(data);
   }
   @Post('Removefarmer')
-  Removefarmer(@Body() data: any): Promise<{
+  Removefarmer(@Body(new ValidationPipe()) data: any): Promise<{
     id: string;
     localGovernmentId: string;
     createdAt: Date;

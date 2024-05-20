@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IVisit } from './ivisit.interface';
 import { $Enums, Challenge, Prisma, Visit } from '@prisma/client';
@@ -15,35 +15,35 @@ export class VisitController implements IVisit {
    */
   constructor(private readonly service: VisitService) {}
   @Post('CreateVisit')
-  CreateVisit(@Body() data: CreateVisit): Promise<Visit> {
+  CreateVisit(@Body(new ValidationPipe()) data: CreateVisit): Promise<Visit> {
     return this.service.CreateVisit(data);
   }
   @Post('Addphoto')
-  Addphoto(@Body() data: { data: Buffer; visitId: string }): Promise<Visit> {
+  Addphoto(@Body(new ValidationPipe()) data: { data: Buffer; visitId: string }): Promise<Visit> {
     return this.service.Addphoto(data);
   }
   @Post('Addmilestone')
-  Addmilestone(@Body() data: UpdateDto): Promise<Visit> {
+  Addmilestone(@Body(new ValidationPipe()) data: UpdateDto): Promise<Visit> {
     return this.service.Addmilestone(data);
   }
   @Post('Addchallenge')
-  Addchallenge(@Body() data: UpdateDto): Promise<Visit> {
+  Addchallenge(@Body(new ValidationPipe()) data: UpdateDto): Promise<Visit> {
     return this.service.Addchallenge(data);
   }
   @Post('Removephoto')
-  Removephoto(@Body() data: any): Promise<Visit> {
+  Removephoto(@Body(new ValidationPipe()) data: any): Promise<Visit> {
     return this.service.Removephoto(data);
   }
   @Post('Removemilestone')
-  Removemilestone(@Body() data: UpdateDto): Promise<Visit> {
+  Removemilestone(@Body(new ValidationPipe()) data: UpdateDto): Promise<Visit> {
     return this.service.Removemilestone(data);
   }
   @Post('Removechallenge')
-  Removechallenge(@Body() data: UpdateDto): Promise<Visit> {
+  Removechallenge(@Body(new ValidationPipe()) data: UpdateDto): Promise<Visit> {
     return this.service.Removechallenge(data);
   }
   @Post('Getphotos')
-  Getphotos(@Body() data: FindDto): Promise<
+  Getphotos(@Body(new ValidationPipe()) data: FindDto): Promise<
     {
       id: string;
       data: Buffer;
@@ -55,7 +55,7 @@ export class VisitController implements IVisit {
     return this.service.Getphotos(data);
   }
   @Post('Getmilestones')
-  Getmilestones(@Body() data: FindDto): Promise<
+  Getmilestones(@Body(new ValidationPipe()) data: FindDto): Promise<
     {
       id: string;
       farmerProfile: string[];
@@ -74,32 +74,32 @@ export class VisitController implements IVisit {
     return this.service.Getmilestones(data);
   }
   @Post('Getchallenges')
-  Getchallenges(@Body() data: FindDto): Promise<Challenge[]> {
+  Getchallenges(@Body(new ValidationPipe()) data: FindDto): Promise<Challenge[]> {
     return this.service.Getchallenges(data);
   }
   @Post('FindByid')
-  FindByid(@Body() data: FindDto): Promise<Visit> {
+  FindByid(@Body(new ValidationPipe()) data: FindDto): Promise<Visit> {
     return this.service.FindByid(data);
   }
   @Post('FindBystatus')
-  FindBystatus(@Body() data: FindDto): Promise<Visit[]> {
+  FindBystatus(@Body(new ValidationPipe()) data: FindDto): Promise<Visit[]> {
     return this.service.FindBystatus(data);
   }
   @Post('FindBymilestoneId')
-  FindBymilestoneId(@Body() data: FindDto): Promise<Visit> {
+  FindBymilestoneId(@Body(new ValidationPipe()) data: FindDto): Promise<Visit> {
     return this.service.FindBymilestoneId(data);
   }
   @Post('FindByappointmentId')
-  FindByappointmentId(@Body() data: FindDto): Promise<Visit> {
+  FindByappointmentId(@Body(new ValidationPipe()) data: FindDto): Promise<Visit> {
     return this.service.FindByappointmentId(data);
   }
   @Post('FindByprojectId')
-  FindByprojectId(@Body() data: FindDto): Promise<Visit> {
+  FindByprojectId(@Body(new ValidationPipe()) data: FindDto): Promise<Visit> {
     return this.service.FindByprojectId(data);
   }
   @Post('UpdateProperties')
   UpdateProperties(
-    @Body() data: UpdateDto,
+    @Body(new ValidationPipe()) data: UpdateDto,
   ): Promise<Visit | BadRequestException> {
     return this.service.UpdateProperties(data);
   }
