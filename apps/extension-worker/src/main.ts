@@ -7,7 +7,7 @@ import * as bodyParser from 'body-parser';
 async function bootstrap() {
   const app = await NestFactory.create(ExtensionWorkerModule);
   app.enableCors({
-    origin: ['https://yolaweb.vercel.app',"*"],
+    origin: ['https://yolaweb.vercel.app',"*","http://localhost:3000"],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Accept',
     credentials: true,
