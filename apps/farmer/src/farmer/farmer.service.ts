@@ -8,6 +8,7 @@ import { DbService } from '@app/lib/db/db.service';
 import { FindDto } from './dto/find.dto';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
+import {Cron, CronExpression  } from "@nestjs/schedule";
 import { Farmer } from './farmer.module';
 
 /* type union = WorkerProfile | User;
@@ -420,5 +421,9 @@ export class FarmerService {
         description: error.message,
       });
     }
+  }
+  @Cron(CronExpression.EVERY_5_SECONDS)
+  cronThing() {
+    console.log('dont sleep');
   }
 }

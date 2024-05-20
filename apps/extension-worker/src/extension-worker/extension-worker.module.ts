@@ -28,6 +28,7 @@ import { AppointmentModule } from '../appointment/appointment.module';
 import { AppointmentController } from '../appointment/appointment.controller';
 import { AppointmentService } from '../appointment/appointment.service';
 import { FarmerModule } from 'apps/farmer/src/farmer.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { FarmerModule } from 'apps/farmer/src/farmer.module';
     InterventionModule,
     AppointmentModule,
     FarmerModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [
     AuthController,

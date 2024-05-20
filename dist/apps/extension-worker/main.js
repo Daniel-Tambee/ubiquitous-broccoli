@@ -1859,6 +1859,7 @@ const appointment_module_1 = __webpack_require__(/*! ../appointment/appointment.
 const appointment_controller_1 = __webpack_require__(/*! ../appointment/appointment.controller */ "./apps/extension-worker/src/appointment/appointment.controller.ts");
 const appointment_service_1 = __webpack_require__(/*! ../appointment/appointment.service */ "./apps/extension-worker/src/appointment/appointment.service.ts");
 const farmer_module_1 = __webpack_require__(/*! apps/farmer/src/farmer.module */ "./apps/farmer/src/farmer.module.ts");
+const schedule_1 = __webpack_require__(/*! @nestjs/schedule */ "@nestjs/schedule");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -1876,6 +1877,7 @@ ExtensionWorkerModule = __decorate([
             Intervention_module_1.InterventionModule,
             appointment_module_1.AppointmentModule,
             farmer_module_1.FarmerModule,
+            schedule_1.ScheduleModule.forRoot(),
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -5187,6 +5189,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const schedule_1 = __webpack_require__(/*! @nestjs/schedule */ "@nestjs/schedule");
 let FarmerService = class FarmerService {
     constructor(db) {
         this.db = db;
@@ -5592,7 +5595,16 @@ let FarmerService = class FarmerService {
             });
         }
     }
+    cronThing() {
+        console.log('dont sleep');
+    }
 };
+__decorate([
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_5_SECONDS),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], FarmerService.prototype, "cronThing", null);
 FarmerService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
@@ -6009,6 +6021,16 @@ module.exports = require("@nestjs/core");
 /***/ ((module) => {
 
 module.exports = require("@nestjs/jwt");
+
+/***/ }),
+
+/***/ "@nestjs/schedule":
+/*!***********************************!*\
+  !*** external "@nestjs/schedule" ***!
+  \***********************************/
+/***/ ((module) => {
+
+module.exports = require("@nestjs/schedule");
 
 /***/ }),
 
