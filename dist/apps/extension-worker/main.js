@@ -6136,7 +6136,7 @@ const bodyParser = __webpack_require__(/*! body-parser */ "body-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
     app.enableCors({
-        origin: '*',
+        origin: ['https://yolaweb.vercel.app', "*"],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
         allowedHeaders: 'Content-Type, Accept',
         credentials: true,
