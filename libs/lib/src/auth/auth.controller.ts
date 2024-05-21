@@ -14,11 +14,11 @@ export class AuthController implements IAuth {
     throw new Error('Method not implemented.');
   }
   @Post('Signup')
-  Signup(@Body(new ValidationPipe()) info: CreateUserDto) {
+  Signup(@Body() info: CreateUserDto) {
     return this.authService.Signup(info);
   }
   @Post('SignIn')
-  SignIn(@Body(new ValidationPipe()) data: ValidationDto) {
+  SignIn(@Body() data: ValidationDto) {
     return this.authService.SignIn(data);
   }
   @Post('SignOut')
@@ -26,7 +26,7 @@ export class AuthController implements IAuth {
     return this.authService.SignOut(data);
   }
   @Post('ForgotPassword')
-  ForgotPassword(@Body(new ValidationPipe()) data: UpdateDto) {
+  ForgotPassword()) data: UpdateDto) {
     return this.authService.ForgotPassword(data);
   }
 }
