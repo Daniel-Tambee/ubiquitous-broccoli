@@ -8,7 +8,7 @@ import { AllExceptionsFilter } from '@app/lib/auth/error_filter.filter';
 async function bootstrap() {
   const app = await NestFactory.create(ExtensionWorkerModule);
   app.enableCors({
-    origin: ['https://yolaweb.vercel.app',"*","http://localhost:3000"],
+    origin: ['https://yolaweb.vercel.app', '*', 'http://localhost:3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Content-Type, Accept',
     credentials: true,
@@ -21,14 +21,14 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
-  app.useGlobalPipes(
-    new ValidationPipe({
-      disableErrorMessages: false,
-      // whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  );
+  // app.useGlobalPipes(
+  //   new ValidationPipe({
+  //     disableErrorMessages: false,
+  //     // whitelist: true,
+  //     forbidNonWhitelisted: true,
+  //     transform: true,
+  //   }),
+  // );
   app.useGlobalFilters(new AllExceptionsFilter());
   await app.listen(process.env.WORKER_PORT || 3000);
   const logger: Logger = new Logger('Extension Worker Logic', {
