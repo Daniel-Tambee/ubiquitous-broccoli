@@ -5966,6 +5966,50 @@ exports.ValidationDto = ValidationDto;
 
 /***/ }),
 
+/***/ "./libs/lib/src/auth/error_filter.filter.ts":
+/*!**************************************************!*\
+  !*** ./libs/lib/src/auth/error_filter.filter.ts ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AllExceptionsFilter = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+let AllExceptionsFilter = class AllExceptionsFilter {
+    catch(exception, host) {
+        const ctx = host.switchToHttp();
+        const response = ctx.getResponse();
+        const request = ctx.getRequest();
+        const status = exception instanceof common_1.HttpException
+            ? exception.getStatus()
+            : common_1.HttpStatus.INTERNAL_SERVER_ERROR;
+        const errorResponse = {
+            statusCode: status,
+            timestamp: new Date().toISOString(),
+            path: request.url,
+            method: request.method,
+            message: exception instanceof common_1.HttpException
+                ? exception.getResponse().message
+                : 'Internal server error',
+        };
+        response.status(status).json(errorResponse);
+    }
+};
+AllExceptionsFilter = __decorate([
+    (0, common_1.Catch)()
+], AllExceptionsFilter);
+exports.AllExceptionsFilter = AllExceptionsFilter;
+
+
+/***/ }),
+
 /***/ "./libs/lib/src/db/db.service.ts":
 /*!***************************************!*\
   !*** ./libs/lib/src/db/db.service.ts ***!
@@ -6133,6 +6177,7 @@ const extension_worker_module_1 = __webpack_require__(/*! ./extension-worker/ext
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const bodyParser = __webpack_require__(/*! body-parser */ "body-parser");
+const error_filter_filter_1 = __webpack_require__(/*! @app/lib/auth/error_filter.filter */ "./libs/lib/src/auth/error_filter.filter.ts");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
     app.enableCors({
@@ -6154,6 +6199,7 @@ async function bootstrap() {
         forbidNonWhitelisted: true,
         transform: true,
     }));
+    app.useGlobalFilters(new error_filter_filter_1.AllExceptionsFilter());
     await app.listen(process.env.WORKER_PORT || 3000);
     const logger = new common_1.Logger('Extension Worker Logic', {
         timestamp: true,

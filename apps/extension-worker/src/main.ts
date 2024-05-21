@@ -3,6 +3,7 @@ import { ExtensionWorkerModule } from './extension-worker/extension-worker.modul
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
+import { AllExceptionsFilter } from '@app/lib/auth/error_filter.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(ExtensionWorkerModule);
@@ -28,6 +29,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  app.useGlobalFilters(new AllExceptionsFilter());
   await app.listen(process.env.WORKER_PORT || 3000);
   const logger: Logger = new Logger('Extension Worker Logic', {
     timestamp: true,
