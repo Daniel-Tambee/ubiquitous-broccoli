@@ -1747,6 +1747,9 @@ let ExtensionWorkerController = class ExtensionWorkerController {
     getAllWorkers() {
         return this.worker.getAllWorkers();
     }
+    getAllWorkersCount() {
+        return this.worker.getAllExtensionWorkersCount();
+    }
     SignOut() {
         return this.worker.SignOut();
     }
@@ -1805,6 +1808,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ExtensionWorkerController.prototype, "getAllWorkers", null);
+__decorate([
+    (0, common_1.Get)('getAllWorkersCount'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ExtensionWorkerController.prototype, "getAllWorkersCount", null);
 ExtensionWorkerController = __decorate([
     (0, common_1.Controller)('extension-worker'),
     (0, swagger_1.ApiTags)('Extension Worker'),
@@ -1928,6 +1937,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.WorkerService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const farmer_growth_calc_1 = __webpack_require__(/*! @app/lib/farmer_growth_calc */ "./libs/lib/src/farmer_growth_calc.ts");
 let WorkerService = class WorkerService {
     constructor(db) {
         this.db = db;
@@ -2269,6 +2279,20 @@ let WorkerService = class WorkerService {
             },
         });
         return query;
+    }
+    async getAllExtensionWorkersCount() {
+        try {
+            const res = {
+                count: Number,
+                percent: Number,
+            };
+            res['count'] = await this.db.farmerProfile.count();
+            res['percent'] = await (0, farmer_growth_calc_1.calculateGrowth)();
+            return res;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
     }
 };
 WorkerService = __decorate([
@@ -5099,6 +5123,9 @@ let FarmerController = class FarmerController {
     UpdateProperty(data) {
         return this.farmer.UpdateProperties(data);
     }
+    async farmerCount() {
+        return await this.farmer.getAllFarmersCount();
+    }
 };
 __decorate([
     (0, common_1.Post)('FindByEmail'),
@@ -5154,6 +5181,12 @@ __decorate([
     __metadata("design:paramtypes", [typeof (_h = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _h : Object]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "UpdateProperty", null);
+__decorate([
+    (0, common_1.Get)('farmerCount'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], FarmerController.prototype, "farmerCount", null);
 FarmerController = __decorate([
     (0, common_1.Controller)('farmer'),
     (0, swagger_1.ApiTags)('farmer'),
@@ -5621,6 +5654,9 @@ let FarmerService = class FarmerService {
             });
         }
     }
+    async getAllFarmersCount() {
+        return await this.db.farmerProfile.count();
+    }
     cronThing() {
         console.log('dont sleep');
     }
@@ -6049,6 +6085,52 @@ DbService = __decorate([
     __metadata("design:paramtypes", [])
 ], DbService);
 exports.DbService = DbService;
+
+
+/***/ }),
+
+/***/ "./libs/lib/src/farmer_growth_calc.ts":
+/*!********************************************!*\
+  !*** ./libs/lib/src/farmer_growth_calc.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.calculateGrowth = void 0;
+const db_service_1 = __webpack_require__(/*! ./db/db.service */ "./libs/lib/src/db/db.service.ts");
+const prisma = new db_service_1.DbService();
+async function calculateGrowth() {
+    try {
+        const now = new Date();
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const currentCount = await prisma.farmerProfile.count({
+            where: {
+                createdAt: {
+                    gte: startOfMonth,
+                },
+            },
+        });
+        const previousCount = await prisma.farmerProfile.count({
+            where: {
+                createdAt: {
+                    gte: lastMonth,
+                    lt: startOfMonth,
+                },
+            },
+        });
+        const growth = ((currentCount - previousCount) / previousCount) * 100;
+        console.log(`Percentage Growth: ${growth.toFixed(2)}%`);
+    }
+    catch (error) {
+        console.error('Error calculating growth:', error);
+    }
+    finally {
+        await prisma.$disconnect();
+    }
+}
+exports.calculateGrowth = calculateGrowth;
 
 
 /***/ }),

@@ -1,4 +1,6 @@
-const prisma = require('./prismaClient');
+import { DbService } from './db/db.service';
+
+const prisma = new DbService();
 
 export async function calculateGrowth() {
   try {
@@ -35,4 +37,3 @@ export async function calculateGrowth() {
     await prisma.$disconnect();
   }
 }
-
