@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Post,
   UseGuards,
   ValidationPipe,
@@ -68,6 +69,12 @@ export class ExtensionWorkerController {
   getAllWorkers() {
     return this.worker.getAllWorkers();
   }
+
+  @Get('getAllWorkersCount')
+  getAllWorkersCount() {
+    return this.worker.getAllExtensionWorkersCount();
+  }
+
   SignOut() {
     return this.worker.SignOut();
   }

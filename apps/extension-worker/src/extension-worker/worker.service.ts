@@ -346,4 +346,12 @@ export class WorkerService implements Iworker {
       });
     }
   };
+
+  async getAllExtensionWorkersCount() {
+    try {
+      return await this.db.farmerProfile.count();
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
 }
