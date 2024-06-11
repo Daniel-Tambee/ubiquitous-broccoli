@@ -199,7 +199,9 @@ export class WorkerService implements Iworker {
 
   UpdateProperties = async (
     data: UpdateDto,
+    id: string,
   ): Promise<User | BadRequestException> => {
+    let workerId = id;
     console.log(data);
     try {
       let query =
@@ -209,7 +211,7 @@ export class WorkerService implements Iworker {
                 email: data['property']['email'],
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -219,7 +221,7 @@ export class WorkerService implements Iworker {
                 first_name: data['property']['first_name'],
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -229,7 +231,7 @@ export class WorkerService implements Iworker {
                 phone_number: data['property']['phone_number'],
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -239,7 +241,7 @@ export class WorkerService implements Iworker {
                 password: data['property']['password'],
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -253,7 +255,7 @@ export class WorkerService implements Iworker {
                 },
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -267,7 +269,7 @@ export class WorkerService implements Iworker {
                 },
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -281,7 +283,7 @@ export class WorkerService implements Iworker {
                 },
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -295,7 +297,7 @@ export class WorkerService implements Iworker {
                 },
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -309,7 +311,7 @@ export class WorkerService implements Iworker {
                 },
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
             })
@@ -323,7 +325,7 @@ export class WorkerService implements Iworker {
                 },
               },
               where: {
-                id: data['id'],
+                id: workerId,
                 type: 'EXTENSION_WORKER',
               },
               include: {

@@ -1738,8 +1738,8 @@ let ExtensionWorkerController = class ExtensionWorkerController {
     CreateResource(data) {
         return this.worker.CreateResource(data);
     }
-    UpdateProperty(data) {
-        return this.worker.UpdateProperties(data);
+    UpdateProperty(id, data) {
+        return this.worker.UpdateProperties(data, id);
     }
     FindByEmail(data) {
         return this.worker.FindByEmail(data);
@@ -1790,9 +1790,10 @@ __decorate([
 ], ExtensionWorkerController.prototype, "CreateResource", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Param)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
+    __metadata("design:paramtypes", [String, typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], ExtensionWorkerController.prototype, "UpdateProperty", null);
 __decorate([
@@ -1941,7 +1942,8 @@ const worker_growth_calc_1 = __webpack_require__(/*! @app/lib/worker_growth_calc
 let WorkerService = class WorkerService {
     constructor(db) {
         this.db = db;
-        this.UpdateProperties = async (data) => {
+        this.UpdateProperties = async (data, id) => {
+            let workerId = id;
             console.log(data);
             try {
                 let query = data['property']['email'] !== undefined
@@ -1950,7 +1952,7 @@ let WorkerService = class WorkerService {
                             email: data['property']['email'],
                         },
                         where: {
-                            id: data['id'],
+                            id: workerId,
                             type: 'EXTENSION_WORKER',
                         },
                     })
@@ -1960,7 +1962,7 @@ let WorkerService = class WorkerService {
                                 first_name: data['property']['first_name'],
                             },
                             where: {
-                                id: data['id'],
+                                id: workerId,
                                 type: 'EXTENSION_WORKER',
                             },
                         })
@@ -1970,7 +1972,7 @@ let WorkerService = class WorkerService {
                                     phone_number: data['property']['phone_number'],
                                 },
                                 where: {
-                                    id: data['id'],
+                                    id: workerId,
                                     type: 'EXTENSION_WORKER',
                                 },
                             })
@@ -1980,7 +1982,7 @@ let WorkerService = class WorkerService {
                                         password: data['property']['password'],
                                     },
                                     where: {
-                                        id: data['id'],
+                                        id: workerId,
                                         type: 'EXTENSION_WORKER',
                                     },
                                 })
@@ -1994,7 +1996,7 @@ let WorkerService = class WorkerService {
                                             },
                                         },
                                         where: {
-                                            id: data['id'],
+                                            id: workerId,
                                             type: 'EXTENSION_WORKER',
                                         },
                                     })
@@ -2008,7 +2010,7 @@ let WorkerService = class WorkerService {
                                                 },
                                             },
                                             where: {
-                                                id: data['id'],
+                                                id: workerId,
                                                 type: 'EXTENSION_WORKER',
                                             },
                                         })
@@ -2022,7 +2024,7 @@ let WorkerService = class WorkerService {
                                                     },
                                                 },
                                                 where: {
-                                                    id: data['id'],
+                                                    id: workerId,
                                                     type: 'EXTENSION_WORKER',
                                                 },
                                             })
@@ -2036,7 +2038,7 @@ let WorkerService = class WorkerService {
                                                         },
                                                     },
                                                     where: {
-                                                        id: data['id'],
+                                                        id: workerId,
                                                         type: 'EXTENSION_WORKER',
                                                     },
                                                 })
@@ -2050,7 +2052,7 @@ let WorkerService = class WorkerService {
                                                             },
                                                         },
                                                         where: {
-                                                            id: data['id'],
+                                                            id: workerId,
                                                             type: 'EXTENSION_WORKER',
                                                         },
                                                     })
@@ -2064,7 +2066,7 @@ let WorkerService = class WorkerService {
                                                                 },
                                                             },
                                                             where: {
-                                                                id: data['id'],
+                                                                id: workerId,
                                                                 type: 'EXTENSION_WORKER',
                                                             },
                                                             include: {

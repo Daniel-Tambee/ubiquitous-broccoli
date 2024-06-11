@@ -57,9 +57,10 @@ export class ExtensionWorkerController {
   }
   @Post('UpdateProperty')
   UpdateProperty(
-    @Param(new ValidationPipe()) data: UpdateDto,
+    @Param('id') id: string,
+    @Body() data: UpdateDto,
   ): Promise<User | BadRequestException> {
-    return this.worker.UpdateProperties(data);
+    return this.worker.UpdateProperties(data, id);
   }
   BadRequestException;
   @Post('FindByEmail')
