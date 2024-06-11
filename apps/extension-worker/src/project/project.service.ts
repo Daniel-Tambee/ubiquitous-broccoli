@@ -6,6 +6,7 @@ import { FarmerProfile, Milestone, Project, ProjectType } from '@prisma/client';
 import { CreateProjectDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
+import { calculateGrowth } from '@app/lib/projects_growth_calc';
 
 @Injectable()
 export class ProjectService implements IProject {
@@ -260,6 +261,21 @@ export class ProjectService implements IProject {
             })
           : new BadRequestException('pass in a valid property');
       return query;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
+  async getAllProjectCount() {
+    try {
+      const res: {} = {
+        count: Number,
+        percent: Number,
+      };
+      res['count'] = await this.db.workerProfile.count();
+      res['percent'] = await calculateGrowth();
+
+      return res;
     } catch (error) {
       throw new BadRequestException(error);
     }

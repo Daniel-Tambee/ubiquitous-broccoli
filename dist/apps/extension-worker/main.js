@@ -3685,6 +3685,9 @@ let ProjectController = class ProjectController {
             throw new common_1.BadRequestException(error);
         }
     }
+    async getAllProjectCount() {
+        return this.project.getAllProjectCount();
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateProject'),
@@ -3791,6 +3794,12 @@ __decorate([
     __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
     __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
 ], ProjectController.prototype, "UpdateProperty", null);
+__decorate([
+    (0, common_1.Get)('getAllProjectCount'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "getAllProjectCount", null);
 ProjectController = __decorate([
     (0, common_1.Controller)('project'),
     (0, swagger_1.ApiTags)('project'),
@@ -3857,6 +3866,7 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
 const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/project/dto/find_dto.ts");
+const projects_growth_calc_1 = __webpack_require__(/*! @app/lib/projects_growth_calc */ "./libs/lib/src/projects_growth_calc.ts");
 let ProjectService = class ProjectService {
     constructor(db, profile) {
         this.db = db;
@@ -4116,6 +4126,20 @@ let ProjectService = class ProjectService {
                         })
                         : new common_1.BadRequestException('pass in a valid property');
             return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async getAllProjectCount() {
+        try {
+            const res = {
+                count: Number,
+                percent: Number,
+            };
+            res['count'] = await this.db.workerProfile.count();
+            res['percent'] = await (0, projects_growth_calc_1.calculateGrowth)();
+            return res;
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -6157,6 +6181,60 @@ exports.calculateGrowth = calculateGrowth;
 
 /***/ }),
 
+/***/ "./libs/lib/src/projects_growth_calc.ts":
+/*!**********************************************!*\
+  !*** ./libs/lib/src/projects_growth_calc.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.calculateGrowth = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! ./db/db.service */ "./libs/lib/src/db/db.service.ts");
+const prisma = new db_service_1.DbService();
+async function calculateGrowth() {
+    try {
+        const now = new Date();
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const currentCount = await prisma.project.count({
+            where: {
+                createdAt: {
+                    gte: startOfMonth,
+                },
+            },
+        });
+        const previousCount = await prisma.project.count({
+            where: {
+                createdAt: {
+                    gte: lastMonth,
+                    lt: startOfMonth,
+                },
+            },
+        });
+        let growth;
+        if (previousCount === 0) {
+            growth = currentCount > 0 ? 100 : 0;
+        }
+        else {
+            growth = ((currentCount - previousCount) / previousCount) * 100;
+        }
+        return growth.toFixed(2) + '%';
+    }
+    catch (error) {
+        console.error('Error calculating growth:', error);
+        throw new common_1.BadRequestException(undefined, error);
+    }
+    finally {
+        await prisma.$disconnect();
+    }
+}
+exports.calculateGrowth = calculateGrowth;
+
+
+/***/ }),
+
 /***/ "./libs/lib/src/worker_growth_calc.ts":
 /*!********************************************!*\
   !*** ./libs/lib/src/worker_growth_calc.ts ***!
@@ -6359,10 +6437,6 @@ async function bootstrap() {
     swagger_1.SwaggerModule.setup('api', app, document);
     app.use(bodyParser.json({ limit: '50mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
-    app.useGlobalPipes(new common_1.ValidationPipe({
-        disableErrorMessages: false,
-        transform: true,
-    }));
     app.useGlobalFilters(new error_filter_filter_1.AllExceptionsFilter());
     await app.listen(process.env.WORKER_PORT || 3000);
     const logger = new common_1.Logger('Extension Worker Logic', {

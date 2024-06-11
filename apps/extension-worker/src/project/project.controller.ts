@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Post,
   ValidationPipe,
 } from '@nestjs/common';
@@ -161,5 +162,10 @@ export class ProjectController implements IProject {
     } catch (error) {
       throw new BadRequestException(error);
     }
+  }
+
+  @Get('getAllProjectCount')
+  async getAllProjectCount() {
+    return this.project.getAllProjectCount();
   }
 }
