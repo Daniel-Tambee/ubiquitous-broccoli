@@ -1790,7 +1790,7 @@ __decorate([
 ], ExtensionWorkerController.prototype, "CreateResource", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Param)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
@@ -6098,6 +6098,7 @@ exports.DbService = DbService;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.calculateGrowth = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! ./db/db.service */ "./libs/lib/src/db/db.service.ts");
 const prisma = new db_service_1.DbService();
 async function calculateGrowth() {
@@ -6122,9 +6123,11 @@ async function calculateGrowth() {
         });
         const growth = ((currentCount - previousCount) / previousCount) * 100;
         console.log(`Percentage Growth: ${growth.toFixed(2)}%`);
+        return growth;
     }
     catch (error) {
         console.error('Error calculating growth:', error);
+        throw new common_1.BadRequestException(undefined, error);
     }
     finally {
         await prisma.$disconnect();

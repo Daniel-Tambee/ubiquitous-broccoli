@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UseGuards,
   ValidationPipe,
@@ -56,7 +57,7 @@ export class ExtensionWorkerController {
   }
   @Post('UpdateProperty')
   UpdateProperty(
-    @Body(new ValidationPipe()) data: UpdateDto,
+    @Param(new ValidationPipe()) data: UpdateDto,
   ): Promise<User | BadRequestException> {
     return this.worker.UpdateProperties(data);
   }

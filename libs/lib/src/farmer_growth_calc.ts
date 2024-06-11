@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { DbService } from './db/db.service';
 
 const prisma = new DbService();
@@ -29,10 +30,11 @@ export async function calculateGrowth() {
 
     // Calculate percentage growth
     const growth = ((currentCount - previousCount) / previousCount) * 100;
-
     console.log(`Percentage Growth: ${growth.toFixed(2)}%`);
+    return growth;
   } catch (error) {
     console.error('Error calculating growth:', error);
+    throw new BadRequestException(undefined, error);
   } finally {
     await prisma.$disconnect();
   }
