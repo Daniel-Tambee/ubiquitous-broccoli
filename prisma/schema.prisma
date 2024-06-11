@@ -93,6 +93,7 @@ model AdminProfile {
 model Project {
   id              String          @id @default(uuid()) @map("_id")
   name            String?
+  description     String?
   vists           Visit[]
   status          ProjectStatus
   type            ProjectType
