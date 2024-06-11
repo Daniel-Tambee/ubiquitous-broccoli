@@ -10,6 +10,7 @@ import { CreateFarmerDto, UpdateDto } from './dto/dto';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Farmer } from './farmer.module';
+import { calculateGrowth } from '@app/lib/farmer_growth_calc';
 
 /* type union = WorkerProfile | User;
 type excluded = 'id' | 'createdAt' | 'updatedAt';
@@ -424,7 +425,18 @@ export class FarmerService {
   }
 
   async getAllFarmersCount() {
-    return await this.db.farmerProfile.count();
+    try {
+      const res: {} = {
+        count: Number,
+        percent: Number,
+      };
+      res['count'] = await this.db.farmerProfile.count();
+      res['percent'] = await calculateGrowth();
+
+      return res;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
   }
   @Cron(CronExpression.EVERY_5_SECONDS)
   cronThing() {

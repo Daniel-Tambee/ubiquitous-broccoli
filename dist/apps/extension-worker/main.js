@@ -1937,7 +1937,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.WorkerService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
-const farmer_growth_calc_1 = __webpack_require__(/*! @app/lib/farmer_growth_calc */ "./libs/lib/src/farmer_growth_calc.ts");
+const worker_growth_calc_1 = __webpack_require__(/*! @app/lib/worker_growth_calc */ "./libs/lib/src/worker_growth_calc.ts");
 let WorkerService = class WorkerService {
     constructor(db) {
         this.db = db;
@@ -2286,8 +2286,8 @@ let WorkerService = class WorkerService {
                 count: Number,
                 percent: Number,
             };
-            res['count'] = await this.db.farmerProfile.count();
-            res['percent'] = await (0, farmer_growth_calc_1.calculateGrowth)();
+            res['count'] = await this.db.workerProfile.count();
+            res['percent'] = await (0, worker_growth_calc_1.calculateGrowth)();
             return res;
         }
         catch (error) {
@@ -5249,6 +5249,7 @@ exports.FarmerService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 const schedule_1 = __webpack_require__(/*! @nestjs/schedule */ "@nestjs/schedule");
+const farmer_growth_calc_1 = __webpack_require__(/*! @app/lib/farmer_growth_calc */ "./libs/lib/src/farmer_growth_calc.ts");
 let FarmerService = class FarmerService {
     constructor(db) {
         this.db = db;
@@ -5655,7 +5656,18 @@ let FarmerService = class FarmerService {
         }
     }
     async getAllFarmersCount() {
-        return await this.db.farmerProfile.count();
+        try {
+            const res = {
+                count: Number,
+                percent: Number,
+            };
+            res['count'] = await this.db.farmerProfile.count();
+            res['percent'] = await (0, farmer_growth_calc_1.calculateGrowth)();
+            return res;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
     }
     cronThing() {
         console.log('dont sleep');
@@ -6121,9 +6133,68 @@ async function calculateGrowth() {
                 },
             },
         });
-        const growth = ((currentCount - previousCount) / previousCount) * 100;
-        console.log(`Percentage Growth: ${growth.toFixed(2)}%`);
-        return growth;
+        let growth;
+        if (previousCount === 0) {
+            growth = currentCount > 0 ? 100 : 0;
+        }
+        else {
+            growth = ((currentCount - previousCount) / previousCount) * 100;
+        }
+        return growth.toFixed(2) + "%";
+    }
+    catch (error) {
+        console.error('Error calculating growth:', error);
+        throw new common_1.BadRequestException(undefined, error);
+    }
+    finally {
+        await prisma.$disconnect();
+    }
+}
+exports.calculateGrowth = calculateGrowth;
+
+
+/***/ }),
+
+/***/ "./libs/lib/src/worker_growth_calc.ts":
+/*!********************************************!*\
+  !*** ./libs/lib/src/worker_growth_calc.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.calculateGrowth = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! ./db/db.service */ "./libs/lib/src/db/db.service.ts");
+const prisma = new db_service_1.DbService();
+async function calculateGrowth() {
+    try {
+        const now = new Date();
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const currentCount = await prisma.workerProfile.count({
+            where: {
+                createdAt: {
+                    gte: startOfMonth,
+                },
+            },
+        });
+        const previousCount = await prisma.workerProfile.count({
+            where: {
+                createdAt: {
+                    gte: lastMonth,
+                    lt: startOfMonth,
+                },
+            },
+        });
+        let growth;
+        if (previousCount === 0) {
+            growth = currentCount > 0 ? 100 : 0;
+        }
+        else {
+            growth = ((currentCount - previousCount) / previousCount) * 100;
+        }
+        return growth.toFixed(2) + '%';
     }
     catch (error) {
         console.error('Error calculating growth:', error);

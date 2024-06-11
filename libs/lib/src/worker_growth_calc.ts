@@ -10,7 +10,7 @@ export async function calculateGrowth() {
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
     // Count farmers at the start of the current month
-    const currentCount = await prisma.farmerProfile.count({
+    const currentCount = await prisma.workerProfile.count({
       where: {
         createdAt: {
           gte: startOfMonth,
@@ -19,7 +19,7 @@ export async function calculateGrowth() {
     });
 
     // Count farmers at the start of the previous month
-    const previousCount = await prisma.farmerProfile.count({
+    const previousCount = await prisma.workerProfile.count({
       where: {
         createdAt: {
           gte: lastMonth,
@@ -28,7 +28,7 @@ export async function calculateGrowth() {
       },
     });
 
-    let growth:number;
+    let growth: number;
     if (previousCount === 0) {
       growth = currentCount > 0 ? 100 : 0; // If no farmers in the previous period, growth is either 100% or 0%
     } else {
@@ -39,7 +39,7 @@ export async function calculateGrowth() {
     // const growth1 = ((currentCount - previousCount) / previousCount) * 100;
     // const growth = '${growth.toFixed(2)}%';
     // console.log(`Percentage Growth: ${growth.fixed()}%`);
-    return growth.toFixed(2)+"%";
+    return growth.toFixed(2) + '%';
   } catch (error) {
     console.error('Error calculating growth:', error);
     throw new BadRequestException(undefined, error);
