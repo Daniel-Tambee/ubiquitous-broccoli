@@ -6,6 +6,7 @@ import { DbService } from '@app/lib/db/db.service';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 import { FindDto } from 'apps/farmer/src/farmer/dto/find.dto';
+import { calculateGrowth } from '@app/lib/farmer_growth_calc';
 
 @Injectable()
 export class WorkerService implements Iworker {
@@ -349,7 +350,14 @@ export class WorkerService implements Iworker {
 
   async getAllExtensionWorkersCount() {
     try {
-      return await this.db.farmerProfile.count();
+      const res: {} = {
+        count: Number,
+        percent: Number,
+      };
+      res['count'] = await this.db.farmerProfile.count();
+      res['percent'] = await calculateGrowth();
+
+      return res;
     } catch (error) {
       throw new BadRequestException(error);
     }
