@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { IVisit } from './ivisit.interface';
 import { Challenge, Milestone, Photo, Visit } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
-import { CreateVisit } from './dto/dto';
+import { CreateVisitDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 
@@ -12,14 +12,17 @@ export class VisitService implements IVisit {
    *
    */
   constructor(private readonly db: DbService) {}
-  async CreateVisit(data: CreateVisit): Promise<Visit> {
+  async CreateVisit(data: CreateVisitDto): Promise<Visit> {
     try {
       let query = await this.db.visit.create({
         data: {
+          name: data['name'],
+          workerProfileId: data['workerProfileId'],
           appointmentId: data['milestoneId'],
           projectId: data['projectId'],
           status: 'UNCOMPLETED',
           milestoneId: data['milestoneId'],
+          interventionId: data['interventionId'],
         },
       });
       return query;

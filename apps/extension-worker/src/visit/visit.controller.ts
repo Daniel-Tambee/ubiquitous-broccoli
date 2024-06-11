@@ -2,7 +2,7 @@ import { BadRequestException, Body, Controller, Post, ValidationPipe } from '@ne
 import { ApiTags } from '@nestjs/swagger';
 import { IVisit } from './ivisit.interface';
 import { $Enums, Challenge, Prisma, Visit } from '@prisma/client';
-import { CreateVisit } from './dto/dto';
+import { CreateVisitDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 import { VisitService } from './visit.service';
@@ -15,7 +15,7 @@ export class VisitController implements IVisit {
    */
   constructor(private readonly service: VisitService) {}
   @Post('CreateVisit')
-  CreateVisit(@Body(new ValidationPipe()) data: CreateVisit): Promise<Visit> {
+  CreateVisit(@Body() data: CreateVisitDto): Promise<Visit> {
     return this.service.CreateVisit(data);
   }
   @Post('Addphoto')

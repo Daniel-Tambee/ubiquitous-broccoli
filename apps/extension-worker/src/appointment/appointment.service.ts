@@ -29,7 +29,7 @@ export class AppointmentService implements IAppointment {
     try {
       let query = await this.db.appointment.create({
         data: {
-          status: data['status'],
+          status: 'PENDING',
           time: data['time'],
           workerProfileId: data['workerProfileId'],
         },

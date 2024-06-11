@@ -602,6 +602,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppointmentController = void 0;
@@ -610,6 +613,7 @@ const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-w
 const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/appointment/dto/update_dto.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
 const appointment_service_1 = __webpack_require__(/*! ./appointment.service */ "./apps/extension-worker/src/appointment/appointment.service.ts");
+const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/appointment/dto/dto.ts");
 let AppointmentController = class AppointmentController {
     constructor(service) {
         this.service = service;
@@ -644,54 +648,63 @@ let AppointmentController = class AppointmentController {
 };
 __decorate([
     (0, common_1.Post)('ScheduleAppointment'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof Partial !== "undefined" && Partial) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateAppointmentDto !== "undefined" && dto_1.CreateAppointmentDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], AppointmentController.prototype, "ScheduleAppointment", null);
 __decorate([
     (0, common_1.Post)('GetVisits'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], AppointmentController.prototype, "GetVisits", null);
 __decorate([
     (0, common_1.Post)('AddVisit'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_f = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _f : Object]),
     __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
 ], AppointmentController.prototype, "AddVisit", null);
 __decorate([
     (0, common_1.Post)('RemoveVisit'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_h = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _h : Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], AppointmentController.prototype, "RemoveVisit", null);
 __decorate([
     (0, common_1.Post)('findByid'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_k = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _k : Object]),
     __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], AppointmentController.prototype, "findByid", null);
 __decorate([
     (0, common_1.Post)(''),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
     __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], AppointmentController.prototype, "findByTime", null);
 __decorate([
     (0, common_1.Post)('findByTime'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_p = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _p : Object]),
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], AppointmentController.prototype, "findByStatus", null);
 __decorate([
     (0, common_1.Post)('findByworkerProfileId'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
     __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
 ], AppointmentController.prototype, "findByworkerProfileId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_t = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _t : Object]),
     __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
@@ -767,7 +780,7 @@ let AppointmentService = class AppointmentService {
         try {
             let query = await this.db.appointment.create({
                 data: {
-                    status: data['status'],
+                    status: 'PENDING',
                     time: data['time'],
                     workerProfileId: data['workerProfileId'],
                 },
@@ -928,6 +941,47 @@ AppointmentService = __decorate([
     __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
 ], AppointmentService);
 exports.AppointmentService = AppointmentService;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/appointment/dto/dto.ts":
+/*!**********************************************************!*\
+  !*** ./apps/extension-worker/src/appointment/dto/dto.ts ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateAppointmentDto = void 0;
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class CreateAppointmentDto {
+    constructor(createAppointmentDto) {
+        Object.assign(this, createAppointmentDto);
+    }
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], CreateAppointmentDto.prototype, "time", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsUUID)(),
+    __metadata("design:type", String)
+], CreateAppointmentDto.prototype, "workerProfileId", void 0);
+exports.CreateAppointmentDto = CreateAppointmentDto;
 
 
 /***/ }),
@@ -1601,10 +1655,37 @@ exports.CooperativeService = CooperativeService;
 /*!**********************************************************!*\
   !*** ./apps/extension-worker/src/cooperative/dto/dto.ts ***!
   \**********************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateCooperativeDto = void 0;
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class CreateCooperativeDto {
+    constructor(createCooperativeDto) {
+        Object.assign(this, createCooperativeDto);
+    }
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateCooperativeDto.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateCooperativeDto.prototype, "workerProfileId", void 0);
+exports.CreateCooperativeDto = CreateCooperativeDto;
 
 
 /***/ }),
@@ -3477,10 +3558,61 @@ exports.ProfileService = ProfileService;
 /*!******************************************************!*\
   !*** ./apps/extension-worker/src/project/dto/dto.ts ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateProjectDto = void 0;
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
+class CreateProjectDto {
+    constructor(data) {
+        Object.assign(this, data);
+    }
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateProjectDto.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateProjectDto.prototype, "description", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.ProjectStatus, enumName: 'ProjectStatus' }),
+    (0, class_validator_1.IsEnum)(client_1.ProjectStatus),
+    __metadata("design:type", typeof (_a = typeof client_1.ProjectStatus !== "undefined" && client_1.ProjectStatus) === "function" ? _a : Object)
+], CreateProjectDto.prototype, "status", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.ProjectType, enumName: 'ProjectType' }),
+    (0, class_validator_1.IsEnum)(client_1.ProjectType),
+    __metadata("design:type", typeof (_b = typeof client_1.ProjectType !== "undefined" && client_1.ProjectType) === "function" ? _b : Object)
+], CreateProjectDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: Date }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+], CreateProjectDto.prototype, "start_date", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: Date }),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", typeof (_d = typeof Date !== "undefined" && Date) === "function" ? _d : Object)
+], CreateProjectDto.prototype, "end_date", void 0);
+exports.CreateProjectDto = CreateProjectDto;
 
 
 /***/ }),
@@ -4234,10 +4366,61 @@ exports.ReportModule = ReportModule;
 /*!****************************************************!*\
   !*** ./apps/extension-worker/src/visit/dto/dto.ts ***!
   \****************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateVisitDto = void 0;
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+class CreateVisitDto {
+    constructor(createVisitDto) {
+        Object.assign(this, createVisitDto);
+    }
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateVisitDto.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsUUID)(),
+    __metadata("design:type", String)
+], CreateVisitDto.prototype, "appointmentId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsUUID)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateVisitDto.prototype, "milestoneId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsUUID)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateVisitDto.prototype, "projectId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsUUID)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateVisitDto.prototype, "workerProfileId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateVisitDto.prototype, "interventionId", void 0);
+exports.CreateVisitDto = CreateVisitDto;
 
 
 /***/ }),
@@ -4395,9 +4578,9 @@ let VisitController = class VisitController {
 };
 __decorate([
     (0, common_1.Post)('CreateVisit'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateVisit !== "undefined" && dto_1.CreateVisit) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateVisitDto !== "undefined" && dto_1.CreateVisitDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], VisitController.prototype, "CreateVisit", null);
 __decorate([
@@ -4576,10 +4759,13 @@ let VisitService = class VisitService {
         try {
             let query = await this.db.visit.create({
                 data: {
+                    name: data['name'],
+                    workerProfileId: data['workerProfileId'],
                     appointmentId: data['milestoneId'],
                     projectId: data['projectId'],
                     status: 'UNCOMPLETED',
                     milestoneId: data['milestoneId'],
+                    interventionId: data['interventionId'],
                 },
             });
             return query;
@@ -6378,6 +6564,16 @@ module.exports = require("argon2");
 /***/ ((module) => {
 
 module.exports = require("body-parser");
+
+/***/ }),
+
+/***/ "class-validator":
+/*!**********************************!*\
+  !*** external "class-validator" ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = require("class-validator");
 
 /***/ })
 

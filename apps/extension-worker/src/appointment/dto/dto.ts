@@ -1,5 +1,17 @@
-import { Appointment, Intervention } from '@prisma/client';
+import { IsDate, IsEnum, IsUUID } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { Appointment_Status } from '@prisma/client';
 
-type excluded = 'id' | 'createdAt' | 'updatedAt';
+export class CreateAppointmentDto {
+  @ApiProperty()
+  @IsDate()
+  time: Date;
 
-export type CreateAppointmentDto = Partial<Omit<Appointment, excluded>>;
+  @ApiProperty()
+  @IsUUID()
+  workerProfileId: string;
+
+  constructor(createAppointmentDto: CreateAppointmentDto) {
+    Object.assign(this, createAppointmentDto);
+  }
+}

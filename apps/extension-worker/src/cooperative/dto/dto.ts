@@ -1,6 +1,15 @@
-import { ApiBody, ApiProperty } from '@nestjs/swagger';
-import { Cooperative } from '@prisma/client';
+import { IsUUID, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
-type excluded = 'id' | 'createdAt' | 'updatedAt';
+export class CreateCooperativeDto {
+  @ApiProperty()
+  name: string;
 
-export type CreateCooperativeDto = Omit<Cooperative, excluded>;
+  @ApiProperty()
+  @IsOptional()
+  workerProfileId?: string;
+
+  constructor(createCooperativeDto: CreateCooperativeDto) {
+    Object.assign(this, createCooperativeDto);
+  }
+}
