@@ -11,6 +11,7 @@ import { MilestoneModule } from './milestone/milestone.module';
 import { ReportModule } from './report/report.module';
 import { InterventionModule } from './Intervention/Intervention.module';
 import { AppointmentModule } from './appointment/appointment.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -23,6 +24,9 @@ import { AppointmentModule } from './appointment/appointment.module';
     ReportModule,
     InterventionModule,
     AppointmentModule,
+    ConfigModule.forRoot({
+      envFilePath: './',
+    }),
   ],
   controllers: [AuthController],
   providers: [WorkerService, AuthService],

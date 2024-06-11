@@ -59,11 +59,19 @@ export class ProfileService implements IProfile {
   async Getprojects(data: FindDto): Promise<Project[]> {
     try {
       let query = await this.db.project.findMany({
-        where: {
-          workerProfileId: data['id'],
+        include: {
+          participants: true,
         },
       });
-      return query;
+      let projects: Project[];
+      query.forEach((element) => {
+        element.participants.forEach((farmer) => {
+          if (farmer['id'] == data['id']) {
+            projects.push(element);
+          }
+        });
+      });
+      return projects;
     } catch (error) {
       throw new BadRequestException(error);
     }

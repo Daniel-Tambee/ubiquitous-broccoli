@@ -1,4 +1,4 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
 import { FarmerService } from './farmer.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
@@ -44,5 +44,9 @@ export class FarmerController {
   @Post('UpdateProperty')
   UpdateProperty(@Body(new ValidationPipe()) data: UpdateDto) {
     return this.farmer.UpdateProperties(data);
+  }
+  @Get('farmerCount')
+  async farmerCount() {
+    return await this.farmer.getAllFarmersCount();
   }
 }

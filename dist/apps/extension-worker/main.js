@@ -3157,11 +3157,19 @@ let ProfileService = class ProfileService {
     async Getprojects(data) {
         try {
             let query = await this.db.project.findMany({
-                where: {
-                    workerProfileId: data['id'],
+                include: {
+                    participants: true,
                 },
             });
-            return query;
+            let projects;
+            query.forEach((element) => {
+                element.participants.forEach((farmer) => {
+                    if (farmer['id'] == data['id']) {
+                        projects.push(element);
+                    }
+                });
+            });
+            return projects;
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -5682,14 +5690,14 @@ let AuthController = class AuthController {
 };
 __decorate([
     (0, common_1.Post)('Signup'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof create_auth_dto_1.CreateUserDto !== "undefined" && create_auth_dto_1.CreateUserDto) === "function" ? _b : Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "Signup", null);
 __decorate([
     (0, common_1.Post)('SignIn'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_c = typeof login_auth_dto_1.ValidationDto !== "undefined" && login_auth_dto_1.ValidationDto) === "function" ? _c : Object]),
     __metadata("design:returntype", void 0)
@@ -5703,7 +5711,6 @@ __decorate([
 ], AuthController.prototype, "SignOut", null);
 __decorate([
     (0, common_1.Post)('ForgotPassword'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
@@ -6181,7 +6188,7 @@ const error_filter_filter_1 = __webpack_require__(/*! @app/lib/auth/error_filter
 async function bootstrap() {
     const app = await core_1.NestFactory.create(extension_worker_module_1.ExtensionWorkerModule);
     app.enableCors({
-        origin: ['https://yolaweb.vercel.app', "*", "http://localhost:3000"],
+        origin: ['https://yolaweb.vercel.app', '*', 'http://localhost:3000'],
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
         allowedHeaders: 'Content-Type, Accept',
         credentials: true,
@@ -6196,7 +6203,6 @@ async function bootstrap() {
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.useGlobalPipes(new common_1.ValidationPipe({
         disableErrorMessages: false,
-        forbidNonWhitelisted: true,
         transform: true,
     }));
     app.useGlobalFilters(new error_filter_filter_1.AllExceptionsFilter());

@@ -50,6 +50,7 @@ model FarmerProfile {
   Intervention      Intervention[]
   Project           Project?        @relation(fields: [projectId], references: [id])
   projectId         String?
+  logins            Login[]
   lga               LocalGovernment @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String
 }
@@ -91,6 +92,7 @@ model AdminProfile {
 
 model Project {
   id              String          @id @default(uuid()) @map("_id")
+  name            String?
   vists           Visit[]
   status          ProjectStatus
   type            ProjectType
@@ -153,6 +155,14 @@ model Report {
   workerProfileId String?        @unique
 }
 
+model Login {
+  id              String         @id @default(uuid()) @map("_id")
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  FarmerProfile   FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
+  farmerProfileId String?
+}
+
 model HouseHold {
   id              String         @id @default(uuid()) @map("_id")
   number          Int
@@ -188,6 +198,7 @@ model Photo {
 
 model Visit {
   id              String         @id @default(uuid()) @map("_id")
+  name            String?
   status          VisitStatus
   appointment     Appointment    @relation(fields: [appointmentId], references: [id])
   milestoneId     String
