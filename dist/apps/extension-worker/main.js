@@ -4652,6 +4652,9 @@ let VisitController = class VisitController {
     UpdateProperties(data) {
         return this.service.UpdateProperties(data);
     }
+    async getAllVisits(projectId) {
+        return this.service.getAllVisits(projectId);
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateVisit'),
@@ -4765,6 +4768,13 @@ __decorate([
     __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
     __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
 ], VisitController.prototype, "UpdateProperties", null);
+__decorate([
+    (0, common_1.Get)('getAllVisits'),
+    __param(0, (0, common_1.Query)('projectId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], VisitController.prototype, "getAllVisits", null);
 VisitController = __decorate([
     (0, common_1.Controller)('visit'),
     (0, swagger_1.ApiTags)('Visit'),
@@ -5120,6 +5130,18 @@ let VisitService = class VisitService {
                             })
                             : new common_1.BadRequestException('pass in a valid prop');
             return query;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async getAllVisits(id) {
+        try {
+            return this.db.visit.findMany({
+                where: {
+                    projectId: id,
+                },
+            });
         }
         catch (error) {
             throw new common_1.BadRequestException(error);

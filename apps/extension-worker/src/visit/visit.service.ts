@@ -302,4 +302,16 @@ export class VisitService implements IVisit {
       throw new BadRequestException(error);
     }
   }
+
+  async getAllVisits(id: string) {
+    try {
+      return this.db.visit.findMany({
+        where: {
+          projectId: id,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
 }

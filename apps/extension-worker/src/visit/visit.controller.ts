@@ -1,4 +1,13 @@
-import { BadRequestException, Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IVisit } from './ivisit.interface';
 import { $Enums, Challenge, Prisma, Visit } from '@prisma/client';
@@ -19,7 +28,9 @@ export class VisitController implements IVisit {
     return this.service.CreateVisit(data);
   }
   @Post('Addphoto')
-  Addphoto(@Body(new ValidationPipe()) data: { data: Buffer; visitId: string }): Promise<Visit> {
+  Addphoto(
+    @Body(new ValidationPipe()) data: { data: Buffer; visitId: string },
+  ): Promise<Visit> {
     return this.service.Addphoto(data);
   }
   @Post('Addmilestone')
@@ -74,7 +85,9 @@ export class VisitController implements IVisit {
     return this.service.Getmilestones(data);
   }
   @Post('Getchallenges')
-  Getchallenges(@Body(new ValidationPipe()) data: FindDto): Promise<Challenge[]> {
+  Getchallenges(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<Challenge[]> {
     return this.service.Getchallenges(data);
   }
   @Post('FindByid')
@@ -90,7 +103,9 @@ export class VisitController implements IVisit {
     return this.service.FindBymilestoneId(data);
   }
   @Post('FindByappointmentId')
-  FindByappointmentId(@Body(new ValidationPipe()) data: FindDto): Promise<Visit> {
+  FindByappointmentId(
+    @Body(new ValidationPipe()) data: FindDto,
+  ): Promise<Visit> {
     return this.service.FindByappointmentId(data);
   }
   @Post('FindByprojectId')
@@ -102,5 +117,9 @@ export class VisitController implements IVisit {
     @Body(new ValidationPipe()) data: UpdateDto,
   ): Promise<Visit | BadRequestException> {
     return this.service.UpdateProperties(data);
+  }
+  @Get('getAllVisits')
+  async getAllVisits(@Query('projectId') projectId: string) {
+    return this.service.getAllVisits(projectId);
   }
 }
