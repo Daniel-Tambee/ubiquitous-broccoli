@@ -21,6 +21,11 @@ export class CreateProjectDto {
   @IsOptional()
   description?: string;
 
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  location?: string;
+
   @ApiProperty({ enum: ProjectStatus, enumName: 'ProjectStatus' })
   @IsEnum(ProjectStatus)
   status: ProjectStatus;

@@ -115,6 +115,7 @@ export class ProfileService implements IProfile {
           start_date: data['start_date'],
           type: data['type'],
           workerProfileId: data['id'],
+          location: data['location'],
         },
       });
 

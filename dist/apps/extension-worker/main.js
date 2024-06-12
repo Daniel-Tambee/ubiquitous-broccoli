@@ -3336,6 +3336,7 @@ let ProfileService = class ProfileService {
                     start_date: data['start_date'],
                     type: data['type'],
                     workerProfileId: data['id'],
+                    location: data['location'],
                 },
             });
             for (let index = 0; index < data['farmer_ids'].length; index++) {
@@ -3613,6 +3614,12 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateProjectDto.prototype, "description", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateProjectDto.prototype, "location", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ enum: client_1.ProjectStatus, enumName: 'ProjectStatus' }),
     (0, class_validator_1.IsEnum)(client_1.ProjectStatus),
