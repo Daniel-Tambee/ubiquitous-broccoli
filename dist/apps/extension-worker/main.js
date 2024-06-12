@@ -3339,25 +3339,27 @@ let ProfileService = class ProfileService {
                     location: data['location'],
                 },
             });
-            for (let index = 0; index < data['farmer_ids'].length; index++) {
-                const element = data['farmer_ids'][index];
-                const pAddFarmers = await this.db.project.findFirstOrThrow({
-                    where: {
-                        id: project.id,
-                    },
-                });
-                const conn = await this.db.project.update({
-                    where: {
-                        id: pAddFarmers.id,
-                    },
-                    data: {
-                        participants: {
-                            connect: {
-                                id: element,
+            if (data['farmer_ids'].length > 0) {
+                for (let index = 0; index < data['farmer_ids'].length; index++) {
+                    const element = data['farmer_ids'][index];
+                    const pAddFarmers = await this.db.project.findFirstOrThrow({
+                        where: {
+                            id: project.id,
+                        },
+                    });
+                    const conn = await this.db.project.update({
+                        where: {
+                            id: pAddFarmers.id,
+                        },
+                        data: {
+                            participants: {
+                                connect: {
+                                    id: element,
+                                },
                             },
                         },
-                    },
-                });
+                    });
+                }
             }
             return project;
         }
