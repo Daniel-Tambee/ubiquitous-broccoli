@@ -113,6 +113,9 @@ model Project {
 
 model Cooperative {
   id                String          @id @default(uuid()) @map("_id")
+  name              String?
+  location          String?
+  animal_type       String?
   lga               LocalGovernment @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String
   farmers           FarmerProfile[]

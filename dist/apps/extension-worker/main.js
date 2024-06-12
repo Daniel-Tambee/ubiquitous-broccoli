@@ -1519,13 +1519,19 @@ let CooperativeService = class CooperativeService {
         try {
             let lga = await this.db.localGovernment.create({
                 data: {
-                    name: data['name'],
+                    name: data['local_government_name'],
                 },
             });
             let query = await this.db.cooperative.create({
                 data: {
                     workerProfileId: data['workerProfileId'],
                     localGovernmentId: lga['id'],
+                    animal_type: data['animal_type'],
+                    location: data['location'],
+                    name: data['name'],
+                },
+                include: {
+                    farmers: true,
                 },
             });
             return query;
@@ -1652,7 +1658,12 @@ let CooperativeService = class CooperativeService {
     }
     async getAllCooperatives() {
         try {
-            return this.db.cooperative.findMany({});
+            return this.db.cooperative.findMany({
+                include: {
+                    lga: true,
+                    WorkerProfile: true,
+                },
+            });
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -1695,11 +1706,30 @@ class CreateCooperativeDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], CreateCooperativeDto.prototype, "name", void 0);
+], CreateCooperativeDto.prototype, "Cooperative_name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateCooperativeDto.prototype, "location", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateCooperativeDto.prototype, "animal_type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], CreateCooperativeDto.prototype, "local_government_name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateCooperativeDto.prototype, "workerProfileId", void 0);
 exports.CreateCooperativeDto = CreateCooperativeDto;

@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ICooperative } from './cooperative.interface';
-import { $Enums, FarmerProfile, Prisma } from '@prisma/client';
+import { $Enums, Cooperative, FarmerProfile, Prisma } from '@prisma/client';
 import { CreateCooperativeDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -12,23 +12,23 @@ export class CooperativeService implements ICooperative {
    *
    */
   constructor(private readonly db: DbService) {}
-  async CreateCooperative(data: CreateCooperativeDto): Promise<{
-    id: string;
-    localGovernmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    workerProfileId: string;
-  }> {
+  async CreateCooperative(data: CreateCooperativeDto): Promise<Cooperative> {
     try {
       let lga = await this.db.localGovernment.create({
         data: {
-          name: data['name'],
+          name: data['local_government_name'],
         },
       });
       let query = await this.db.cooperative.create({
         data: {
           workerProfileId: data['workerProfileId'],
           localGovernmentId: lga['id'],
+          animal_type: data['animal_type'],
+          location: data['location'],
+          name: data['name'],
+        },
+        include: {
+          farmers: true,
         },
       });
       return query;
@@ -36,13 +36,7 @@ export class CooperativeService implements ICooperative {
       throw new BadRequestException(error);
     }
   }
-  async FindByid(data: FindDto): Promise<{
-    id: string;
-    localGovernmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    workerProfileId: string;
-  }> {
+  async FindByid(data: FindDto): Promise<Cooperative> {
     try {
       let query = await this.db.cooperative.findFirstOrThrow({
         where: {
@@ -54,13 +48,7 @@ export class CooperativeService implements ICooperative {
       throw new BadRequestException(error);
     }
   }
-  async FindByworkerProfileId(data: FindDto): Promise<{
-    id: string;
-    localGovernmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    workerProfileId: string;
-  }> {
+  async FindByworkerProfileId(data: FindDto): Promise<Cooperative> {
     try {
       let query = await this.db.cooperative.findFirstOrThrow({
         where: {
@@ -72,16 +60,9 @@ export class CooperativeService implements ICooperative {
       throw new BadRequestException(error);
     }
   }
-  async UpdateProperty(data: UpdateDto): Promise<
-    | {
-        id: string;
-        localGovernmentId: string;
-        createdAt: Date;
-        updatedAt: Date;
-        workerProfileId: string;
-      }
-    | BadRequestException
-  > {
+  async UpdateProperty(
+    data: UpdateDto,
+  ): Promise<Cooperative | BadRequestException> {
     try {
       let query =
         data['properties']['localGovernmentId'] !== undefined
@@ -145,13 +126,7 @@ export class CooperativeService implements ICooperative {
       throw new BadRequestException(error);
     }
   }
-  async Removefarmer(data: any): Promise<{
-    id: string;
-    localGovernmentId: string;
-    createdAt: Date;
-    updatedAt: Date;
-    workerProfileId: string;
-  }> {
+  async Removefarmer(data: any): Promise<Cooperative> {
     try {
       let cooperative = await this.db.cooperative.findFirstOrThrow({
         where: {
@@ -178,7 +153,12 @@ export class CooperativeService implements ICooperative {
 
   async getAllCooperatives() {
     try {
-      return this.db.cooperative.findMany({});
+      return this.db.cooperative.findMany({
+        include: {
+          lga: true,
+          WorkerProfile: true,
+        },
+      });
     } catch (error) {
       throw new BadRequestException(error);
     }
