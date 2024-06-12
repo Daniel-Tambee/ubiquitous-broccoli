@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Post,
   ValidationPipe,
 } from '@nestjs/common';
@@ -86,5 +87,11 @@ export class CooperativeController implements ICooperative {
     workerProfileId: string;
   }> {
     return this.service.Removefarmer(data);
+  }
+
+
+  @Get('getAllCooperatives')
+  async getAllCooperatives() {
+    return this.service.getAllCooperatives()
   }
 }

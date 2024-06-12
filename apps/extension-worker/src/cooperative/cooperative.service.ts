@@ -175,4 +175,12 @@ export class CooperativeService implements ICooperative {
       throw new BadRequestException(error);
     }
   }
+
+  async getAllCooperatives() {
+    try {
+      return this.db.cooperative.findMany({});
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
 }

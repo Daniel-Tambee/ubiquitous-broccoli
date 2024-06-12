@@ -168,4 +168,9 @@ export class ProjectController implements IProject {
   async getAllProjectCount() {
     return this.project.getAllProjectCount();
   }
+
+  @Get('getAllProjects')
+  async getAllProjects() {
+    return this.project.getAllProjects();
+  }
 }

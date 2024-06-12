@@ -1389,6 +1389,9 @@ let CooperativeController = class CooperativeController {
     Removefarmer(data) {
         return this.service.Removefarmer(data);
     }
+    async getAllCooperatives() {
+        return this.service.getAllCooperatives();
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateCooperative'),
@@ -1439,6 +1442,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
 ], CooperativeController.prototype, "Removefarmer", null);
+__decorate([
+    (0, common_1.Get)('getAllCooperatives'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CooperativeController.prototype, "getAllCooperatives", null);
 CooperativeController = __decorate([
     (0, common_1.Controller)('cooperative'),
     (0, swagger_1.ApiTags)('cooperative'),
@@ -1636,6 +1645,14 @@ let CooperativeService = class CooperativeService {
                 },
             });
             return cooperative;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async getAllCooperatives() {
+        try {
+            return this.db.cooperative.findMany({});
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -3822,6 +3839,9 @@ let ProjectController = class ProjectController {
     async getAllProjectCount() {
         return this.project.getAllProjectCount();
     }
+    async getAllProjects() {
+        return this.project.getAllProjects();
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateProject'),
@@ -3934,6 +3954,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "getAllProjectCount", null);
+__decorate([
+    (0, common_1.Get)('getAllProjects'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "getAllProjects", null);
 ProjectController = __decorate([
     (0, common_1.Controller)('project'),
     (0, swagger_1.ApiTags)('project'),
@@ -4274,6 +4300,14 @@ let ProjectService = class ProjectService {
             res['count'] = await this.db.workerProfile.count();
             res['percent'] = await (0, projects_growth_calc_1.calculateGrowth)();
             return res;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async getAllProjects() {
+        try {
+            return await this.db.project.findMany({});
         }
         catch (error) {
             throw new common_1.BadRequestException(error);

@@ -280,4 +280,13 @@ export class ProjectService implements IProject {
       throw new BadRequestException(error);
     }
   }
+
+  async getAllProjects() {
+    try {
+      return await this.db.project.findMany({
+      });
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
 }
