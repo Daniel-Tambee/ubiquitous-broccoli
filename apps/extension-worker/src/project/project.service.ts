@@ -272,7 +272,7 @@ export class ProjectService implements IProject {
         count: Number,
         percent: Number,
       };
-      res['count'] = await this.db.workerProfile.count();
+      res['count'] = await this.db.project.count();
       res['percent'] = await calculateGrowth();
 
       return res;

@@ -3605,6 +3605,10 @@ __decorate([
 ], CreateProjectDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", Array)
+], CreateProjectDto.prototype, "farmer_ids", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
@@ -4297,7 +4301,7 @@ let ProjectService = class ProjectService {
                 count: Number,
                 percent: Number,
             };
-            res['count'] = await this.db.workerProfile.count();
+            res['count'] = await this.db.project.count();
             res['percent'] = await (0, projects_growth_calc_1.calculateGrowth)();
             return res;
         }
