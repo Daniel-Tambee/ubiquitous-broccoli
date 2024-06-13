@@ -220,8 +220,8 @@ model Visit {
   milestoneId     String
   appointmentId   String
   photos          Photo[]
-  time            DateTime?      @default(now())
-  date            DateTime       @default(now())
+  to              DateTime?      @default(now())
+  from            DateTime       @default(now())
   milestone       Milestone[]
   challenge       Challenge[]
   createdAt       DateTime       @default(now())

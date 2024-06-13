@@ -23,7 +23,12 @@ export class CreateVisitDto {
   @ApiProperty()
   @IsOptional()
   @IsDate()
-  time?: Date;
+  from?: Date;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsDate()
+  to?: Date;
 
   @ApiProperty()
   @IsDate()

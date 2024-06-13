@@ -23,8 +23,13 @@ export class VisitService implements IVisit {
           status: 'UNCOMPLETED',
           milestoneId: data['milestoneId'],
           interventionId: data['interventionId'],
-          date: data['date'],
-          time: data['time'],
+          from: data['date'],
+          to: data['time'],
+        },
+        include: {
+          worker: true,
+          intervention: true,
+          milestone: true,
         },
       });
       return query;

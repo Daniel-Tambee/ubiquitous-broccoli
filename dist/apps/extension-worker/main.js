@@ -4457,7 +4457,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateVisitDto = void 0;
 const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
@@ -4494,11 +4494,17 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsDate)(),
     __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
-], CreateVisitDto.prototype, "time", void 0);
+], CreateVisitDto.prototype, "from", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+], CreateVisitDto.prototype, "to", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsDate)(),
-    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+    __metadata("design:type", typeof (_d = typeof Date !== "undefined" && Date) === "function" ? _d : Object)
 ], CreateVisitDto.prototype, "date", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
@@ -4883,8 +4889,13 @@ let VisitService = class VisitService {
                     status: 'UNCOMPLETED',
                     milestoneId: data['milestoneId'],
                     interventionId: data['interventionId'],
-                    date: data['date'],
-                    time: data['time'],
+                    from: data['date'],
+                    to: data['time'],
+                },
+                include: {
+                    worker: true,
+                    intervention: true,
+                    milestone: true,
                 },
             });
             return query;
