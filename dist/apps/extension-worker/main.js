@@ -4655,6 +4655,9 @@ let VisitController = class VisitController {
     async getAllVisits(projectId) {
         return this.service.getAllVisits(projectId);
     }
+    async getAllKnownVisits() {
+        return this.service.getAllKnownVisits();
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateVisit'),
@@ -4775,6 +4778,12 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], VisitController.prototype, "getAllVisits", null);
+__decorate([
+    (0, common_1.Get)('getAllKnownVisits'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], VisitController.prototype, "getAllKnownVisits", null);
 VisitController = __decorate([
     (0, common_1.Controller)('visit'),
     (0, swagger_1.ApiTags)('Visit'),
@@ -5142,6 +5151,14 @@ let VisitService = class VisitService {
                     projectId: id,
                 },
             });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async getAllKnownVisits() {
+        try {
+            return this.db.visit.findMany({});
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -6113,7 +6130,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -6122,12 +6139,15 @@ const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.servi
 const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
 const argon2_1 = __webpack_require__(/*! argon2 */ "argon2");
 const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const db_service_1 = __webpack_require__(/*! ../db/db.service */ "./libs/lib/src/db/db.service.ts");
+const otp_generation_1 = __webpack_require__(/*! ../otp_generation */ "./libs/lib/src/otp_generation.ts");
 let AuthService = class AuthService {
-    constructor(farmer, admin, extensionWorker, jwtService) {
+    constructor(farmer, admin, extensionWorker, jwtService, db) {
         this.farmer = farmer;
         this.admin = admin;
         this.extensionWorker = extensionWorker;
         this.jwtService = jwtService;
+        this.db = db;
     }
     async Signup(info) {
         try {
@@ -6198,19 +6218,16 @@ let AuthService = class AuthService {
     }
     async ForgotPassword(data) {
         try {
-            let hashed = await (0, argon2_1.hash)(data['new_value'], {
-                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-                type: 2,
+            let change = await this.db.passwordReset.create({
+                data: {
+                    newPassword: await (0, argon2_1.hash)(data['new_value'], {
+                        secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+                        type: 2,
+                    }),
+                    otp: (0, otp_generation_1.generateTOTP)(),
+                },
             });
-            data['password'] = hashed;
-            let user = data['type'] == 'FARMER'
-                ? this.farmer.UpdatePassword(data)
-                : data['type'] == 'ADMIN'
-                    ? this.admin.UpdatePassword(data)
-                    : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.UpdatePassword(data)
-                        : new Error('Cant Find Any Users By that email');
-            return user;
+            return change;
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -6219,7 +6236,7 @@ let AuthService = class AuthService {
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object, typeof (_b = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _b : Object, typeof (_c = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _c : Object, typeof (_d = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _d : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object, typeof (_b = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _b : Object, typeof (_c = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _c : Object, typeof (_d = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _d : Object, typeof (_e = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _e : Object])
 ], AuthService);
 exports.AuthService = AuthService;
 6;
@@ -6468,6 +6485,51 @@ exports.calculateGrowth = calculateGrowth;
 
 /***/ }),
 
+/***/ "./libs/lib/src/otp_generation.ts":
+/*!****************************************!*\
+  !*** ./libs/lib/src/otp_generation.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.verifyTOTP = exports.generateTOTP = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const { authenticator } = __webpack_require__(/*! otplib */ "otplib");
+const cache = __webpack_require__(/*! memory-cache */ "memory-cache");
+const generateTOTP = () => {
+    try {
+        const token = authenticator.generate('cool key');
+        const timestamp = Date.now();
+        cache.put('otp_tokens', token, 30 * 60 * 1000);
+        return token;
+    }
+    catch (error) {
+        throw new common_1.BadRequestException(undefined, error);
+    }
+};
+exports.generateTOTP = generateTOTP;
+const verifyTOTP = (token) => {
+    const window = 5 * 60 * 1000;
+    const currentTime = Date.now();
+    try {
+        for (let i = 0; i <= 5; i++) {
+            const cachedToken = cache.get(`otp_tokens_${currentTime - window * i}`);
+            if (cachedToken && authenticator.check(token, 'cool key')) {
+                return true;
+            }
+        }
+        return false;
+    }
+    catch (error) {
+        throw new common_1.BadRequestException(undefined, error);
+    }
+};
+exports.verifyTOTP = verifyTOTP;
+
+
+/***/ }),
+
 /***/ "./libs/lib/src/projects_growth_calc.ts":
 /*!**********************************************!*\
   !*** ./libs/lib/src/projects_growth_calc.ts ***!
@@ -6673,6 +6735,26 @@ module.exports = require("body-parser");
 /***/ ((module) => {
 
 module.exports = require("class-validator");
+
+/***/ }),
+
+/***/ "memory-cache":
+/*!*******************************!*\
+  !*** external "memory-cache" ***!
+  \*******************************/
+/***/ ((module) => {
+
+module.exports = require("memory-cache");
+
+/***/ }),
+
+/***/ "otplib":
+/*!*************************!*\
+  !*** external "otplib" ***!
+  \*************************/
+/***/ ((module) => {
+
+module.exports = require("otplib");
 
 /***/ })
 

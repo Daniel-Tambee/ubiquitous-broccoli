@@ -122,4 +122,9 @@ export class VisitController implements IVisit {
   async getAllVisits(@Query('projectId') projectId: string) {
     return this.service.getAllVisits(projectId);
   }
+
+  @Get('getAllKnownVisits')
+  async getAllKnownVisits() {
+    return this.service.getAllKnownVisits();
+  }
 }

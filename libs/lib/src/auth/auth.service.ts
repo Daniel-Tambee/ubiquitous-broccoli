@@ -12,6 +12,8 @@ import { ValidationDto } from './dto/login-auth.dto';
 import { verify, hash } from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
+import { DbService } from '../db/db.service';
+import { generateTOTP } from '../otp_generation';
 
 @Injectable()
 export class AuthService implements IAuth {
@@ -23,6 +25,7 @@ export class AuthService implements IAuth {
     private readonly admin: AdminService,
     private readonly extensionWorker: WorkerService,
     private readonly jwtService: JwtService,
+    private readonly db: DbService,
   ) {}
 
   // TODO pass things into create resource function
@@ -122,21 +125,27 @@ export class AuthService implements IAuth {
   // TODO add them to db
   async ForgotPassword(data: UpdateDto) {
     try {
-      let hashed = await hash(data['new_value'], {
-        secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-        type: 2,
+      let change = await this.db.passwordReset.create({
+        data: {
+          newPassword: await hash(data['new_value'], {
+            secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+            type: 2,
+          }),
+          otp: generateTOTP(),
+        },
       });
 
-      data['password'] = hashed;
-      let user =
-        data['type'] == 'FARMER'
-          ? this.farmer.UpdatePassword(data)
-          : data['type'] == 'ADMIN'
-          ? this.admin.UpdatePassword(data)
-          : data['type'] == 'EXTENSION_WORKER'
-          ? this.extensionWorker.UpdatePassword(data)
-          : new Error('Cant Find Any Users By that email');
-      return user;
+      // let user =
+      //   data['type'] == 'FARMER'
+      //     ? this.farmer.UpdatePassword(data)
+      //     : data['type'] == 'ADMIN'
+      //     ? this.admin.UpdatePassword(data)
+      //     : data['type'] == 'EXTENSION_WORKER'
+
+      
+      //     ? this.extensionWorker.UpdatePassword(data)
+      //     : new Error('Cant Find Any Users By that email');
+      return change;
     } catch (error) {
       throw new BadRequestException(error);
     }
