@@ -6482,7 +6482,7 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const sgMail = __webpack_require__(/*! @sendgrid/mail */ "@sendgrid/mail");
 let MailService = class MailService {
     constructor() {
-        const apiKey = process.env.SENDGRID_API_KEY;
+        const apiKey = process.env.SENDGRID_KEY;
         if (!apiKey) {
             throw new Error('SENDGRID_API_KEY is not defined in the environment variables');
         }

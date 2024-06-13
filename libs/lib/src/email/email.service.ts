@@ -4,7 +4,7 @@ import * as sgMail from '@sendgrid/mail';
 @Injectable()
 export class MailService {
   constructor() {
-    const apiKey = process.env.SENDGRID_API_KEY;
+    const apiKey = process.env.SENDGRID_KEY;
     if (!apiKey) {
       throw new Error(
         'SENDGRID_API_KEY is not defined in the environment variables',
