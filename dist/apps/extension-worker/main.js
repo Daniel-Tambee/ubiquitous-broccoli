@@ -5285,6 +5285,11 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateDto.prototype, "id", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UpdateDto.prototype, "email", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({
         enum: client_1.UserType,
     }),
@@ -6073,7 +6078,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -6100,6 +6105,10 @@ let AuthController = class AuthController {
     }
     ForgotPassword(data) {
         return this.authService.ForgotPassword(data);
+    }
+    verifyOtp(data, ResetId, otp) {
+        console.log(data, ResetId, otp);
+        return this.authService.verifyOtp(data, ResetId, otp);
     }
 };
 __decorate([
@@ -6130,6 +6139,15 @@ __decorate([
     __metadata("design:paramtypes", [typeof (_d = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "ForgotPassword", null);
+__decorate([
+    (0, common_1.Post)('verifyOtp'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Body)('ResetId')),
+    __param(2, (0, common_1.Body)('otp')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _e : Object, String, String]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "verifyOtp", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     (0, swagger_1.ApiTags)('Auth'),
@@ -6179,6 +6197,7 @@ const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
 const db_service_1 = __webpack_require__(/*! ../db/db.service */ "./libs/lib/src/db/db.service.ts");
 const otp_generation_1 = __webpack_require__(/*! ../otp_generation */ "./libs/lib/src/otp_generation.ts");
 const email_service_1 = __webpack_require__(/*! ../email/email.service */ "./libs/lib/src/email/email.service.ts");
+const emailTemplate_1 = __webpack_require__(/*! ../emailTemplate */ "./libs/lib/src/emailTemplate.ts");
 let AuthService = class AuthService {
     constructor(farmer, admin, extensionWorker, jwtService, db, mail) {
         this.farmer = farmer;
@@ -6257,6 +6276,13 @@ let AuthService = class AuthService {
     }
     async ForgotPassword(data) {
         try {
+            let user = await this.db.user.findFirstOrThrow({
+                where: {
+                    email: data['email'],
+                    type: data['type'],
+                },
+            });
+            console.log(user);
             let change = await this.db.passwordReset.create({
                 data: {
                     newPassword: await (0, argon2_1.hash)(data['property']['newPassword'], {
@@ -6265,12 +6291,43 @@ let AuthService = class AuthService {
                     }),
                     otp: (0, otp_generation_1.generateTOTP)(),
                 },
+                select: {
+                    id: true,
+                    otp: true,
+                },
             });
-            this.mail.sendEmail('danieltambee@gmail', 'passwordReset', change['otp'], '0000');
+            this.mail.sendEmail(user['email'], 'YolaFarms PasswordReset', change['otp'], (0, emailTemplate_1.getPasswordResetTemplate)(user['first_name'], change['otp']));
+            delete change['otp'];
             return change;
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
+        }
+    }
+    async verifyOtp(data, ResetId, otp) {
+        let user;
+        let newPassword = await this.db.passwordReset.findFirstOrThrow({
+            where: {
+                id: ResetId,
+            },
+        });
+        data['property']['password'] = newPassword['newPassword'];
+        delete data['ResetId'];
+        delete data['otp'];
+        console.log(data);
+        try {
+            user =
+                data['type'] == 'FARMER'
+                    ? this.farmer.UpdatePassword(data)
+                    : data['type'] == 'ADMIN'
+                        ? this.admin.UpdatePassword(data)
+                        : data['type'] == 'EXTENSION_WORKER'
+                            ? this.extensionWorker.UpdatePassword(data)
+                            : new Error('Cant Find Any Users By that email');
+            return true;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
         }
     }
 };
@@ -6279,7 +6336,6 @@ AuthService = __decorate([
     __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object, typeof (_b = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _b : Object, typeof (_c = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _c : Object, typeof (_d = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _d : Object, typeof (_e = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _e : Object, typeof (_f = typeof email_service_1.MailService !== "undefined" && email_service_1.MailService) === "function" ? _f : Object])
 ], AuthService);
 exports.AuthService = AuthService;
-6;
 
 
 /***/ }),
@@ -6525,6 +6581,91 @@ MailService = __decorate([
     __metadata("design:paramtypes", [])
 ], MailService);
 exports.MailService = MailService;
+
+
+/***/ }),
+
+/***/ "./libs/lib/src/emailTemplate.ts":
+/*!***************************************!*\
+  !*** ./libs/lib/src/emailTemplate.ts ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getPasswordResetTemplate = void 0;
+const getPasswordResetTemplate = (userName, otp) => `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: orange; /* Change background color to orange */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007bff;
+            color: #fff;
+        }
+        .content {
+            padding: 20px;
+        }
+        .otp {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            padding: 10px 20px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1.2em;
+            letter-spacing: 0.1em;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Password Reset</h1>
+        </div>
+        <div class="content">
+            <p>Hi ${userName},</p>
+            <p>You recently requested to reset your password for your Yola Farms account. Use the OTP below to reset your password:</p>
+            <div class="otp">${otp}</div>
+            <p>If you did not request a password reset, please ignore this email or contact support if you have questions.</p>
+            <p>Thanks,<br>The Yola Farms Team</p>
+        </div>
+        <div class="footer">
+            <p>If you’re having trouble using the OTP, please contact our support team.</p>
+        </div>
+    </div>
+</body>
+</html>
+`;
+exports.getPasswordResetTemplate = getPasswordResetTemplate;
 
 
 /***/ }),

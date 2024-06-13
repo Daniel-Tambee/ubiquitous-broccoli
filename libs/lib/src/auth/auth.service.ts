@@ -13,8 +13,9 @@ import { verify, hash } from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 import { DbService } from '../db/db.service';
-import { generateTOTP } from '../otp_generation';
+import { generateTOTP, verifyTOTP } from '../otp_generation';
 import { MailService } from '../email/email.service';
+import { getPasswordResetTemplate } from '../emailTemplate';
 
 @Injectable()
 export class AuthService implements IAuth {
@@ -127,6 +128,14 @@ export class AuthService implements IAuth {
   // TODO add them to db
   async ForgotPassword(data: UpdateDto) {
     try {
+      let user = await this.db.user.findFirstOrThrow({
+        where: {
+          email: data['email'],
+          type: data['type'],
+        },
+      });
+      console.log(user);
+
       let change = await this.db.passwordReset.create({
         data: {
           newPassword: await hash(data['property']['newPassword'], {
@@ -135,26 +144,54 @@ export class AuthService implements IAuth {
           }),
           otp: generateTOTP(),
         },
+        select: {
+          id: true,
+          otp: true,
+        },
       });
       this.mail.sendEmail(
-        'danieltambee@gmail',
-        'passwordReset',
+        user['email'],
+        'YolaFarms PasswordReset',
         change['otp'],
-        '0000',
+        getPasswordResetTemplate(user['first_name'], change['otp']),
       );
-      // let user =
-      //   data['type'] == 'FARMER'
-      //     ? this.farmer.UpdatePassword(data)
-      //     : data['type'] == 'ADMIN'
-      //     ? this.admin.UpdatePassword(data)
-      //     : data['type'] == 'EXTENSION_WORKER'
-
-      //     ? this.extensionWorker.UpdatePassword(data)
-      //     : new Error('Cant Find Any Users By that email');
+      delete change['otp'];
       return change;
     } catch (error) {
       throw new BadRequestException(error);
     }
   }
+
+  async verifyOtp(data: UpdateDto, ResetId: string, otp: string) {
+    let user;
+    let newPassword = await this.db.passwordReset.findFirstOrThrow({
+      where: {
+        id: ResetId,
+      },
+    });
+    data['property']['password'] = newPassword['newPassword'];
+    delete data['ResetId'];
+    delete data['otp'];
+    console.log(data);
+
+    try {
+      user =
+        data['type'] == 'FARMER'
+          ? this.farmer.UpdatePassword(data)
+          : data['type'] == 'ADMIN'
+          ? this.admin.UpdatePassword(data)
+          : data['type'] == 'EXTENSION_WORKER'
+          ? this.extensionWorker.UpdatePassword(data)
+          : new Error('Cant Find Any Users By that email');
+      return true;
+    } catch (error) {
+      throw new BadRequestException(undefined, error);
+    }
+
+    // let verified = verifyTOTP(otp);
+    // if (verified == true) {
+    // } else {
+    //   throw new BadRequestException(undefined, 'invalid or expired otp');
+    // }
+  }
 }
-6;

@@ -6,6 +6,11 @@ export class UpdateDto {
   @ApiProperty()
   @IsNotEmpty()
   id: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  email: string;
+
   @ApiProperty({
     enum: UserType,
   })
