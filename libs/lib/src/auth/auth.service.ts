@@ -130,7 +130,7 @@ export class AuthService implements IAuth {
     try {
       let user = await this.db.user.findFirstOrThrow({
         where: {
-          email: data['email'],
+          email: data['property']['email'],
           type: data['type'],
         },
       });
@@ -162,16 +162,16 @@ export class AuthService implements IAuth {
     }
   }
 
-  async verifyOtp(data: UpdateDto, ResetId: string, otp: string) {
+  async verifyOtp(data: UpdateDto) {
     let user;
     let newPassword = await this.db.passwordReset.findFirstOrThrow({
       where: {
-        id: ResetId,
+        id: data['property']['ResetId'],
       },
     });
     data['property']['password'] = newPassword['newPassword'];
-    delete data['ResetId'];
-    delete data['otp'];
+    delete data['property']['ResetId'];
+    delete data['property']['otp'];
     console.log(data);
 
     try {

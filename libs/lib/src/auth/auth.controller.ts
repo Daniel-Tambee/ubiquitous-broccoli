@@ -37,6 +37,6 @@ export class AuthController implements IAuth {
   ) {
     console.log(data,ResetId,otp);
     
-    return this.authService.verifyOtp(data, ResetId, otp);
+    return this.authService.verifyOtp(data);
   }
 }

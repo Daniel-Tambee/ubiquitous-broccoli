@@ -282,7 +282,7 @@ export class FarmerService {
     try {
       const user = await this.db.user.update({
         where: {
-          id: data['id'],
+          email: data['property']['email'],
           type: 'FARMER',
         },
         data: {

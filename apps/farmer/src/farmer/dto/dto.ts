@@ -7,9 +7,6 @@ export class UpdateDto {
   @IsNotEmpty()
   id: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  email: string;
 
   @ApiProperty({
     enum: UserType,
@@ -82,4 +79,5 @@ export class CreateFarmerDto {
     message: 'lga cant be empty',
   })
   lga: string;
+
 }

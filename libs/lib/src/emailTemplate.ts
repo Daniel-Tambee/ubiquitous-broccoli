@@ -19,13 +19,13 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: orange; /* Change background color to orange */
+            background-color: #fff; /* Change background color to white */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #007bff;
+            background-color: #FB8519; /* Change header background color to #FB8519 */
             color: #fff;
         }
         .content {
@@ -46,8 +46,9 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
         .footer {
             text-align: center;
             padding: 10px;
+            background-color: #FB8519; /* Change footer background color to #FB8519 */
             font-size: 12px;
-            color: #666;
+            color: #fff; /* Change footer text color to white */
         }
     </style>
 </head>

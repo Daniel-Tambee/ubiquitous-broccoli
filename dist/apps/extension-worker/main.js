@@ -5285,11 +5285,6 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateDto.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], UpdateDto.prototype, "email", void 0);
-__decorate([
     (0, swagger_1.ApiProperty)({
         enum: client_1.UserType,
     }),
@@ -5888,7 +5883,7 @@ let FarmerService = class FarmerService {
         try {
             const user = await this.db.user.update({
                 where: {
-                    id: data['id'],
+                    email: data['property']['email'],
                     type: 'FARMER',
                 },
                 data: {
@@ -6108,7 +6103,7 @@ let AuthController = class AuthController {
     }
     verifyOtp(data, ResetId, otp) {
         console.log(data, ResetId, otp);
-        return this.authService.verifyOtp(data, ResetId, otp);
+        return this.authService.verifyOtp(data);
     }
 };
 __decorate([
@@ -6278,7 +6273,7 @@ let AuthService = class AuthService {
         try {
             let user = await this.db.user.findFirstOrThrow({
                 where: {
-                    email: data['email'],
+                    email: data['property']['email'],
                     type: data['type'],
                 },
             });
@@ -6304,16 +6299,16 @@ let AuthService = class AuthService {
             throw new common_1.BadRequestException(error);
         }
     }
-    async verifyOtp(data, ResetId, otp) {
+    async verifyOtp(data) {
         let user;
         let newPassword = await this.db.passwordReset.findFirstOrThrow({
             where: {
-                id: ResetId,
+                id: data['property']['ResetId'],
             },
         });
         data['property']['password'] = newPassword['newPassword'];
-        delete data['ResetId'];
-        delete data['otp'];
+        delete data['property']['ResetId'];
+        delete data['property']['otp'];
         console.log(data);
         try {
             user =
@@ -6614,13 +6609,13 @@ const getPasswordResetTemplate = (userName, otp) => `
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: orange; /* Change background color to orange */
+            background-color: #fff; /* Change background color to white */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #007bff;
+            background-color: #FB8519; /* Change header background color to #FB8519 */
             color: #fff;
         }
         .content {
@@ -6641,8 +6636,9 @@ const getPasswordResetTemplate = (userName, otp) => `
         .footer {
             text-align: center;
             padding: 10px;
+            background-color: #FB8519; /* Change footer background color to #FB8519 */
             font-size: 12px;
-            color: #666;
+            color: #fff; /* Change footer text color to white */
         }
     </style>
 </head>
