@@ -1,43 +1,35 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { createTransport, Transporter } from 'nodemailer';
-import { ConfigService } from '@nestjs/config';
-import { MailOptions } from 'nodemailer/lib/smtp-transport';
+import { Injectable } from '@nestjs/common';
+import * as sgMail from '@sendgrid/mail';
 
 @Injectable()
-export class EmailService {
-  private transporter: Transporter;
-  private readonly logger = new Logger(EmailService.name);
-
-  constructor(private configService: ConfigService) {
-    const host = this.configService.get<string>('EMAIL_HOST');
-    const port = this.configService.get<number>('EMAIL_PORT');
-    const username = this.configService.get<string>('EMAIL_USERNAME');
-    const password = this.configService.get<string>('EMAIL_PASSWORD');
-
-    this.transporter = createTransport({
-      host: host,
-      port: port,
-      auth: {
-        user: username,
-        pass: password,
-      },
-    });
+export class MailService {
+  constructor() {
+    const apiKey = process.env.SENDGRID_API_KEY;
+    if (!apiKey) {
+      throw new Error(
+        'SENDGRID_API_KEY is not defined in the environment variables',
+      );
+    }
+    sgMail.setApiKey(apiKey);
   }
 
-  async sendMail(to: string, subject: string, text: string): Promise<any> {
-    const mailOptions: MailOptions = {
-      from: this.configService.get<string>('EMAIL_USERNAME'),
-      to: to,
-      subject: subject,
-      text: text,
+  async sendEmail(email: string, subject: string, text: string, html: string) {
+    const msg = {
+      to: email,
+      from: 'buynbulk22@gmail.com', // Your verified sender
+      subject,
+      text,
+      html,
     };
 
     try {
-      const info = await this.transporter.sendMail(mailOptions);
-      this.logger.log(`Email sent to ${to}: ${info.response}`);
-      return info;
+      await sgMail.send(msg);
+      console.log('Email sent successfully');
     } catch (error) {
-      this.logger.error(`Failed to send email to ${to}: ${error.message}`);
+      console.error('Error sending email:', error.toString());
+      if (error.response) {
+        console.error('SendGrid response:', error.response.body);
+      }
       throw error;
     }
   }

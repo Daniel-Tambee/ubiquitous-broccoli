@@ -29,6 +29,7 @@ import { AppointmentController } from '../appointment/appointment.controller';
 import { AppointmentService } from '../appointment/appointment.service';
 import { FarmerModule } from 'apps/farmer/src/farmer.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { MailService } from '@app/lib/email/email.service';
 
 @Module({
   imports: [
@@ -66,6 +67,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ProjectService,
     ProfileService,
     AppointmentService,
+    MailService
   ],
 })
 export class ExtensionWorkerModule {}

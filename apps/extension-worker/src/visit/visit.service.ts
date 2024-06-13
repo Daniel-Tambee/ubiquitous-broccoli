@@ -23,11 +23,13 @@ export class VisitService implements IVisit {
           status: 'UNCOMPLETED',
           milestoneId: data['milestoneId'],
           interventionId: data['interventionId'],
+          date: data['date'],
+          time: data['time'],
         },
       });
       return query;
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException(undefined, error);
     }
   }
   async Addphoto(

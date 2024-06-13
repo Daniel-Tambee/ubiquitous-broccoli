@@ -26,7 +26,7 @@ export class AuthController implements IAuth {
     return this.authService.SignOut(data);
   }
   @Post('ForgotPassword')
-  ForgotPassword( data: UpdateDto) {
+  ForgotPassword(@Body() data: UpdateDto) {
     return this.authService.ForgotPassword(data);
   }
 }

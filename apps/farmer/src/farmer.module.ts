@@ -8,6 +8,7 @@ import { AdminService } from 'apps/admin/src/admin/admin.service';
 import { WorkerService } from 'apps/extension-worker/src/extension-worker/worker.service';
 import { JwtService } from '@nestjs/jwt';
 import { FarmerController } from './farmer/farmer.controller';
+import { MailService } from '@app/lib/email/email.service';
 
 @Module({
   imports: [Farmer],
@@ -19,6 +20,7 @@ import { FarmerController } from './farmer/farmer.controller';
     AdminService,
     WorkerService,
     JwtService,
+    MailService
   ],
 })
 export class FarmerModule {}

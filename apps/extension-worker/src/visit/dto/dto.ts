@@ -1,10 +1,16 @@
-import { IsString, IsUUID, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsUUID, IsEnum, IsDate } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { VisitStatus } from '@prisma/client';
 
 export class CreateVisitDto {
   @ApiProperty()
+  @IsOptional()
   @IsString()
-  name: string;
+  name?: string;
+
+  @ApiProperty({ enum: VisitStatus, enumName: 'VisitStatus' })
+  @IsEnum(VisitStatus)
+  status: VisitStatus;
 
   @ApiProperty()
   @IsUUID()
@@ -12,21 +18,30 @@ export class CreateVisitDto {
 
   @ApiProperty()
   @IsUUID()
-  @IsString()
   milestoneId: string;
 
   @ApiProperty()
-  @IsUUID()
   @IsOptional()
+  @IsDate()
+  time?: Date;
+
+  @ApiProperty()
+  @IsDate()
+  date: Date;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsUUID()
   projectId?: string;
 
   @ApiProperty()
-  @IsUUID()
   @IsOptional()
+  @IsUUID()
   workerProfileId?: string;
 
   @ApiProperty()
   @IsOptional()
+  @IsUUID()
   interventionId?: string;
 
   constructor(createVisitDto: CreateVisitDto) {

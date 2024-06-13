@@ -14,6 +14,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 import { DbService } from '../db/db.service';
 import { generateTOTP } from '../otp_generation';
+import { MailService } from '../email/email.service';
 
 @Injectable()
 export class AuthService implements IAuth {
@@ -26,6 +27,7 @@ export class AuthService implements IAuth {
     private readonly extensionWorker: WorkerService,
     private readonly jwtService: JwtService,
     private readonly db: DbService,
+    private readonly mail: MailService,
   ) {}
 
   // TODO pass things into create resource function
@@ -127,14 +129,19 @@ export class AuthService implements IAuth {
     try {
       let change = await this.db.passwordReset.create({
         data: {
-          newPassword: await hash(data['new_value'], {
+          newPassword: await hash(data['property']['newPassword'], {
             secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
             type: 2,
           }),
           otp: generateTOTP(),
         },
       });
-
+      this.mail.sendEmail(
+        'danieltambee@gmail',
+        'passwordReset',
+        change['otp'],
+        '0000',
+      );
       // let user =
       //   data['type'] == 'FARMER'
       //     ? this.farmer.UpdatePassword(data)
@@ -142,7 +149,6 @@ export class AuthService implements IAuth {
       //     ? this.admin.UpdatePassword(data)
       //     : data['type'] == 'EXTENSION_WORKER'
 
-      
       //     ? this.extensionWorker.UpdatePassword(data)
       //     : new Error('Cant Find Any Users By that email');
       return change;

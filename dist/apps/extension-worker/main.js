@@ -1998,6 +1998,7 @@ const appointment_controller_1 = __webpack_require__(/*! ../appointment/appointm
 const appointment_service_1 = __webpack_require__(/*! ../appointment/appointment.service */ "./apps/extension-worker/src/appointment/appointment.service.ts");
 const farmer_module_1 = __webpack_require__(/*! apps/farmer/src/farmer.module */ "./apps/farmer/src/farmer.module.ts");
 const schedule_1 = __webpack_require__(/*! @nestjs/schedule */ "@nestjs/schedule");
+const email_service_1 = __webpack_require__(/*! @app/lib/email/email.service */ "./libs/lib/src/email/email.service.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -2037,6 +2038,7 @@ ExtensionWorkerModule = __decorate([
             project_service_1.ProjectService,
             profile_service_1.ProfileService,
             appointment_service_1.AppointmentService,
+            email_service_1.MailService
         ],
     })
 ], ExtensionWorkerModule);
@@ -4455,10 +4457,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateVisitDto = void 0;
 const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
 class CreateVisitDto {
     constructor(createVisitDto) {
         Object.assign(this, createVisitDto);
@@ -4466,9 +4470,15 @@ class CreateVisitDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateVisitDto.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.VisitStatus, enumName: 'VisitStatus' }),
+    (0, class_validator_1.IsEnum)(client_1.VisitStatus),
+    __metadata("design:type", typeof (_a = typeof client_1.VisitStatus !== "undefined" && client_1.VisitStatus) === "function" ? _a : Object)
+], CreateVisitDto.prototype, "status", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsUUID)(),
@@ -4477,24 +4487,35 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsUUID)(),
-    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateVisitDto.prototype, "milestoneId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsUUID)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], CreateVisitDto.prototype, "time", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+], CreateVisitDto.prototype, "date", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateVisitDto.prototype, "projectId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsUUID)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateVisitDto.prototype, "workerProfileId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateVisitDto.prototype, "interventionId", void 0);
 exports.CreateVisitDto = CreateVisitDto;
@@ -4862,12 +4883,14 @@ let VisitService = class VisitService {
                     status: 'UNCOMPLETED',
                     milestoneId: data['milestoneId'],
                     interventionId: data['interventionId'],
+                    date: data['date'],
+                    time: data['time'],
                 },
             });
             return query;
         }
         catch (error) {
-            throw new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(undefined, error);
         }
     }
     async Addphoto(data) {
@@ -5198,6 +5221,7 @@ const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.servi
 const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
 const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
 const farmer_controller_1 = __webpack_require__(/*! ./farmer/farmer.controller */ "./apps/farmer/src/farmer/farmer.controller.ts");
+const email_service_1 = __webpack_require__(/*! @app/lib/email/email.service */ "./libs/lib/src/email/email.service.ts");
 let FarmerModule = class FarmerModule {
 };
 FarmerModule = __decorate([
@@ -5211,6 +5235,7 @@ FarmerModule = __decorate([
             admin_service_1.AdminService,
             worker_service_1.WorkerService,
             jwt_1.JwtService,
+            email_service_1.MailService
         ],
     })
 ], FarmerModule);
@@ -6089,6 +6114,7 @@ __decorate([
 ], AuthController.prototype, "SignOut", null);
 __decorate([
     (0, common_1.Post)('ForgotPassword'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
@@ -6130,7 +6156,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -6141,13 +6167,15 @@ const argon2_1 = __webpack_require__(/*! argon2 */ "argon2");
 const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
 const db_service_1 = __webpack_require__(/*! ../db/db.service */ "./libs/lib/src/db/db.service.ts");
 const otp_generation_1 = __webpack_require__(/*! ../otp_generation */ "./libs/lib/src/otp_generation.ts");
+const email_service_1 = __webpack_require__(/*! ../email/email.service */ "./libs/lib/src/email/email.service.ts");
 let AuthService = class AuthService {
-    constructor(farmer, admin, extensionWorker, jwtService, db) {
+    constructor(farmer, admin, extensionWorker, jwtService, db, mail) {
         this.farmer = farmer;
         this.admin = admin;
         this.extensionWorker = extensionWorker;
         this.jwtService = jwtService;
         this.db = db;
+        this.mail = mail;
     }
     async Signup(info) {
         try {
@@ -6220,13 +6248,14 @@ let AuthService = class AuthService {
         try {
             let change = await this.db.passwordReset.create({
                 data: {
-                    newPassword: await (0, argon2_1.hash)(data['new_value'], {
+                    newPassword: await (0, argon2_1.hash)(data['property']['newPassword'], {
                         secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
                         type: 2,
                     }),
                     otp: (0, otp_generation_1.generateTOTP)(),
                 },
             });
+            this.mail.sendEmail('danieltambee@gmail', 'passwordReset', change['otp'], '0000');
             return change;
         }
         catch (error) {
@@ -6236,7 +6265,7 @@ let AuthService = class AuthService {
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object, typeof (_b = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _b : Object, typeof (_c = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _c : Object, typeof (_d = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _d : Object, typeof (_e = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _e : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof farmer_service_1.FarmerService !== "undefined" && farmer_service_1.FarmerService) === "function" ? _a : Object, typeof (_b = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _b : Object, typeof (_c = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _c : Object, typeof (_d = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _d : Object, typeof (_e = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _e : Object, typeof (_f = typeof email_service_1.MailService !== "undefined" && email_service_1.MailService) === "function" ? _f : Object])
 ], AuthService);
 exports.AuthService = AuthService;
 6;
@@ -6427,6 +6456,64 @@ DbService = __decorate([
     __metadata("design:paramtypes", [])
 ], DbService);
 exports.DbService = DbService;
+
+
+/***/ }),
+
+/***/ "./libs/lib/src/email/email.service.ts":
+/*!*********************************************!*\
+  !*** ./libs/lib/src/email/email.service.ts ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MailService = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const sgMail = __webpack_require__(/*! @sendgrid/mail */ "@sendgrid/mail");
+let MailService = class MailService {
+    constructor() {
+        const apiKey = process.env.SENDGRID_API_KEY;
+        if (!apiKey) {
+            throw new Error('SENDGRID_API_KEY is not defined in the environment variables');
+        }
+        sgMail.setApiKey(apiKey);
+    }
+    async sendEmail(email, subject, text, html) {
+        const msg = {
+            to: email,
+            from: 'buynbulk22@gmail.com',
+            subject,
+            text,
+            html,
+        };
+        try {
+            await sgMail.send(msg);
+            console.log('Email sent successfully');
+        }
+        catch (error) {
+            console.error('Error sending email:', error.toString());
+            if (error.response) {
+                console.error('SendGrid response:', error.response.body);
+            }
+            throw error;
+        }
+    }
+};
+MailService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [])
+], MailService);
+exports.MailService = MailService;
 
 
 /***/ }),
@@ -6705,6 +6792,16 @@ module.exports = require("@nestjs/swagger");
 /***/ ((module) => {
 
 module.exports = require("@prisma/client");
+
+/***/ }),
+
+/***/ "@sendgrid/mail":
+/*!*********************************!*\
+  !*** external "@sendgrid/mail" ***!
+  \*********************************/
+/***/ ((module) => {
+
+module.exports = require("@sendgrid/mail");
 
 /***/ }),
 
