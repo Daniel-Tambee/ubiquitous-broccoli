@@ -1,13 +1,13 @@
 import { BadRequestException } from '@nestjs/common';
 
-const { authenticator } = require('otplib');
+import { authenticator } from 'otplib';
 const cache = require('memory-cache'); // Replace with a more robust cache solution if needed
 
+const secret = authenticator.generateSecret();
 // Function to generate a TOTP token with a timestamp
 export const generateTOTP = (): any => {
   try {
-    const token = authenticator.generate('cool key');
-    const timestamp = Date.now();
+    const token = authenticator.generate(secret);
     cache.put('otp_tokens', token, 30 * 60 * 1000); // Cache for 30 minutes
     return token;
   } catch (error) {
@@ -24,7 +24,7 @@ export const verifyTOTP = (token: string): boolean => {
   try {
     for (let i = 0; i <= 5; i++) {
       const cachedToken = cache.get(`otp_tokens_${currentTime - window * i}`);
-      if (cachedToken && authenticator.check(token, 'cool key')) {
+      if (cachedToken && authenticator.check(token, secret)) {
         return true;
       }
     }

@@ -37,7 +37,7 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
             margin: 20px auto;
             padding: 10px 20px;
             text-align: center;
-            background-color: #007bff;
+            background-color: #FB8519;
             color: #fff;
             border-radius: 5px;
             font-size: 1.2em;

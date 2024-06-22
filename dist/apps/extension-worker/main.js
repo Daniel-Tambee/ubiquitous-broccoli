@@ -130,7 +130,7 @@ let AdminService = class AdminService {
                     type: 'ADMIN',
                 },
                 data: {
-                    password: data['new_value'],
+                    password: data['property']['password'],
                 },
             });
             return user;
@@ -149,6 +149,9 @@ let AdminService = class AdminService {
                     password: data['password'],
                     phone_number: data['phone_number'],
                     type: 'ADMIN',
+                    adminProfile: {
+                        create: {},
+                    },
                 },
             });
             return user;
@@ -2337,7 +2340,7 @@ let WorkerService = class WorkerService {
                     type: 'EXTENSION_WORKER',
                 },
                 data: {
-                    password: data['new_value'],
+                    password: data['property']['password'],
                 },
             });
             return user;
@@ -2353,7 +2356,7 @@ let WorkerService = class WorkerService {
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
-                    password: '',
+                    password: data['password'],
                     phone_number: data['phone_number'],
                     type: 'EXTENSION_WORKER',
                     workerProfile: {
@@ -6101,8 +6104,8 @@ let AuthController = class AuthController {
     ForgotPassword(data) {
         return this.authService.ForgotPassword(data);
     }
-    verifyOtp(data, ResetId, otp) {
-        console.log(data, ResetId, otp);
+    verifyOtp(data) {
+        console.log(data);
         return this.authService.verifyOtp(data);
     }
 };
@@ -6137,10 +6140,8 @@ __decorate([
 __decorate([
     (0, common_1.Post)('verifyOtp'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Body)('ResetId')),
-    __param(2, (0, common_1.Body)('otp')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _e : Object, String, String]),
+    __metadata("design:paramtypes", [typeof (_e = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _e : Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "verifyOtp", null);
 AuthController = __decorate([
@@ -6239,7 +6240,8 @@ let AuthService = class AuthService {
             return user;
         }
         catch (error) {
-            throw new common_1.UnauthorizedException(error);
+            console.log(error);
+            throw new common_1.UnauthorizedException(undefined, error);
         }
     }
     async SignOut(data) {
@@ -6271,58 +6273,88 @@ let AuthService = class AuthService {
     }
     async ForgotPassword(data) {
         try {
-            let user = await this.db.user.findFirstOrThrow({
+            const user = await this.db.user.findFirstOrThrow({
                 where: {
                     email: data['property']['email'],
                     type: data['type'],
                 },
             });
-            console.log(user);
-            let change = await this.db.passwordReset.create({
+            const newPassword = await (0, argon2_1.hash)(data['property']['newPassword'], {
+                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+                type: 2,
+            });
+            const otp = (0, otp_generation_1.generateTOTP)();
+            const change = await this.db.passwordReset.create({
                 data: {
-                    newPassword: await (0, argon2_1.hash)(data['property']['newPassword'], {
-                        secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-                        type: 2,
-                    }),
-                    otp: (0, otp_generation_1.generateTOTP)(),
+                    newPassword: newPassword,
+                    otp: otp,
                 },
                 select: {
                     id: true,
                     otp: true,
                 },
             });
-            this.mail.sendEmail(user['email'], 'YolaFarms PasswordReset', change['otp'], (0, emailTemplate_1.getPasswordResetTemplate)(user['first_name'], change['otp']));
-            delete change['otp'];
+            await this.db.user.update({
+                where: {
+                    email: data['property']['email'],
+                },
+                data: {
+                    adminProfile: {
+                        update: {
+                            reset: {
+                                connect: {
+                                    id: change.id,
+                                },
+                            },
+                        },
+                    },
+                },
+            });
+            await this.mail.sendEmail(user.email, 'YolaFarms PasswordReset', change.otp, (0, emailTemplate_1.getPasswordResetTemplate)(user.first_name, change.otp));
+            delete change.otp;
             return change;
         }
         catch (error) {
-            throw new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException('Error processing password reset request', error.message || error);
         }
     }
     async verifyOtp(data) {
-        let user;
-        let newPassword = await this.db.passwordReset.findFirstOrThrow({
-            where: {
-                id: data['property']['ResetId'],
-            },
-        });
-        data['property']['password'] = newPassword['newPassword'];
-        delete data['property']['ResetId'];
-        delete data['property']['otp'];
-        console.log(data);
         try {
-            user =
-                data['type'] == 'FARMER'
-                    ? this.farmer.UpdatePassword(data)
-                    : data['type'] == 'ADMIN'
-                        ? this.admin.UpdatePassword(data)
-                        : data['type'] == 'EXTENSION_WORKER'
-                            ? this.extensionWorker.UpdatePassword(data)
-                            : new Error('Cant Find Any Users By that email');
+            console.log(data);
+            const passwordReset = await this.db.passwordReset.findFirstOrThrow({
+                where: { id: data['property']['ResetId'] },
+            });
+            const email = await this.db.user.findFirst({
+                where: {
+                    email: data['property']['email']
+                }
+            });
+            const otp = data['property']['otp'];
+            const newPassword = passwordReset.newPassword;
+            data['property']['password'] = newPassword;
+            delete data['property']['ResetId'];
+            delete data['property']['otp'];
+            console.log(data);
             return true;
         }
         catch (error) {
-            throw new common_1.BadRequestException(undefined, error);
+            throw new common_1.BadRequestException(undefined, error.message || error);
+        }
+    }
+    async updatePasswordByUserType(data) {
+        const { type } = data;
+        switch (type) {
+            case 'FARMER':
+                await this.farmer.UpdatePassword(data);
+                break;
+            case 'ADMIN':
+                await this.admin.UpdatePassword(data);
+                break;
+            case 'EXTENSION_WORKER':
+                await this.extensionWorker.UpdatePassword(data);
+                break;
+            default:
+                throw new Error('Cannot find any users by that type');
         }
     }
 };
@@ -6627,7 +6659,7 @@ const getPasswordResetTemplate = (userName, otp) => `
             margin: 20px auto;
             padding: 10px 20px;
             text-align: center;
-            background-color: #007bff;
+            background-color: #FB8519;
             color: #fff;
             border-radius: 5px;
             font-size: 1.2em;
@@ -6730,12 +6762,12 @@ exports.calculateGrowth = calculateGrowth;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.verifyTOTP = exports.generateTOTP = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const { authenticator } = __webpack_require__(/*! otplib */ "otplib");
+const otplib_1 = __webpack_require__(/*! otplib */ "otplib");
 const cache = __webpack_require__(/*! memory-cache */ "memory-cache");
+const secret = otplib_1.authenticator.generateSecret();
 const generateTOTP = () => {
     try {
-        const token = authenticator.generate('cool key');
-        const timestamp = Date.now();
+        const token = otplib_1.authenticator.generate(secret);
         cache.put('otp_tokens', token, 30 * 60 * 1000);
         return token;
     }
@@ -6750,7 +6782,7 @@ const verifyTOTP = (token) => {
     try {
         for (let i = 0; i <= 5; i++) {
             const cachedToken = cache.get(`otp_tokens_${currentTime - window * i}`);
-            if (cachedToken && authenticator.check(token, 'cool key')) {
+            if (cachedToken && otplib_1.authenticator.check(token, secret)) {
                 return true;
             }
         }

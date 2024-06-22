@@ -22,9 +22,12 @@ model User {
   farmerProfile   String?
   workerProfile   WorkerProfile? @relation(fields: [workerProfileId], references: [id])
   workerProfileId String?
-  type            UserType       @default(EXTENSION_WORKER)
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  adminProfile    AdminProfile?  @relation(fields: [adminProfileId], references: [id])
+  adminProfileId  String?
+
+  type      UserType @default(EXTENSION_WORKER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // TODO add different profiles for users
@@ -78,17 +81,19 @@ model WorkerProfile {
 }
 
 model AdminProfile {
-  id            String   @id @default(uuid()) @map("_id")
-  age           Int
-  birthday      DateTime
-  sex           Gender
-  address       Json
-  religion      Religion
-  maritalStatus Marital
+  id            String          @id @default(uuid()) @map("_id")
+  age           Int?
+  birthday      DateTime?
+  sex           Gender?
+  address       Json?
+  religion      Religion?
+  maritalStatus Marital?
   about         String?
   photo         Bytes?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  reset         PasswordReset[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  User          User[]
 }
 
 model Project {
@@ -177,6 +182,8 @@ model PasswordReset {
   updatedAt       DateTime       @updatedAt
   WorkerProfile   WorkerProfile? @relation(fields: [workerProfileId], references: [id])
   workerProfileId String?
+  AdminProfile    AdminProfile?  @relation(fields: [adminProfileId], references: [id])
+  adminProfileId  String?
 }
 
 model HouseHold {

@@ -30,13 +30,9 @@ export class AuthController implements IAuth {
     return this.authService.ForgotPassword(data);
   }
   @Post('verifyOtp')
-  verifyOtp(
-    @Body() data: UpdateDto,
-    @Body('ResetId') ResetId: string,
-    @Body('otp') otp: string,
-  ) {
-    console.log(data,ResetId,otp);
-    
+  verifyOtp(@Body() data: UpdateDto) {
+    console.log(data);
+
     return this.authService.verifyOtp(data);
   }
 }

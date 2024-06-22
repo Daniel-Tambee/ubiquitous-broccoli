@@ -110,7 +110,7 @@ export class AdminService implements IAdmin {
           type: 'ADMIN',
         },
         data: {
-          password: data['new_value'],
+          password: data['property']['password'],
         },
       });
       return user;
@@ -128,6 +128,9 @@ export class AdminService implements IAdmin {
           password: data['password'],
           phone_number: data['phone_number'],
           type: 'ADMIN',
+          adminProfile: {
+            create: {},
+          },
         },
       });
       return user;
