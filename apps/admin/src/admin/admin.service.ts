@@ -12,7 +12,7 @@ export class AdminService implements IAdmin {
   /**
    *
    */
-  constructor(private readonly db: DbService) {}
+  constructor(private readonly db: DbService) { }
   async UpdateFirstName(data: UpdateDto): Promise<User> {
     try {
       const user = await this.db.user.update({

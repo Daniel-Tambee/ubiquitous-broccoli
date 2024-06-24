@@ -9,7 +9,7 @@ import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController implements IAuth {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
   validate(data: ValidationDto): Promise<any> {
     throw new Error('Method not implemented.');
   }
@@ -27,6 +27,7 @@ export class AuthController implements IAuth {
   }
   @Post('ForgotPassword')
   ForgotPassword(@Body() data: UpdateDto) {
+
     return this.authService.ForgotPassword(data);
   }
   @Post('verifyOtp')

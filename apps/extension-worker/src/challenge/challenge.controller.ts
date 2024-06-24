@@ -1,12 +1,14 @@
-import { BadRequestException, Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post, UseGuards, ValidationPipe } from '@nestjs/common';
 import { IChallenge } from './challenge.interface';
 import { $Enums, Challenge, Prisma, Visit } from '@prisma/client';
 import { UpdateDto } from './dto/update_dto';
 import { ChallengeService } from './challenge.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@app/lib/auth/auth.guard';
 
 @Controller('challenge')
 @ApiTags('Challenge')
+@UseGuards(AuthGuard)
 export class ChallengeController implements IChallenge {
   /**
    *

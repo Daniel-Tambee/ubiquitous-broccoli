@@ -319,10 +319,12 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const Intervention_controller_1 = __webpack_require__(/*! ./Intervention.controller */ "./apps/extension-worker/src/Intervention/Intervention.controller.ts");
 const intervention_service_1 = __webpack_require__(/*! ./intervention.service */ "./apps/extension-worker/src/Intervention/intervention.service.ts");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const auth_module_1 = __webpack_require__(/*! @app/lib/auth/auth.module */ "./libs/lib/src/auth/auth.module.ts");
 let InterventionModule = class InterventionModule {
 };
 InterventionModule = __decorate([
     (0, common_1.Module)({
+        imports: [auth_module_1.AuthModule],
         controllers: [Intervention_controller_1.InterventionController],
         providers: [intervention_service_1.InterventionService, db_service_1.DbService],
     })
@@ -1085,6 +1087,7 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/challenge/dto/update_dto.ts");
 const challenge_service_1 = __webpack_require__(/*! ./challenge.service */ "./apps/extension-worker/src/challenge/challenge.service.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const auth_guard_1 = __webpack_require__(/*! @app/lib/auth/auth.guard */ "./libs/lib/src/auth/auth.guard.ts");
 let ChallengeController = class ChallengeController {
     constructor(service) {
         this.service = service;
@@ -1153,6 +1156,7 @@ __decorate([
 ChallengeController = __decorate([
     (0, common_1.Controller)('challenge'),
     (0, swagger_1.ApiTags)('Challenge'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [typeof (_a = typeof challenge_service_1.ChallengeService !== "undefined" && challenge_service_1.ChallengeService) === "function" ? _a : Object])
 ], ChallengeController);
 exports.ChallengeController = ChallengeController;
@@ -1179,11 +1183,19 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const challenge_service_1 = __webpack_require__(/*! ./challenge.service */ "./apps/extension-worker/src/challenge/challenge.service.ts");
 const challenge_controller_1 = __webpack_require__(/*! ./challenge.controller */ "./apps/extension-worker/src/challenge/challenge.controller.ts");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const auth_module_1 = __webpack_require__(/*! @app/lib/auth/auth.module */ "./libs/lib/src/auth/auth.module.ts");
+const email_service_1 = __webpack_require__(/*! @app/lib/email/email.service */ "./libs/lib/src/email/email.service.ts");
+const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
+const farmer_service_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const worker_service_1 = __webpack_require__(/*! ../extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
 let ChallengeModule = class ChallengeModule {
 };
 ChallengeModule = __decorate([
     (0, common_1.Module)({
-        providers: [challenge_service_1.ChallengeService, db_service_1.DbService],
+        imports: [auth_module_1.AuthModule],
+        providers: [challenge_service_1.ChallengeService, db_service_1.DbService, auth_service_1.AuthService, farmer_service_1.FarmerService, admin_service_1.AdminService, worker_service_1.WorkerService, jwt_1.JwtService, email_service_1.MailService],
         controllers: [challenge_controller_1.ChallengeController],
     })
 ], ChallengeModule);
@@ -1367,6 +1379,7 @@ const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/
 const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/cooperative/dto/find_dto.ts");
 const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/cooperative/dto/update_dto.ts");
 const cooperative_service_1 = __webpack_require__(/*! ./cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
+const auth_guard_1 = __webpack_require__(/*! @app/lib/auth/auth.guard */ "./libs/lib/src/auth/auth.guard.ts");
 let CooperativeController = class CooperativeController {
     constructor(service) {
         this.service = service;
@@ -1453,6 +1466,7 @@ __decorate([
 ], CooperativeController.prototype, "getAllCooperatives", null);
 CooperativeController = __decorate([
     (0, common_1.Controller)('cooperative'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, swagger_1.ApiTags)('cooperative'),
     __metadata("design:paramtypes", [typeof (_a = typeof cooperative_service_1.CooperativeService !== "undefined" && cooperative_service_1.CooperativeService) === "function" ? _a : Object])
 ], CooperativeController);
@@ -1480,12 +1494,18 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const cooperative_controller_1 = __webpack_require__(/*! ./cooperative.controller */ "./apps/extension-worker/src/cooperative/cooperative.controller.ts");
 const cooperative_service_1 = __webpack_require__(/*! ./cooperative.service */ "./apps/extension-worker/src/cooperative/cooperative.service.ts");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
+const farmer_service_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
+const worker_service_1 = __webpack_require__(/*! ../extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const email_service_1 = __webpack_require__(/*! @app/lib/email/email.service */ "./libs/lib/src/email/email.service.ts");
 let CooperativeModule = class CooperativeModule {
 };
 CooperativeModule = __decorate([
     (0, common_1.Module)({
         controllers: [cooperative_controller_1.CooperativeController],
-        providers: [cooperative_service_1.CooperativeService, db_service_1.DbService]
+        providers: [cooperative_service_1.CooperativeService, db_service_1.DbService, auth_service_1.AuthService, farmer_service_1.FarmerService, admin_service_1.AdminService, worker_service_1.WorkerService, jwt_1.JwtService, email_service_1.MailService]
     })
 ], CooperativeModule);
 exports.CooperativeModule = CooperativeModule;
@@ -1850,6 +1870,7 @@ const dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/dto */ "./apps/
 const find_dto_1 = __webpack_require__(/*! apps/farmer/src/farmer/dto/find.dto */ "./apps/farmer/src/farmer/dto/find.dto.ts");
 const worker_service_1 = __webpack_require__(/*! ./worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const auth_guard_1 = __webpack_require__(/*! @app/lib/auth/auth.guard */ "./libs/lib/src/auth/auth.guard.ts");
 let ExtensionWorkerController = class ExtensionWorkerController {
     constructor(worker) {
         this.worker = worker;
@@ -1949,6 +1970,7 @@ __decorate([
 ExtensionWorkerController = __decorate([
     (0, common_1.Controller)('extension-worker'),
     (0, swagger_1.ApiTags)('Extension Worker'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     __metadata("design:paramtypes", [typeof (_a = typeof worker_service_1.WorkerService !== "undefined" && worker_service_1.WorkerService) === "function" ? _a : Object])
 ], ExtensionWorkerController);
 exports.ExtensionWorkerController = ExtensionWorkerController;
@@ -2002,6 +2024,7 @@ const appointment_service_1 = __webpack_require__(/*! ../appointment/appointment
 const farmer_module_1 = __webpack_require__(/*! apps/farmer/src/farmer.module */ "./apps/farmer/src/farmer.module.ts");
 const schedule_1 = __webpack_require__(/*! @nestjs/schedule */ "@nestjs/schedule");
 const email_service_1 = __webpack_require__(/*! @app/lib/email/email.service */ "./libs/lib/src/email/email.service.ts");
+const auth_module_1 = __webpack_require__(/*! @app/lib/auth/auth.module */ "./libs/lib/src/auth/auth.module.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -2020,6 +2043,7 @@ ExtensionWorkerModule = __decorate([
             appointment_module_1.AppointmentModule,
             farmer_module_1.FarmerModule,
             schedule_1.ScheduleModule.forRoot(),
+            auth_module_1.AuthModule
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -3760,6 +3784,7 @@ const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/
 const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/project/dto/find_dto.ts");
 const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/project/dto/update_dto.ts");
 const project_service_1 = __webpack_require__(/*! ./project.service */ "./apps/extension-worker/src/project/project.service.ts");
+const auth_guard_1 = __webpack_require__(/*! @app/lib/auth/auth.guard */ "./libs/lib/src/auth/auth.guard.ts");
 let ProjectController = class ProjectController {
     constructor(project) {
         this.project = project;
@@ -4010,6 +4035,7 @@ __decorate([
 ], ProjectController.prototype, "getAllProjects", null);
 ProjectController = __decorate([
     (0, common_1.Controller)('project'),
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, swagger_1.ApiTags)('project'),
     __metadata("design:paramtypes", [typeof (_a = typeof project_service_1.ProjectService !== "undefined" && project_service_1.ProjectService) === "function" ? _a : Object])
 ], ProjectController);
@@ -4038,12 +4064,18 @@ const project_controller_1 = __webpack_require__(/*! ./project.controller */ "./
 const project_service_1 = __webpack_require__(/*! ./project.service */ "./apps/extension-worker/src/project/project.service.ts");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 const profile_service_1 = __webpack_require__(/*! ../profile/profile.service */ "./apps/extension-worker/src/profile/profile.service.ts");
+const auth_service_1 = __webpack_require__(/*! @app/lib/auth/auth.service */ "./libs/lib/src/auth/auth.service.ts");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
+const farmer_service_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const worker_service_1 = __webpack_require__(/*! ../extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
+const email_service_1 = __webpack_require__(/*! @app/lib/email/email.service */ "./libs/lib/src/email/email.service.ts");
 let ProjectModule = class ProjectModule {
 };
 ProjectModule = __decorate([
     (0, common_1.Module)({
         controllers: [project_controller_1.ProjectController],
-        providers: [project_service_1.ProjectService, db_service_1.DbService, profile_service_1.ProfileService],
+        providers: [project_service_1.ProjectService, profile_service_1.ProfileService, auth_service_1.AuthService, farmer_service_1.FarmerService, admin_service_1.AdminService, worker_service_1.WorkerService, jwt_1.JwtService, email_service_1.MailService, db_service_1.DbService],
     })
 ], ProjectModule);
 exports.ProjectModule = ProjectModule;
@@ -6154,6 +6186,100 @@ exports.AuthController = AuthController;
 
 /***/ }),
 
+/***/ "./libs/lib/src/auth/auth.guard.ts":
+/*!*****************************************!*\
+  !*** ./libs/lib/src/auth/auth.guard.ts ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AuthGuard = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const passport_1 = __webpack_require__(/*! @nestjs/passport */ "@nestjs/passport");
+const jsonwebtoken_1 = __webpack_require__(/*! jsonwebtoken */ "jsonwebtoken");
+const passport_jwt_1 = __webpack_require__(/*! passport-jwt */ "passport-jwt");
+const auth_service_1 = __webpack_require__(/*! ./auth.service */ "./libs/lib/src/auth/auth.service.ts");
+let AuthGuard = class AuthGuard extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
+    constructor(auth) {
+        super({
+            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
+            secretOrKey: process.env.HASH_SECRET,
+        });
+        this.auth = auth;
+    }
+    canActivate(context) {
+        try {
+            const HeaderbearerToken = context.switchToHttp().getRequest()['headers']['authorization'];
+            const bearerToken = (0, jsonwebtoken_1.verify)(HeaderbearerToken, process.env.HASH_SECRET);
+            const val = this.validate(bearerToken);
+            return Boolean(val);
+        }
+        catch (error) {
+            console.log(error.message + ',\njwt is missing');
+        }
+    }
+    async validate(bearerToken) {
+        const user = await this.auth.validate(bearerToken);
+        return user;
+    }
+};
+AuthGuard = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" ? _a : Object])
+], AuthGuard);
+exports.AuthGuard = AuthGuard;
+
+
+/***/ }),
+
+/***/ "./libs/lib/src/auth/auth.module.ts":
+/*!******************************************!*\
+  !*** ./libs/lib/src/auth/auth.module.ts ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AuthModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const auth_service_1 = __webpack_require__(/*! ./auth.service */ "./libs/lib/src/auth/auth.service.ts");
+const auth_controller_1 = __webpack_require__(/*! ./auth.controller */ "./libs/lib/src/auth/auth.controller.ts");
+const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
+const email_service_1 = __webpack_require__(/*! ../email/email.service */ "./libs/lib/src/email/email.service.ts");
+const admin_service_1 = __webpack_require__(/*! apps/admin/src/admin/admin.service */ "./apps/admin/src/admin/admin.service.ts");
+const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/extension-worker/worker.service */ "./apps/extension-worker/src/extension-worker/worker.service.ts");
+const farmer_service_1 = __webpack_require__(/*! apps/farmer/src/farmer/farmer.service */ "./apps/farmer/src/farmer/farmer.service.ts");
+const db_service_1 = __webpack_require__(/*! ../db/db.service */ "./libs/lib/src/db/db.service.ts");
+let AuthModule = class AuthModule {
+};
+AuthModule = __decorate([
+    (0, common_1.Module)({
+        controllers: [auth_controller_1.AuthController],
+        providers: [auth_service_1.AuthService, farmer_service_1.FarmerService, admin_service_1.AdminService, worker_service_1.WorkerService, jwt_1.JwtService, email_service_1.MailService, db_service_1.DbService]
+    })
+], AuthModule);
+exports.AuthModule = AuthModule;
+
+
+/***/ }),
+
 /***/ "./libs/lib/src/auth/auth.service.ts":
 /*!*******************************************!*\
   !*** ./libs/lib/src/auth/auth.service.ts ***!
@@ -6223,17 +6349,30 @@ let AuthService = class AuthService {
     }
     async SignIn(data) {
         try {
-            let user = data['type'] == 'FARMER'
-                ? await this.farmer.FindByEmail(data)
-                : data['type'] == 'ADMIN'
-                    ? await this.admin.FindByEmail(data)
-                    : data['type'] == 'EXTENSION_WORKER'
-                        ? await this.extensionWorker.FindByEmail(data)
-                        : new Error('Cant Find Any Users By that email');
+            let user;
+            switch (data['type']) {
+                case 'FARMER':
+                    user = await this.farmer.FindByEmail(data);
+                    break;
+                case 'ADMIN':
+                    user = await this.admin.FindByEmail(data);
+                    break;
+                case 'EXTENSION_WORKER':
+                    user = await this.extensionWorker.FindByEmail(data);
+                    break;
+                default:
+                    throw new Error('Cant Find Any Users By that email');
+            }
+            if (!user) {
+                throw new Error('User not found');
+            }
             console.log(user);
             const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
                 secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
             });
+            if (!verification) {
+                throw new common_1.UnauthorizedException('Invalid password');
+            }
             user['access_token'] = this.jwtService.sign(data, {
                 secret: process.env.HASH_SECRET || 'hash',
             });
@@ -6241,7 +6380,7 @@ let AuthService = class AuthService {
         }
         catch (error) {
             console.log(error);
-            throw new common_1.UnauthorizedException(undefined, error);
+            throw new common_1.UnauthorizedException(undefined, error.message);
         }
     }
     async SignOut(data) {
@@ -6279,7 +6418,8 @@ let AuthService = class AuthService {
                     type: data['type'],
                 },
             });
-            const newPassword = await (0, argon2_1.hash)(data['property']['newPassword'], {
+            console.log(user);
+            const newPassword = await (0, argon2_1.hash)(Buffer.from(data['property']['newPassword']), {
                 secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
                 type: 2,
             });
@@ -6294,27 +6434,24 @@ let AuthService = class AuthService {
                     otp: true,
                 },
             });
-            await this.db.user.update({
+            await this.mail.sendEmail(user.email, 'YolaFarms PasswordReset', change.otp, (0, emailTemplate_1.getPasswordResetTemplate)(user.first_name, change.otp));
+            await this.db.adminProfile.update({
                 where: {
-                    email: data['property']['email'],
+                    id: user['adminProfileId']
                 },
                 data: {
-                    adminProfile: {
-                        update: {
-                            reset: {
-                                connect: {
-                                    id: change.id,
-                                },
-                            },
-                        },
-                    },
+                    reset: {
+                        connect: {
+                            id: change.id
+                        }
+                    }
                 },
             });
-            await this.mail.sendEmail(user.email, 'YolaFarms PasswordReset', change.otp, (0, emailTemplate_1.getPasswordResetTemplate)(user.first_name, change.otp));
             delete change.otp;
             return change;
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadRequestException('Error processing password reset request', error.message || error);
         }
     }
@@ -6335,6 +6472,7 @@ let AuthService = class AuthService {
             delete data['property']['ResetId'];
             delete data['property']['otp'];
             console.log(data);
+            this.updatePasswordByUserType(data);
             return true;
         }
         catch (error) {
@@ -6945,6 +7083,16 @@ module.exports = require("@nestjs/jwt");
 
 /***/ }),
 
+/***/ "@nestjs/passport":
+/*!***********************************!*\
+  !*** external "@nestjs/passport" ***!
+  \***********************************/
+/***/ ((module) => {
+
+module.exports = require("@nestjs/passport");
+
+/***/ }),
+
 /***/ "@nestjs/schedule":
 /*!***********************************!*\
   !*** external "@nestjs/schedule" ***!
@@ -7015,6 +7163,16 @@ module.exports = require("class-validator");
 
 /***/ }),
 
+/***/ "jsonwebtoken":
+/*!*******************************!*\
+  !*** external "jsonwebtoken" ***!
+  \*******************************/
+/***/ ((module) => {
+
+module.exports = require("jsonwebtoken");
+
+/***/ }),
+
 /***/ "memory-cache":
 /*!*******************************!*\
   !*** external "memory-cache" ***!
@@ -7032,6 +7190,16 @@ module.exports = require("memory-cache");
 /***/ ((module) => {
 
 module.exports = require("otplib");
+
+/***/ }),
+
+/***/ "passport-jwt":
+/*!*******************************!*\
+  !*** external "passport-jwt" ***!
+  \*******************************/
+/***/ ((module) => {
+
+module.exports = require("passport-jwt");
 
 /***/ })
 

@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Post,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -13,8 +14,10 @@ import { CreateProjectDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 import { ProjectService } from './project.service';
+import { AuthGuard } from '@app/lib/auth/auth.guard';
 
 @Controller('project')
+@UseGuards(AuthGuard)
 @ApiTags('project')
 export class ProjectController implements IProject {
   /**

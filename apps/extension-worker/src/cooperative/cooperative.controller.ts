@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Post,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -13,8 +14,10 @@ import { CreateCooperativeDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 import { CooperativeService } from './cooperative.service';
+import { AuthGuard } from '@app/lib/auth/auth.guard';
 
 @Controller('cooperative')
+@UseGuards(AuthGuard)
 @ApiTags('cooperative')
 export class CooperativeController implements ICooperative {
   /**

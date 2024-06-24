@@ -16,12 +16,13 @@ import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 import { FindDto } from 'apps/farmer/src/farmer/dto/find.dto';
 import { WorkerService } from './worker.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@app/lib/auth/auth.guard';
 
 @Controller('extension-worker')
 @ApiTags('Extension Worker')
-// @UseGuards(ExtensionWorkerGuard)
+@UseGuards(AuthGuard)
 export class ExtensionWorkerController {
-  constructor(private readonly worker: WorkerService) {}
+  constructor(private readonly worker: WorkerService) { }
   UpdatePassword(@Body(new ValidationPipe()) data: UpdateDto): Promise<User> {
     return this.worker.UpdatePassword(data);
   }

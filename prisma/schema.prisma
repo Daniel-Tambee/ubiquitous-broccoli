@@ -12,9 +12,10 @@ datasource db {
 }
 
 model User {
-  id              String         @id @default(uuid()) @map("_id")
+  id              String         @id @default(cuid()) @map("_id")
   first_name      String
   last_name       String
+  nin             String?
   email           String         @unique
   password        String
   phone_number    String
@@ -24,7 +25,6 @@ model User {
   workerProfileId String?
   adminProfile    AdminProfile?  @relation(fields: [adminProfileId], references: [id])
   adminProfileId  String?
-
   type      UserType @default(EXTENSION_WORKER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -32,7 +32,7 @@ model User {
 
 // TODO add different profiles for users
 model FarmerProfile {
-  id                String          @id @default(uuid()) @map("_id")
+  id                String          @id @default(cuid()) @map("_id")
   age               Int
   sex               Gender
   address           Json
@@ -59,7 +59,7 @@ model FarmerProfile {
 }
 
 model WorkerProfile {
-  id            String          @id @default(uuid()) @map("_id")
+  id            String          @id @default(cuid()) @map("_id")
   age           Int
   sex           Gender
   birthday      DateTime
@@ -81,7 +81,7 @@ model WorkerProfile {
 }
 
 model AdminProfile {
-  id            String          @id @default(uuid()) @map("_id")
+  id            String          @id @default(cuid()) @map("_id")
   age           Int?
   birthday      DateTime?
   sex           Gender?
@@ -97,7 +97,7 @@ model AdminProfile {
 }
 
 model Project {
-  id              String          @id @default(uuid()) @map("_id")
+  id              String          @id @default(cuid()) @map("_id")
   name            String?
   location        String?
   description     String?
@@ -118,7 +118,7 @@ model Project {
 }
 
 model Cooperative {
-  id                String          @id @default(uuid()) @map("_id")
+  id                String          @id @default(cuid()) @map("_id")
   name              String?
   location          String?
   animal_type       String?
@@ -133,14 +133,14 @@ model Cooperative {
 }
 
 model Crop {
-  id        String   @id @default(uuid()) @map("_id")
+  id        String   @id @default(cuid()) @map("_id")
   type      CropType
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Milestone {
-  id               String          @id @default(uuid()) @map("_id")
+  id               String          @id @default(cuid()) @map("_id")
   Farmer           FarmerProfile[] @relation(fields: [farmerProfile], references: [id])
   farmerProfile    String[]
   text             String
@@ -159,7 +159,7 @@ model Milestone {
 }
 
 model Report {
-  id              String         @id @default(uuid()) @map("_id")
+  id              String         @id @default(cuid()) @map("_id")
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   WorkerProfile   WorkerProfile? @relation(fields: [workerProfileId], references: [id])
@@ -167,7 +167,7 @@ model Report {
 }
 
 model Login {
-  id              String         @id @default(uuid()) @map("_id")
+  id              String         @id @default(cuid()) @map("_id")
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   FarmerProfile   FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
@@ -175,7 +175,7 @@ model Login {
 }
 
 model PasswordReset {
-  id              String         @id @default(uuid()) @map("_id")
+  id              String         @id @default(cuid()) @map("_id")
   otp             String
   newPassword     String
   createdAt       DateTime       @default(now())
@@ -187,7 +187,7 @@ model PasswordReset {
 }
 
 model HouseHold {
-  id              String         @id @default(uuid()) @map("_id")
+  id              String         @id @default(cuid()) @map("_id")
   number          Int
   size            Int
   createdAt       DateTime       @default(now())
@@ -197,21 +197,21 @@ model HouseHold {
 }
 
 model Recommendation {
-  id        String      @id @default(uuid()) @map("_id")
+  id        String      @id @default(cuid()) @map("_id")
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Milestone Milestone[]
 }
 
 model Input {
-  id        String    @id @default(uuid()) @map("_id")
+  id        String    @id @default(cuid()) @map("_id")
   type      InputType
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
 model Photo {
-  id        String   @id @default(uuid()) @map("_id")
+  id        String   @id @default(cuid()) @map("_id")
   data      Bytes
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -220,7 +220,7 @@ model Photo {
 }
 
 model Visit {
-  id              String         @id @default(uuid()) @map("_id")
+  id              String         @id @default(cuid()) @map("_id")
   name            String?
   status          VisitStatus
   appointment     Appointment    @relation(fields: [appointmentId], references: [id])
@@ -242,7 +242,7 @@ model Visit {
 }
 
 model Challenge {
-  id              String         @id @default(uuid()) @map("_id")
+  id              String         @id @default(cuid()) @map("_id")
   type            ChallengeType
   worker          WorkerProfile? @relation(fields: [workerProfileId], references: [id])
   workerProfileId String?
@@ -254,7 +254,7 @@ model Challenge {
 }
 
 model Appointment {
-  id              String             @id @default(uuid()) @map("_id")
+  id              String             @id @default(cuid()) @map("_id")
   time            DateTime
   status          Appointment_Status
   Visit           Visit[]
@@ -265,7 +265,7 @@ model Appointment {
 }
 
 model LocalGovernment {
-  id            String          @id @default(uuid()) @map("_id")
+  id            String          @id @default(cuid()) @map("_id")
   name          String
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
@@ -274,7 +274,7 @@ model LocalGovernment {
 }
 
 model Intervention {
-  id              String            @id @default(uuid()) @map("_id")
+  id              String            @id @default(cuid()) @map("_id")
   amount          Float             @default(0.00)
   custom_field    Json
   type            Intervention_type

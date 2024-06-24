@@ -35,7 +35,7 @@ export class AuthService implements IAuth {
   // TODO Hash password
   async Signup(info: CreateUserDto) {
     try {
-      info['password'] = await hash(info['password'] as string, {
+      info['password'] = await hash(info['password'], {
         secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
         type: 2,
       });
@@ -55,16 +55,28 @@ export class AuthService implements IAuth {
   // TODO validate user
   async SignIn(data: Partial<ValidationDto>) {
     try {
-      let user =
-        data['type'] == 'FARMER'
-          ? await this.farmer.FindByEmail(data)
-          : data['type'] == 'ADMIN'
-            ? await this.admin.FindByEmail(data)
-            : data['type'] == 'EXTENSION_WORKER'
-              ? await this.extensionWorker.FindByEmail(data)
-              : new Error('Cant Find Any Users By that email');
+      let user;
+      
+      switch (data['type']) {
+        case 'FARMER':
+          user = await this.farmer.FindByEmail(data);
+          break;
+        case 'ADMIN':
+          user = await this.admin.FindByEmail(data);
+          break;
+        case 'EXTENSION_WORKER':
+          user = await this.extensionWorker.FindByEmail(data);
+          break;
+        default:
+          throw new Error('Cant Find Any Users By that email');
+      }
+      
+      if (!user) {
+        throw new Error('User not found');
+      }
+  
       console.log(user);
-
+  
       const verification = await verify(
         user['password'],
         Buffer.from(data['password']),
@@ -72,27 +84,22 @@ export class AuthService implements IAuth {
           secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
         },
       );
-
+  
+      if (!verification) {
+        throw new UnauthorizedException('Invalid password');
+      }
+  
       user['access_token'] = this.jwtService.sign(data, {
         secret: process.env.HASH_SECRET || 'hash',
       });
-
-      /*       const access_token =
-        verification == true.
-          ? {
-              access_token: this.jwtService.sign(data, {
-                secret: process.env.HASH_SECRET || 'hash',
-              }),
-            }
-          : new UnauthorizedException();
- */ return user;
+  
+      return user;
     } catch (error) {
       console.log(error);
-
-      throw new UnauthorizedException(undefined, error);
+      throw new UnauthorizedException(undefined, error.message);
     }
   }
-  // TODO find a way to invalidate token
+    // TODO find a way to invalidate token
   async SignOut(data: Map<string, any>) {
     throw new Error('Method not implemented.');
   }
@@ -138,11 +145,15 @@ export class AuthService implements IAuth {
         },
       });
 
+      console.log(user);
+
+
       // Step 2: Generate a new hashed password and OTP
-      const newPassword = await hash(data['property']['newPassword'], {
+      const newPassword = await hash(Buffer.from(data['property']['newPassword']), {
         secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
         type: 2,
       });
+
       const otp = generateTOTP();
 
       // Step 3: Create a password reset entry in the database
@@ -157,25 +168,6 @@ export class AuthService implements IAuth {
         },
       });
 
-      // Step 4: Update the user's admin profile with the reset ID
-      await this.db.user.update({
-        where: {
-          email: data['property']['email'],
-        },
-        data: {
-          adminProfile: {
-            update: {
-              reset: {
-                connect: {
-                  id: change.id,
-                },
-              },
-            },
-          },
-        },
-      });
-
-      // Step 5: Send the reset email to the user
       await this.mail.sendEmail(
         user.email,
         'YolaFarms PasswordReset',
@@ -183,10 +175,29 @@ export class AuthService implements IAuth {
         getPasswordResetTemplate(user.first_name, change.otp),
       );
 
+
+      // Step 4: Update the user's admin profile with the reset ID
+      await this.db.adminProfile.update({
+        where: {
+          id: user['adminProfileId']
+        },
+        data: {
+          reset: {
+            connect: {
+              id: change.id
+            }
+          }
+        },
+      });
+
+      // Step 5: Send the reset email to the user
+
       // Remove OTP from response for security
       delete change.otp;
       return change;
     } catch (error) {
+      console.log(error);
+
       throw new BadRequestException(
         'Error processing password reset request',
         error.message || error,
@@ -225,6 +236,7 @@ export class AuthService implements IAuth {
       console.log(data);
 
       // Handle the password update based on the user type
+      this.updatePasswordByUserType(data)
       // await this.updatePasswordByUserType(data);
 
       return true;

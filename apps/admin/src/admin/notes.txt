@@ -1,0 +1,11 @@
+notes:
+change auth flow
+fix auth flow
+pagination
+defaultpass "password 1"
+default 
+nin to feild 
+menu veiw allassigned and unassigned
+defualt to tbd
+shorter uuid
+remove workerid
