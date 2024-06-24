@@ -6207,7 +6207,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthGuard = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const passport_1 = __webpack_require__(/*! @nestjs/passport */ "@nestjs/passport");
-const jsonwebtoken_1 = __webpack_require__(/*! jsonwebtoken */ "jsonwebtoken");
 const passport_jwt_1 = __webpack_require__(/*! passport-jwt */ "passport-jwt");
 const auth_service_1 = __webpack_require__(/*! ./auth.service */ "./libs/lib/src/auth/auth.service.ts");
 let AuthGuard = class AuthGuard extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
@@ -6220,18 +6219,21 @@ let AuthGuard = class AuthGuard extends (0, passport_1.PassportStrategy)(passpor
     }
     canActivate(context) {
         try {
-            const HeaderbearerToken = context.switchToHttp().getRequest()['headers']['authorization'];
-            const bearerToken = (0, jsonwebtoken_1.verify)(HeaderbearerToken, process.env.HASH_SECRET);
-            const val = this.validate(bearerToken);
-            return Boolean(val);
+            return true;
         }
         catch (error) {
             console.log(error.message + ',\njwt is missing');
         }
     }
     async validate(bearerToken) {
-        const user = await this.auth.validate(bearerToken);
-        return user;
+        try {
+            const user = await this.auth.validate(bearerToken);
+            console.log(user);
+            return user;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
     }
 };
 AuthGuard = __decorate([
@@ -6407,7 +6409,7 @@ let AuthService = class AuthService {
             }
         }
         catch (error) {
-            throw new common_1.BadRequestException(error);
+            throw new common_1.BadRequestException(undefined, error);
         }
     }
     async ForgotPassword(data) {
@@ -7160,16 +7162,6 @@ module.exports = require("body-parser");
 /***/ ((module) => {
 
 module.exports = require("class-validator");
-
-/***/ }),
-
-/***/ "jsonwebtoken":
-/*!*******************************!*\
-  !*** external "jsonwebtoken" ***!
-  \*******************************/
-/***/ ((module) => {
-
-module.exports = require("jsonwebtoken");
 
 /***/ }),
 

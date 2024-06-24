@@ -131,7 +131,7 @@ export class AuthService implements IAuth {
         throw new UnauthorizedException();
       }
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException(undefined,error);
     }
   }
   // TODO add them to db
