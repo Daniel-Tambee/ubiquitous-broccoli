@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { IProfile } from './profile.interface';
-import { $Enums, Cooperative, Prisma, Project } from '@prisma/client';
+import { $Enums, Cooperative, Prisma, Project, WorkerProfile } from '@prisma/client';
 import { CreateCooperativeDto } from '../cooperative/dto/dto';
 import { CreateProjectDto } from '../project/dto/dto';
 import { CreateReportDto } from '../report/dto/dto';
@@ -14,20 +14,8 @@ export class ProfileService implements IProfile {
   /**
    *
    */
-  constructor(private readonly db: DbService) {}
-  async CreateProfile(data: CreateProfileDto): Promise<{
-    id: string;
-    age: number;
-    sex: $Enums.Gender;
-    birthday: Date;
-    address: Prisma.JsonValue;
-    religion: $Enums.Religion;
-    maritalStatus: $Enums.Marital;
-    about: string;
-    photo: Buffer;
-    createdAt: Date;
-    updatedAt: Date;
-  }> {
+  constructor(private readonly db: DbService) { }
+  async CreateProfile(data: CreateProfileDto): Promise<WorkerProfile> {
     try {
       let user = await this.db.user.findFirstOrThrow({
         where: {
@@ -239,19 +227,7 @@ export class ProfileService implements IProfile {
       throw new BadRequestException(error);
     }
   }
-  async findByUserId(data: FindDto): Promise<{
-    id: string;
-    age: number;
-    sex: $Enums.Gender;
-    birthday: Date;
-    address: Prisma.JsonValue;
-    religion: $Enums.Religion;
-    maritalStatus: $Enums.Marital;
-    about: string;
-    photo: Buffer;
-    createdAt: Date;
-    updatedAt: Date;
-  }> {
+  async findByUserId(data: FindDto): Promise<WorkerProfile> {
     try {
       let query = await this.db.workerProfile.findFirstOrThrow({
         where: {
@@ -268,19 +244,7 @@ export class ProfileService implements IProfile {
     }
   }
   async UpdateProperty(data: UpdateDto): Promise<
-    | {
-        id: string;
-        age: number;
-        sex: $Enums.Gender;
-        birthday: Date;
-        address: Prisma.JsonValue;
-        religion: $Enums.Religion;
-        maritalStatus: $Enums.Marital;
-        about: string;
-        photo: Buffer;
-        createdAt: Date;
-        updatedAt: Date;
-      }
+    | WorkerProfile
     | BadRequestException
   > {
     console.log(data);
@@ -289,15 +253,15 @@ export class ProfileService implements IProfile {
       let query =
         data['properties']['about'] !== undefined
           ? await this.db.workerProfile.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                about: data['properties']['about'],
-              },
-            })
+            where: {
+              id: data['id'],
+            },
+            data: {
+              about: data['properties']['about'],
+            },
+          })
           : data['properties']['age'] !== undefined
-          ? await this.db.workerProfile.update({
+            ? await this.db.workerProfile.update({
               where: {
                 id: data['id'],
               },
@@ -305,70 +269,70 @@ export class ProfileService implements IProfile {
                 age: data['properties']['age'],
               },
             })
-          : data['properties']['sex'] !== undefined
-          ? await this.db.workerProfile.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                sex: data['properties']['sex'],
-              },
-            })
-          : data['properties']['birthday'] !== undefined
-          ? await this.db.workerProfile.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                birthday: data['properties']['birthday'],
-              },
-            })
-          : data['properties']['address'] !== undefined
-          ? await this.db.workerProfile.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                address: data['properties']['address'],
-              },
-            })
-          : data['properties']['religion'] !== undefined
-          ? await this.db.workerProfile.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                religion: data['properties']['religion'],
-              },
-            })
-          : data['properties']['religion'] !== undefined
-          ? await this.db.workerProfile.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                religion: data['properties']['religion'],
-              },
-            })
-          : data['properties']['maritalStatus'] !== undefined
-          ? await this.db.workerProfile.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                maritalStatus: data['properties']['maritalStatus'],
-              },
-            })
-          : data['properties']['photo'] !== undefined
-          ? await this.db.workerProfile.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                photo: Buffer.from(data['properties']['maritalStatus']),
-              },
-            })
-          : new BadRequestException('specify a proper type to be updated');
+            : data['properties']['sex'] !== undefined
+              ? await this.db.workerProfile.update({
+                where: {
+                  id: data['id'],
+                },
+                data: {
+                  sex: data['properties']['sex'],
+                },
+              })
+              : data['properties']['birthday'] !== undefined
+                ? await this.db.workerProfile.update({
+                  where: {
+                    id: data['id'],
+                  },
+                  data: {
+                    birthday: data['properties']['birthday'],
+                  },
+                })
+                : data['properties']['address'] !== undefined
+                  ? await this.db.workerProfile.update({
+                    where: {
+                      id: data['id'],
+                    },
+                    data: {
+                      address: data['properties']['address'],
+                    },
+                  })
+                  : data['properties']['religion'] !== undefined
+                    ? await this.db.workerProfile.update({
+                      where: {
+                        id: data['id'],
+                      },
+                      data: {
+                        religion: data['properties']['religion'],
+                      },
+                    })
+                    : data['properties']['religion'] !== undefined
+                      ? await this.db.workerProfile.update({
+                        where: {
+                          id: data['id'],
+                        },
+                        data: {
+                          religion: data['properties']['religion'],
+                        },
+                      })
+                      : data['properties']['maritalStatus'] !== undefined
+                        ? await this.db.workerProfile.update({
+                          where: {
+                            id: data['id'],
+                          },
+                          data: {
+                            maritalStatus: data['properties']['maritalStatus'],
+                          },
+                        })
+                        : data['properties']['photo'] !== undefined
+                          ? await this.db.workerProfile.update({
+                            where: {
+                              id: data['id'],
+                            },
+                            data: {
+                              photo: Buffer.from(data['properties']['maritalStatus']),
+                            },
+                          })
+                          : new BadRequestException('specify a proper type to be updated');
       return query;
     } catch (error) {
       throw new BadRequestException(error);

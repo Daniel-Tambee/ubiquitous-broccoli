@@ -2025,6 +2025,7 @@ const farmer_module_1 = __webpack_require__(/*! apps/farmer/src/farmer.module */
 const schedule_1 = __webpack_require__(/*! @nestjs/schedule */ "@nestjs/schedule");
 const email_service_1 = __webpack_require__(/*! @app/lib/email/email.service */ "./libs/lib/src/email/email.service.ts");
 const auth_module_1 = __webpack_require__(/*! @app/lib/auth/auth.module */ "./libs/lib/src/auth/auth.module.ts");
+const localgovernment_module_1 = __webpack_require__(/*! ../localgovernment/localgovernment.module */ "./apps/extension-worker/src/localgovernment/localgovernment.module.ts");
 let ExtensionWorkerModule = class ExtensionWorkerModule {
 };
 ExtensionWorkerModule = __decorate([
@@ -2043,7 +2044,8 @@ ExtensionWorkerModule = __decorate([
             appointment_module_1.AppointmentModule,
             farmer_module_1.FarmerModule,
             schedule_1.ScheduleModule.forRoot(),
-            auth_module_1.AuthModule
+            auth_module_1.AuthModule,
+            localgovernment_module_1.LocalgovernmentModule
         ],
         controllers: [
             auth_controller_1.AuthController,
@@ -2459,6 +2461,145 @@ WorkerService = __decorate([
     __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
 ], WorkerService);
 exports.WorkerService = WorkerService;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/localgovernment/localgovernment.module.ts":
+/*!*****************************************************************************!*\
+  !*** ./apps/extension-worker/src/localgovernment/localgovernment.module.ts ***!
+  \*****************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LocalgovernmentModule = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const lol_gov_service_1 = __webpack_require__(/*! ./lol_gov.service */ "./apps/extension-worker/src/localgovernment/lol_gov.service.ts");
+const lol_gov_controller_1 = __webpack_require__(/*! ./lol_gov.controller */ "./apps/extension-worker/src/localgovernment/lol_gov.controller.ts");
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+let LocalgovernmentModule = class LocalgovernmentModule {
+};
+LocalgovernmentModule = __decorate([
+    (0, common_1.Module)({
+        providers: [lol_gov_service_1.LolGovService, db_service_1.DbService],
+        controllers: [lol_gov_controller_1.LolGovController]
+    })
+], LocalgovernmentModule);
+exports.LocalgovernmentModule = LocalgovernmentModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/localgovernment/lol_gov.controller.ts":
+/*!*************************************************************************!*\
+  !*** ./apps/extension-worker/src/localgovernment/lol_gov.controller.ts ***!
+  \*************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LolGovController = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const lol_gov_service_1 = __webpack_require__(/*! ./lol_gov.service */ "./apps/extension-worker/src/localgovernment/lol_gov.service.ts");
+let LolGovController = class LolGovController {
+    constructor(lcl) {
+        this.lcl = lcl;
+    }
+    async getAllLocalGov() {
+        try {
+            return this.lcl.getAllLocalGov();
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined);
+        }
+    }
+    async getFarmersByLocalGovernment(id) {
+        try {
+            return this.lcl.getFarmersByLocalGovernment(id);
+        }
+        catch (error) {
+        }
+    }
+};
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], LolGovController.prototype, "getAllLocalGov", null);
+__decorate([
+    (0, common_1.Get)('getFarmersByLocalGovernment'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], LolGovController.prototype, "getFarmersByLocalGovernment", null);
+LolGovController = __decorate([
+    (0, common_1.Controller)('lol-gov'),
+    __metadata("design:paramtypes", [typeof (_a = typeof lol_gov_service_1.LolGovService !== "undefined" && lol_gov_service_1.LolGovService) === "function" ? _a : Object])
+], LolGovController);
+exports.LolGovController = LolGovController;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/localgovernment/lol_gov.service.ts":
+/*!**********************************************************************!*\
+  !*** ./apps/extension-worker/src/localgovernment/lol_gov.service.ts ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LolGovService = void 0;
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+let LolGovService = class LolGovService {
+    constructor(db) {
+        this.db = db;
+    }
+    async getAllLocalGov() {
+        return this.db.localGovernment.findMany();
+    }
+    async getFarmersByLocalGovernment(id) {
+        return this.db.farmerProfile.findMany({
+            where: {
+                localGovernmentId: id
+            }
+        });
+    }
+};
+LolGovService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], LolGovService);
+exports.LolGovService = LolGovService;
 
 
 /***/ }),

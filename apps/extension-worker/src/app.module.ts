@@ -12,6 +12,8 @@ import { ReportModule } from './report/report.module';
 import { InterventionModule } from './Intervention/Intervention.module';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ConfigModule } from '@nestjs/config';
+import { LocalgovernmentModule } from './localgovernment/localgovernment.module';
+import { LolGovService } from './localgovernment/lol_gov.service';
 
 @Module({
   imports: [
@@ -27,8 +29,9 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       envFilePath: './',
     }),
+    LocalgovernmentModule,
   ],
   controllers: [AuthController],
-  providers: [WorkerService, AuthService],
+  providers: [WorkerService, AuthService, LolGovService],
 })
 export class AppModule {}

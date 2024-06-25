@@ -31,6 +31,7 @@ import { FarmerModule } from 'apps/farmer/src/farmer.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { MailService } from '@app/lib/email/email.service';
 import { AuthModule } from '@app/lib/auth/auth.module';
+import { LocalgovernmentModule } from '../localgovernment/localgovernment.module';
 
 @Module({
   imports: [
@@ -47,7 +48,8 @@ import { AuthModule } from '@app/lib/auth/auth.module';
     AppointmentModule,
     FarmerModule,
     ScheduleModule.forRoot(),
-    AuthModule
+    AuthModule,
+    LocalgovernmentModule
   ],
   controllers: [
     AuthController,

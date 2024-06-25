@@ -59,25 +59,27 @@ model FarmerProfile {
 }
 
 model WorkerProfile {
-  id            String          @id @default(cuid()) @map("_id")
-  age           Int
-  sex           Gender
-  birthday      DateTime
-  address       Json
-  religion      Religion
-  maritalStatus Marital
-  User          User[]
-  projects      Project[]
-  reports       Report[]
-  reset         PasswordReset[]
-  about         String?
-  photo         Bytes?
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  Cooperative   Cooperative[]
-  Visit         Visit[]
-  Challenge     Challenge[]
-  Appointment   Appointment[]
+  id                String           @id @default(cuid()) @map("_id")
+  age               Int
+  sex               Gender
+  birthday          DateTime
+  address           Json
+  religion          Religion
+  maritalStatus     Marital
+  User              User[]
+  projects          Project[]
+  reports           Report[]
+  reset             PasswordReset[]
+  about             String?
+  photo             Bytes?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  Cooperative       Cooperative[]
+  Visit             Visit[]
+  Challenge         Challenge[]
+  Appointment       Appointment[]
+  LocalGovernment   LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
+  localGovernmentId String?
 }
 
 model AdminProfile {
@@ -265,11 +267,12 @@ model Appointment {
 
 model LocalGovernment {
   id            String          @id @default(cuid()) @map("_id")
-  name          String
+  name          String          @unique()
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   Cooperative   Cooperative[]
   FarmerProfile FarmerProfile[]
+  worker        WorkerProfile[]
 }
 
 model Intervention {
