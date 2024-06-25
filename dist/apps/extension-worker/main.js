@@ -6441,7 +6441,7 @@ let AuthService = class AuthService {
             });
             console.log(user);
             const resetToken = (0, jsonwebtoken_1.sign)(user, process.env.HASH_SECRET, { expiresIn: '1h' });
-            const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+            const resetLink = `${process.env.FRONTEND_URL}?token=${resetToken}`;
             const change = await this.db.passwordReset.create({
                 data: {
                     resetToken: resetToken,

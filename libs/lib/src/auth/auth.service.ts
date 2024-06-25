@@ -154,7 +154,7 @@ export class AuthService implements IAuth {
         process.env.HASH_SECRET,
         { expiresIn: '1h' }
       );
-      const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+      const resetLink = `${process.env.FRONTEND_URL}?token=${resetToken}`;
 
       // Step 3: Create a password reset entry in the database
       const change = await this.db.passwordReset.create({
