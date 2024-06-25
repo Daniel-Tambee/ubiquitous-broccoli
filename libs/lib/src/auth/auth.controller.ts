@@ -1,4 +1,4 @@
-import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Body, ValidationPipe, BadRequestException, Param, Query } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-auth.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -30,10 +30,14 @@ export class AuthController implements IAuth {
 
     return this.authService.ForgotPassword(data);
   }
-  @Post('verifyOtp')
-  verifyOtp(@Body() data: UpdateDto) {
-    console.log(data);
+  @Post('reset-password')
+  async resetPassword(@Query('token') token: string, @Body('newPassword') newPassword: string) {
+    try {
 
-    return this.authService.verifyOtp(data);
+      const result = await this.authService.resetPassword(token, newPassword);
+      return { message: result.message };
+    } catch (error) {
+      throw new BadRequestException('Failed to reset password', error.message);
+    }
   }
 }

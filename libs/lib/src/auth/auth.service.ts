@@ -16,6 +16,7 @@ import { DbService } from '../db/db.service';
 import { generateTOTP, verifyTOTP } from '../otp_generation';
 import { MailService } from '../email/email.service';
 import { getPasswordResetTemplate } from '../emailTemplate';
+import { sign, verify as jwtVer, decode } from 'jsonwebtoken';
 
 @Injectable()
 export class AuthService implements IAuth {
@@ -56,7 +57,7 @@ export class AuthService implements IAuth {
   async SignIn(data: Partial<ValidationDto>) {
     try {
       let user;
-      
+
       switch (data['type']) {
         case 'FARMER':
           user = await this.farmer.FindByEmail(data);
@@ -70,13 +71,13 @@ export class AuthService implements IAuth {
         default:
           throw new Error('Cant Find Any Users By that email');
       }
-      
+
       if (!user) {
         throw new Error('User not found');
       }
-  
+
       console.log(user);
-  
+
       const verification = await verify(
         user['password'],
         Buffer.from(data['password']),
@@ -84,22 +85,22 @@ export class AuthService implements IAuth {
           secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
         },
       );
-  
+
       if (!verification) {
         throw new UnauthorizedException('Invalid password');
       }
-  
+
       user['access_token'] = this.jwtService.sign(data, {
         secret: process.env.HASH_SECRET || 'hash',
       });
-  
+
       return user;
     } catch (error) {
       console.log(error);
       throw new UnauthorizedException(undefined, error.message);
     }
   }
-    // TODO find a way to invalidate token
+  // TODO find a way to invalidate token
   async SignOut(data: Map<string, any>) {
     throw new Error('Method not implemented.');
   }
@@ -109,11 +110,11 @@ export class AuthService implements IAuth {
     try {
       let user =
         data['type'] == 'FARMER'
-          ? this.farmer.FindByEmail(data)
+          ? await this.farmer.FindByEmail(data)
           : data['type'] == 'ADMIN'
-            ? this.admin.FindByEmail(data)
+            ? await this.admin.FindByEmail(data)
             : data['type'] == 'EXTENSION_WORKER'
-              ? this.extensionWorker.FindByEmail(data)
+              ? await this.extensionWorker.FindByEmail(data)
               : new Error('Cant Find Any Users By that email');
 
       const verification = await verify(
@@ -131,7 +132,7 @@ export class AuthService implements IAuth {
         throw new UnauthorizedException();
       }
     } catch (error) {
-      throw new BadRequestException(undefined,error);
+      throw new BadRequestException(undefined, error);
     }
   }
   // TODO add them to db
@@ -147,53 +148,49 @@ export class AuthService implements IAuth {
 
       console.log(user);
 
-
-      // Step 2: Generate a new hashed password and OTP
-      const newPassword = await hash(Buffer.from(data['property']['newPassword']), {
-        secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-        type: 2,
-      });
-
-      const otp = generateTOTP();
+      // Step 2: Generate a JWT reset token
+      const resetToken = sign(
+        user,
+        process.env.HASH_SECRET,
+        { expiresIn: '1h' }
+      );
+      const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
 
       // Step 3: Create a password reset entry in the database
       const change = await this.db.passwordReset.create({
         data: {
-          newPassword: newPassword,
-          otp: otp,
+          resetToken: resetToken,
         },
         select: {
           id: true,
-          otp: true,
+          resetToken: true,
         },
       });
 
+      // Step 4: Send the reset email with the reset link
       await this.mail.sendEmail(
         user.email,
-        'YolaFarms PasswordReset',
-        change.otp,
-        getPasswordResetTemplate(user.first_name, change.otp),
+        'YolaFarms Password Reset',
+        'Password RESET',
+        getPasswordResetTemplate(user.first_name, resetLink),
       );
 
-
-      // Step 4: Update the user's admin profile with the reset ID
+      // Step 5: Update the user's admin profile with the reset ID
       await this.db.adminProfile.update({
         where: {
-          id: user['adminProfileId']
+          id: user['adminProfileId'],
         },
         data: {
           reset: {
             connect: {
-              id: change.id
-            }
-          }
+              id: change.id,
+            },
+          },
         },
       });
 
-      // Step 5: Send the reset email to the user
-
-      // Remove OTP from response for security
-      delete change.otp;
+      // Remove the reset token from response for security
+      delete change.resetToken;
       return change;
     } catch (error) {
       console.log(error);
@@ -204,47 +201,6 @@ export class AuthService implements IAuth {
       );
     }
   }
-
-  async verifyOtp(data: UpdateDto) {
-    try {
-      console.log(data);
-
-      // Retrieve the new password from the database
-      const passwordReset = await this.db.passwordReset.findFirstOrThrow({
-        where: { id: data['property']['ResetId'] },
-      });
-
-      const email = await this.db.user.findFirst({
-        where: {
-          email: data['property']['email']
-        }
-      })
-      // Extract the OTP and new password
-      const otp = data['property']['otp'];
-      const newPassword = passwordReset.newPassword;
-
-      // Verify the OTP
-      // const verified = verifyTOTP(otp);
-      // if (!verified) {
-      //   throw new BadRequestException(undefined, 'Invalid or expired OTP');
-      // }
-
-      // Update the data object with the new password
-      data['property']['password'] = newPassword;
-      delete data['property']['ResetId'];
-      delete data['property']['otp'];
-      console.log(data);
-
-      // Handle the password update based on the user type
-      this.updatePasswordByUserType(data)
-      // await this.updatePasswordByUserType(data);
-
-      return true;
-    } catch (error) {
-      throw new BadRequestException(undefined, error.message || error);
-    }
-  }
-
   private async updatePasswordByUserType(data: UpdateDto) {
     const { type } = data;
 
@@ -262,4 +218,62 @@ export class AuthService implements IAuth {
         throw new Error('Cannot find any users by that type');
     }
   }
+
+  async resetPassword(token: string, newPassword: string) {
+    try {
+      console.log(token);
+
+      // Step 1: Decode and verify the reset token
+      const decodedToken = jwtVer(token, process.env.HASH_SECRET);
+      const dec = await decode(token, {
+
+      })
+      console.log(dec);
+
+      // Step 2: Find the corresponding password reset entry
+      const resetEntry = await this.db.passwordReset.findFirst({
+        where: {
+          resetToken: token,
+        },
+      });
+
+      if (!resetEntry) {
+        throw new Error('Invalid or expired reset token');
+      }
+
+      // Step 3: Update the user's password
+      await this.db.user.update({
+        where: {
+          id: dec['id'],
+          type:dec['type']
+        },
+        data: {
+          password: await hash(newPassword, {
+            secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+            type: 2,
+          })
+          // Use bcrypt or a similar library for hashing
+        },
+      });
+
+      // Step 4: Delete the password reset entry to invalidate the token
+      await this.db.passwordReset.delete({
+        where: {
+          id: resetEntry.id,
+        },
+      });
+
+      // Step 5: Optionally, perform any additional cleanup or logging
+
+      return { message: 'Password reset successful' };
+    } catch (error) {
+      console.log(error);
+
+      throw new BadRequestException(
+        'Error resetting password',
+        error.message || error,
+      );
+    }
+  }
+
 }

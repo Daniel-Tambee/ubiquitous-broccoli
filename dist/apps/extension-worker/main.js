@@ -6108,7 +6108,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -6136,9 +6136,14 @@ let AuthController = class AuthController {
     ForgotPassword(data) {
         return this.authService.ForgotPassword(data);
     }
-    verifyOtp(data) {
-        console.log(data);
-        return this.authService.verifyOtp(data);
+    async resetPassword(token, newPassword) {
+        try {
+            const result = await this.authService.resetPassword(token, newPassword);
+            return { message: result.message };
+        }
+        catch (error) {
+            throw new common_1.BadRequestException('Failed to reset password', error.message);
+        }
     }
 };
 __decorate([
@@ -6170,12 +6175,13 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "ForgotPassword", null);
 __decorate([
-    (0, common_1.Post)('verifyOtp'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('reset-password'),
+    __param(0, (0, common_1.Query)('token')),
+    __param(1, (0, common_1.Body)('newPassword')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof dto_1.UpdateDto !== "undefined" && dto_1.UpdateDto) === "function" ? _e : Object]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "verifyOtp", null);
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "resetPassword", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     (0, swagger_1.ApiTags)('Auth'),
@@ -6319,9 +6325,9 @@ const worker_service_1 = __webpack_require__(/*! apps/extension-worker/src/exten
 const argon2_1 = __webpack_require__(/*! argon2 */ "argon2");
 const jwt_1 = __webpack_require__(/*! @nestjs/jwt */ "@nestjs/jwt");
 const db_service_1 = __webpack_require__(/*! ../db/db.service */ "./libs/lib/src/db/db.service.ts");
-const otp_generation_1 = __webpack_require__(/*! ../otp_generation */ "./libs/lib/src/otp_generation.ts");
 const email_service_1 = __webpack_require__(/*! ../email/email.service */ "./libs/lib/src/email/email.service.ts");
 const emailTemplate_1 = __webpack_require__(/*! ../emailTemplate */ "./libs/lib/src/emailTemplate.ts");
+const jsonwebtoken_1 = __webpack_require__(/*! jsonwebtoken */ "jsonwebtoken");
 let AuthService = class AuthService {
     constructor(farmer, admin, extensionWorker, jwtService, db, mail) {
         this.farmer = farmer;
@@ -6391,11 +6397,11 @@ let AuthService = class AuthService {
     async validate(data) {
         try {
             let user = data['type'] == 'FARMER'
-                ? this.farmer.FindByEmail(data)
+                ? await this.farmer.FindByEmail(data)
                 : data['type'] == 'ADMIN'
-                    ? this.admin.FindByEmail(data)
+                    ? await this.admin.FindByEmail(data)
                     : data['type'] == 'EXTENSION_WORKER'
-                        ? this.extensionWorker.FindByEmail(data)
+                        ? await this.extensionWorker.FindByEmail(data)
                         : new Error('Cant Find Any Users By that email');
             const verification = await (0, argon2_1.verify)(user['password'], Buffer.from(data['password']), {
                 secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
@@ -6421,64 +6427,36 @@ let AuthService = class AuthService {
                 },
             });
             console.log(user);
-            const newPassword = await (0, argon2_1.hash)(Buffer.from(data['property']['newPassword']), {
-                secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
-                type: 2,
-            });
-            const otp = (0, otp_generation_1.generateTOTP)();
+            const resetToken = (0, jsonwebtoken_1.sign)(user, process.env.HASH_SECRET, { expiresIn: '1h' });
+            const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
             const change = await this.db.passwordReset.create({
                 data: {
-                    newPassword: newPassword,
-                    otp: otp,
+                    resetToken: resetToken,
                 },
                 select: {
                     id: true,
-                    otp: true,
+                    resetToken: true,
                 },
             });
-            await this.mail.sendEmail(user.email, 'YolaFarms PasswordReset', change.otp, (0, emailTemplate_1.getPasswordResetTemplate)(user.first_name, change.otp));
+            await this.mail.sendEmail(user.email, 'YolaFarms Password Reset', 'Password RESET', (0, emailTemplate_1.getPasswordResetTemplate)(user.first_name, resetLink));
             await this.db.adminProfile.update({
                 where: {
-                    id: user['adminProfileId']
+                    id: user['adminProfileId'],
                 },
                 data: {
                     reset: {
                         connect: {
-                            id: change.id
-                        }
-                    }
+                            id: change.id,
+                        },
+                    },
                 },
             });
-            delete change.otp;
+            delete change.resetToken;
             return change;
         }
         catch (error) {
             console.log(error);
             throw new common_1.BadRequestException('Error processing password reset request', error.message || error);
-        }
-    }
-    async verifyOtp(data) {
-        try {
-            console.log(data);
-            const passwordReset = await this.db.passwordReset.findFirstOrThrow({
-                where: { id: data['property']['ResetId'] },
-            });
-            const email = await this.db.user.findFirst({
-                where: {
-                    email: data['property']['email']
-                }
-            });
-            const otp = data['property']['otp'];
-            const newPassword = passwordReset.newPassword;
-            data['property']['password'] = newPassword;
-            delete data['property']['ResetId'];
-            delete data['property']['otp'];
-            console.log(data);
-            this.updatePasswordByUserType(data);
-            return true;
-        }
-        catch (error) {
-            throw new common_1.BadRequestException(undefined, error.message || error);
         }
     }
     async updatePasswordByUserType(data) {
@@ -6495,6 +6473,44 @@ let AuthService = class AuthService {
                 break;
             default:
                 throw new Error('Cannot find any users by that type');
+        }
+    }
+    async resetPassword(token, newPassword) {
+        try {
+            console.log(token);
+            const decodedToken = (0, jsonwebtoken_1.verify)(token, process.env.HASH_SECRET);
+            const dec = await (0, jsonwebtoken_1.decode)(token, {});
+            console.log(dec);
+            const resetEntry = await this.db.passwordReset.findFirst({
+                where: {
+                    resetToken: token,
+                },
+            });
+            if (!resetEntry) {
+                throw new Error('Invalid or expired reset token');
+            }
+            await this.db.user.update({
+                where: {
+                    id: dec['id'],
+                    type: dec['type']
+                },
+                data: {
+                    password: await (0, argon2_1.hash)(newPassword, {
+                        secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+                        type: 2,
+                    })
+                },
+            });
+            await this.db.passwordReset.delete({
+                where: {
+                    id: resetEntry.id,
+                },
+            });
+            return { message: 'Password reset successful' };
+        }
+        catch (error) {
+            console.log(error);
+            throw new common_1.BadRequestException('Error resetting password', error.message || error);
         }
     }
 };
@@ -6892,51 +6908,6 @@ exports.calculateGrowth = calculateGrowth;
 
 /***/ }),
 
-/***/ "./libs/lib/src/otp_generation.ts":
-/*!****************************************!*\
-  !*** ./libs/lib/src/otp_generation.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.verifyTOTP = exports.generateTOTP = void 0;
-const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
-const otplib_1 = __webpack_require__(/*! otplib */ "otplib");
-const cache = __webpack_require__(/*! memory-cache */ "memory-cache");
-const secret = otplib_1.authenticator.generateSecret();
-const generateTOTP = () => {
-    try {
-        const token = otplib_1.authenticator.generate(secret);
-        cache.put('otp_tokens', token, 30 * 60 * 1000);
-        return token;
-    }
-    catch (error) {
-        throw new common_1.BadRequestException(undefined, error);
-    }
-};
-exports.generateTOTP = generateTOTP;
-const verifyTOTP = (token) => {
-    const window = 5 * 60 * 1000;
-    const currentTime = Date.now();
-    try {
-        for (let i = 0; i <= 5; i++) {
-            const cachedToken = cache.get(`otp_tokens_${currentTime - window * i}`);
-            if (cachedToken && otplib_1.authenticator.check(token, secret)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    catch (error) {
-        throw new common_1.BadRequestException(undefined, error);
-    }
-};
-exports.verifyTOTP = verifyTOTP;
-
-
-/***/ }),
-
 /***/ "./libs/lib/src/projects_growth_calc.ts":
 /*!**********************************************!*\
   !*** ./libs/lib/src/projects_growth_calc.ts ***!
@@ -7165,23 +7136,13 @@ module.exports = require("class-validator");
 
 /***/ }),
 
-/***/ "memory-cache":
+/***/ "jsonwebtoken":
 /*!*******************************!*\
-  !*** external "memory-cache" ***!
+  !*** external "jsonwebtoken" ***!
   \*******************************/
 /***/ ((module) => {
 
-module.exports = require("memory-cache");
-
-/***/ }),
-
-/***/ "otplib":
-/*!*************************!*\
-  !*** external "otplib" ***!
-  \*************************/
-/***/ ((module) => {
-
-module.exports = require("otplib");
+module.exports = require("jsonwebtoken");
 
 /***/ }),
 
