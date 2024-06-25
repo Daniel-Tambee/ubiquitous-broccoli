@@ -25,9 +25,9 @@ model User {
   workerProfileId String?
   adminProfile    AdminProfile?  @relation(fields: [adminProfileId], references: [id])
   adminProfileId  String?
-  type      UserType @default(EXTENSION_WORKER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  type            UserType       @default(EXTENSION_WORKER)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 }
 
 // TODO add different profiles for users
@@ -176,8 +176,7 @@ model Login {
 
 model PasswordReset {
   id              String         @id @default(cuid()) @map("_id")
-  otp             String
-  newPassword     String
+  resetToken      String?
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   WorkerProfile   WorkerProfile? @relation(fields: [workerProfileId], references: [id])
