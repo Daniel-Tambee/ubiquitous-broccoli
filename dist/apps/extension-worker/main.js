@@ -6070,6 +6070,19 @@ let FarmerService = class FarmerService {
             throw new common_1.BadRequestException(error);
         }
     }
+    async findByLocalGovernmentId(id) {
+        try {
+            const res = await this.db.farmerProfile.findFirstOrThrow({
+                where: {
+                    localGovernmentId: id
+                }
+            });
+            return res;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
     cronThing() {
         console.log('dont sleep');
     }
