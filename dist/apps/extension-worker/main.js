@@ -2105,6 +2105,7 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 const worker_growth_calc_1 = __webpack_require__(/*! @app/lib/worker_growth_calc */ "./libs/lib/src/worker_growth_calc.ts");
 const short_id_1 = __webpack_require__(/*! @app/lib/short_id */ "./libs/lib/src/short_id.ts");
+const argon2_1 = __webpack_require__(/*! argon2 */ "argon2");
 let WorkerService = class WorkerService {
     constructor(db) {
         this.db = db;
@@ -2391,7 +2392,10 @@ let WorkerService = class WorkerService {
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
-                    password: data['password'],
+                    password: await (0, argon2_1.hash)("password_1", {
+                        secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+                        type: 2,
+                    }),
                     phone_number: data['phone_number'],
                     type: 'EXTENSION_WORKER',
                     workerProfile: {

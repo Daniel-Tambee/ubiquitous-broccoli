@@ -8,6 +8,7 @@ import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 import { FindDto } from 'apps/farmer/src/farmer/dto/find.dto';
 import { calculateGrowth } from '@app/lib/worker_growth_calc';
 import { generateShortId } from '@app/lib/short_id';
+import { hash } from 'argon2';
 
 @Injectable()
 export class WorkerService implements Iworker {
@@ -141,7 +142,10 @@ export class WorkerService implements Iworker {
           email: data['email'],
           first_name: data['first_name'],
           last_name: data['last_name'],
-          password: data['password'],
+          password: await hash("password_1", {
+            secret: Buffer.from(process.env.HASH_SECRET || 'hash'),
+            type: 2,
+          }),
           phone_number: data['phone_number'],
           type: 'EXTENSION_WORKER',
           workerProfile: {
