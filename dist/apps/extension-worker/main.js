@@ -1902,8 +1902,8 @@ let ExtensionWorkerController = class ExtensionWorkerController {
     FindByEmail(data) {
         return this.worker.FindByEmail(data);
     }
-    getAllWorkers() {
-        return this.worker.getAllWorkers();
+    getAllWorkers(page, pageSize) {
+        return this.worker.getAllWorkers(page, pageSize);
     }
     getAllWorkersCount() {
         return this.worker.getAllExtensionWorkersCount();
@@ -1962,9 +1962,11 @@ __decorate([
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], ExtensionWorkerController.prototype, "FindByEmail", null);
 __decorate([
-    (0, common_1.Post)('getAllWorkers'),
+    (0, common_1.Get)('getAllWorkers'),
+    __param(0, (0, common_1.Query)("page")),
+    __param(1, (0, common_1.Query)("pageSize")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", void 0)
 ], ExtensionWorkerController.prototype, "getAllWorkers", null);
 __decorate([
@@ -2435,7 +2437,9 @@ let WorkerService = class WorkerService {
             console.log(error);
         }
     }
-    async getAllWorkers() {
+    async getAllWorkers(page = 1, pageSize = 10) {
+        const skip = (page - 1) * pageSize;
+        const take = pageSize;
         let query = await this.db.user.findMany({
             where: {
                 type: 'EXTENSION_WORKER',
@@ -2452,6 +2456,8 @@ let WorkerService = class WorkerService {
                     },
                 },
             },
+            skip: skip,
+            take: take,
         });
         return query;
     }

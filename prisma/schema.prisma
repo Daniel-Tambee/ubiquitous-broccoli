@@ -36,7 +36,7 @@ model FarmerProfile {
   age               Int
   sex               Gender
   address           Json
-  birthday          DateTime
+  birthday          DateTime?
   income            IncomeRange
   religion          Religion
   maritalStatus     Marital
@@ -53,7 +53,7 @@ model FarmerProfile {
   updatedAt         DateTime        @updatedAt
   Intervention      Intervention[]
   Project           Project?        @relation(fields: [projectId], references: [id])
-  projectId         String?
+  projectId         String
   logins            Login[]
   lga               LocalGovernment @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String
@@ -63,7 +63,7 @@ model WorkerProfile {
   id                String          @id @default(cuid()) @map("_id")
   age               Int
   sex               Gender
-  birthday          DateTime
+  birthday          DateTime?
   address           Json
   religion          Religion
   maritalStatus     Marital

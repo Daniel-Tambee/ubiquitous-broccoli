@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -68,9 +69,9 @@ export class ExtensionWorkerController {
   FindByEmail(@Body(new ValidationPipe()) data: ValidationDto): Promise<User> {
     return this.worker.FindByEmail(data);
   }
-  @Post('getAllWorkers')
-  getAllWorkers() {
-    return this.worker.getAllWorkers();
+  @Get('getAllWorkers')
+  getAllWorkers(@Query("page") page?: number, @Query("pageSize") pageSize?: number) {
+    return this.worker.getAllWorkers(page, pageSize);
   }
 
   @Get('getAllWorkersCount')

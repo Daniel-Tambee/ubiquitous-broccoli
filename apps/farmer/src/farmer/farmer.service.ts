@@ -338,6 +338,7 @@ export class FarmerService {
             include: {
               lga: true,
               household: true,
+              Project: true
             },
           },
         },
