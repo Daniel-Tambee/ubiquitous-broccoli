@@ -187,7 +187,7 @@ export class WorkerService implements Iworker {
   async getAllWorkers(page = 1, pageSize = 10) {
     const skip = (page - 1) * pageSize;
     const take = pageSize;
-  
+    let count = (await this.db.workerProfile.findMany()).length;
     let query = await this.db.user.findMany({
       where: {
         type: 'EXTENSION_WORKER',
@@ -202,15 +202,21 @@ export class WorkerService implements Iworker {
             reports: true,
             Visit: true,
           },
+
         },
+
       },
       skip: skip,
       take: take,
     });
-  
-    return query;
+
+    const data: {} = {
+      count: count,
+      query: query
+    }
+    return data;
   }
-  
+
   UpdateProperties = async (
     data: UpdateDto,
     id: string,

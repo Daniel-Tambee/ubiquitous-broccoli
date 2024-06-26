@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, ParseIntPipe, Post, Query, ValidationPipe } from '@nestjs/common';
 import { FarmerService } from './farmer.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
@@ -12,7 +12,7 @@ export class FarmerController {
   /**
    *
    */
-  constructor(private readonly farmer: FarmerService) {}
+  constructor(private readonly farmer: FarmerService) { }
   @Post('FindByEmail')
   FindByEmail(data: Partial<ValidationDto>) {
     return this.farmer.FindByEmail(data);
@@ -34,8 +34,8 @@ export class FarmerController {
     return this.farmer.CreateResource(data);
   }
   @Post('getAllFarmers')
-  getAllFarmers() {
-    return this.farmer.getAllFarmers();
+  getAllFarmers(@Query("page", new ParseIntPipe()) page?: number, @Query("pageSize", new ParseIntPipe()) pageSize?: number) {
+    return this.farmer.getAllFarmers(page, pageSize);
   }
   @Post('getAllProjects')
   getAllProjects(@Body(new ValidationPipe()) data: FindDto) {

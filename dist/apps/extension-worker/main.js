@@ -1963,8 +1963,8 @@ __decorate([
 ], ExtensionWorkerController.prototype, "FindByEmail", null);
 __decorate([
     (0, common_1.Get)('getAllWorkers'),
-    __param(0, (0, common_1.Query)("page")),
-    __param(1, (0, common_1.Query)("pageSize")),
+    __param(0, (0, common_1.Query)("page", new common_1.ParseIntPipe())),
+    __param(1, (0, common_1.Query)("pageSize", new common_1.ParseIntPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", void 0)
@@ -5689,8 +5689,8 @@ let FarmerController = class FarmerController {
     Create_Farmer(data) {
         return this.farmer.CreateResource(data);
     }
-    getAllFarmers() {
-        return this.farmer.getAllFarmers();
+    getAllFarmers(page, pageSize) {
+        return this.farmer.getAllFarmers(page, pageSize);
     }
     getAllProjects(data) {
         return this.farmer.getAllProjects(data);
@@ -5738,8 +5738,10 @@ __decorate([
 ], FarmerController.prototype, "Create_Farmer", null);
 __decorate([
     (0, common_1.Post)('getAllFarmers'),
+    __param(0, (0, common_1.Query)("page", new common_1.ParseIntPipe())),
+    __param(1, (0, common_1.Query)("pageSize", new common_1.ParseIntPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "getAllFarmers", null);
 __decorate([
@@ -6148,6 +6150,7 @@ let FarmerService = class FarmerService {
                         include: {
                             lga: true,
                             household: true,
+                            Project: true,
                         },
                     },
                 },
@@ -6181,12 +6184,16 @@ let FarmerService = class FarmerService {
             console.log(error);
         }
     }
-    async getAllFarmers() {
+    async getAllFarmers(page = 1, pageSize = 10) {
+        const skip = (page - 1) * pageSize;
+        const take = pageSize;
         try {
             const query = await this.db.user.findMany({
                 where: {
                     type: 'FARMER',
                 },
+                skip: skip,
+                take: take,
             });
             const resultPromises = query.map(async (farmer) => {
                 farmer.workerProfileId = undefined;
@@ -6251,8 +6258,8 @@ let FarmerService = class FarmerService {
         try {
             const res = await this.db.farmerProfile.findFirstOrThrow({
                 where: {
-                    localGovernmentId: id
-                }
+                    localGovernmentId: id,
+                },
             });
             return res;
         }
