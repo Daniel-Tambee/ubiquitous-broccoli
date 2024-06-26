@@ -11,6 +11,6 @@ import { MailService } from '@app/lib/email/email.service';
 
 @Module({
   controllers: [CooperativeController],
-  providers: [CooperativeService,DbService,AuthService,FarmerService,AdminService,WorkerService,JwtService,MailService]
+  providers: [CooperativeService, DbService, AuthService, FarmerService, AdminService, WorkerService, JwtService, MailService]
 })
-export class CooperativeModule {}
+export class CooperativeModule { }

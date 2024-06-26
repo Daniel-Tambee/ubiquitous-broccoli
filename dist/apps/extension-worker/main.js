@@ -23,6 +23,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const short_id_1 = __webpack_require__(/*! @app/lib/short_id */ "./libs/lib/src/short_id.ts");
 let AdminService = class AdminService {
     constructor(db) {
         this.db = db;
@@ -143,6 +144,7 @@ let AdminService = class AdminService {
         try {
             const user = await this.db.user.create({
                 data: {
+                    id: (0, short_id_1.generateShortId)(),
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
@@ -150,7 +152,9 @@ let AdminService = class AdminService {
                     phone_number: data['phone_number'],
                     type: 'ADMIN',
                     adminProfile: {
-                        create: {},
+                        create: {
+                            id: (0, short_id_1.generateShortId)(),
+                        },
                     },
                 },
             });
@@ -1534,6 +1538,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CooperativeService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const short_id_1 = __webpack_require__(/*! @app/lib/short_id */ "./libs/lib/src/short_id.ts");
 let CooperativeService = class CooperativeService {
     constructor(db) {
         this.db = db;
@@ -1681,6 +1686,7 @@ let CooperativeService = class CooperativeService {
     }
     async getAllCooperatives() {
         try {
+            await (0, short_id_1.generateShortId)();
             return this.db.cooperative.findMany({
                 include: {
                     lga: true,
@@ -2098,6 +2104,7 @@ exports.WorkerService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 const worker_growth_calc_1 = __webpack_require__(/*! @app/lib/worker_growth_calc */ "./libs/lib/src/worker_growth_calc.ts");
+const short_id_1 = __webpack_require__(/*! @app/lib/short_id */ "./libs/lib/src/short_id.ts");
 let WorkerService = class WorkerService {
     constructor(db) {
         this.db = db;
@@ -2379,6 +2386,8 @@ let WorkerService = class WorkerService {
         try {
             const user = await this.db.user.create({
                 data: {
+                    id: (0, short_id_1.generateShortId)(),
+                    nin: data['nin'],
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
@@ -2387,6 +2396,7 @@ let WorkerService = class WorkerService {
                     type: 'EXTENSION_WORKER',
                     workerProfile: {
                         create: {
+                            id: (0, short_id_1.generateShortId)(),
                             address: data['address'] !== undefined ? data['address'] : JSON,
                             age: Number(data['age']),
                             birthday: data['birthday'],
@@ -2539,7 +2549,7 @@ let LolGovController = class LolGovController {
     }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)("getAllLocalGov"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -3808,6 +3818,7 @@ __decorate([
 ], CreateProjectDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
 ], CreateProjectDto.prototype, "farmer_ids", void 0);
 __decorate([
@@ -3940,6 +3951,7 @@ let ProjectController = class ProjectController {
     }
     Addparticipant(data) {
         try {
+            console.log(data);
             return this.project.Addparticipant(data);
         }
         catch (error) {
@@ -4066,7 +4078,7 @@ __decorate([
 ], ProjectController.prototype, "CreateProject", null);
 __decorate([
     (0, common_1.Post)('Addparticipant'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
@@ -4268,13 +4280,16 @@ let ProjectService = class ProjectService {
                 data: {
                     participants: {
                         connect: {
-                            id: data['new_value']['farmer_id'],
+                            id: data['property']['farmer_id'],
                         },
                     },
                 },
                 where: {
                     id: data['id'],
                 },
+                include: {
+                    participants: true
+                }
             });
             return query;
         }
@@ -4288,7 +4303,7 @@ let ProjectService = class ProjectService {
                 data: {
                     participants: {
                         connect: {
-                            id: data['new_value']['farmer_id'],
+                            id: data['property']['farmer_id'],
                         },
                     },
                 },
@@ -4321,7 +4336,7 @@ let ProjectService = class ProjectService {
                 data: {
                     participants: {
                         disconnect: {
-                            id: data['new_value']['farmer_id'],
+                            id: data['property']['farmer_id'],
                         },
                     },
                 },
@@ -4354,7 +4369,7 @@ let ProjectService = class ProjectService {
                 data: {
                     milestones: {
                         disconnect: {
-                            id: data['new_value']['milestone_id'],
+                            id: data['property']['milestone_id'],
                         },
                     },
                 },
@@ -4475,37 +4490,45 @@ let ProjectService = class ProjectService {
     }
     async UpdateProperty(data) {
         try {
-            const query = data['new_value']['type'] !== undefined
+            const query = data['property']['type'] !== undefined
                 ? await this.db.project.update({
                     data: {
-                        type: data['new_value']['type'],
+                        type: data['property']['type'],
                     },
                     where: {
                         id: data['id'],
                         type: data['type'],
                     },
                 })
-                : data['new_value']['start_date'] !== undefined
+                : data['property']['start_date'] !== undefined
                     ? await this.db.project.update({
                         data: {
-                            start_date: data['new_value']['start_date'],
+                            start_date: data['property']['start_date'],
                         },
                         where: {
                             id: data['id'],
                             type: data['type'],
                         },
                     })
-                    : data['new_value']['end_date'] !== undefined
+                    : data['property']['end_date'] !== undefined
                         ? await this.db.project.update({
                             data: {
-                                end_date: data['new_value']['end_date'],
+                                end_date: data['property']['end_date'],
                             },
                             where: {
                                 id: data['id'],
                                 type: data['type'],
                             },
                         })
-                        : new common_1.BadRequestException('pass in a valid property');
+                        : data['property']['workerProfileId'] !== undefined
+                            ? await this.db.project.update({
+                                data: {
+                                    workerProfileId: data['property']['workerProfileId'],
+                                },
+                                where: {
+                                    id: data['id'],
+                                },
+                            }) : new common_1.BadRequestException('pass in a valid property');
             return query;
         }
         catch (error) {
@@ -5792,6 +5815,7 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 const schedule_1 = __webpack_require__(/*! @nestjs/schedule */ "@nestjs/schedule");
 const farmer_growth_calc_1 = __webpack_require__(/*! @app/lib/farmer_growth_calc */ "./libs/lib/src/farmer_growth_calc.ts");
+const short_id_1 = __webpack_require__(/*! @app/lib/short_id */ "./libs/lib/src/short_id.ts");
 let FarmerService = class FarmerService {
     constructor(db) {
         this.db = db;
@@ -6077,6 +6101,7 @@ let FarmerService = class FarmerService {
             console.log(data);
             const user = await this.db.user.create({
                 data: {
+                    id: (0, short_id_1.generateShortId)(),
                     email: data['email'],
                     first_name: data['first_name'],
                     last_name: data['last_name'],
@@ -6085,6 +6110,7 @@ let FarmerService = class FarmerService {
                     type: 'FARMER',
                     Farmer: {
                         create: {
+                            id: (0, short_id_1.generateShortId)(),
                             address: data['address'] !== undefined ? data['address'] : JSON,
                             photo: Buffer.from(data['photo']),
                             age: Number(data['age']),
@@ -6581,7 +6607,7 @@ let AuthService = class AuthService {
                 },
             });
             console.log(user);
-            const resetToken = (0, jsonwebtoken_1.sign)(user, process.env.HASH_SECRET, { expiresIn: '1h' });
+            const resetToken = (0, jsonwebtoken_1.sign)({ id: user.id, type: user.type }, process.env.HASH_SECRET, { expiresIn: '1h' });
             const resetLink = `${process.env.FRONTEND_URL}?token=${resetToken}`;
             const change = await this.db.passwordReset.create({
                 data: {
@@ -7116,6 +7142,32 @@ exports.calculateGrowth = calculateGrowth;
 
 /***/ }),
 
+/***/ "./libs/lib/src/short_id.ts":
+/*!**********************************!*\
+  !*** ./libs/lib/src/short_id.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.generateShortId = void 0;
+const uuid_1 = __webpack_require__(/*! uuid */ "uuid");
+const crypto_js_1 = __webpack_require__(/*! crypto-js */ "crypto-js");
+const generateShortId = () => {
+    const id = (0, uuid_1.v4)();
+    console.log('Original UUID:', id);
+    const hash = (0, crypto_js_1.SHA256)(id).toString(crypto_js_1.enc.Base64);
+    const base64url = hash.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const shortId = base64url.substring(0, 6);
+    return shortId;
+};
+exports.generateShortId = generateShortId;
+const shortId = (0, exports.generateShortId)();
+console.log(shortId);
+
+
+/***/ }),
+
 /***/ "./libs/lib/src/worker_growth_calc.ts":
 /*!********************************************!*\
   !*** ./libs/lib/src/worker_growth_calc.ts ***!
@@ -7290,6 +7342,16 @@ module.exports = require("class-validator");
 
 /***/ }),
 
+/***/ "crypto-js":
+/*!****************************!*\
+  !*** external "crypto-js" ***!
+  \****************************/
+/***/ ((module) => {
+
+module.exports = require("crypto-js");
+
+/***/ }),
+
 /***/ "jsonwebtoken":
 /*!*******************************!*\
   !*** external "jsonwebtoken" ***!
@@ -7307,6 +7369,16 @@ module.exports = require("jsonwebtoken");
 /***/ ((module) => {
 
 module.exports = require("passport-jwt");
+
+/***/ }),
+
+/***/ "uuid":
+/*!***********************!*\
+  !*** external "uuid" ***!
+  \***********************/
+/***/ ((module) => {
+
+module.exports = require("uuid");
 
 /***/ })
 

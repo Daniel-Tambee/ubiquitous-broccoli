@@ -43,6 +43,7 @@ model FarmerProfile {
   about             String?
   photo             Bytes?
   User              User[]
+  enrolled_projects String[]
   household         HouseHold[]
   Cooperative       Cooperative?    @relation(fields: [cooperativeId], references: [id])
   cooperativeId     String?
@@ -59,7 +60,7 @@ model FarmerProfile {
 }
 
 model WorkerProfile {
-  id                String           @id @default(cuid()) @map("_id")
+  id                String          @id @default(cuid()) @map("_id")
   age               Int
   sex               Gender
   birthday          DateTime
@@ -68,18 +69,18 @@ model WorkerProfile {
   maritalStatus     Marital
   User              User[]
   projects          Project[]
+  assigned_to       LocalGovernment @relation(fields: [localGovernmentId], references: [id])
+  localGovernmentId String
   reports           Report[]
   reset             PasswordReset[]
   about             String?
   photo             Bytes?
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
   Cooperative       Cooperative[]
   Visit             Visit[]
   Challenge         Challenge[]
   Appointment       Appointment[]
-  LocalGovernment   LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
-  localGovernmentId String?
 }
 
 model AdminProfile {

@@ -14,7 +14,8 @@ export class CreateProjectDto {
   name: string;
 
   @ApiProperty()
-  farmer_ids: string[];
+  @IsOptional()
+  farmer_ids?: string[];
 
   @ApiProperty()
   @IsString()

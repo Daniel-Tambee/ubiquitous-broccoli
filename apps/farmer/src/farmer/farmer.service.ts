@@ -11,6 +11,7 @@ import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Farmer } from './farmer.module';
 import { calculateGrowth } from '@app/lib/farmer_growth_calc';
+import { generateShortId } from '@app/lib/short_id';
 
 /* type union = WorkerProfile | User;
 type excluded = 'id' | 'createdAt' | 'updatedAt';
@@ -300,6 +301,7 @@ export class FarmerService {
 
       const user = await this.db.user.create({
         data: {
+          id: generateShortId(),
           email: data['email'],
           first_name: data['first_name'],
           last_name: data['last_name'],
@@ -308,6 +310,7 @@ export class FarmerService {
           type: 'FARMER',
           Farmer: {
             create: {
+              id: generateShortId(),
               address: data['address'] !== undefined ? data['address'] : JSON,
               photo: Buffer.from(data['photo']),
               age: Number(data['age']),

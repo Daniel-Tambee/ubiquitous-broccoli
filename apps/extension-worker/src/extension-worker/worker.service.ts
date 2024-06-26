@@ -7,6 +7,7 @@ import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 import { FindDto } from 'apps/farmer/src/farmer/dto/find.dto';
 import { calculateGrowth } from '@app/lib/worker_growth_calc';
+import { generateShortId } from '@app/lib/short_id';
 
 @Injectable()
 export class WorkerService implements Iworker {
@@ -135,6 +136,8 @@ export class WorkerService implements Iworker {
     try {
       const user = await this.db.user.create({
         data: {
+          id: generateShortId(),
+          nin: data['nin'],
           email: data['email'],
           first_name: data['first_name'],
           last_name: data['last_name'],
@@ -143,6 +146,7 @@ export class WorkerService implements Iworker {
           type: 'EXTENSION_WORKER',
           workerProfile: {
             create: {
+              id: generateShortId(),
               address: data['address'] !== undefined ? data['address'] : JSON,
               age: Number(data['age']),
               birthday: data['birthday'],

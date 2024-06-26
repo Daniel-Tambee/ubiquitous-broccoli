@@ -36,9 +36,11 @@ export class ProjectController implements IProject {
   }
   @Post('Addparticipant')
   Addparticipant(
-    @Body(new ValidationPipe()) data: UpdateDto,
+    @Body() data: UpdateDto,
   ): Promise<Project> {
     try {
+      console.log(data);
+      
       return this.project.Addparticipant(data);
     } catch (error) {
       throw new BadRequestException(error);

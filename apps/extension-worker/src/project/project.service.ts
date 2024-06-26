@@ -16,9 +16,10 @@ export class ProjectService implements IProject {
   constructor(
     private readonly db: DbService,
     private readonly profile: ProfileService,
-  ) {}
+  ) { }
   async CreateProject(data: CreateProjectDto): Promise<Project> {
     try {
+      // 
       const query = await this.profile.Addproject(data);
       return query;
     } catch (error) {
@@ -31,13 +32,16 @@ export class ProjectService implements IProject {
         data: {
           participants: {
             connect: {
-              id: data['new_value']['farmer_id'],
+              id: data['property']['farmer_id'],
             },
           },
         },
         where: {
           id: data['id'],
         },
+        include: {
+          participants: true
+        }
       });
       return query;
     } catch (error) {
@@ -50,7 +54,7 @@ export class ProjectService implements IProject {
         data: {
           participants: {
             connect: {
-              id: data['new_value']['farmer_id'],
+              id: data['property']['farmer_id'],
             },
           },
         },
@@ -81,7 +85,7 @@ export class ProjectService implements IProject {
         data: {
           participants: {
             disconnect: {
-              id: data['new_value']['farmer_id'],
+              id: data['property']['farmer_id'],
             },
           },
         },
@@ -112,7 +116,7 @@ export class ProjectService implements IProject {
         data: {
           milestones: {
             disconnect: {
-              id: data['new_value']['milestone_id'],
+              id: data['property']['milestone_id'],
             },
           },
         },
@@ -229,37 +233,45 @@ export class ProjectService implements IProject {
   ): Promise<Project | BadRequestException> {
     try {
       const query =
-        data['new_value']['type'] !== undefined
+        data['property']['type'] !== undefined
           ? await this.db.project.update({
+            data: {
+              type: data['property']['type'],
+            },
+            where: {
+              id: data['id'],
+              type: data['type'],
+            },
+          })
+          : data['property']['start_date'] !== undefined
+            ? await this.db.project.update({
               data: {
-                type: data['new_value']['type'],
+                start_date: data['property']['start_date'],
               },
               where: {
                 id: data['id'],
                 type: data['type'],
               },
             })
-          : data['new_value']['start_date'] !== undefined
-          ? await this.db.project.update({
-              data: {
-                start_date: data['new_value']['start_date'],
-              },
-              where: {
-                id: data['id'],
-                type: data['type'],
-              },
-            })
-          : data['new_value']['end_date'] !== undefined
-          ? await this.db.project.update({
-              data: {
-                end_date: data['new_value']['end_date'],
-              },
-              where: {
-                id: data['id'],
-                type: data['type'],
-              },
-            })
-          : new BadRequestException('pass in a valid property');
+            : data['property']['end_date'] !== undefined
+              ? await this.db.project.update({
+                data: {
+                  end_date: data['property']['end_date'],
+                },
+                where: {
+                  id: data['id'],
+                  type: data['type'],
+                },
+              })
+              : data['property']['workerProfileId'] !== undefined
+                ? await this.db.project.update({
+                  data: {
+                    workerProfileId: data['property']['workerProfileId'],
+                  },
+                  where: {
+                    id: data['id'],
+                  },
+                }) : new BadRequestException('pass in a valid property');
       return query;
     } catch (error) {
       throw new BadRequestException(error);

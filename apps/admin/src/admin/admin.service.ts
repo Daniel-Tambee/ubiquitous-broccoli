@@ -6,6 +6,7 @@ import { DbService } from '@app/lib/db/db.service';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
 import { FindDto } from 'apps/farmer/src/farmer/dto/find.dto';
+import { generateShortId } from '@app/lib/short_id';
 
 @Injectable()
 export class AdminService implements IAdmin {
@@ -122,6 +123,7 @@ export class AdminService implements IAdmin {
     try {
       const user = await this.db.user.create({
         data: {
+          id: generateShortId(),
           email: data['email'],
           first_name: data['first_name'],
           last_name: data['last_name'],
@@ -129,7 +131,9 @@ export class AdminService implements IAdmin {
           phone_number: data['phone_number'],
           type: 'ADMIN',
           adminProfile: {
-            create: {},
+            create: {
+              id: generateShortId(),
+            },
           },
         },
       });

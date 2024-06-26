@@ -150,7 +150,7 @@ export class AuthService implements IAuth {
 
       // Step 2: Generate a JWT reset token
       const resetToken = sign(
-        user,
+        { id: user.id, type: user.type },
         process.env.HASH_SECRET,
         { expiresIn: '1h' }
       );
@@ -245,7 +245,7 @@ export class AuthService implements IAuth {
       await this.db.user.update({
         where: {
           id: dec['id'],
-          type:dec['type']
+          type: dec['type']
         },
         data: {
           password: await hash(newPassword, {

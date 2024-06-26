@@ -5,13 +5,14 @@ import { CreateCooperativeDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 import { DbService } from '@app/lib/db/db.service';
+import { generateShortId } from '@app/lib/short_id';
 
 @Injectable()
 export class CooperativeService implements ICooperative {
   /**
    *
    */
-  constructor(private readonly db: DbService) {}
+  constructor(private readonly db: DbService) { }
   async CreateCooperative(data: CreateCooperativeDto): Promise<Cooperative> {
     try {
       let lga = await this.db.localGovernment.create({
@@ -67,15 +68,15 @@ export class CooperativeService implements ICooperative {
       let query =
         data['properties']['localGovernmentId'] !== undefined
           ? await this.db.cooperative.update({
-              where: {
-                id: data['properties']['id'],
-              },
-              data: {
-                localGovernmentId: data['properties']['localGovernmentId'],
-              },
-            })
+            where: {
+              id: data['properties']['id'],
+            },
+            data: {
+              localGovernmentId: data['properties']['localGovernmentId'],
+            },
+          })
           : data['properties']['workerProfileId'] !== undefined
-          ? await this.db.cooperative.update({
+            ? await this.db.cooperative.update({
               where: {
                 id: data['properties']['id'],
               },
@@ -83,7 +84,7 @@ export class CooperativeService implements ICooperative {
                 localGovernmentId: data['properties']['workerProfileId'],
               },
             })
-          : new BadRequestException('pass in a valid prop');
+            : new BadRequestException('pass in a valid prop');
       return query;
     } catch (error) {
       throw new BadRequestException(error);
@@ -153,6 +154,7 @@ export class CooperativeService implements ICooperative {
 
   async getAllCooperatives() {
     try {
+      await generateShortId()
       return this.db.cooperative.findMany({
         include: {
           lga: true,
