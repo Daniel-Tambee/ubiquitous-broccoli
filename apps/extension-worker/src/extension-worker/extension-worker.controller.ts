@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Query,
   UseGuards,
@@ -70,7 +71,7 @@ export class ExtensionWorkerController {
     return this.worker.FindByEmail(data);
   }
   @Get('getAllWorkers')
-  getAllWorkers(@Query("page") page?: number, @Query("pageSize") pageSize?: number) {
+  getAllWorkers(@Query("page", new ParseIntPipe()) page?: number, @Query("pageSize", new ParseIntPipe()) pageSize?: number) {
     return this.worker.getAllWorkers(page, pageSize);
   }
 
