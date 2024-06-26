@@ -52,9 +52,6 @@ export class CreateFarmerDto {
   @ApiProperty()
   @IsNotEmpty()
   address: {};
-  @ApiProperty()
-  @IsNotEmpty()
-  birthday: string;
   @ApiProperty({
     enum: Religion,
   })
