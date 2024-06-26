@@ -20,10 +20,10 @@ export class CreateCooperativeDto {
   @ApiProperty()
   local_government_name: string;
 
-  @ApiProperty()
-  @IsOptional()
-  @IsUUID()
-  workerProfileId?: string;
+  // @ApiProperty()
+  // @IsOptional()
+  // @IsUUID()
+  // workerProfileId?: string;
 
   constructor(createCooperativeDto: CreateCooperativeDto) {
     Object.assign(this, createCooperativeDto);

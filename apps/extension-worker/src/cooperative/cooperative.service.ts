@@ -22,7 +22,7 @@ export class CooperativeService implements ICooperative {
       });
       let query = await this.db.cooperative.create({
         data: {
-          workerProfileId: data['workerProfileId'],
+          // workerProfileId: data['workerProfileId'],
           localGovernmentId: lga['id'],
           animal_type: data['animal_type'],
           location: data['location'],
