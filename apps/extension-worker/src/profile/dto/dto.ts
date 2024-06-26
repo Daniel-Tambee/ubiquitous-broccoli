@@ -27,5 +27,5 @@ export class CreateProfileDto {
   @ApiProperty()
   about: string;
   @ApiProperty()
-  photo: Buffer;
+  photo: string;
 }

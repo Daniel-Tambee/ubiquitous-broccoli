@@ -64,7 +64,7 @@ export class CreateFarmerDto {
   maritalStatus: Marital;
   @ApiProperty()
   @IsNotEmpty()
-  photo: Buffer;
+  photo: string;
   @ApiProperty()
   @IsNotEmpty()
   household_size: number;

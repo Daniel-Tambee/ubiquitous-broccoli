@@ -11,8 +11,8 @@ export class MilestoneService implements IMilestone {
   /**
    *
    */
-  constructor(private readonly db: DbService) {}
-  async CreateMilestone(data: CreateMilestoneDto): Promise<Milestone> {
+  constructor(private readonly db: DbService) { }
+  async CreateMilestone(data: CreateMilestoneDto): Promise<any> {
     try {
       let query = await this.db.milestone.create({
         data: {
@@ -20,7 +20,19 @@ export class MilestoneService implements IMilestone {
           isAchieved: false,
           start_date: data['start_date'],
           text: data['text'],
+          projectId: data['projectId'],
+
         },
+        select: {
+          id: true,
+          isAchieved: true,
+          Project: true,
+          start_date: true,
+          end_date: true,
+          text: true,
+          createdAt: true,
+          updatedAt: true
+        }
       });
 
       data['Farmers'].forEach(async (farmer) => {
@@ -37,7 +49,7 @@ export class MilestoneService implements IMilestone {
       });
 
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
   async FindByid(data: FindDto): Promise<Milestone> {
     try {
@@ -47,7 +59,7 @@ export class MilestoneService implements IMilestone {
         },
       });
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
   async GetFarmers(data: FindDto): Promise<FarmerProfile[]> {
     try {
@@ -57,7 +69,7 @@ export class MilestoneService implements IMilestone {
         },
       });
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
   async AddFarmers(data: UpdateDto): Promise<Milestone> {
     try {
@@ -74,7 +86,7 @@ export class MilestoneService implements IMilestone {
         },
       });
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
   async RemoveFarmers(data: UpdateDto): Promise<Milestone> {
     try {
@@ -91,7 +103,7 @@ export class MilestoneService implements IMilestone {
         },
       });
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
   async FindBytext(data: FindDto): Promise<Milestone> {
     try {
@@ -101,7 +113,7 @@ export class MilestoneService implements IMilestone {
         },
       });
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
   async FindByisAchieved(data: FindDto): Promise<Milestone> {
     try {
@@ -111,7 +123,7 @@ export class MilestoneService implements IMilestone {
         },
       });
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
   async FindByrecommendationId(data: FindDto): Promise<Milestone> {
     try {
@@ -121,17 +133,17 @@ export class MilestoneService implements IMilestone {
         },
       });
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
-  async FindByprojectId(data: FindDto): Promise<Milestone> {
+  async FindByprojectId(data: FindDto): Promise<Milestone[]> {
     try {
-      let query = await this.db.milestone.findFirstOrThrow({
+      let query = await this.db.milestone.findMany({
         where: {
           recommendationId: data['property']['recommendationId'],
         },
       });
       return query;
-    } catch (error) {}
+    } catch (error) { }
   }
   async UpdateProperty(
     data: UpdateDto,
@@ -140,15 +152,15 @@ export class MilestoneService implements IMilestone {
       let query =
         data['new_value']['start_date'] !== undefined
           ? await this.db.milestone.update({
-              data: {
-                start_date: data['new_value']['start_date'],
-              },
-              where: {
-                id: data['id'],
-              },
-            })
+            data: {
+              start_date: data['new_value']['start_date'],
+            },
+            where: {
+              id: data['id'],
+            },
+          })
           : data['new_value']['end_date'] !== undefined
-          ? await this.db.milestone.update({
+            ? await this.db.milestone.update({
               data: {
                 end_date: data['new_value']['end_date'],
               },
@@ -156,25 +168,25 @@ export class MilestoneService implements IMilestone {
                 id: data['id'],
               },
             })
-          : data['new_value']['text'] !== undefined
-          ? await this.db.milestone.update({
-              data: {
-                text: data['new_value']['text'],
-              },
-              where: {
-                id: data['id'],
-              },
-            })
-          : data['new_value']['isAchieved'] !== undefined
-          ? await this.db.milestone.update({
-              data: {
-                isAchieved: data['new_value']['isAchieved'],
-              },
-              where: {
-                id: data['id'],
-              },
-            })
-          : new BadRequestException('pass in a valid property');
+            : data['new_value']['text'] !== undefined
+              ? await this.db.milestone.update({
+                data: {
+                  text: data['new_value']['text'],
+                },
+                where: {
+                  id: data['id'],
+                },
+              })
+              : data['new_value']['isAchieved'] !== undefined
+                ? await this.db.milestone.update({
+                  data: {
+                    isAchieved: data['new_value']['isAchieved'],
+                  },
+                  where: {
+                    id: data['id'],
+                  },
+                })
+                : new BadRequestException('pass in a valid property');
       return query;
     } catch (error) {
       throw new BadRequestException(error);

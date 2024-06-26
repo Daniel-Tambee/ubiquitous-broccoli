@@ -36,7 +36,7 @@ export class ProfileService implements IProfile {
             },
           },
           about: data['about'],
-          photo: Buffer.from(data['photo']),
+          photo: data['photo'],
         },
       });
       return query;
@@ -329,7 +329,7 @@ export class ProfileService implements IProfile {
                               id: data['id'],
                             },
                             data: {
-                              photo: Buffer.from(data['properties']['maritalStatus']),
+                              photo: data['properties']['photo'],
                             },
                           })
                           : new BadRequestException('specify a proper type to be updated');

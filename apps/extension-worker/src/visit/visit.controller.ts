@@ -29,7 +29,7 @@ export class VisitController implements IVisit {
   }
   @Post('Addphoto')
   Addphoto(
-    @Body(new ValidationPipe()) data: { data: Buffer; visitId: string },
+    @Body(new ValidationPipe()) data: { data: string; visitId: string },
   ): Promise<Visit> {
     return this.service.Addphoto(data);
   }
@@ -57,7 +57,7 @@ export class VisitController implements IVisit {
   Getphotos(@Body(new ValidationPipe()) data: FindDto): Promise<
     {
       id: string;
-      data: Buffer;
+      data: string;
       createdAt: Date;
       updatedAt: Date;
       visitId: string;

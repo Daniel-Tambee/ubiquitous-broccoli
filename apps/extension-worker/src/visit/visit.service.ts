@@ -11,7 +11,7 @@ export class VisitService implements IVisit {
   /**
    *
    */
-  constructor(private readonly db: DbService) {}
+  constructor(private readonly db: DbService) { }
   async CreateVisit(data: CreateVisitDto): Promise<Visit> {
     try {
       let query = await this.db.visit.create({
@@ -40,7 +40,7 @@ export class VisitService implements IVisit {
   async Addphoto(
     data: Partial<{
       id: string;
-      data: Buffer;
+      data: string;
       createdAt: Date;
       updatedAt: Date;
       visitId: string;
@@ -54,7 +54,7 @@ export class VisitService implements IVisit {
         data: {
           photos: {
             create: {
-              data: Buffer.from(data['data']),
+              data: data['data'],
             },
           },
         },
@@ -100,7 +100,7 @@ export class VisitService implements IVisit {
   }
   Removephoto(data: any): Promise<Visit> {
     try {
-    } catch (error) {}
+    } catch (error) { }
 
     throw new Error('Method not implemented.');
   }
@@ -255,19 +255,19 @@ export class VisitService implements IVisit {
       let query =
         data['properties']['milestoneId'] !== undefined
           ? await this.db.visit.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                challenge: {
-                  disconnect: {
-                    id: data['challengeId'],
-                  },
+            where: {
+              id: data['id'],
+            },
+            data: {
+              challenge: {
+                disconnect: {
+                  id: data['challengeId'],
                 },
               },
-            })
+            },
+          })
           : data['properties']['appointmentId'] !== undefined
-          ? await this.db.visit.update({
+            ? await this.db.visit.update({
               where: {
                 id: data['id'],
               },
@@ -279,31 +279,31 @@ export class VisitService implements IVisit {
                 },
               },
             })
-          : data['properties']['projectId'] !== undefined
-          ? await this.db.visit.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                challenge: {
-                  disconnect: {
-                    id: data['challengeId'],
+            : data['properties']['projectId'] !== undefined
+              ? await this.db.visit.update({
+                where: {
+                  id: data['id'],
+                },
+                data: {
+                  challenge: {
+                    disconnect: {
+                      id: data['challengeId'],
+                    },
                   },
                 },
-              },
-            })
-          : data['properties']['workerProfileId'] !== undefined
-          ? await this.db.visit.update({
-              where: {
-                id: data['id'],
-              },
-              data: {
-                workerProfileId: {
-                  set: data['properties']['workerProfileId'],
-                },
-              },
-            })
-          : new BadRequestException('pass in a valid prop');
+              })
+              : data['properties']['workerProfileId'] !== undefined
+                ? await this.db.visit.update({
+                  where: {
+                    id: data['id'],
+                  },
+                  data: {
+                    workerProfileId: {
+                      set: data['properties']['workerProfileId'],
+                    },
+                  },
+                })
+                : new BadRequestException('pass in a valid prop');
       return query;
     } catch (error) {
       throw new BadRequestException(error);

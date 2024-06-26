@@ -13,7 +13,7 @@ export class MilestoneController implements IMilestone {
   /**
    *
    */
-  constructor(private readonly milestone: MilestoneService) {}
+  constructor(private readonly milestone: MilestoneService) { }
   @Post('CreateMilestone')
   CreateMilestone(
     @Body(new ValidationPipe()) data: CreateMilestoneDto,
@@ -59,7 +59,7 @@ export class MilestoneController implements IMilestone {
   @Post('FindByprojectId')
   FindByprojectId(
     @Body(new ValidationPipe()) data: FindDto,
-  ): Promise<Milestone> {
+  ): Promise<Milestone[]> {
     return this.milestone.FindByprojectId(data);
   }
   @Post('UpdateProperty')

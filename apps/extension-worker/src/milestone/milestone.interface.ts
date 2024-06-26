@@ -13,6 +13,6 @@ export interface IMilestone {
   FindBytext(data: FindDto): Promise<Milestone>;
   FindByisAchieved(data: FindDto): Promise<Milestone>;
   FindByrecommendationId(data: FindDto): Promise<Milestone>;
-  FindByprojectId(data: FindDto): Promise<Milestone>;
+  FindByprojectId(data: FindDto): Promise<Milestone[]>;
   UpdateProperty(data: UpdateDto): Promise<Milestone | BadRequestException>;
 }

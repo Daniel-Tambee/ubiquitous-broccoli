@@ -1552,7 +1552,6 @@ let CooperativeService = class CooperativeService {
             });
             let query = await this.db.cooperative.create({
                 data: {
-                    workerProfileId: data['workerProfileId'],
                     localGovernmentId: lga['id'],
                     animal_type: data['animal_type'],
                     location: data['location'],
@@ -1755,12 +1754,6 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], CreateCooperativeDto.prototype, "local_government_name", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsUUID)(),
-    __metadata("design:type", String)
-], CreateCooperativeDto.prototype, "workerProfileId", void 0);
 exports.CreateCooperativeDto = CreateCooperativeDto;
 
 
@@ -2440,6 +2433,7 @@ let WorkerService = class WorkerService {
     async getAllWorkers(page = 1, pageSize = 10) {
         const skip = (page - 1) * pageSize;
         const take = pageSize;
+        let count = (await this.db.workerProfile.findMany()).length;
         let query = await this.db.user.findMany({
             where: {
                 type: 'EXTENSION_WORKER',
@@ -2459,7 +2453,11 @@ let WorkerService = class WorkerService {
             skip: skip,
             take: take,
         });
-        return query;
+        const data = {
+            count: count,
+            query: query
+        };
+        return data;
     }
     async getAllExtensionWorkersCount() {
         try {
@@ -2640,35 +2638,86 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateMilestoneDto = void 0;
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const class_transformer_1 = __webpack_require__(/*! class-transformer */ "class-transformer");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
 class CreateMilestoneDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Array)
-], CreateMilestoneDto.prototype, "Farmers", void 0);
+    (0, swagger_1.ApiPropertyOptional)({ type: String, format: 'uuid' }),
+    (0, class_validator_1.IsUUID)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({ type: [String], description: 'Array of FarmerProfile IDs' }),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => String),
+    __metadata("design:type", Array)
+], CreateMilestoneDto.prototype, "farmerProfile", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: String }),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateMilestoneDto.prototype, "text", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
+    (0, swagger_1.ApiProperty)({ type: Date }),
+    (0, class_validator_1.IsDate)(),
+    (0, class_transformer_1.Type)(() => Date),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
 ], CreateMilestoneDto.prototype, "start_date", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
+    (0, swagger_1.ApiProperty)({ type: Date }),
+    (0, class_validator_1.IsDate)(),
+    (0, class_transformer_1.Type)(() => Date),
+    __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
 ], CreateMilestoneDto.prototype, "end_date", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({ type: Boolean }),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateMilestoneDto.prototype, "isAchieved", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ type: Object, description: 'Custom fields as JSON object' }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", typeof (_c = typeof Record !== "undefined" && Record) === "function" ? _c : Object)
+], CreateMilestoneDto.prototype, "custom_field", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ type: String, format: 'uuid' }),
+    (0, class_validator_1.IsUUID)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateMilestoneDto.prototype, "recommendationId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiPropertyOptional)({ type: Date }),
+    (0, class_validator_1.IsDate)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Type)(() => Date),
+    __metadata("design:type", typeof (_d = typeof Date !== "undefined" && Date) === "function" ? _d : Object)
+], CreateMilestoneDto.prototype, "createdAt", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ type: Date }),
+    (0, class_validator_1.IsDate)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Type)(() => Date),
+    __metadata("design:type", typeof (_e = typeof Date !== "undefined" && Date) === "function" ? _e : Object)
+], CreateMilestoneDto.prototype, "updatedAt", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ type: String, format: 'uuid' }),
+    (0, class_validator_1.IsUUID)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateMilestoneDto.prototype, "projectId", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ type: String, format: 'uuid' }),
+    (0, class_validator_1.IsUUID)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "visitId", void 0);
 exports.CreateMilestoneDto = CreateMilestoneDto;
 
 
@@ -2914,7 +2963,18 @@ let MilestoneService = class MilestoneService {
                     isAchieved: false,
                     start_date: data['start_date'],
                     text: data['text'],
+                    projectId: data['projectId'],
                 },
+                select: {
+                    id: true,
+                    isAchieved: true,
+                    Project: true,
+                    start_date: true,
+                    end_date: true,
+                    text: true,
+                    createdAt: true,
+                    updatedAt: true
+                }
             });
             data['Farmers'].forEach(async (farmer) => {
                 await this.db.milestone.update({
@@ -3025,7 +3085,7 @@ let MilestoneService = class MilestoneService {
     }
     async FindByprojectId(data) {
         try {
-            let query = await this.db.milestone.findFirstOrThrow({
+            let query = await this.db.milestone.findMany({
                 where: {
                     recommendationId: data['property']['recommendationId'],
                 },
@@ -3105,7 +3165,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c, _d;
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateProfileDto = void 0;
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
@@ -3154,7 +3214,7 @@ __decorate([
 ], CreateProfileDto.prototype, "about", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", typeof (_d = typeof Buffer !== "undefined" && Buffer) === "function" ? _d : Object)
+    __metadata("design:type", String)
 ], CreateProfileDto.prototype, "photo", void 0);
 exports.CreateProfileDto = CreateProfileDto;
 
@@ -3489,7 +3549,7 @@ let ProfileService = class ProfileService {
                         },
                     },
                     about: data['about'],
-                    photo: Buffer.from(data['photo']),
+                    photo: data['photo'],
                 },
             });
             return query;
@@ -3774,7 +3834,7 @@ let ProfileService = class ProfileService {
                                                         id: data['id'],
                                                     },
                                                     data: {
-                                                        photo: Buffer.from(data['properties']['maritalStatus']),
+                                                        photo: data['properties']['photo'],
                                                     },
                                                 })
                                                 : new common_1.BadRequestException('specify a proper type to be updated');
@@ -5122,7 +5182,7 @@ let VisitService = class VisitService {
                 data: {
                     photos: {
                         create: {
-                            data: Buffer.from(data['data']),
+                            data: data['data'],
                         },
                     },
                 },
@@ -5480,7 +5540,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b, _c, _d, _e, _f;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateFarmerDto = exports.UpdateDto = void 0;
 const class_validator_1 = __webpack_require__(/*! @nestjs/class-validator */ "@nestjs/class-validator");
@@ -5556,11 +5616,6 @@ __decorate([
     __metadata("design:type", Object)
 ], CreateFarmerDto.prototype, "address", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateFarmerDto.prototype, "birthday", void 0);
-__decorate([
     (0, swagger_1.ApiProperty)({
         enum: client_1.Religion,
     }),
@@ -5577,7 +5632,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", typeof (_g = typeof Buffer !== "undefined" && Buffer) === "function" ? _g : Object)
+    __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "photo", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
@@ -5935,7 +5990,7 @@ let FarmerService = class FarmerService {
                                                     data: {
                                                         Farmer: {
                                                             update: {
-                                                                photo: Buffer.from(data['property']['photo']),
+                                                                photo: data['property']['photo'],
                                                             },
                                                         },
                                                     },
@@ -6124,7 +6179,7 @@ let FarmerService = class FarmerService {
                         create: {
                             id: (0, short_id_1.generateShortId)(),
                             address: data['address'] !== undefined ? data['address'] : JSON,
-                            photo: Buffer.from(data['photo']),
+                            photo: data['photo'],
                             age: Number(data['age']),
                             birthday: data['birthday'],
                             income: 'SMALL',
@@ -7346,6 +7401,16 @@ module.exports = require("argon2");
 /***/ ((module) => {
 
 module.exports = require("body-parser");
+
+/***/ }),
+
+/***/ "class-transformer":
+/*!************************************!*\
+  !*** external "class-transformer" ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = require("class-transformer");
 
 /***/ }),
 
