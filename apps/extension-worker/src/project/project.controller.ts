@@ -15,6 +15,7 @@ import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 import { ProjectService } from './project.service';
 import { AuthGuard } from '@app/lib/auth/auth.guard';
+import { CreateMilestoneDto } from '../milestone/dto/dto';
 
 @Controller('project')
 @UseGuards(AuthGuard)
@@ -23,7 +24,7 @@ export class ProjectController implements IProject {
   /**
    *
    */
-  constructor(private readonly project: ProjectService) {}
+  constructor(private readonly project: ProjectService) { }
   @Post('CreateProject')
   CreateProject(
     @Body(new ValidationPipe()) data: CreateProjectDto,
@@ -40,14 +41,14 @@ export class ProjectController implements IProject {
   ): Promise<Project> {
     try {
       console.log(data);
-      
+
       return this.project.Addparticipant(data);
     } catch (error) {
       throw new BadRequestException(error);
     }
   }
   @Post('Addmilestones')
-  Addmilestones(@Body(new ValidationPipe()) data: UpdateDto): Promise<Project> {
+  Addmilestones(@Body(new ValidationPipe()) data: CreateMilestoneDto[]): Promise<Project> {
     try {
       return this.project.Addmilestones(data);
     } catch (error) {

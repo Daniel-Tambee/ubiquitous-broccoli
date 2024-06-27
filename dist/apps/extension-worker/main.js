@@ -1895,8 +1895,8 @@ let ExtensionWorkerController = class ExtensionWorkerController {
     FindByEmail(data) {
         return this.worker.FindByEmail(data);
     }
-    getAllWorkers(page, pageSize) {
-        return this.worker.getAllWorkers(page, pageSize);
+    getAllWorkers() {
+        return this.worker.getAllWorkers();
     }
     getAllWorkersCount() {
         return this.worker.getAllExtensionWorkersCount();
@@ -1956,10 +1956,8 @@ __decorate([
 ], ExtensionWorkerController.prototype, "FindByEmail", null);
 __decorate([
     (0, common_1.Get)('getAllWorkers'),
-    __param(0, (0, common_1.Query)("page", new common_1.ParseIntPipe())),
-    __param(1, (0, common_1.Query)("pageSize", new common_1.ParseIntPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ExtensionWorkerController.prototype, "getAllWorkers", null);
 __decorate([
@@ -2443,9 +2441,7 @@ let WorkerService = class WorkerService {
             console.log(error);
         }
     }
-    async getAllWorkers(page = 1, pageSize = 10) {
-        const skip = (page - 1) * pageSize;
-        const take = pageSize;
+    async getAllWorkers() {
         let count = (await this.db.workerProfile.findMany()).length;
         let query = await this.db.user.findMany({
             where: {
@@ -2463,14 +2459,12 @@ let WorkerService = class WorkerService {
                     },
                 },
             },
-            skip: skip,
-            take: take,
         });
         const data = {
             count: count,
             query: query
         };
-        return data;
+        return query;
     }
     async getAllExtensionWorkersCount() {
         try {
@@ -2544,6 +2538,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LolGovController = void 0;
@@ -2577,6 +2574,7 @@ __decorate([
 ], LolGovController.prototype, "getAllLocalGov", null);
 __decorate([
     (0, common_1.Get)('getFarmersByLocalGovernment'),
+    __param(0, (0, common_1.Query)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
@@ -2621,7 +2619,10 @@ let LolGovService = class LolGovService {
     async getFarmersByLocalGovernment(id) {
         return this.db.farmerProfile.findMany({
             where: {
-                localGovernmentId: id
+                localGovernmentId: id,
+            }, include: {
+                User: true,
+                lga: true,
             }
         });
     }
@@ -2651,7 +2652,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a, _b, _c, _d, _e;
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateMilestoneDto = void 0;
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
@@ -2666,12 +2667,12 @@ __decorate([
     __metadata("design:type", String)
 ], CreateMilestoneDto.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: [String], description: 'Array of FarmerProfile IDs' }),
+    (0, swagger_1.ApiProperty)({ type: String, description: 'Array of FarmerProfile IDs' }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
     (0, class_transformer_1.Type)(() => String),
-    __metadata("design:type", Array)
-], CreateMilestoneDto.prototype, "farmerProfile", void 0);
+    __metadata("design:type", String)
+], CreateMilestoneDto.prototype, "farmerProfileId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String }),
     (0, class_validator_1.IsString)(),
@@ -2705,20 +2706,6 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateMilestoneDto.prototype, "recommendationId", void 0);
-__decorate([
-    (0, swagger_1.ApiPropertyOptional)({ type: Date }),
-    (0, class_validator_1.IsDate)(),
-    (0, class_validator_1.IsOptional)(),
-    (0, class_transformer_1.Type)(() => Date),
-    __metadata("design:type", typeof (_d = typeof Date !== "undefined" && Date) === "function" ? _d : Object)
-], CreateMilestoneDto.prototype, "createdAt", void 0);
-__decorate([
-    (0, swagger_1.ApiPropertyOptional)({ type: Date }),
-    (0, class_validator_1.IsDate)(),
-    (0, class_validator_1.IsOptional)(),
-    (0, class_transformer_1.Type)(() => Date),
-    __metadata("design:type", typeof (_e = typeof Date !== "undefined" && Date) === "function" ? _e : Object)
-], CreateMilestoneDto.prototype, "updatedAt", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ type: String, format: 'uuid' }),
     (0, class_validator_1.IsUUID)(),
@@ -3628,9 +3615,16 @@ let ProfileService = class ProfileService {
                     end_date: data['end_date'],
                     start_date: data['start_date'],
                     type: data['type'],
-                    workerProfileId: data['id'],
+                    workerProfileId: data['workerProfileId'],
                     location: data['location'],
                 },
+                include: {
+                    participants: {
+                        include: {
+                            User: true
+                        }
+                    }
+                }
             });
             if (data['farmer_ids'].length > 0) {
                 for (let index = 0; index < data['farmer_ids'].length; index++) {
@@ -4010,7 +4004,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProjectController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -4170,92 +4164,92 @@ __decorate([
     (0, common_1.Post)('Addmilestones'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_f = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _f : Object]),
-    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+    __metadata("design:paramtypes", [Array]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
 ], ProjectController.prototype, "Addmilestones", null);
 __decorate([
     (0, common_1.Post)('Getparticipants'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_h = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _h : Object]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+    __metadata("design:paramtypes", [typeof (_g = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
 ], ProjectController.prototype, "Getparticipants", null);
 __decorate([
     (0, common_1.Post)('Removeparticipants'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+    __metadata("design:paramtypes", [typeof (_j = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _j : Object]),
+    __metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
 ], ProjectController.prototype, "Removeparticipants", null);
 __decorate([
     (0, common_1.Post)('Getmilestones'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _m : Object]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+    __metadata("design:paramtypes", [typeof (_l = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
 ], ProjectController.prototype, "Getmilestones", null);
 __decorate([
     (0, common_1.Post)('Removemilestones'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_p = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _p : Object]),
-    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+    __metadata("design:paramtypes", [typeof (_o = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _o : Object]),
+    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
 ], ProjectController.prototype, "Removemilestones", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_r = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _r : Object]),
-    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+    __metadata("design:paramtypes", [typeof (_q = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _q : Object]),
+    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
 ], ProjectController.prototype, "FindByid", null);
 __decorate([
     (0, common_1.Post)('FindBytype'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_t = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _t : Object]),
-    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
+    __metadata("design:paramtypes", [typeof (_s = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _s : Object]),
+    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
 ], ProjectController.prototype, "FindBytype", null);
 __decorate([
     (0, common_1.Post)('FindByparticipants'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_v = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _v : Object]),
-    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
+    __metadata("design:paramtypes", [typeof (_u = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _u : Object]),
+    __metadata("design:returntype", typeof (_v = typeof Promise !== "undefined" && Promise) === "function" ? _v : Object)
 ], ProjectController.prototype, "FindByparticipants", null);
 __decorate([
     (0, common_1.Post)('FindBymilestones'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_x = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _x : Object]),
-    __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
+    __metadata("design:paramtypes", [typeof (_w = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _w : Object]),
+    __metadata("design:returntype", typeof (_x = typeof Promise !== "undefined" && Promise) === "function" ? _x : Object)
 ], ProjectController.prototype, "FindBymilestones", null);
 __decorate([
     (0, common_1.Post)('FindBystart_date'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_z = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _z : Object]),
-    __metadata("design:returntype", typeof (_0 = typeof Promise !== "undefined" && Promise) === "function" ? _0 : Object)
+    __metadata("design:paramtypes", [typeof (_y = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _y : Object]),
+    __metadata("design:returntype", typeof (_z = typeof Promise !== "undefined" && Promise) === "function" ? _z : Object)
 ], ProjectController.prototype, "FindBystart_date", null);
 __decorate([
     (0, common_1.Post)('FindByend_date'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_1 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _1 : Object]),
-    __metadata("design:returntype", typeof (_2 = typeof Promise !== "undefined" && Promise) === "function" ? _2 : Object)
+    __metadata("design:paramtypes", [typeof (_0 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _0 : Object]),
+    __metadata("design:returntype", typeof (_1 = typeof Promise !== "undefined" && Promise) === "function" ? _1 : Object)
 ], ProjectController.prototype, "FindByend_date", null);
 __decorate([
     (0, common_1.Post)('FindByworkerProfileId'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_3 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _3 : Object]),
-    __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
+    __metadata("design:paramtypes", [typeof (_2 = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _2 : Object]),
+    __metadata("design:returntype", typeof (_3 = typeof Promise !== "undefined" && Promise) === "function" ? _3 : Object)
 ], ProjectController.prototype, "FindByworkerProfileId", null);
 __decorate([
     (0, common_1.Post)('UpdateProperty'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_5 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _5 : Object]),
-    __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
+    __metadata("design:paramtypes", [typeof (_4 = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _4 : Object]),
+    __metadata("design:returntype", typeof (_5 = typeof Promise !== "undefined" && Promise) === "function" ? _5 : Object)
 ], ProjectController.prototype, "UpdateProperty", null);
 __decorate([
     (0, common_1.Get)('getAllProjectCount'),
@@ -4371,8 +4365,8 @@ let ProjectService = class ProjectService {
                     id: data['id'],
                 },
                 include: {
-                    participants: true
-                }
+                    participants: true,
+                },
             });
             return query;
         }
@@ -4382,19 +4376,31 @@ let ProjectService = class ProjectService {
     }
     async Addmilestones(data) {
         try {
-            const query = await this.db.project.update({
-                data: {
-                    participants: {
-                        connect: {
-                            id: data['property']['farmer_id'],
+            let response;
+            data.forEach(async (milestone) => {
+                response = await this.db.milestone.create({
+                    data: {
+                        end_date: milestone['end_date'],
+                        start_date: milestone['start_date'],
+                        isAchieved: false,
+                        text: milestone['text'],
+                        projectId: milestone['projectId'],
+                        Farmer: {
+                            connect: {
+                                id: data['farmerProfileId']
+                            }
+                        }
+                    },
+                    include: {
+                        Project: {
+                            include: {
+                                participants: true,
+                            },
                         },
                     },
-                },
-                where: {
-                    id: data['id'],
-                },
+                });
             });
-            return query;
+            return response;
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -4611,7 +4617,8 @@ let ProjectService = class ProjectService {
                                 where: {
                                     id: data['id'],
                                 },
-                            }) : new common_1.BadRequestException('pass in a valid property');
+                            })
+                            : new common_1.BadRequestException('pass in a valid property');
             return query;
         }
         catch (error) {
@@ -5757,8 +5764,8 @@ let FarmerController = class FarmerController {
     Create_Farmer(data) {
         return this.farmer.CreateResource(data);
     }
-    getAllFarmers(page, pageSize) {
-        return this.farmer.getAllFarmers(page, pageSize);
+    getAllFarmers() {
+        return this.farmer.getAllFarmers();
     }
     getAllProjects(data) {
         return this.farmer.getAllProjects(data);
@@ -5806,10 +5813,8 @@ __decorate([
 ], FarmerController.prototype, "Create_Farmer", null);
 __decorate([
     (0, common_1.Post)('getAllFarmers'),
-    __param(0, (0, common_1.Query)("page", new common_1.ParseIntPipe())),
-    __param(1, (0, common_1.Query)("pageSize", new common_1.ParseIntPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], FarmerController.prototype, "getAllFarmers", null);
 __decorate([
@@ -6253,8 +6258,6 @@ let FarmerService = class FarmerService {
         }
     }
     async getAllFarmers(page = 1, pageSize = 10) {
-        const skip = (page - 1) * pageSize;
-        const take = pageSize;
         try {
             const query = await this.db.user.findMany({
                 where: {
@@ -6591,6 +6594,7 @@ const db_service_1 = __webpack_require__(/*! ../db/db.service */ "./libs/lib/src
 const email_service_1 = __webpack_require__(/*! ../email/email.service */ "./libs/lib/src/email/email.service.ts");
 const emailTemplate_1 = __webpack_require__(/*! ../emailTemplate */ "./libs/lib/src/emailTemplate.ts");
 const jsonwebtoken_1 = __webpack_require__(/*! jsonwebtoken */ "jsonwebtoken");
+const getPasswordResetSuccessTemplate_1 = __webpack_require__(/*! ../getPasswordResetSuccessTemplate */ "./libs/lib/src/getPasswordResetSuccessTemplate.ts");
 let AuthService = class AuthService {
     constructor(farmer, admin, extensionWorker, jwtService, db, mail) {
         this.farmer = farmer;
@@ -6752,6 +6756,12 @@ let AuthService = class AuthService {
             if (!resetEntry) {
                 throw new Error('Invalid or expired reset token');
             }
+            const user = await this.db.user.findFirstOrThrow({
+                where: {
+                    id: dec['id'],
+                    type: dec['type']
+                }
+            });
             await this.db.user.update({
                 where: {
                     id: dec['id'],
@@ -6769,6 +6779,7 @@ let AuthService = class AuthService {
                     id: resetEntry.id,
                 },
             });
+            await this.mail.sendEmail(user.email, 'YolaFarms Successful Password Reset', 'Password RESET', (0, getPasswordResetSuccessTemplate_1.getPasswordResetSuccessTemplate)(user.first_name));
             return { message: 'Password reset successful' };
         }
         catch (error) {
@@ -7196,6 +7207,79 @@ async function calculateGrowth() {
     }
 }
 exports.calculateGrowth = calculateGrowth;
+
+
+/***/ }),
+
+/***/ "./libs/lib/src/getPasswordResetSuccessTemplate.ts":
+/*!*********************************************************!*\
+  !*** ./libs/lib/src/getPasswordResetSuccessTemplate.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getPasswordResetSuccessTemplate = void 0;
+const getPasswordResetSuccessTemplate = (userName) => `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #FB8519;
+            color: #fff;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #FB8519;
+            font-size: 12px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Password Reset Successful</h1>
+        </div>
+        <div class="content">
+            <p>Hi ${userName},</p>
+            <p>Your password for your Yola Farms account has been successfully reset. If you did not make this change or if you believe an unauthorized person has accessed your account, please contact our support team immediately.</p>
+            <p>For security reasons, we recommend that you do not share your password with anyone.</p>
+            <p>Thanks,<br>The Yola Farms Team</p>
+        </div>
+        <div class="footer">
+            <p>If you need any assistance, please contact our support team.</p>
+        </div>
+    </div>
+</body>
+</html>
+`;
+exports.getPasswordResetSuccessTemplate = getPasswordResetSuccessTemplate;
 
 
 /***/ }),
