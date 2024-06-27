@@ -2406,7 +2406,11 @@ let WorkerService = class WorkerService {
                         },
                     },
                 }, include: {
-                    workerProfile: true
+                    workerProfile: {
+                        include: {
+                            assigned_to: true
+                        }
+                    }
                 }
             });
             return user;
@@ -2425,7 +2429,13 @@ let WorkerService = class WorkerService {
                 where: {
                     email: data['email'],
                     type: 'EXTENSION_WORKER',
-                },
+                }, include: {
+                    workerProfile: {
+                        include: {
+                            assigned_to: true
+                        }
+                    }
+                }
             });
             return user;
         }

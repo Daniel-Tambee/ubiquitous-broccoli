@@ -161,7 +161,11 @@ export class WorkerService implements Iworker {
             },
           },
         }, include: {
-          workerProfile: true
+          workerProfile: {
+            include: {
+              assigned_to: true
+            }
+          }
         }
       });
       return user;
@@ -180,7 +184,13 @@ export class WorkerService implements Iworker {
         where: {
           email: data['email'],
           type: 'EXTENSION_WORKER',
-        },
+        }, include: {
+          workerProfile: {
+            include: {
+              assigned_to: true
+            }
+          }
+        }
       });
       return user;
     } catch (error) {
