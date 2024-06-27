@@ -3,11 +3,12 @@ import { CreateProjectDto } from './dto/dto';
 import { UpdateDto } from './dto/update_dto';
 import { FindDto } from './dto/find_dto';
 import { BadRequestException } from '@nestjs/common';
+import { CreateMilestoneDto } from '../milestone/dto/dto';
 
 export interface IProject {
   CreateProject(data: CreateProjectDto): Promise<Project>;
   Addparticipant(data: UpdateDto): Promise<Project>;
-  Addmilestones(data: UpdateDto): Promise<Project>;
+  Addmilestones(data: CreateMilestoneDto[]): Promise<Project>;
   Getparticipants(data: FindDto): Promise<FarmerProfile[]>;
   Removeparticipants(data: UpdateDto): Promise<Project>;
   Getmilestones(data: FindDto): Promise<Milestone[]>;

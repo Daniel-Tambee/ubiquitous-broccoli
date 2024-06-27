@@ -7,6 +7,7 @@ import { CreateProjectDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 import { calculateGrowth } from '@app/lib/projects_growth_calc';
+import { CreateMilestoneDto } from '../milestone/dto/dto';
 
 @Injectable()
 export class ProjectService implements IProject {
@@ -19,7 +20,7 @@ export class ProjectService implements IProject {
   ) { }
   async CreateProject(data: CreateProjectDto): Promise<Project> {
     try {
-      // 
+      //
       const query = await this.profile.Addproject(data);
       return query;
     } catch (error) {
@@ -40,29 +41,42 @@ export class ProjectService implements IProject {
           id: data['id'],
         },
         include: {
-          participants: true
-        }
+          participants: true,
+        },
       });
       return query;
     } catch (error) {
       throw new BadRequestException(error);
     }
   }
-  async Addmilestones(data: UpdateDto): Promise<Project> {
+  async Addmilestones(data: CreateMilestoneDto[]): Promise<Project> {
     try {
-      const query = await this.db.project.update({
-        data: {
-          participants: {
-            connect: {
-              id: data['property']['farmer_id'],
+      let response;
+      data.forEach(async (milestone) => {
+        response = await this.db.milestone.create({
+          data: {
+            end_date: milestone['end_date'],
+            start_date: milestone['start_date'],
+            isAchieved: false,
+            text: milestone['text'],
+            projectId: milestone['projectId'],
+            Farmer: {
+              connect: {
+                id: data['farmerProfileId']
+              }
+            }
+          },
+          include: {
+            Project: {
+              include: {
+                participants: true,
+              },
             },
           },
-        },
-        where: {
-          id: data['id'],
-        },
+        });
       });
-      return query;
+
+      return response;
     } catch (error) {
       throw new BadRequestException(error);
     }
@@ -271,7 +285,8 @@ export class ProjectService implements IProject {
                   where: {
                     id: data['id'],
                   },
-                }) : new BadRequestException('pass in a valid property');
+                })
+                : new BadRequestException('pass in a valid property');
       return query;
     } catch (error) {
       throw new BadRequestException(error);
@@ -295,8 +310,7 @@ export class ProjectService implements IProject {
 
   async getAllProjects() {
     try {
-      return await this.db.project.findMany({
-      });
+      return await this.db.project.findMany({});
     } catch (error) {
       throw new BadRequestException(error);
     }

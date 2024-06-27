@@ -16,11 +16,11 @@ export class CreateMilestoneDto {
   @IsOptional()
   id?: string;
 
-  @ApiProperty({ type: [String], description: 'Array of FarmerProfile IDs' })
+  @ApiProperty({ type: String, description: 'Array of FarmerProfile IDs' })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => String)
-  farmerProfile: string[];
+  farmerProfileId: string;
 
   @ApiProperty({ type: String })
   @IsString()
@@ -49,17 +49,6 @@ export class CreateMilestoneDto {
   @IsOptional()
   recommendationId?: string;
 
-  @ApiPropertyOptional({ type: Date })
-  @IsDate()
-  @IsOptional()
-  @Type(() => Date)
-  createdAt?: Date;
-
-  @ApiPropertyOptional({ type: Date })
-  @IsDate()
-  @IsOptional()
-  @Type(() => Date)
-  updatedAt?: Date;
 
   @ApiPropertyOptional({ type: String, format: 'uuid' })
   @IsUUID()
