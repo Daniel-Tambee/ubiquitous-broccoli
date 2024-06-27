@@ -105,6 +105,13 @@ export class ProfileService implements IProfile {
           workerProfileId: data['workerProfileId'],
           location: data['location'],
         },
+        include: {
+          participants: {
+            include: {
+              User: true
+            }
+          }
+        }
       });
       if (data['farmer_ids'].length > 0) {
         for (let index = 0; index < data['farmer_ids'].length; index++) {
