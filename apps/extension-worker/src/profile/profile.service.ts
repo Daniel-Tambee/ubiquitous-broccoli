@@ -102,7 +102,7 @@ export class ProfileService implements IProfile {
           end_date: data['end_date'],
           start_date: data['start_date'],
           type: data['type'],
-          workerProfileId: data['id'],
+          workerProfileId: data['workerProfileId'],
           location: data['location'],
         },
       });
