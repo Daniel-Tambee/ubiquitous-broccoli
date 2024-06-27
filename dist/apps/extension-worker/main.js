@@ -2397,6 +2397,7 @@ let WorkerService = class WorkerService {
                         create: {
                             id: (0, short_id_1.generateShortId)(),
                             address: data['address'] !== undefined ? data['address'] : JSON,
+                            localGovernmentId: data['localGovernmentId'],
                             age: Number(data['age']),
                             birthday: data['birthday'],
                             maritalStatus: data['maritalStatus'],
@@ -2404,7 +2405,9 @@ let WorkerService = class WorkerService {
                             sex: data['sex'],
                         },
                     },
-                },
+                }, include: {
+                    workerProfile: true
+                }
             });
             return user;
         }
@@ -6247,8 +6250,6 @@ let FarmerService = class FarmerService {
                 where: {
                     type: 'FARMER',
                 },
-                skip: skip,
-                take: take,
             });
             const resultPromises = query.map(async (farmer) => {
                 farmer.workerProfileId = undefined;
@@ -6791,46 +6792,75 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateUserDto = void 0;
-const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
-const class_validator_1 = __webpack_require__(/*! @nestjs/class-validator */ "@nestjs/class-validator");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
 class CreateUserDto {
 }
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'National Identification Number' }),
     (0, class_validator_1.IsString)(),
-    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateUserDto.prototype, "password", void 0);
+], CreateUserDto.prototype, "nin", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "first_name", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "last_name", void 0);
-__decorate([
-    (0, class_validator_1.IsEmail)(),
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({ description: 'Email address of the user' }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.IsPhoneNumber)('NG'),
-    (0, swagger_1.ApiProperty)(),
+    (0, swagger_1.ApiProperty)({ description: 'First name of the user' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "first_name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Last name of the user' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "last_name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Phone number of the user' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "phone_number", void 0);
 __decorate([
-    (0, class_validator_1.IsEnum)(client_1.UserType),
-    (0, swagger_1.ApiProperty)({
-        enum: client_1.UserType,
-    }),
-    __metadata("design:type", typeof (_a = typeof client_1.UserType !== "undefined" && client_1.UserType) === "function" ? _a : Object)
-], CreateUserDto.prototype, "type", void 0);
+    (0, swagger_1.ApiProperty)({ description: 'Address of the user', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Object)
+], CreateUserDto.prototype, "address", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Age of the user' }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreateUserDto.prototype, "age", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.Marital }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", typeof (_a = typeof client_1.Marital !== "undefined" && client_1.Marital) === "function" ? _a : Object)
+], CreateUserDto.prototype, "maritalStatus", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.Religion }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", typeof (_b = typeof client_1.Religion !== "undefined" && client_1.Religion) === "function" ? _b : Object)
+], CreateUserDto.prototype, "religion", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ enum: client_1.Gender }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", typeof (_c = typeof client_1.Gender !== "undefined" && client_1.Gender) === "function" ? _c : Object)
+], CreateUserDto.prototype, "sex", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'localGovernmentId' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "localGovernmentId", void 0);
 exports.CreateUserDto = CreateUserDto;
 
 

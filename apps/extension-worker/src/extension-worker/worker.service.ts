@@ -152,6 +152,7 @@ export class WorkerService implements Iworker {
             create: {
               id: generateShortId(),
               address: data['address'] !== undefined ? data['address'] : JSON,
+              localGovernmentId: data['localGovernmentId'],
               age: Number(data['age']),
               birthday: data['birthday'],
               maritalStatus: data['maritalStatus'],
@@ -159,7 +160,9 @@ export class WorkerService implements Iworker {
               sex: data['sex'],
             },
           },
-        },
+        }, include: {
+          workerProfile: true
+        }
       });
       return user;
     } catch (error) {

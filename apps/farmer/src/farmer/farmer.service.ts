@@ -382,8 +382,6 @@ export class FarmerService {
         where: {
           type: 'FARMER',
         },
-        skip: skip,
-        take: take,
       });
 
       const resultPromises = query.map(async (farmer: any) => {
