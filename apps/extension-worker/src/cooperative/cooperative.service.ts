@@ -15,21 +15,17 @@ export class CooperativeService implements ICooperative {
   constructor(private readonly db: DbService) { }
   async CreateCooperative(data: CreateCooperativeDto): Promise<Cooperative> {
     try {
-      let lga = await this.db.localGovernment.create({
-        data: {
-          name: data['local_government_name'],
-        },
-      });
       let query = await this.db.cooperative.create({
         data: {
           // workerProfileId: data['workerProfileId'],
-          localGovernmentId: lga['id'],
+          localGovernmentId: data['localGovernmentId'],
           animal_type: data['animal_type'],
           location: data['location'],
           name: data['name'],
         },
         include: {
           farmers: true,
+          lga: true
         },
       });
       return query;

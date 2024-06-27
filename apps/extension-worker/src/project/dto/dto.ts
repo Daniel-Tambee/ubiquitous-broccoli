@@ -43,6 +43,10 @@ export class CreateProjectDto {
   @IsDateString()
   end_date: Date;
 
+  @ApiProperty()
+  @IsString()
+  localGovernmentId: string;
+
   constructor(data: CreateProjectDto) {
     Object.assign(this, data);
   }

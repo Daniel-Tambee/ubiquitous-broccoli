@@ -100,40 +100,42 @@ model AdminProfile {
 }
 
 model Project {
-  id              String          @id @default(cuid()) @map("_id")
-  name            String?
-  location        String?
-  description     String?
-  vists           Visit[]
-  status          ProjectStatus
-  type            ProjectType
-  participants    FarmerProfile[] @relation(fields: [farmerProfileId], references: [id])
-  farmerProfileId String[]
-  milestones      Milestone[]
-  interventions   Intervention[]
-  start_date      DateTime
-  end_date        DateTime
-  WorkerProfile   WorkerProfile?  @relation(fields: [workerProfileId], references: [id])
-  workerProfileId String?         @unique
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  Cooperative     Cooperative?    @relation(fields: [cooperativeId], references: [id])
-  cooperativeId   String?
+  id                String           @id @default(cuid()) @map("_id")
+  name              String?
+  location          String?
+  description       String?
+  vists             Visit[]
+  status            ProjectStatus
+  type              ProjectType
+  participants      FarmerProfile[]  @relation(fields: [farmerProfileId], references: [id])
+  farmerProfileId   String[]
+  milestones        Milestone[]
+  interventions     Intervention[]
+  start_date        DateTime
+  end_date          DateTime
+  WorkerProfile     WorkerProfile?   @relation(fields: [workerProfileId], references: [id])
+  workerProfileId   String?          @unique
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  Cooperative       Cooperative?     @relation(fields: [cooperativeId], references: [id])
+  cooperativeId     String?
+  lga               LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
+  localGovernmentId String?
 }
 
 model Cooperative {
-  id                String          @id @default(cuid()) @map("_id")
+  id                String           @id @default(cuid()) @map("_id")
   name              String?
   location          String?
   animal_type       String?
-  lga               LocalGovernment @relation(fields: [localGovernmentId], references: [id])
-  localGovernmentId String
+  lga               LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
+  localGovernmentId String?
   farmers           FarmerProfile[]
   projects          Project[]
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  WorkerProfile     WorkerProfile?  @relation(fields: [workerProfileId], references: [id])
-  workerProfileId   String?         @unique
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  WorkerProfile     WorkerProfile?   @relation(fields: [workerProfileId], references: [id])
+  workerProfileId   String?          @unique
 }
 
 model Crop {
@@ -276,6 +278,7 @@ model LocalGovernment {
   Cooperative   Cooperative[]
   FarmerProfile FarmerProfile[]
   worker        WorkerProfile[]
+  Project       Project[]
 }
 
 model Intervention {

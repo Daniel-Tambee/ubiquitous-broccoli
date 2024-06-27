@@ -319,11 +319,7 @@ export class FarmerService {
               maritalStatus: data['maritalStatus'],
               religion: data['religion'],
               sex: data['sex'],
-              lga: {
-                create: {
-                  name: data['lga'],
-                },
-              },
+              localGovernmentId: data['lga'],
               household: {
                 create: {
                   size: Number(data['household_size']),

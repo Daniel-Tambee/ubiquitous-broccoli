@@ -1545,20 +1545,16 @@ let CooperativeService = class CooperativeService {
     }
     async CreateCooperative(data) {
         try {
-            let lga = await this.db.localGovernment.create({
-                data: {
-                    name: data['local_government_name'],
-                },
-            });
             let query = await this.db.cooperative.create({
                 data: {
-                    localGovernmentId: lga['id'],
+                    localGovernmentId: data['localGovernmentId'],
                     animal_type: data['animal_type'],
                     location: data['location'],
                     name: data['name'],
                 },
                 include: {
                     farmers: true,
+                    lga: true
                 },
             });
             return query;
@@ -1753,7 +1749,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateCooperativeDto.prototype, "local_government_name", void 0);
+], CreateCooperativeDto.prototype, "localGovernmentId", void 0);
 exports.CreateCooperativeDto = CreateCooperativeDto;
 
 
@@ -3617,13 +3613,15 @@ let ProfileService = class ProfileService {
                     type: data['type'],
                     workerProfileId: data['workerProfileId'],
                     location: data['location'],
+                    localGovernmentId: data['localGovernmentId']
                 },
                 include: {
                     participants: {
                         include: {
-                            User: true
+                            User: true,
                         }
-                    }
+                    },
+                    lga: true
                 }
             });
             if (data['farmer_ids'].length > 0) {
@@ -3930,6 +3928,11 @@ __decorate([
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", typeof (_d = typeof Date !== "undefined" && Date) === "function" ? _d : Object)
 ], CreateProjectDto.prototype, "end_date", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateProjectDto.prototype, "localGovernmentId", void 0);
 exports.CreateProjectDto = CreateProjectDto;
 
 
@@ -6198,11 +6201,7 @@ let FarmerService = class FarmerService {
                             maritalStatus: data['maritalStatus'],
                             religion: data['religion'],
                             sex: data['sex'],
-                            lga: {
-                                create: {
-                                    name: data['lga'],
-                                },
-                            },
+                            localGovernmentId: data['lga'],
                             household: {
                                 create: {
                                     size: Number(data['household_size']),

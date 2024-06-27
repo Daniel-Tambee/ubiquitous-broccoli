@@ -104,13 +104,15 @@ export class ProfileService implements IProfile {
           type: data['type'],
           workerProfileId: data['workerProfileId'],
           location: data['location'],
+          localGovernmentId: data['localGovernmentId']
         },
         include: {
           participants: {
             include: {
-              User: true
+              User: true,
             }
-          }
+          },
+          lga: true
         }
       });
       if (data['farmer_ids'].length > 0) {

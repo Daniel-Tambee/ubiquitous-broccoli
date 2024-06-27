@@ -18,7 +18,7 @@ export class CreateCooperativeDto {
   animal_type?: string;
 
   @ApiProperty()
-  local_government_name: string;
+  localGovernmentId?: string;
 
   // @ApiProperty()
   // @IsOptional()
