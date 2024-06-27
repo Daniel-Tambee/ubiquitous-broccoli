@@ -4384,11 +4384,6 @@ let ProjectService = class ProjectService {
                         isAchieved: false,
                         text: milestone.text,
                         projectId: milestone.projectId,
-                        Farmer: {
-                            connect: {
-                                id: milestone.farmerProfileId
-                            }
-                        }
                     },
                     include: {
                         Project: {
@@ -4409,7 +4404,7 @@ let ProjectService = class ProjectService {
         try {
             const user = await this.db.farmerProfile.findMany({
                 where: {
-                    projectId: data['property']['project_id'],
+                    projectIds: data['property']['project_id'],
                 },
             });
             return user;

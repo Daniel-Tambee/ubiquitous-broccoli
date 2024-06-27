@@ -52,8 +52,8 @@ model FarmerProfile {
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   Intervention      Intervention[]
-  Project           Project?        @relation(fields: [projectId], references: [id])
-  projectId         String?
+  Project           Project[]       @relation(fields: [projectIds], references: [id])
+  projectIds        String[]
   logins            Login[]
   lga               LocalGovernment @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String
@@ -107,7 +107,8 @@ model Project {
   vists           Visit[]
   status          ProjectStatus
   type            ProjectType
-  participants    FarmerProfile[]
+  participants    FarmerProfile[] @relation(fields: [farmerProfileId], references: [id])
+  farmerProfileId String[]
   milestones      Milestone[]
   interventions   Intervention[]
   start_date      DateTime
@@ -147,8 +148,8 @@ model Milestone {
   Farmer           FarmerProfile[] @relation(fields: [farmerProfile], references: [id])
   farmerProfile    String[]
   text             String
-  start_date       DateTime
-  end_date         DateTime
+  start_date       DateTime?
+  end_date         DateTime?
   isAchieved       Boolean
   custom_field     Json            @default("{}")
   recommendation   Recommendation? @relation(fields: [recommendationId], references: [id])

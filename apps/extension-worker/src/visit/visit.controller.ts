@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IVisit } from './ivisit.interface';
-import { $Enums, Challenge, Prisma, Visit } from '@prisma/client';
+import { $Enums, Challenge, Milestone, Prisma, Visit } from '@prisma/client';
 import { CreateVisitDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -67,20 +67,7 @@ export class VisitController implements IVisit {
   }
   @Post('Getmilestones')
   Getmilestones(@Body(new ValidationPipe()) data: FindDto): Promise<
-    {
-      id: string;
-      farmerProfile: string[];
-      text: string;
-      start_date: Date;
-      end_date: Date;
-      isAchieved: boolean;
-      custom_field: Prisma.JsonValue;
-      recommendationId: string;
-      createdAt: Date;
-      updatedAt: Date;
-      projectId: string;
-      visitId: string;
-    }[]
+    Milestone[]
   > {
     return this.service.Getmilestones(data);
   }

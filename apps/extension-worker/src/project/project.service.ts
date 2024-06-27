@@ -60,11 +60,6 @@ export class ProjectService implements IProject {
               isAchieved: false,
               text: milestone.text,
               projectId: milestone.projectId,
-              Farmer: {
-                connect: {
-                  id: milestone.farmerProfileId
-                }
-              }
             },
             include: {
               Project: {
@@ -76,7 +71,6 @@ export class ProjectService implements IProject {
           });
         })
       );
-
       // Assuming all milestones belong to the same project, we can return the Project of the first milestone
       return responses[0].Project;
     } catch (error) {
@@ -87,7 +81,7 @@ export class ProjectService implements IProject {
     try {
       const user = await this.db.farmerProfile.findMany({
         where: {
-          projectId: data['property']['project_id'],
+          projectIds: data['property']['project_id'],
         },
       });
       return user;
