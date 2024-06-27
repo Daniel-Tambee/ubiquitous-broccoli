@@ -17,6 +17,7 @@ import { generateTOTP, verifyTOTP } from '../otp_generation';
 import { MailService } from '../email/email.service';
 import { getPasswordResetTemplate } from '../emailTemplate';
 import { sign, verify as jwtVer, decode } from 'jsonwebtoken';
+import { getPasswordResetSuccessTemplate } from '../getPasswordResetSuccessTemplate';
 
 @Injectable()
 export class AuthService implements IAuth {
@@ -241,6 +242,13 @@ export class AuthService implements IAuth {
         throw new Error('Invalid or expired reset token');
       }
 
+      const user = await this.db.user.findFirstOrThrow({
+        where: {
+          id: dec['id'],
+          type: dec['type']
+        }
+      })
+
       // Step 3: Update the user's password
       await this.db.user.update({
         where: {
@@ -263,7 +271,12 @@ export class AuthService implements IAuth {
         },
       });
 
-      // Step 5: Optionally, perform any additional cleanup or logging
+      await this.mail.sendEmail(
+        user.email,
+        'YolaFarms Successful Password Reset',
+        'Password RESET',
+        getPasswordResetSuccessTemplate(user.first_name),
+      );
 
       return { message: 'Password reset successful' };
     } catch (error) {

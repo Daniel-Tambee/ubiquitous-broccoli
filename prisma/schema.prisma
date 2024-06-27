@@ -153,6 +153,7 @@ model Milestone {
   custom_field     Json            @default("{}")
   recommendation   Recommendation? @relation(fields: [recommendationId], references: [id])
   recommendationId String?
+  progress         Float           @default(0.00)
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
   Project          Project?        @relation(fields: [projectId], references: [id])

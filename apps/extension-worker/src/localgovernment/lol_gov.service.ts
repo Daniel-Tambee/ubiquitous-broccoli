@@ -16,8 +16,13 @@ export class LolGovService {
 
     async getFarmersByLocalGovernment(id: string) {
         return this.db.farmerProfile.findMany({
-            where:{
-                localGovernmentId:id
+            where: {
+                localGovernmentId: id,
+
+            }, include: {
+                User: true,
+                lga: true,
+                
             }
         })
     }
