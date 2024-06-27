@@ -51,32 +51,34 @@ export class ProjectService implements IProject {
   }
   async Addmilestones(data: CreateMilestoneDto[]): Promise<Project> {
     try {
-      let response;
-      data.forEach(async (milestone) => {
-        response = await this.db.milestone.create({
-          data: {
-            end_date: milestone['end_date'],
-            start_date: milestone['start_date'],
-            isAchieved: false,
-            text: milestone['text'],
-            projectId: milestone['projectId'],
-            Farmer: {
-              connect: {
-                id: data['farmerProfileId']
+      const responses = await Promise.all(
+        data.map(async (milestone) => {
+          return await this.db.milestone.create({
+            data: {
+              end_date: milestone.end_date,
+              start_date: milestone.start_date,
+              isAchieved: false,
+              text: milestone.text,
+              projectId: milestone.projectId,
+              Farmer: {
+                connect: {
+                  id: milestone.farmerProfileId
+                }
               }
-            }
-          },
-          include: {
-            Project: {
-              include: {
-                participants: true,
+            },
+            include: {
+              Project: {
+                include: {
+                  participants: true,
+                },
               },
             },
-          },
-        });
-      });
+          });
+        })
+      );
 
-      return response;
+      // Assuming all milestones belong to the same project, we can return the Project of the first milestone
+      return responses[0].Project;
     } catch (error) {
       throw new BadRequestException(error);
     }

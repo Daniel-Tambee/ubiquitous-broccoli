@@ -4376,18 +4376,17 @@ let ProjectService = class ProjectService {
     }
     async Addmilestones(data) {
         try {
-            let response;
-            data.forEach(async (milestone) => {
-                response = await this.db.milestone.create({
+            const responses = await Promise.all(data.map(async (milestone) => {
+                return await this.db.milestone.create({
                     data: {
-                        end_date: milestone['end_date'],
-                        start_date: milestone['start_date'],
+                        end_date: milestone.end_date,
+                        start_date: milestone.start_date,
                         isAchieved: false,
-                        text: milestone['text'],
-                        projectId: milestone['projectId'],
+                        text: milestone.text,
+                        projectId: milestone.projectId,
                         Farmer: {
                             connect: {
-                                id: data['farmerProfileId']
+                                id: milestone.farmerProfileId
                             }
                         }
                     },
@@ -4399,8 +4398,8 @@ let ProjectService = class ProjectService {
                         },
                     },
                 });
-            });
-            return response;
+            }));
+            return responses[0].Project;
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
