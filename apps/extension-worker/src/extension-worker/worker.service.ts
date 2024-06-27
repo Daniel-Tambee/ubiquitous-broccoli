@@ -223,7 +223,7 @@ export class WorkerService implements Iworker {
       count: count,
       query: query
     }
-    return data;
+    return query;
   }
 
   UpdateProperties = async (
