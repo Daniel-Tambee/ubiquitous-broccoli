@@ -71,8 +71,8 @@ export class ExtensionWorkerController {
     return this.worker.FindByEmail(data);
   }
   @Get('getAllWorkers')
-  getAllWorkers(@Query("page", new ParseIntPipe()) page?: number, @Query("pageSize", new ParseIntPipe()) pageSize?: number) {
-    return this.worker.getAllWorkers(page, pageSize);
+  getAllWorkers() {
+    return this.worker.getAllWorkers();
   }
 
   @Get('getAllWorkersCount')

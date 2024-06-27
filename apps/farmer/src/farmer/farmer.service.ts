@@ -374,8 +374,6 @@ export class FarmerService {
   }
 
   async getAllFarmers(page = 1, pageSize = 10): Promise<any[]> {
-    const skip = (page - 1) * pageSize;
-    const take = pageSize;
 
     try {
       const query = await this.db.user.findMany({

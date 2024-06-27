@@ -197,9 +197,7 @@ export class WorkerService implements Iworker {
       console.log(error);
     }
   }
-  async getAllWorkers(page = 1, pageSize = 10) {
-    const skip = (page - 1) * pageSize;
-    const take = pageSize;
+  async getAllWorkers() {
     let count = (await this.db.workerProfile.findMany()).length;
     let query = await this.db.user.findMany({
       where: {
@@ -219,8 +217,6 @@ export class WorkerService implements Iworker {
         },
 
       },
-      skip: skip,
-      take: take,
     });
 
     const data: {} = {

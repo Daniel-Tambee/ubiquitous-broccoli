@@ -34,8 +34,8 @@ export class FarmerController {
     return this.farmer.CreateResource(data);
   }
   @Post('getAllFarmers')
-  getAllFarmers(@Query("page", new ParseIntPipe()) page?: number, @Query("pageSize", new ParseIntPipe()) pageSize?: number) {
-    return this.farmer.getAllFarmers(page, pageSize);
+  getAllFarmers() {
+    return this.farmer.getAllFarmers();
   }
   @Post('getAllProjects')
   getAllProjects(@Body(new ValidationPipe()) data: FindDto) {
