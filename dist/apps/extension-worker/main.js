@@ -2686,8 +2686,6 @@ __decorate([
 ], CreateMilestoneDto.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: String, description: 'Array of FarmerProfile IDs' }),
-    (0, class_validator_1.IsArray)(),
-    (0, class_validator_1.ValidateNested)({ each: true }),
     (0, class_transformer_1.Type)(() => String),
     __metadata("design:type", String)
 ], CreateMilestoneDto.prototype, "farmerProfileId", void 0);
@@ -2837,7 +2835,7 @@ let MilestoneController = class MilestoneController {
 };
 __decorate([
     (0, common_1.Post)('CreateMilestone'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof dto_1.CreateMilestoneDto !== "undefined" && dto_1.CreateMilestoneDto) === "function" ? _b : Object]),
     __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
@@ -2982,16 +2980,6 @@ let MilestoneService = class MilestoneService {
                     text: data['text'],
                     projectId: data['projectId'],
                 },
-                select: {
-                    id: true,
-                    isAchieved: true,
-                    Project: true,
-                    start_date: true,
-                    end_date: true,
-                    text: true,
-                    createdAt: true,
-                    updatedAt: true
-                }
             });
             data['Farmers'].forEach(async (farmer) => {
                 await this.db.milestone.update({
@@ -4415,6 +4403,7 @@ let ProjectService = class ProjectService {
                         Project: {
                             include: {
                                 participants: true,
+                                milestones: true
                             },
                         },
                     },
@@ -4423,7 +4412,8 @@ let ProjectService = class ProjectService {
             return responses[0].Project;
         }
         catch (error) {
-            throw new common_1.BadRequestException(error);
+            console.log(error);
+            throw new common_1.BadRequestException(undefined, error);
         }
     }
     async Getparticipants(data) {
@@ -4640,7 +4630,16 @@ let ProjectService = class ProjectService {
                                     id: data['id'],
                                 },
                             })
-                            : new common_1.BadRequestException('pass in a valid property');
+                            : data['property']['isActive'] !== undefined
+                                ? await this.db.project.update({
+                                    data: {
+                                        status: data['property']['isActive'],
+                                    },
+                                    where: {
+                                        id: data['id'],
+                                    },
+                                })
+                                : new common_1.BadRequestException('pass in a valid property');
             return query;
         }
         catch (error) {

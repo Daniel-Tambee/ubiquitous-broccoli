@@ -16,7 +16,7 @@ export class MilestoneController implements IMilestone {
   constructor(private readonly milestone: MilestoneService) { }
   @Post('CreateMilestone')
   CreateMilestone(
-    @Body(new ValidationPipe()) data: CreateMilestoneDto,
+    @Body() data: CreateMilestoneDto,
   ): Promise<Milestone> {
     return this.milestone.CreateMilestone(data);
   }

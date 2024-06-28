@@ -49,7 +49,7 @@ export class ProjectService implements IProject {
       throw new BadRequestException(error);
     }
   }
-  async Addmilestones(data: CreateMilestoneDto[]): Promise<Project> {
+  async Addmilestones(data: CreateMilestoneDto[]): Promise<any> {
     try {
       const responses = await Promise.all(
         data.map(async (milestone) => {
@@ -65,6 +65,7 @@ export class ProjectService implements IProject {
               Project: {
                 include: {
                   participants: true,
+                  milestones:true
                 },
               },
             },
@@ -74,7 +75,9 @@ export class ProjectService implements IProject {
       // Assuming all milestones belong to the same project, we can return the Project of the first milestone
       return responses[0].Project;
     } catch (error) {
-      throw new BadRequestException(error);
+      console.log(error);
+      
+      throw new BadRequestException(undefined,error);
     }
   }
   async Getparticipants(data: FindDto): Promise<FarmerProfile[]> {
@@ -286,7 +289,16 @@ export class ProjectService implements IProject {
                     id: data['id'],
                   },
                 })
-                : new BadRequestException('pass in a valid property');
+                : data['property']['isActive'] !== undefined
+                  ? await this.db.project.update({
+                    data: {
+                      status: data['property']['isActive'],
+                    },
+                    where: {
+                      id: data['id'],
+                    },
+                  })
+                  : new BadRequestException('pass in a valid property');
       return query;
     } catch (error) {
       throw new BadRequestException(error);

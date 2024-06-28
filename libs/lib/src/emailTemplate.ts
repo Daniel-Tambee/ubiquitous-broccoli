@@ -9,7 +9,7 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #6c8164;
             color: #333;
             margin: 0;
             padding: 0;
@@ -25,7 +25,7 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #FB8519; /* Change header background color to #FB8519 */
+            background-color: #6c8164; /* Change header background color to #6c8164 */
             color: #fff;
         }
         .content {
@@ -37,7 +37,7 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
             margin: 20px auto;
             padding: 10px 20px;
             text-align: center;
-            background-color: #FB8519;
+            background-color: #6c8164;
             color: #fff;
             border-radius: 5px;
             font-size: 1.2em;
@@ -46,7 +46,7 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
         .footer {
             text-align: center;
             padding: 10px;
-            background-color: #FB8519; /* Change footer background color to #FB8519 */
+            background-color: #6c8164; /* Change footer background color to #6c8164 */
             font-size: 12px;
             color: #fff; /* Change footer text color to white */
         }
@@ -60,7 +60,9 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
         <div class="content">
             <p>Hi ${userName},</p>
             <p>You recently requested to reset your password for your Yola Farms account. Use the OTP below to reset your password:</p>
-            <div class="otp">${otp}</div>
+            <div class="otp">
+            <a href=${otp}>Click Here</a>
+            </div>
             <p>If you did not request a password reset, please ignore this email or contact support if you have questions.</p>
             <p>Thanks,<br>The Yola Farms Team</p>
         </div>

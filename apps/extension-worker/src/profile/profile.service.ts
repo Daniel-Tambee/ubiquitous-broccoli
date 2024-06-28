@@ -96,7 +96,7 @@ export class ProfileService implements IProfile {
     try {
       let project = await this.db.project.create({
         data: {
-          status: 'ACTIVE',
+          status: 'INACTIVE',
           name: data['name'],
           description: data['description'],
           end_date: data['end_date'],

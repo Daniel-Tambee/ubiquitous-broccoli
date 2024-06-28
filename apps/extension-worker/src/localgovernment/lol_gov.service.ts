@@ -22,7 +22,7 @@ export class LolGovService {
             }, include: {
                 User: true,
                 lga: true,
-                
+
             }
         })
     }

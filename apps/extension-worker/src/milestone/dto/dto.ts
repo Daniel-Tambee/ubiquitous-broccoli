@@ -17,8 +17,7 @@ export class CreateMilestoneDto {
   id?: string;
 
   @ApiProperty({ type: String, description: 'Array of FarmerProfile IDs' })
-  @IsArray()
-  @ValidateNested({ each: true })
+  // @IsArray()
   @Type(() => String)
   farmerProfileId: string;
 

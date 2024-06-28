@@ -23,16 +23,6 @@ export class MilestoneService implements IMilestone {
           projectId: data['projectId'],
 
         },
-        select: {
-          id: true,
-          isAchieved: true,
-          Project: true,
-          start_date: true,
-          end_date: true,
-          text: true,
-          createdAt: true,
-          updatedAt: true
-        }
       });
 
       data['Farmers'].forEach(async (farmer) => {

@@ -153,7 +153,7 @@ model Milestone {
   text             String
   start_date       DateTime?
   end_date         DateTime?
-  isAchieved       Boolean
+  isAchieved       Boolean         @default(false)
   custom_field     Json            @default("{}")
   recommendation   Recommendation? @relation(fields: [recommendationId], references: [id])
   recommendationId String?
@@ -360,6 +360,7 @@ enum IncomeRange {
 enum ProjectStatus {
   ACTIVE
   INACTIVE
+  COMPLETED
 }
 
 enum Intervention_type {
