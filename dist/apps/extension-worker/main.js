@@ -4291,9 +4291,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "getAllProjects", null);
 __decorate([
-    (0, common_1.Get)('toggleProjectStatus'),
-    __param(0, (0, common_1.Query)('projectId')),
-    __param(1, (0, common_1.Query)('status')),
+    (0, common_1.Post)('toggleProjectStatus'),
+    __param(0, (0, common_1.Body)('projectId')),
+    __param(1, (0, common_1.Body)('status')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, typeof (_6 = typeof client_1.ProjectStatus !== "undefined" && client_1.ProjectStatus) === "function" ? _6 : Object]),
     __metadata("design:returntype", Promise)

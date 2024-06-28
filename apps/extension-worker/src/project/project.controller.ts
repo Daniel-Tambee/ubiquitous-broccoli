@@ -182,8 +182,8 @@ export class ProjectController implements IProject {
   async getAllProjects() {
     return this.project.getAllProjects();
   }
-  @Get('toggleProjectStatus')
-  async toggleProjectStatus(@Query('projectId') projectId: string, @Query('status') status: ProjectStatus) {
+  @Post('toggleProjectStatus')
+  async toggleProjectStatus(@Body('projectId') projectId: string, @Body('status') status: ProjectStatus) {
     return this.project.toggleProjectStatus(projectId, status);
   }
 
