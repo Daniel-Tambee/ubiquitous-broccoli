@@ -96,8 +96,10 @@ export class ProjectController implements IProject {
     }
   }
   @Post('FindByid')
-  FindByid(@Body(new ValidationPipe()) data: FindDto): Promise<Project> {
+  FindByid(@Body() data: FindDto): Promise<Project> {
     try {
+      console.log(data);
+      
       return this.project.FindByid(data);
     } catch (error) {
       throw new BadRequestException(error);

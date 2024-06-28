@@ -141,14 +141,18 @@ export class ProjectService implements IProject {
   }
   async FindByid(data: FindDto): Promise<Project> {
     try {
-      const query = await this.db.project.findFirstOrThrow({
+      const query = await this.db.project.findUnique({
         where: {
-          id: FindDto['id'],
+          id: data['id'],
         },
       });
+      console.log(query);
+
       return query;
     } catch (error) {
-      throw new BadRequestException(error);
+      console.log(error);
+
+      throw new BadRequestException(undefined, error);
     }
   }
   async FindBytype(data: FindDto): Promise<Project> {
@@ -306,7 +310,11 @@ export class ProjectService implements IProject {
 
   async getAllProjects() {
     try {
-      return await this.db.project.findMany({});
+      return await this.db.project.findMany({
+        include: {
+          milestones: true
+        }
+      });
     } catch (error) {
       throw new BadRequestException(error);
     }

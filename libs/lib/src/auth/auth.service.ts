@@ -177,18 +177,18 @@ export class AuthService implements IAuth {
       );
 
       // Step 5: Update the user's admin profile with the reset ID
-      await this.db.adminProfile.update({
-        where: {
-          id: user['adminProfileId'],
-        },
-        data: {
-          reset: {
-            connect: {
-              id: change.id,
-            },
-          },
-        },
-      });
+      // await this.db.adminProfile.update({
+      //   where: {
+      //     id: user['adminProfileId'],
+      //   },
+      //   data: {
+      //     reset: {
+      //       connect: {
+      //         id: change.id,
+      //       },
+      //     },
+      //   },
+      // });
 
       // Remove the reset token from response for security
       delete change.resetToken;

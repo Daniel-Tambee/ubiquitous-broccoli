@@ -112,7 +112,8 @@ export class ProfileService implements IProfile {
               User: true,
             }
           },
-          lga: true
+          lga: true,
+          milestones: true
         }
       });
       if (data['farmer_ids'].length > 0) {

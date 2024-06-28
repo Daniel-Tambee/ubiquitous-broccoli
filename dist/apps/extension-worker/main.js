@@ -1392,6 +1392,7 @@ let CooperativeController = class CooperativeController {
         return this.service.CreateCooperative(data);
     }
     FindByid(data) {
+        console.log(data);
         return this.service.FindByid(data);
     }
     FindByworkerProfileId(data) {
@@ -1422,7 +1423,7 @@ __decorate([
 ], CooperativeController.prototype, "CreateCooperative", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_d = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _d : Object]),
     __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
@@ -2725,7 +2726,6 @@ __decorate([
 ], CreateMilestoneDto.prototype, "recommendationId", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ type: String, format: 'uuid' }),
-    (0, class_validator_1.IsUUID)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateMilestoneDto.prototype, "projectId", void 0);
@@ -3642,7 +3642,8 @@ let ProfileService = class ProfileService {
                             User: true,
                         }
                     },
-                    lga: true
+                    lga: true,
+                    milestones: true
                 }
             });
             if (data['farmer_ids'].length > 0) {
@@ -4101,6 +4102,7 @@ let ProjectController = class ProjectController {
     }
     FindByid(data) {
         try {
+            console.log(data);
             return this.project.FindByid(data);
         }
         catch (error) {
@@ -4221,7 +4223,7 @@ __decorate([
 ], ProjectController.prototype, "Removemilestones", null);
 __decorate([
     (0, common_1.Post)('FindByid'),
-    __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_q = typeof find_dto_1.FindDto !== "undefined" && find_dto_1.FindDto) === "function" ? _q : Object]),
     __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
@@ -4492,15 +4494,17 @@ let ProjectService = class ProjectService {
     }
     async FindByid(data) {
         try {
-            const query = await this.db.project.findFirstOrThrow({
+            const query = await this.db.project.findUnique({
                 where: {
-                    id: find_dto_1.FindDto['id'],
+                    id: data['id'],
                 },
             });
+            console.log(query);
             return query;
         }
         catch (error) {
-            throw new common_1.BadRequestException(error);
+            console.log(error);
+            throw new common_1.BadRequestException(undefined, error);
         }
     }
     async FindBytype(data) {
@@ -4659,7 +4663,11 @@ let ProjectService = class ProjectService {
     }
     async getAllProjects() {
         try {
-            return await this.db.project.findMany({});
+            return await this.db.project.findMany({
+                include: {
+                    milestones: true
+                }
+            });
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -5794,6 +5802,9 @@ let FarmerController = class FarmerController {
     async farmerCount() {
         return await this.farmer.getAllFarmersCount();
     }
+    async getFarmerMilestones(id) {
+        return await this.farmer.getFarmerMilestones(id);
+    }
 };
 __decorate([
     (0, common_1.Post)('FindByEmail'),
@@ -5855,6 +5866,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], FarmerController.prototype, "farmerCount", null);
+__decorate([
+    (0, common_1.Get)('getFarmerMilestones'),
+    __param(0, (0, common_1.Query)("farmerProfileId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FarmerController.prototype, "getFarmerMilestones", null);
 FarmerController = __decorate([
     (0, common_1.Controller)('farmer'),
     (0, swagger_1.ApiTags)('farmer'),
@@ -6350,6 +6368,21 @@ let FarmerService = class FarmerService {
             throw new common_1.BadRequestException(error);
         }
     }
+    async getFarmerMilestones(FarmerProfileid) {
+        try {
+            const res = await this.db.milestone.findMany({
+                where: {
+                    farmerProfile: {
+                        has: FarmerProfileid
+                    },
+                },
+            });
+            return res;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
     cronThing() {
         console.log('dont sleep');
     }
@@ -6720,18 +6753,6 @@ let AuthService = class AuthService {
                 },
             });
             await this.mail.sendEmail(user.email, 'YolaFarms Password Reset', 'Password RESET', (0, emailTemplate_1.getPasswordResetTemplate)(user.first_name, resetLink));
-            await this.db.adminProfile.update({
-                where: {
-                    id: user['adminProfileId'],
-                },
-                data: {
-                    reset: {
-                        connect: {
-                            id: change.id,
-                        },
-                    },
-                },
-            });
             delete change.resetToken;
             return change;
         }

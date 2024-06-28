@@ -31,7 +31,8 @@ export class CooperativeController implements ICooperative {
     return this.service.CreateCooperative(data);
   }
   @Post('FindByid')
-  FindByid(@Body(new ValidationPipe()) data: FindDto): Promise<Cooperative> {
+  FindByid(@Body() data: FindDto): Promise<Cooperative> {
+    console.log(data);
     return this.service.FindByid(data);
   }
   @Post('FindByworkerProfileId')

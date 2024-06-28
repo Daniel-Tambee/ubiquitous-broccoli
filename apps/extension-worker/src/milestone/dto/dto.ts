@@ -51,7 +51,6 @@ export class CreateMilestoneDto {
 
 
   @ApiPropertyOptional({ type: String, format: 'uuid' })
-  @IsUUID()
   @IsOptional()
   projectId?: string;
 
