@@ -151,6 +151,7 @@ export class WorkerService implements Iworker {
           workerProfile: {
             create: {
               id: generateShortId(),
+              lga: data['lga'],
               address: data['address'] !== undefined ? data['address'] : JSON,
               localGovernmentId: data['localGovernmentId'],
               age: Number(data['age']),
@@ -175,8 +176,19 @@ export class WorkerService implements Iworker {
       throw new BadRequestException(error);
     }
   }
-  SignOut() {
-    throw new Error('Method not implemented.');
+  async updateAssignedTo(localGovernmentId: string, workerProfileId: string) {
+    try {
+      return await this.db.workerProfile.update({
+        where: {
+          id: workerProfileId
+        },
+        data: {
+          localGovernmentId: localGovernmentId
+        }
+      })
+    } catch (error) {
+      throw new BadRequestException(undefined, error);
+    }
   }
   async FindByEmail(data: Partial<ValidationDto>): Promise<User> {
     try {

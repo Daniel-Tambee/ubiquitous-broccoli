@@ -1897,8 +1897,8 @@ let ExtensionWorkerController = class ExtensionWorkerController {
     getAllWorkersCount() {
         return this.worker.getAllExtensionWorkersCount();
     }
-    SignOut() {
-        return this.worker.SignOut();
+    updateAssignedTo(localGovernmentId, workerProfileId) {
+        return this.worker.updateAssignedTo(localGovernmentId, workerProfileId);
     }
 };
 __decorate([
@@ -1962,6 +1962,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ExtensionWorkerController.prototype, "getAllWorkersCount", null);
+__decorate([
+    (0, common_1.Post)("updateAssignedTo"),
+    __param(0, (0, common_1.Body)("localGovernmentId")),
+    __param(1, (0, common_1.Body)("workerProfileId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], ExtensionWorkerController.prototype, "updateAssignedTo", null);
 ExtensionWorkerController = __decorate([
     (0, common_1.Controller)('extension-worker'),
     (0, swagger_1.ApiTags)('Extension Worker'),
@@ -2390,6 +2398,7 @@ let WorkerService = class WorkerService {
                     workerProfile: {
                         create: {
                             id: (0, short_id_1.generateShortId)(),
+                            lga: data['lga'],
                             address: data['address'] !== undefined ? data['address'] : JSON,
                             localGovernmentId: data['localGovernmentId'],
                             age: Number(data['age']),
@@ -2414,8 +2423,20 @@ let WorkerService = class WorkerService {
             throw new common_1.BadRequestException(error);
         }
     }
-    SignOut() {
-        throw new Error('Method not implemented.');
+    async updateAssignedTo(localGovernmentId, workerProfileId) {
+        try {
+            return await this.db.workerProfile.update({
+                where: {
+                    id: workerProfileId
+                },
+                data: {
+                    localGovernmentId: localGovernmentId
+                }
+            });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
     }
     async FindByEmail(data) {
         try {
@@ -6875,6 +6896,12 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "localGovernmentId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'LocalGovernmentName' }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "lga", void 0);
 exports.CreateUserDto = CreateUserDto;
 
 

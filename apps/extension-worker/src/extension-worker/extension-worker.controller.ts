@@ -79,8 +79,8 @@ export class ExtensionWorkerController {
   getAllWorkersCount() {
     return this.worker.getAllExtensionWorkersCount();
   }
-
-  SignOut() {
-    return this.worker.SignOut();
+  @Post("updateAssignedTo")
+  updateAssignedTo(@Body("localGovernmentId") localGovernmentId: string, @Body("workerProfileId") workerProfileId: string) {
+    return this.worker.updateAssignedTo(localGovernmentId, workerProfileId)
   }
 }

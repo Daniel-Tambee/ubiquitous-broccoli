@@ -28,7 +28,7 @@ export class ProfileController implements IProfile {
   /**
    *
    */
-  constructor(private readonly profile: ProfileService) {}
+  constructor(private readonly profile: ProfileService) { }
   @Post('Getreports')
   Getreports(
     @Body(new ValidationPipe()) data: FindDto,

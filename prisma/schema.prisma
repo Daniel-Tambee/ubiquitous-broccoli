@@ -69,6 +69,7 @@ model WorkerProfile {
   maritalStatus     Marital
   User              User[]
   projects          Project[]
+  lga               String?
   assigned_to       LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String?
   reports           Report[]
