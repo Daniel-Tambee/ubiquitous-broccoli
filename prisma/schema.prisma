@@ -32,7 +32,7 @@ model User {
 
 // TODO add different profiles for users
 model FarmerProfile {
-  id                String          @id @default(cuid()) @map("_id")
+  id                String           @id @default(cuid()) @map("_id")
   age               Int
   sex               Gender
   address           Json
@@ -45,18 +45,18 @@ model FarmerProfile {
   User              User[]
   enrolled_projects String[]
   household         HouseHold[]
-  Cooperative       Cooperative?    @relation(fields: [cooperativeId], references: [id])
+  Cooperative       Cooperative?     @relation(fields: [cooperativeId], references: [id])
   cooperativeId     String?
-  Milestone         Milestone[]     @relation(fields: [milestoneId], references: [id])
+  Milestone         Milestone[]      @relation(fields: [milestoneId], references: [id])
   milestoneId       String[]
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
   Intervention      Intervention[]
-  Project           Project[]       @relation(fields: [projectIds], references: [id])
+  Project           Project[]        @relation(fields: [projectIds], references: [id])
   projectIds        String[]
   logins            Login[]
-  lga               LocalGovernment @relation(fields: [localGovernmentId], references: [id])
-  localGovernmentId String
+  lga               LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
+  localGovernmentId String?
 }
 
 model WorkerProfile {
