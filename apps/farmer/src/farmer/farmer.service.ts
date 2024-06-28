@@ -455,6 +455,22 @@ export class FarmerService {
     }
   }
 
+  async getFarmerMilestones(FarmerProfileid: string) {
+    try {
+      const res = await this.db.milestone.findMany({
+        where: {
+          farmerProfile: {
+            has:FarmerProfileid
+          },
+        },
+      });
+
+      return res;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
   @Cron(CronExpression.EVERY_5_SECONDS)
   cronThing() {
     console.log('dont sleep');

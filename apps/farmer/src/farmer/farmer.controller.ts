@@ -49,4 +49,9 @@ export class FarmerController {
   async farmerCount() {
     return await this.farmer.getAllFarmersCount();
   }
+  @Get('getFarmerMilestones')
+  async getFarmerMilestones(@Query("farmerProfileId") id: string) {
+    return await this.farmer.getFarmerMilestones(id);
+  }
+
 }
