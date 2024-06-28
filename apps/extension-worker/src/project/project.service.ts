@@ -2,7 +2,13 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { DbService } from '@app/lib/db/db.service';
 import { ProfileService } from '../profile/profile.service';
 import { IProject } from './project.interface';
-import { FarmerProfile, Milestone, Project, ProjectType } from '@prisma/client';
+import {
+  FarmerProfile,
+  Milestone,
+  Project,
+  ProjectStatus,
+  ProjectType,
+} from '@prisma/client';
 import { CreateProjectDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -65,19 +71,19 @@ export class ProjectService implements IProject {
               Project: {
                 include: {
                   participants: true,
-                  milestones:true
+                  milestones: true,
                 },
               },
             },
           });
-        })
+        }),
       );
       // Assuming all milestones belong to the same project, we can return the Project of the first milestone
       return responses[0].Project;
     } catch (error) {
       console.log(error);
-      
-      throw new BadRequestException(undefined,error);
+
+      throw new BadRequestException(undefined, error);
     }
   }
   async Getparticipants(data: FindDto): Promise<FarmerProfile[]> {
@@ -324,11 +330,25 @@ export class ProjectService implements IProject {
     try {
       return await this.db.project.findMany({
         include: {
-          milestones: true
-        }
+          milestones: true,
+        },
       });
     } catch (error) {
       throw new BadRequestException(error);
+    }
+  }
+  async toggleProjectStatus(projectId: string, status: ProjectStatus) {
+    try {
+      return await this.db.project.update({
+        data: {
+          status: status,
+        },
+        where: {
+          id: projectId,
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException(undefined, error);
     }
   }
 }

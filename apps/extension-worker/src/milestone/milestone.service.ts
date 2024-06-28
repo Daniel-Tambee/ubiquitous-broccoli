@@ -4,7 +4,7 @@ import { IMilestone } from './milestone.interface';
 import { CreateMilestoneDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
-import { FarmerProfile, Milestone } from '@prisma/client';
+import { FarmerProfile, Milestone, ProjectStatus } from '@prisma/client';
 
 @Injectable()
 export class MilestoneService implements IMilestone {
@@ -181,5 +181,15 @@ export class MilestoneService implements IMilestone {
     } catch (error) {
       throw new BadRequestException(error);
     }
+  }
+
+  async toggleMilestoneAchieved(milestoneId: string) {
+    return await this.db.milestone.update({
+      where: {
+        id: milestoneId
+      }, data: {
+        isAchieved: true
+      }
+    })
   }
 }

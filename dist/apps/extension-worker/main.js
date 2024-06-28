@@ -3144,6 +3144,15 @@ let MilestoneService = class MilestoneService {
             throw new common_1.BadRequestException(error);
         }
     }
+    async toggleMilestoneAchieved(milestoneId) {
+        return await this.db.milestone.update({
+            where: {
+                id: milestoneId
+            }, data: {
+                isAchieved: true
+            }
+        });
+    }
 };
 MilestoneService = __decorate([
     (0, common_1.Injectable)(),
@@ -3614,7 +3623,7 @@ let ProfileService = class ProfileService {
         try {
             let project = await this.db.project.create({
                 data: {
-                    status: 'ACTIVE',
+                    status: 'INACTIVE',
                     name: data['name'],
                     description: data['description'],
                     end_date: data['end_date'],
@@ -4017,11 +4026,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProjectController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
 const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/project/dto/dto.ts");
 const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/project/dto/find_dto.ts");
 const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/project/dto/update_dto.ts");
@@ -4159,6 +4169,9 @@ let ProjectController = class ProjectController {
     async getAllProjects() {
         return this.project.getAllProjects();
     }
+    async toggleProjectStatus(projectId, status) {
+        return this.project.toggleProjectStatus(projectId, status);
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateProject'),
@@ -4277,6 +4290,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "getAllProjects", null);
+__decorate([
+    (0, common_1.Get)('toggleProjectStatus'),
+    __param(0, (0, common_1.Query)('projectId')),
+    __param(1, (0, common_1.Query)('status')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_6 = typeof client_1.ProjectStatus !== "undefined" && client_1.ProjectStatus) === "function" ? _6 : Object]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "toggleProjectStatus", null);
 ProjectController = __decorate([
     (0, common_1.Controller)('project'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
@@ -4403,7 +4424,7 @@ let ProjectService = class ProjectService {
                         Project: {
                             include: {
                                 participants: true,
-                                milestones: true
+                                milestones: true,
                             },
                         },
                     },
@@ -4664,12 +4685,27 @@ let ProjectService = class ProjectService {
         try {
             return await this.db.project.findMany({
                 include: {
-                    milestones: true
-                }
+                    milestones: true,
+                },
             });
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
+        }
+    }
+    async toggleProjectStatus(projectId, status) {
+        try {
+            return await this.db.project.update({
+                data: {
+                    status: status,
+                },
+                where: {
+                    id: projectId,
+                },
+            });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
         }
     }
 };
@@ -7130,7 +7166,7 @@ const getPasswordResetTemplate = (userName, otp) => `
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #6c8164;
             color: #333;
             margin: 0;
             padding: 0;
@@ -7146,7 +7182,7 @@ const getPasswordResetTemplate = (userName, otp) => `
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #FB8519; /* Change header background color to #FB8519 */
+            background-color: #6c8164; /* Change header background color to #6c8164 */
             color: #fff;
         }
         .content {
@@ -7158,7 +7194,7 @@ const getPasswordResetTemplate = (userName, otp) => `
             margin: 20px auto;
             padding: 10px 20px;
             text-align: center;
-            background-color: #FB8519;
+            background-color: #6c8164;
             color: #fff;
             border-radius: 5px;
             font-size: 1.2em;
@@ -7167,7 +7203,7 @@ const getPasswordResetTemplate = (userName, otp) => `
         .footer {
             text-align: center;
             padding: 10px;
-            background-color: #FB8519; /* Change footer background color to #FB8519 */
+            background-color: #6c8164; /* Change footer background color to #6c8164 */
             font-size: 12px;
             color: #fff; /* Change footer text color to white */
         }
@@ -7181,7 +7217,9 @@ const getPasswordResetTemplate = (userName, otp) => `
         <div class="content">
             <p>Hi ${userName},</p>
             <p>You recently requested to reset your password for your Yola Farms account. Use the OTP below to reset your password:</p>
-            <div class="otp">${otp}</div>
+            <div class="otp">
+            <a href=${otp}>Click Here</a>
+            </div>
             <p>If you did not request a password reset, please ignore this email or contact support if you have questions.</p>
             <p>Thanks,<br>The Yola Farms Team</p>
         </div>

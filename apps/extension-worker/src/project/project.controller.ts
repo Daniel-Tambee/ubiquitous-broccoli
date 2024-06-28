@@ -4,12 +4,13 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IProject } from './project.interface';
-import { FarmerProfile, Milestone, Project } from '@prisma/client';
+import { FarmerProfile, Milestone, Project, ProjectStatus } from '@prisma/client';
 import { CreateProjectDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -99,7 +100,7 @@ export class ProjectController implements IProject {
   FindByid(@Body() data: FindDto): Promise<Project> {
     try {
       console.log(data);
-      
+
       return this.project.FindByid(data);
     } catch (error) {
       throw new BadRequestException(error);
@@ -181,4 +182,10 @@ export class ProjectController implements IProject {
   async getAllProjects() {
     return this.project.getAllProjects();
   }
+  @Get('toggleProjectStatus')
+  async toggleProjectStatus(@Query('projectId') projectId: string, @Query('status') status: ProjectStatus) {
+    return this.project.toggleProjectStatus(projectId, status);
+  }
+
+
 }
