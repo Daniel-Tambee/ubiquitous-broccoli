@@ -25,6 +25,7 @@ export class VisitService implements IVisit {
           interventionId: data['interventionId'],
           from: data['date'],
           to: data['time'],
+          farmerProfileId:data['farmerProfileId']
         },
         include: {
           worker: true,

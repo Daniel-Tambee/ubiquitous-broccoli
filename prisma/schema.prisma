@@ -57,6 +57,7 @@ model FarmerProfile {
   logins            Login[]
   lga               LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String?
+  Visit             Visit[]
 }
 
 model WorkerProfile {
@@ -244,6 +245,8 @@ model Visit {
   projectId       String?
   worker          WorkerProfile? @relation(fields: [workerProfileId], references: [id])
   workerProfileId String?
+  farmer          FarmerProfile? @relation(fields: [farmerProfileId], references: [id])
+  farmerProfileId String?
   intervention    Intervention?  @relation(fields: [interventionId], references: [id])
   interventionId  String?
 }

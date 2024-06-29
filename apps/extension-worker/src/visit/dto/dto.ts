@@ -47,6 +47,11 @@ export class CreateVisitDto {
   @ApiProperty()
   @IsOptional()
   @IsUUID()
+  farmerProfileId?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsUUID()
   interventionId?: string;
 
   constructor(createVisitDto: CreateVisitDto) {
