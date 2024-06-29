@@ -59,13 +59,11 @@ export class CreateUserDto {
 
   @ApiProperty({ description: 'localGovernmentId' })
   @IsString()
-  @IsNotEmpty()
-  localGovernmentId: string;
+  localGovernmentId?: string;
 
 
   @ApiProperty({ description: 'LocalGovernmentName' })
   @IsString()
-  @IsNotEmpty()
   lga?: string;
 
 }

@@ -9,7 +9,7 @@ export const getPasswordResetSuccessTemplate = (userName: string) => `
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #6c8164;
             color: #333;
             margin: 0;
             padding: 0;
@@ -25,7 +25,7 @@ export const getPasswordResetSuccessTemplate = (userName: string) => `
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #FB8519;
+            background-color: #6c8164;
             color: #fff;
         }
         .content {
@@ -34,7 +34,7 @@ export const getPasswordResetSuccessTemplate = (userName: string) => `
         .footer {
             text-align: center;
             padding: 10px;
-            background-color: #FB8519;
+            background-color: #6c8164;
             font-size: 12px;
             color: #fff;
         }
