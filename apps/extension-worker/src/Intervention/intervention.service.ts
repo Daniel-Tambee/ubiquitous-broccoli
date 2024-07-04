@@ -166,4 +166,12 @@ export class InterventionService implements IIntervention {
   async getAllSubCategory() {
     return await this.db.subCategory.findMany({});
   }
+
+  async createSubCategory(name: string) {
+    return await this.db.subCategory.create({
+      data: {
+        name: name,
+      },
+    });
+  }
 }

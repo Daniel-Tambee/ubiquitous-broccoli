@@ -247,6 +247,9 @@ let InterventionController = class InterventionController {
     getAllSubCategory() {
         return this.service.getAllSubCategory();
     }
+    createSubCategory(name) {
+        return this.service.createSubCategory(name);
+    }
 };
 __decorate([
     (0, common_1.Post)('createIntervention'),
@@ -303,6 +306,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], InterventionController.prototype, "getAllSubCategory", null);
+__decorate([
+    (0, common_1.Post)('createSubCategory'),
+    __param(0, (0, common_1.Body)('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], InterventionController.prototype, "createSubCategory", null);
 InterventionController = __decorate([
     (0, common_1.Controller)('Intervention'),
     (0, swagger_1.ApiTags)('Intervention'),
@@ -662,6 +672,13 @@ let InterventionService = class InterventionService {
     }
     async getAllSubCategory() {
         return await this.db.subCategory.findMany({});
+    }
+    async createSubCategory(name) {
+        return await this.db.subCategory.create({
+            data: {
+                name: name,
+            },
+        });
     }
 };
 InterventionService = __decorate([

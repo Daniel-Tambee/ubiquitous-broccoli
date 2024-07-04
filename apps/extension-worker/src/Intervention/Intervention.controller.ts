@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -120,5 +121,10 @@ export class InterventionController implements IIntervention {
   @Get('getAllSubCategory')
   getAllSubCategory() {
     return this.service.getAllSubCategory();
+  }
+
+  @Post('createSubCategory')
+  createSubCategory(@Body('name') name: string) {
+    return this.service.createSubCategory(name);
   }
 }
