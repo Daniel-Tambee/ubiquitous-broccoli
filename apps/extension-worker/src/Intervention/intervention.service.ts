@@ -21,6 +21,14 @@ export class InterventionService implements IIntervention {
           amount: data['amount'],
           farmerProfileId: data['farmerProfileId'],
           projectId: data['projectId'],
+          subCategory: {
+            create: {
+              name: data['subCategory'],
+            },
+          },
+        },
+        include: {
+          subCategory: true,
         },
       });
       return query;
@@ -153,5 +161,9 @@ export class InterventionService implements IIntervention {
     } catch (error) {
       throw new BadRequestException(error);
     }
+  }
+
+  async getAllSubCategory() {
+    return await this.db.subCategory.findMany({});
   }
 }

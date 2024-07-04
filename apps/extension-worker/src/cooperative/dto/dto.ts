@@ -6,6 +6,8 @@ export class CreateCooperativeDto {
   @IsString()
   @IsOptional()
   Cooperative_name?: string;
+  @ApiProperty({ description: 'Custom field as a JSON object' })
+  readonly custom_field?: object;
 
   @ApiProperty()
   @IsString()

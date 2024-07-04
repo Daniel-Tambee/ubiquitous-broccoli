@@ -22,6 +22,7 @@ export class CooperativeService implements ICooperative {
           animal_type: data['animal_type'],
           location: data['location'],
           name: data['name'],
+          custom_fields:data['custom_field']
         },
         include: {
           farmers: true,

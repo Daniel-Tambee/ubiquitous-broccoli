@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Post,
   ValidationPipe,
 } from '@nestjs/common';
@@ -115,5 +116,9 @@ export class InterventionController implements IIntervention {
     | BadRequestException
   > {
     return this.service.updateProperty(data);
+  }
+  @Get('getAllSubCategory')
+  getAllSubCategory() {
+    return this.service.getAllSubCategory();
   }
 }

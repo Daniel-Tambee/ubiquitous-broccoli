@@ -58,6 +58,7 @@ model FarmerProfile {
   lga               LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String?
   Visit             Visit[]
+  createdBy         String?
 }
 
 model WorkerProfile {
@@ -129,6 +130,7 @@ model Cooperative {
   id                String           @id @default(cuid()) @map("_id")
   name              String?
   location          String?
+  custom_fields     Json?
   animal_type       String?
   lga               LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String?
@@ -218,6 +220,15 @@ model Input {
   updatedAt DateTime  @updatedAt
 }
 
+model SubCategory {
+  id             String        @id @default(cuid()) @map("_id")
+  name           String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  Intervention   Intervention? @relation(fields: [interventionId], references: [id])
+  interventionId String?
+}
+
 model Photo {
   id        String   @id @default(cuid()) @map("_id")
   data      String
@@ -288,6 +299,7 @@ model LocalGovernment {
 model Intervention {
   id              String            @id @default(cuid()) @map("_id")
   amount          Float             @default(0.00)
+  subCategory     SubCategory[]
   custom_field    Json
   type            Intervention_type
   createdAt       DateTime          @default(now())
@@ -367,9 +379,8 @@ enum ProjectStatus {
 }
 
 enum Intervention_type {
-  GRANT
+  CASH
   CROP
   LIVESTOCK
-  OIL_EXTRACTION_MACHINE
-  SOLAR_WATER_PUMP
+  MACHINE
 }

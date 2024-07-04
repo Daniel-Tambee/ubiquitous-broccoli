@@ -7,7 +7,6 @@ export class UpdateDto {
   @IsNotEmpty()
   id: string;
 
-
   @ApiProperty({
     enum: UserType,
   })
@@ -67,6 +66,9 @@ export class CreateFarmerDto {
   photo: string;
   @ApiProperty()
   @IsNotEmpty()
+  createdBy: string;
+  @ApiProperty()
+  @IsNotEmpty()
   household_size: number;
   @ApiProperty()
   @IsNotEmpty()
@@ -76,5 +78,4 @@ export class CreateFarmerDto {
     message: 'lga cant be empty',
   })
   lga: string;
-
 }

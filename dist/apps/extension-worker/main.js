@@ -244,6 +244,9 @@ let InterventionController = class InterventionController {
     updateProperty(data) {
         return this.service.updateProperty(data);
     }
+    getAllSubCategory() {
+        return this.service.getAllSubCategory();
+    }
 };
 __decorate([
     (0, common_1.Post)('createIntervention'),
@@ -294,6 +297,12 @@ __decorate([
     __metadata("design:paramtypes", [typeof (_p = typeof update_dto_1.UpdateDto !== "undefined" && update_dto_1.UpdateDto) === "function" ? _p : Object]),
     __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
 ], InterventionController.prototype, "updateProperty", null);
+__decorate([
+    (0, common_1.Get)('getAllSubCategory'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], InterventionController.prototype, "getAllSubCategory", null);
 InterventionController = __decorate([
     (0, common_1.Controller)('Intervention'),
     (0, swagger_1.ApiTags)('Intervention'),
@@ -342,10 +351,68 @@ exports.InterventionModule = InterventionModule;
 /*!***********************************************************!*\
   !*** ./apps/extension-worker/src/Intervention/dto/dto.ts ***!
   \***********************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateInterventionDto = void 0;
+const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
+const class_validator_1 = __webpack_require__(/*! class-validator */ "class-validator");
+class CreateInterventionDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Amount of the intervention', default: 0.0 }),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateInterventionDto.prototype, "amount", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Custom field as a JSON object' }),
+    __metadata("design:type", Object)
+], CreateInterventionDto.prototype, "custom_field", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'Type of the intervention',
+        enum: client_1.Intervention_type,
+    }),
+    (0, class_validator_1.IsEnum)(client_1.Intervention_type),
+    __metadata("design:type", typeof (_a = typeof client_1.Intervention_type !== "undefined" && client_1.Intervention_type) === "function" ? _a : Object)
+], CreateInterventionDto.prototype, "type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'ID of the related FarmerProfile',
+        required: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateInterventionDto.prototype, "farmerProfileId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        description: 'subCategory id or string',
+        required: false,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateInterventionDto.prototype, "subCategory", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'ID of the related Project', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateInterventionDto.prototype, "projectId", void 0);
+exports.CreateInterventionDto = CreateInterventionDto;
 
 
 /***/ }),
@@ -454,6 +521,14 @@ let InterventionService = class InterventionService {
                     amount: data['amount'],
                     farmerProfileId: data['farmerProfileId'],
                     projectId: data['projectId'],
+                    subCategory: {
+                        create: {
+                            name: data['subCategory'],
+                        },
+                    },
+                },
+                include: {
+                    subCategory: true,
                 },
             });
             return query;
@@ -584,6 +659,9 @@ let InterventionService = class InterventionService {
         catch (error) {
             throw new common_1.BadRequestException(error);
         }
+    }
+    async getAllSubCategory() {
+        return await this.db.subCategory.findMany({});
     }
 };
 InterventionService = __decorate([
@@ -1552,6 +1630,7 @@ let CooperativeService = class CooperativeService {
                     animal_type: data['animal_type'],
                     location: data['location'],
                     name: data['name'],
+                    custom_fields: data['custom_field']
                 },
                 include: {
                     farmers: true,
@@ -1735,6 +1814,10 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateCooperativeDto.prototype, "Cooperative_name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Custom field as a JSON object' }),
+    __metadata("design:type", Object)
+], CreateCooperativeDto.prototype, "custom_field", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
@@ -2638,10 +2721,12 @@ let LolGovService = class LolGovService {
         return this.db.farmerProfile.findMany({
             where: {
                 localGovernmentId: id,
-            }, include: {
+            },
+            include: {
                 User: true,
                 lga: true,
-            }
+                household: true,
+            },
         });
     }
 };
@@ -4873,6 +4958,12 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
+], CreateVisitDto.prototype, "farmerProfileId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsUUID)(),
+    __metadata("design:type", String)
 ], CreateVisitDto.prototype, "interventionId", void 0);
 exports.CreateVisitDto = CreateVisitDto;
 
@@ -5241,6 +5332,7 @@ let VisitService = class VisitService {
                     interventionId: data['interventionId'],
                     from: data['date'],
                     to: data['time'],
+                    farmerProfileId: data['farmerProfileId']
                 },
                 include: {
                     worker: true,
@@ -5715,6 +5807,11 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "photo", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "createdBy", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -6275,6 +6372,7 @@ let FarmerService = class FarmerService {
                             maritalStatus: data['maritalStatus'],
                             religion: data['religion'],
                             sex: data['sex'],
+                            createdBy: data['createdBy'],
                             localGovernmentId: data['lga'],
                             household: {
                                 create: {
@@ -6408,7 +6506,7 @@ let FarmerService = class FarmerService {
             const res = await this.db.milestone.findMany({
                 where: {
                     farmerProfile: {
-                        has: FarmerProfileid
+                        has: FarmerProfileid,
                     },
                 },
             });
@@ -6949,13 +7047,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'localGovernmentId' }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "localGovernmentId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'LocalGovernmentName' }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "lga", void 0);
 exports.CreateUserDto = CreateUserDto;
@@ -7308,7 +7404,7 @@ const getPasswordResetSuccessTemplate = (userName) => `
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #6c8164;
             color: #333;
             margin: 0;
             padding: 0;
@@ -7324,7 +7420,7 @@ const getPasswordResetSuccessTemplate = (userName) => `
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #FB8519;
+            background-color: #6c8164;
             color: #fff;
         }
         .content {
@@ -7333,7 +7429,7 @@ const getPasswordResetSuccessTemplate = (userName) => `
         .footer {
             text-align: center;
             padding: 10px;
-            background-color: #FB8519;
+            background-color: #6c8164;
             font-size: 12px;
             color: #fff;
         }
