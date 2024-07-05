@@ -119,8 +119,13 @@ export class InterventionController implements IIntervention {
     return this.service.updateProperty(data);
   }
   @Get('getAllSubCategory')
-  getAllSubCategory(@Query('type') type: Intervention_type) {
-    return this.service.getAllSubCategory(type);
+  async getAllSubCategory() {
+    try {
+      return await this.service.getAllSubCategory();
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException(undefined, error);
+    }
   }
 
   @Post('createSubCategory')
@@ -128,6 +133,10 @@ export class InterventionController implements IIntervention {
     @Body('name') name: string,
     @Body('type') type: Intervention_type,
   ) {
-    return this.service.createSubCategory(name, type);
+    try {
+      return this.service.createSubCategory(name, type);
+    } catch (error) {
+      throw new BadRequestException(undefined, error);
+    }
   }
 }

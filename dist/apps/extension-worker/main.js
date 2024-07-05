@@ -210,11 +210,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InterventionController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const swagger_1 = __webpack_require__(/*! @nestjs/swagger */ "@nestjs/swagger");
+const client_1 = __webpack_require__(/*! @prisma/client */ "@prisma/client");
 const dto_1 = __webpack_require__(/*! ./dto/dto */ "./apps/extension-worker/src/Intervention/dto/dto.ts");
 const find_dto_1 = __webpack_require__(/*! ./dto/find_dto */ "./apps/extension-worker/src/Intervention/dto/find_dto.ts");
 const update_dto_1 = __webpack_require__(/*! ./dto/update_dto */ "./apps/extension-worker/src/Intervention/dto/update_dto.ts");
@@ -244,11 +245,22 @@ let InterventionController = class InterventionController {
     updateProperty(data) {
         return this.service.updateProperty(data);
     }
-    getAllSubCategory() {
-        return this.service.getAllSubCategory();
+    async getAllSubCategory() {
+        try {
+            return await this.service.getAllSubCategory();
+        }
+        catch (error) {
+            console.log(error);
+            throw new common_1.BadRequestException(undefined, error);
+        }
     }
-    createSubCategory(name) {
-        return this.service.createSubCategory(name);
+    createSubCategory(name, type) {
+        try {
+            return this.service.createSubCategory(name, type);
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(undefined, error);
+        }
     }
 };
 __decorate([
@@ -304,13 +316,14 @@ __decorate([
     (0, common_1.Get)('getAllSubCategory'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], InterventionController.prototype, "getAllSubCategory", null);
 __decorate([
     (0, common_1.Post)('createSubCategory'),
     __param(0, (0, common_1.Body)('name')),
+    __param(1, (0, common_1.Body)('type')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, typeof (_r = typeof client_1.Intervention_type !== "undefined" && client_1.Intervention_type) === "function" ? _r : Object]),
     __metadata("design:returntype", void 0)
 ], InterventionController.prototype, "createSubCategory", null);
 InterventionController = __decorate([
@@ -534,6 +547,7 @@ let InterventionService = class InterventionService {
                     subCategory: {
                         create: {
                             name: data['subCategory'],
+                            type: data['type'],
                         },
                     },
                 },
@@ -671,12 +685,13 @@ let InterventionService = class InterventionService {
         }
     }
     async getAllSubCategory() {
-        return await this.db.subCategory.findMany({});
+        return await this.db.subCategory.findMany();
     }
-    async createSubCategory(name) {
+    async createSubCategory(name, type) {
         return await this.db.subCategory.create({
             data: {
                 name: name,
+                type: type,
             },
         });
     }

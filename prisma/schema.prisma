@@ -223,7 +223,7 @@ model Input {
 model SubCategory {
   id             String            @id @default(cuid()) @map("_id")
   name           String?
-  type           Intervention_type
+  type           Intervention_type?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
   Intervention   Intervention?     @relation(fields: [interventionId], references: [id])
