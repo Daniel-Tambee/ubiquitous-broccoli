@@ -1,7 +1,12 @@
 import { DbService } from '@app/lib/db/db.service';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { IIntervention } from './Intervention.interface';
-import { Prisma, $Enums, Intervention } from '@prisma/client';
+import {
+  Prisma,
+  $Enums,
+  Intervention,
+  Intervention_type,
+} from '@prisma/client';
 import { CreateInterventionDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -24,6 +29,7 @@ export class InterventionService implements IIntervention {
           subCategory: {
             create: {
               name: data['subCategory'],
+              type: data['type'],
             },
           },
         },
@@ -163,14 +169,17 @@ export class InterventionService implements IIntervention {
     }
   }
 
-  async getAllSubCategory() {
-    return await this.db.subCategory.findMany({});
+  async getAllSubCategory(type: Intervention_type) {
+    return await this.db.subCategory.findMany({
+      where: {},
+    });
   }
 
-  async createSubCategory(name: string) {
+  async createSubCategory(name: string, type: Intervention_type) {
     return await this.db.subCategory.create({
       data: {
         name: name,
+        type: type,
       },
     });
   }

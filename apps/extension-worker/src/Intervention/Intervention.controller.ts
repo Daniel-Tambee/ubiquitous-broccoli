@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IIntervention } from './Intervention.interface';
-import { Prisma, $Enums } from '@prisma/client';
+import { Prisma, $Enums, Intervention_type } from '@prisma/client';
 import { CreateInterventionDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -119,12 +119,15 @@ export class InterventionController implements IIntervention {
     return this.service.updateProperty(data);
   }
   @Get('getAllSubCategory')
-  getAllSubCategory() {
-    return this.service.getAllSubCategory();
+  getAllSubCategory(@Query('type') type: Intervention_type) {
+    return this.service.getAllSubCategory(type);
   }
 
   @Post('createSubCategory')
-  createSubCategory(@Body('name') name: string) {
-    return this.service.createSubCategory(name);
+  createSubCategory(
+    @Body('name') name: string,
+    @Body('type') type: Intervention_type,
+  ) {
+    return this.service.createSubCategory(name, type);
   }
 }
