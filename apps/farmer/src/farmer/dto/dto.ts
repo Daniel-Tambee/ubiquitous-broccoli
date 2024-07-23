@@ -78,4 +78,24 @@ export class CreateFarmerDto {
     message: 'lga cant be empty',
   })
   lga: string;
+  @ApiProperty({
+    type: 'object',
+    example: {
+      name: 'John Doe',
+      relationship: 'Brother',
+      phone: '123-456-7890',
+    },
+  })
+  nextOfKin: object;
+
+  @ApiProperty({
+    type: 'object',
+    example: {
+      size: 'Large',
+      acres: 100,
+    },
+  })
+  farmSize: object;
+  @ApiProperty({type:"string"})
+  cooperativeId: string
 }

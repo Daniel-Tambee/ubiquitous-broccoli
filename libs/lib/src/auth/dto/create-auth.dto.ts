@@ -66,4 +66,14 @@ export class CreateUserDto {
   @IsString()
   lga?: string;
 
+  @ApiProperty({
+    type: 'object',
+    example: {
+      name: 'John Doe',
+      relationship: 'Brother',
+      phone: '123-456-7890',
+    },
+  })
+  nextOfKin: object;
+
 }

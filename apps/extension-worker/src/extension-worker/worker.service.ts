@@ -159,6 +159,7 @@ export class WorkerService implements Iworker {
               maritalStatus: data['maritalStatus'],
               religion: data['religion'],
               sex: data['sex'],
+              nextOfKin: data['nextOfKin']
             },
           },
         }, include: {

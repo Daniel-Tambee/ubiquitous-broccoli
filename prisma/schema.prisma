@@ -38,6 +38,8 @@ model FarmerProfile {
   address           Json
   birthday          DateTime?
   income            IncomeRange
+  nextOfKin         Json?
+  farmSize          Json?
   religion          Religion
   maritalStatus     Marital
   about             String?
@@ -58,7 +60,7 @@ model FarmerProfile {
   lga               LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String?
   Visit             Visit[]
-  createdBy         String?
+  createdBy         String? 
 }
 
 model WorkerProfile {
@@ -66,6 +68,7 @@ model WorkerProfile {
   age               Int
   sex               Gender
   birthday          DateTime?
+  nextOfKin         Json?
   address           Json
   religion          Religion
   maritalStatus     Marital
@@ -132,6 +135,7 @@ model Cooperative {
   location          String?
   custom_fields     Json?
   animal_type       String?
+  certificate       String?
   lga               LocalGovernment? @relation(fields: [localGovernmentId], references: [id])
   localGovernmentId String?
   farmers           FarmerProfile[]
@@ -221,12 +225,12 @@ model Input {
 }
 
 model SubCategory {
-  id             String            @id @default(cuid()) @map("_id")
+  id             String             @id @default(cuid()) @map("_id")
   name           String?
   type           Intervention_type?
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
-  Intervention   Intervention?     @relation(fields: [interventionId], references: [id])
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  Intervention   Intervention?      @relation(fields: [interventionId], references: [id])
   interventionId String?
 }
 

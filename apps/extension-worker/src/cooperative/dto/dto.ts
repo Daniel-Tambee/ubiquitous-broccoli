@@ -18,6 +18,10 @@ export class CreateCooperativeDto {
   @IsString()
   @IsOptional()
   animal_type?: string;
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  certificate?: string;
 
   @ApiProperty()
   localGovernmentId?: string;

@@ -22,23 +22,23 @@ export class FarmerService {
   /**
    *
    */
-  constructor(private readonly db: DbService) {}
+  constructor(private readonly db: DbService) { }
 
   async UpdateProperties(data: UpdateDto): Promise<any> {
     try {
       let query =
         data['property']['first_name'] !== undefined
           ? await this.db.user.update({
-              data: {
-                first_name: data['property']['first_name'],
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-            })
+            data: {
+              first_name: data['property']['first_name'],
+            },
+            where: {
+              id: data['id'],
+              type: 'FARMER',
+            },
+          })
           : data['property']['last_name'] !== undefined
-          ? await this.db.user.update({
+            ? await this.db.user.update({
               data: {
                 last_name: data['property']['last_name'],
               },
@@ -47,123 +47,123 @@ export class FarmerService {
                 type: 'FARMER',
               },
             })
-          : data['property']['phone_number'] !== undefined
-          ? await this.db.user.update({
-              data: {
-                phone_number: data['property']['phone_number'],
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-            })
-          : data['property']['email'] !== undefined
-          ? await this.db.user.update({
-              data: {
-                email: data['property']['email'],
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-            })
-          : data['property']['age'] !== undefined
-          ? await this.db.user.update({
-              data: {
-                Farmer: {
-                  update: {
-                    age: data['property']['age'],
-                  },
+            : data['property']['phone_number'] !== undefined
+              ? await this.db.user.update({
+                data: {
+                  phone_number: data['property']['phone_number'],
                 },
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-            })
-          : data['property']['birthday'] !== undefined
-          ? await this.db.user.update({
-              data: {
-                Farmer: {
-                  update: {
-                    birthday: data['property']['birthday'],
-                  },
+                where: {
+                  id: data['id'],
+                  type: 'FARMER',
                 },
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-            })
-          : data['property']['maritalStatus'] !== undefined
-          ? await this.db.user.update({
-              data: {
-                Farmer: {
-                  update: {
-                    maritalStatus: data['property']['maritalStatus'],
+              })
+              : data['property']['email'] !== undefined
+                ? await this.db.user.update({
+                  data: {
+                    email: data['property']['email'],
                   },
-                },
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-            })
-          : data['property']['religion'] !== undefined
-          ? await this.db.user.update({
-              data: {
-                Farmer: {
-                  update: {
-                    religion: data['property']['religion'],
+                  where: {
+                    id: data['id'],
+                    type: 'FARMER',
                   },
-                },
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-            })
-          : data['property']['photo'] !== undefined
-          ? await this.db.user.update({
-              data: {
-                Farmer: {
-                  update: {
-                    photo: data['property']['photo'],
-                  },
-                },
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-            })
-          : data['property']['lga'] !== undefined
-          ? await this.db.user.update({
-              data: {
-                Farmer: {
-                  update: {
-                    lga: {
-                      update: {
-                        name: data['property']['lga'],
+                })
+                : data['property']['age'] !== undefined
+                  ? await this.db.user.update({
+                    data: {
+                      Farmer: {
+                        update: {
+                          age: data['property']['age'],
+                        },
                       },
                     },
-                  },
-                },
-              },
-              where: {
-                id: data['id'],
-                type: 'FARMER',
-              },
-              include: {
-                Farmer: {
-                  include: {
-                    lga: true,
-                    household: true,
-                  },
-                },
-              },
-            })
-          : new BadRequestException('pass in a valid property  please');
+                    where: {
+                      id: data['id'],
+                      type: 'FARMER',
+                    },
+                  })
+                  : data['property']['birthday'] !== undefined
+                    ? await this.db.user.update({
+                      data: {
+                        Farmer: {
+                          update: {
+                            birthday: data['property']['birthday'],
+                          },
+                        },
+                      },
+                      where: {
+                        id: data['id'],
+                        type: 'FARMER',
+                      },
+                    })
+                    : data['property']['maritalStatus'] !== undefined
+                      ? await this.db.user.update({
+                        data: {
+                          Farmer: {
+                            update: {
+                              maritalStatus: data['property']['maritalStatus'],
+                            },
+                          },
+                        },
+                        where: {
+                          id: data['id'],
+                          type: 'FARMER',
+                        },
+                      })
+                      : data['property']['religion'] !== undefined
+                        ? await this.db.user.update({
+                          data: {
+                            Farmer: {
+                              update: {
+                                religion: data['property']['religion'],
+                              },
+                            },
+                          },
+                          where: {
+                            id: data['id'],
+                            type: 'FARMER',
+                          },
+                        })
+                        : data['property']['photo'] !== undefined
+                          ? await this.db.user.update({
+                            data: {
+                              Farmer: {
+                                update: {
+                                  photo: data['property']['photo'],
+                                },
+                              },
+                            },
+                            where: {
+                              id: data['id'],
+                              type: 'FARMER',
+                            },
+                          })
+                          : data['property']['lga'] !== undefined
+                            ? await this.db.user.update({
+                              data: {
+                                Farmer: {
+                                  update: {
+                                    lga: {
+                                      update: {
+                                        name: data['property']['lga'],
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              where: {
+                                id: data['id'],
+                                type: 'FARMER',
+                              },
+                              include: {
+                                Farmer: {
+                                  include: {
+                                    lga: true,
+                                    household: true,
+                                  },
+                                },
+                              },
+                            })
+                            : new BadRequestException('pass in a valid property  please');
       return query;
     } catch (error) {
       throw new BadRequestException(error);
@@ -312,6 +312,8 @@ export class FarmerService {
             create: {
               id: generateShortId(),
               address: data['address'] !== undefined ? data['address'] : JSON,
+              nextOfKin:data['nextOfKin'],
+              farmSize:data['farmSize'],
               photo: data['photo'],
               age: Number(data['age']),
               birthday: data['birthday'],
@@ -321,6 +323,7 @@ export class FarmerService {
               sex: data['sex'],
               createdBy: data['createdBy'],
               localGovernmentId: data['lga'],
+              cooperativeId: data['cooperativeId'],
               household: {
                 create: {
                   size: Number(data['household_size']),

@@ -2522,6 +2522,7 @@ let WorkerService = class WorkerService {
                             maritalStatus: data['maritalStatus'],
                             religion: data['religion'],
                             sex: data['sex'],
+                            nextOfKin: data['nextOfKin']
                         },
                     },
                 }, include: {
@@ -5861,6 +5862,31 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "lga", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: 'object',
+        example: {
+            name: 'John Doe',
+            relationship: 'Brother',
+            phone: '123-456-7890',
+        },
+    }),
+    __metadata("design:type", Object)
+], CreateFarmerDto.prototype, "nextOfKin", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: 'object',
+        example: {
+            size: 'Large',
+            acres: 100,
+        },
+    }),
+    __metadata("design:type", Object)
+], CreateFarmerDto.prototype, "farmSize", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ type: "string" }),
+    __metadata("design:type", String)
+], CreateFarmerDto.prototype, "cooperativeId", void 0);
 exports.CreateFarmerDto = CreateFarmerDto;
 
 
@@ -6397,6 +6423,8 @@ let FarmerService = class FarmerService {
                         create: {
                             id: (0, short_id_1.generateShortId)(),
                             address: data['address'] !== undefined ? data['address'] : JSON,
+                            nextOfKin: data['nextOfKin'],
+                            farmSize: data['farmSize'],
                             photo: data['photo'],
                             age: Number(data['age']),
                             birthday: data['birthday'],
@@ -6406,6 +6434,7 @@ let FarmerService = class FarmerService {
                             sex: data['sex'],
                             createdBy: data['createdBy'],
                             localGovernmentId: data['lga'],
+                            cooperativeId: data['cooperativeId'],
                             household: {
                                 create: {
                                     size: Number(data['household_size']),
@@ -7086,6 +7115,17 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "lga", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        type: 'object',
+        example: {
+            name: 'John Doe',
+            relationship: 'Brother',
+            phone: '123-456-7890',
+        },
+    }),
+    __metadata("design:type", Object)
+], CreateUserDto.prototype, "nextOfKin", void 0);
 exports.CreateUserDto = CreateUserDto;
 
 
