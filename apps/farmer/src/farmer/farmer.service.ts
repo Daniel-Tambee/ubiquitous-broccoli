@@ -312,8 +312,8 @@ export class FarmerService {
             create: {
               id: generateShortId(),
               address: data['address'] !== undefined ? data['address'] : JSON,
-              nextOfKin:data['nextOfKin'],
-              farmSize:data['farmSize'],
+              nextOfKin: data['nextOfKin'],
+              farmSize: data['farmSize'],
               photo: data['photo'],
               age: Number(data['age']),
               birthday: data['birthday'],
@@ -323,6 +323,7 @@ export class FarmerService {
               sex: data['sex'],
               createdBy: data['createdBy'],
               localGovernmentId: data['lga'],
+              bioData: data['bioData'],
               cooperativeId: data['cooperativeId'],
               household: {
                 create: {

@@ -96,6 +96,15 @@ export class CreateFarmerDto {
     },
   })
   farmSize: object;
-  @ApiProperty({type:"string"})
+  @ApiProperty({
+    type: 'object',
+    example: {
+      ward: 'name of ward',
+      community: 'name of community',
+    },
+  })
+  bioData: object;
+
+  @ApiProperty({ type: "string" })
   cooperativeId: string
 }
