@@ -1662,7 +1662,8 @@ let CooperativeService = class CooperativeService {
                     animal_type: data['animal_type'],
                     location: data['location'],
                     name: data['name'],
-                    custom_fields: data['custom_field']
+                    custom_fields: data['custom_field'],
+                    certificate: data['certificate']
                 },
                 include: {
                     farmers: true,
@@ -1862,6 +1863,12 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateCooperativeDto.prototype, "animal_type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateCooperativeDto.prototype, "certificate", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
@@ -4287,6 +4294,9 @@ let ProjectController = class ProjectController {
     async getAllProjects() {
         return this.project.getAllProjects();
     }
+    async projectBreakdown() {
+        return this.project.projectBreakdown();
+    }
     async toggleProjectStatus(projectId, status) {
         return this.project.toggleProjectStatus(projectId, status);
     }
@@ -4408,6 +4418,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "getAllProjects", null);
+__decorate([
+    (0, common_1.Get)('projectBreakdown'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "projectBreakdown", null);
 __decorate([
     (0, common_1.Post)('toggleProjectStatus'),
     __param(0, (0, common_1.Body)('projectId')),
@@ -4825,6 +4841,24 @@ let ProjectService = class ProjectService {
         catch (error) {
             throw new common_1.BadRequestException(undefined, error);
         }
+    }
+    async projectBreakdown() {
+        const breakdown = [];
+        const lgas = await this.db.localGovernment.findMany();
+        for (const lga of lgas) {
+            const projects = await this.db.project.findMany({
+                where: {
+                    localGovernmentId: lga.id,
+                },
+            });
+            const breakDownItem = {
+                lga: lga,
+                projectCount: projects.length,
+                projectDetails: projects,
+            };
+            breakdown.push(breakDownItem);
+        }
+        return breakdown;
     }
 };
 ProjectService = __decorate([
@@ -5884,6 +5918,16 @@ __decorate([
     __metadata("design:type", Object)
 ], CreateFarmerDto.prototype, "farmSize", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        type: 'object',
+        example: {
+            ward: 'name of ward',
+            community: 'name of community',
+        },
+    }),
+    __metadata("design:type", Object)
+], CreateFarmerDto.prototype, "bioData", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ type: "string" }),
     __metadata("design:type", String)
 ], CreateFarmerDto.prototype, "cooperativeId", void 0);
@@ -5953,7 +5997,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FarmerController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -5994,6 +6038,9 @@ let FarmerController = class FarmerController {
     }
     async getFarmerMilestones(id) {
         return await this.farmer.getFarmerMilestones(id);
+    }
+    async getFarmerBreakdown() {
+        return await this.farmer.getFarmerBreakdown();
     }
 };
 __decorate([
@@ -6063,6 +6110,12 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], FarmerController.prototype, "getFarmerMilestones", null);
+__decorate([
+    (0, common_1.Get)('getFarmerBreakdown'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+], FarmerController.prototype, "getFarmerBreakdown", null);
 FarmerController = __decorate([
     (0, common_1.Controller)('farmer'),
     (0, swagger_1.ApiTags)('farmer'),
@@ -6434,6 +6487,7 @@ let FarmerService = class FarmerService {
                             sex: data['sex'],
                             createdBy: data['createdBy'],
                             localGovernmentId: data['lga'],
+                            bioData: data['bioData'],
                             cooperativeId: data['cooperativeId'],
                             household: {
                                 create: {
@@ -6579,6 +6633,28 @@ let FarmerService = class FarmerService {
     }
     cronThing() {
         console.log('dont sleep');
+    }
+    async getFarmerBreakdown() {
+        const breakdown = [];
+        const lgas = await this.db.localGovernment.findMany();
+        for (const lga of lgas) {
+            const farmers = await this.db.farmerProfile.findMany({
+                where: {
+                    localGovernmentId: lga.id,
+                },
+                include: {
+                    User: true,
+                },
+            });
+            const farmerDetails = farmers.map(farmer => (Object.assign(Object.assign({}, farmer), { user: farmer.User || null })));
+            const breakDownItem = {
+                lga: lga,
+                farmerCount: farmers.length,
+                farmerDetails: farmerDetails,
+            };
+            breakdown.push(breakDownItem);
+        }
+        return breakdown;
     }
 };
 __decorate([

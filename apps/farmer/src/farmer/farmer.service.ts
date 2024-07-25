@@ -3,7 +3,7 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { FarmerProfile, User, WorkerProfile } from '@prisma/client';
+import { LocalGovernment, User, WorkerProfile } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
 import { FindDto } from './dto/find.dto';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
@@ -12,6 +12,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { Farmer } from './farmer.module';
 import { calculateGrowth } from '@app/lib/farmer_growth_calc';
 import { generateShortId } from '@app/lib/short_id';
+import { farmerBreakdown } from './farmerBreakdown';
 
 /* type union = WorkerProfile | User;
 type excluded = 'id' | 'createdAt' | 'updatedAt';
@@ -478,4 +479,38 @@ export class FarmerService {
   cronThing() {
     console.log('dont sleep');
   }
+
+  async getFarmerBreakdown(): Promise<farmerBreakdown[]> {
+    const breakdown: farmerBreakdown[] = [];
+
+    const lgas: LocalGovernment[] = await this.db.localGovernment.findMany();
+
+    for (const lga of lgas) {
+      const farmers = await this.db.farmerProfile.findMany({
+        where: {
+          localGovernmentId: lga.id,
+        },
+        include: {
+          User: true,
+        },
+      });
+
+      const farmerDetails = farmers.map(farmer => ({
+        ...farmer,
+        user: farmer.User || null,
+      }));
+
+      const breakDownItem: farmerBreakdown = {
+        lga: lga,
+        farmerCount: farmers.length,
+        farmerDetails: farmerDetails as any,
+      };
+
+      breakdown.push(breakDownItem);
+    }
+
+    return breakdown;
+  }
 }
+
+

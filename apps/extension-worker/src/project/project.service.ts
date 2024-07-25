@@ -4,16 +4,19 @@ import { ProfileService } from '../profile/profile.service';
 import { IProject } from './project.interface';
 import {
   FarmerProfile,
+  LocalGovernment,
   Milestone,
   Project,
   ProjectStatus,
   ProjectType,
+  User,
 } from '@prisma/client';
 import { CreateProjectDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 import { calculateGrowth } from '@app/lib/projects_growth_calc';
 import { CreateMilestoneDto } from '../milestone/dto/dto';
+import { projectBreakdown } from './projectBreakdown';
 
 @Injectable()
 export class ProjectService implements IProject {
@@ -351,4 +354,32 @@ export class ProjectService implements IProject {
       throw new BadRequestException(undefined, error);
     }
   }
+
+  async projectBreakdown(): Promise<projectBreakdown[]> {
+    const breakdown: projectBreakdown[] = [];
+
+    const lgas: LocalGovernment[] = await this.db.localGovernment.findMany();
+
+    for (const lga of lgas) {
+      const projects: Project[] = await this.db.project.findMany({
+        where: {
+          localGovernmentId: lga.id,
+        },
+      });
+
+      const breakDownItem: projectBreakdown = {
+        lga: lga,
+        projectCount: projects.length,
+        projectDetails: projects,
+      };
+
+      breakdown.push(breakDownItem);
+    }
+
+    return breakdown;
+  }
+
+
 }
+
+

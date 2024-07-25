@@ -4,6 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateFarmerDto, UpdateDto } from './dto/dto';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 import { FindDto } from './dto/find.dto';
+import { farmerBreakdown } from './farmerBreakdown';
 
 @Controller('farmer')
 @ApiTags('farmer')
@@ -52,6 +53,10 @@ export class FarmerController {
   @Get('getFarmerMilestones')
   async getFarmerMilestones(@Query("farmerProfileId") id: string) {
     return await this.farmer.getFarmerMilestones(id);
+  }
+  @Get('getFarmerBreakdown')
+  async getFarmerBreakdown(): Promise<farmerBreakdown[]> {
+    return await this.farmer.getFarmerBreakdown();
   }
 
 }
