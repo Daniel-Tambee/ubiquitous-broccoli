@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Iworker } from './iworker.interface';
 import { CreateUserDto } from '@app/lib/auth/dto/create-auth.dto';
-import { $Enums, User } from '@prisma/client';
+import { $Enums, LocalGovernment, User } from '@prisma/client';
 import { DbService } from '@app/lib/db/db.service';
 import { ValidationDto } from '@app/lib/auth/dto/login-auth.dto';
 import { UpdateDto } from 'apps/farmer/src/farmer/dto/dto';
@@ -9,6 +9,7 @@ import { FindDto } from 'apps/farmer/src/farmer/dto/find.dto';
 import { calculateGrowth } from '@app/lib/worker_growth_calc';
 import { generateShortId } from '@app/lib/short_id';
 import { hash } from 'argon2';
+import { CooperativeBreakdown } from '../cooperative/projectBreakdown';
 
 @Injectable()
 export class WorkerService implements Iworker {
@@ -406,4 +407,29 @@ export class WorkerService implements Iworker {
       throw new BadRequestException(error);
     }
   }
+
+  async getWorkerBreakdown(): Promise<CooperativeBreakdown[]> {
+    const breakdown: CooperativeBreakdown[] = [];
+
+    const lgas: LocalGovernment[] = await this.db.localGovernment.findMany();
+
+    for (const lga of lgas) {
+      const cooperatives = await this.db.workerProfile.findMany({
+        where: {
+          localGovernmentId: lga.id,
+        },
+      });
+
+      const breakDownItem: any = {
+        lga: lga,
+        Count: cooperatives.length,
+        Details: cooperatives,
+      };
+
+      breakdown.push(breakDownItem);
+    }
+
+    return breakdown;
+  }
+
 }

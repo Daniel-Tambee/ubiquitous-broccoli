@@ -79,6 +79,11 @@ export class ExtensionWorkerController {
   getAllWorkersCount() {
     return this.worker.getAllExtensionWorkersCount();
   }
+  @Get('getWorkerBreakdown')
+  getWorkerBreakdown() {
+    return this.worker.getWorkerBreakdown();
+  }
+
   @Post("updateAssignedTo")
   updateAssignedTo(@Body("localGovernmentId") localGovernmentId: string, @Body("workerProfileId") workerProfileId: string) {
     return this.worker.updateAssignedTo(localGovernmentId, workerProfileId)
