@@ -367,10 +367,10 @@ export class ProjectService implements IProject {
         },
       });
 
-      const breakDownItem: projectBreakdown = {
+      const breakDownItem: any = {
         lga: lga,
-        projectCount: projects.length,
-        projectDetails: projects,
+        Count: projects.length,
+        Details: projects,
       };
 
       breakdown.push(breakDownItem);

@@ -500,10 +500,10 @@ export class FarmerService {
         user: farmer.User || null,
       }));
 
-      const breakDownItem: farmerBreakdown = {
+      const breakDownItem: any = {
         lga: lga,
-        farmerCount: farmers.length,
-        farmerDetails: farmerDetails as any,
+        Count: farmers.length,
+        Details: farmerDetails as any,
       };
 
       breakdown.push(breakDownItem);
