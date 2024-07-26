@@ -23,7 +23,7 @@ export class CooperativeController implements ICooperative {
   /**
    *
    */
-  constructor(private readonly service: CooperativeService) {}
+  constructor(private readonly service: CooperativeService) { }
   @Post('CreateCooperative')
   CreateCooperative(
     @Body(new ValidationPipe()) data: CreateCooperativeDto,
@@ -68,4 +68,15 @@ export class CooperativeController implements ICooperative {
   async getAllCooperatives() {
     return this.service.getAllCooperatives();
   }
+
+  @Get('getAllCooperativeCount')
+  async getAllCooperativeCount() {
+    return this.service.getAllCooperativeCount();
+  }
+
+  @Get('getCooperativeBreakdown')
+  async getCooperativeBreakdown() {
+    return this.service.getCooperativeBreakdown();
+  }
+
 }

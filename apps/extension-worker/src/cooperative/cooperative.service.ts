@@ -1,11 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ICooperative } from './cooperative.interface';
-import { $Enums, Cooperative, FarmerProfile, Prisma } from '@prisma/client';
+import { $Enums, Cooperative, FarmerProfile, LocalGovernment, Prisma } from '@prisma/client';
 import { CreateCooperativeDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
 import { DbService } from '@app/lib/db/db.service';
 import { generateShortId } from '@app/lib/short_id';
+import { CooperativeBreakdown } from './projectBreakdown';
+import { calculateGrowth } from '@app/lib/cooperative_growth_calc';
 
 @Injectable()
 export class CooperativeService implements ICooperative {
@@ -22,8 +24,8 @@ export class CooperativeService implements ICooperative {
           animal_type: data['animal_type'],
           location: data['location'],
           name: data['name'],
-          custom_fields:data['custom_field'],
-          certificate:data['certificate']
+          custom_fields: data['custom_field'],
+          certificate: data['certificate']
         },
         include: {
           farmers: true,
@@ -163,4 +165,44 @@ export class CooperativeService implements ICooperative {
       throw new BadRequestException(error);
     }
   }
+
+  async getCooperativeBreakdown(): Promise<CooperativeBreakdown[]> {
+    const breakdown: CooperativeBreakdown[] = [];
+
+    const lgas: LocalGovernment[] = await this.db.localGovernment.findMany();
+
+    for (const lga of lgas) {
+      const cooperatives = await this.db.cooperative.findMany({
+        where: {
+          localGovernmentId: lga.id,
+        },
+      });
+
+      const breakDownItem: any = {
+        lga: lga,
+        Count: cooperatives.length,
+        Details: cooperatives,
+      };
+
+      breakdown.push(breakDownItem);
+    }
+
+    return breakdown;
+  }
+  async getAllCooperativeCount() {
+    try {
+      const res: {} = {
+        count: Number,
+        percent: Number,
+      };
+      res['count'] = await this.db.project.count();
+      res['percent'] = await calculateGrowth();
+
+      return res;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
 }
+

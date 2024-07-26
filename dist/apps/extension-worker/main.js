@@ -1523,6 +1523,12 @@ let CooperativeController = class CooperativeController {
     async getAllCooperatives() {
         return this.service.getAllCooperatives();
     }
+    async getAllCooperativeCount() {
+        return this.service.getAllCooperativeCount();
+    }
+    async getCooperativeBreakdown() {
+        return this.service.getCooperativeBreakdown();
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateCooperative'),
@@ -1579,6 +1585,18 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CooperativeController.prototype, "getAllCooperatives", null);
+__decorate([
+    (0, common_1.Get)('getAllCooperativeCount'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CooperativeController.prototype, "getAllCooperativeCount", null);
+__decorate([
+    (0, common_1.Get)('getCooperativeBreakdown'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CooperativeController.prototype, "getCooperativeBreakdown", null);
 CooperativeController = __decorate([
     (0, common_1.Controller)('cooperative'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
@@ -1650,6 +1668,7 @@ exports.CooperativeService = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
 const short_id_1 = __webpack_require__(/*! @app/lib/short_id */ "./libs/lib/src/short_id.ts");
+const cooperative_growth_calc_1 = __webpack_require__(/*! @app/lib/cooperative_growth_calc */ "./libs/lib/src/cooperative_growth_calc.ts");
 let CooperativeService = class CooperativeService {
     constructor(db) {
         this.db = db;
@@ -1801,6 +1820,38 @@ let CooperativeService = class CooperativeService {
                     WorkerProfile: true,
                 },
             });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async getCooperativeBreakdown() {
+        const breakdown = [];
+        const lgas = await this.db.localGovernment.findMany();
+        for (const lga of lgas) {
+            const cooperatives = await this.db.cooperative.findMany({
+                where: {
+                    localGovernmentId: lga.id,
+                },
+            });
+            const breakDownItem = {
+                lga: lga,
+                Count: cooperatives.length,
+                Details: cooperatives,
+            };
+            breakdown.push(breakDownItem);
+        }
+        return breakdown;
+    }
+    async getAllCooperativeCount() {
+        try {
+            const res = {
+                count: Number,
+                percent: Number,
+            };
+            res['count'] = await this.db.project.count();
+            res['percent'] = await (0, cooperative_growth_calc_1.calculateGrowth)();
+            return res;
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
@@ -7293,6 +7344,60 @@ AllExceptionsFilter = __decorate([
     (0, common_1.Catch)()
 ], AllExceptionsFilter);
 exports.AllExceptionsFilter = AllExceptionsFilter;
+
+
+/***/ }),
+
+/***/ "./libs/lib/src/cooperative_growth_calc.ts":
+/*!*************************************************!*\
+  !*** ./libs/lib/src/cooperative_growth_calc.ts ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.calculateGrowth = void 0;
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+const db_service_1 = __webpack_require__(/*! ./db/db.service */ "./libs/lib/src/db/db.service.ts");
+const prisma = new db_service_1.DbService();
+async function calculateGrowth() {
+    try {
+        const now = new Date();
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const currentCount = await prisma.cooperative.count({
+            where: {
+                createdAt: {
+                    gte: startOfMonth,
+                },
+            },
+        });
+        const previousCount = await prisma.cooperative.count({
+            where: {
+                createdAt: {
+                    gte: lastMonth,
+                    lt: startOfMonth,
+                },
+            },
+        });
+        let growth;
+        if (previousCount === 0) {
+            growth = currentCount > 0 ? 100 : 0;
+        }
+        else {
+            growth = ((currentCount - previousCount) / previousCount) * 100;
+        }
+        return growth.toFixed(2) + '%';
+    }
+    catch (error) {
+        console.error('Error calculating growth:', error);
+        throw new common_1.BadRequestException(undefined, error);
+    }
+    finally {
+        await prisma.$disconnect();
+    }
+}
+exports.calculateGrowth = calculateGrowth;
 
 
 /***/ }),
