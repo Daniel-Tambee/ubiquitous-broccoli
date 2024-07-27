@@ -141,6 +141,10 @@ model Cooperative {
   localGovernmentId String?
   farmers           FarmerProfile[]
   projects          Project[]
+  visits            String[]
+  milestones        String[]
+  project           String[]
+  interventions     String[]
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   WorkerProfile     WorkerProfile?   @relation(fields: [workerProfileId], references: [id])

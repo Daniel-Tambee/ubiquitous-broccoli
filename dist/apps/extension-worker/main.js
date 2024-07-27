@@ -1484,7 +1484,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CooperativeController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
@@ -1528,6 +1528,30 @@ let CooperativeController = class CooperativeController {
     }
     async getCooperativeBreakdown() {
         return this.service.getCooperativeBreakdown();
+    }
+    async addProject(cooperativeId, projectId) {
+        return this.service.addProject(cooperativeId, projectId);
+    }
+    async removeProject(cooperativeId, projectId) {
+        return this.service.removeProject(cooperativeId, projectId);
+    }
+    async addVisit(cooperativeId, visit) {
+        return this.service.addVisit(cooperativeId, visit);
+    }
+    async removeVisit(cooperativeId, visit) {
+        return this.service.removeVisit(cooperativeId, visit);
+    }
+    async addMilestone(cooperativeId, milestone) {
+        return this.service.addMilestone(cooperativeId, milestone);
+    }
+    async removeMilestone(cooperativeId, milestone) {
+        return this.service.removeMilestone(cooperativeId, milestone);
+    }
+    async addIntervention(cooperativeId, intervention) {
+        return this.service.addIntervention(cooperativeId, intervention);
+    }
+    async removeIntervention(cooperativeId, intervention) {
+        return this.service.removeIntervention(cooperativeId, intervention);
     }
 };
 __decorate([
@@ -1597,6 +1621,70 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CooperativeController.prototype, "getCooperativeBreakdown", null);
+__decorate([
+    (0, common_1.Post)(':id/projects/:projectId'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('projectId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", typeof (_q = typeof Promise !== "undefined" && Promise) === "function" ? _q : Object)
+], CooperativeController.prototype, "addProject", null);
+__decorate([
+    (0, common_1.Delete)(':id/projects/:projectId'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('projectId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
+], CooperativeController.prototype, "removeProject", null);
+__decorate([
+    (0, common_1.Post)(':id/visits/:visit'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('visit')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
+], CooperativeController.prototype, "addVisit", null);
+__decorate([
+    (0, common_1.Delete)(':id/visits/:visit'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('visit')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
+], CooperativeController.prototype, "removeVisit", null);
+__decorate([
+    (0, common_1.Post)(':id/milestones/:milestone'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('milestone')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", typeof (_u = typeof Promise !== "undefined" && Promise) === "function" ? _u : Object)
+], CooperativeController.prototype, "addMilestone", null);
+__decorate([
+    (0, common_1.Delete)(':id/milestones/:milestone'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('milestone')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", typeof (_v = typeof Promise !== "undefined" && Promise) === "function" ? _v : Object)
+], CooperativeController.prototype, "removeMilestone", null);
+__decorate([
+    (0, common_1.Post)(':id/interventions/:intervention'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('intervention')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
+], CooperativeController.prototype, "addIntervention", null);
+__decorate([
+    (0, common_1.Delete)(':id/interventions/:intervention'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('intervention')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", typeof (_x = typeof Promise !== "undefined" && Promise) === "function" ? _x : Object)
+], CooperativeController.prototype, "removeIntervention", null);
 CooperativeController = __decorate([
     (0, common_1.Controller)('cooperative'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
@@ -1857,6 +1945,88 @@ let CooperativeService = class CooperativeService {
             throw new common_1.BadRequestException(error);
         }
     }
+    async addProject(cooperativeId, projectId) {
+        return await this.db.cooperative.update({
+            where: { id: cooperativeId },
+            data: {
+                projects: {
+                    connect: { id: projectId }
+                }
+            },
+            include: { projects: true }
+        });
+    }
+    async removeProject(cooperativeId, projectId) {
+        return await this.db.cooperative.update({
+            where: { id: cooperativeId },
+            data: {
+                projects: {
+                    disconnect: { id: projectId }
+                }
+            },
+            include: { projects: true }
+        });
+    }
+    async addVisit(cooperativeId, visit) {
+        return await this.db.cooperative.update({
+            where: { id: cooperativeId },
+            data: {
+                visits: {
+                    push: visit
+                }
+            },
+        });
+    }
+    async removeVisit(cooperativeId, visit) {
+        const cooperative = await this.db.cooperative.findUnique({
+            where: { id: cooperativeId },
+        });
+        const updatedVisits = cooperative.visits.filter(v => v !== visit);
+        return await this.db.cooperative.update({
+            where: { id: cooperativeId },
+            data: { visits: updatedVisits },
+        });
+    }
+    async addMilestone(cooperativeId, milestone) {
+        return await this.db.cooperative.update({
+            where: { id: cooperativeId },
+            data: {
+                milestones: {
+                    push: milestone
+                }
+            },
+        });
+    }
+    async removeMilestone(cooperativeId, milestone) {
+        const cooperative = await this.db.cooperative.findUnique({
+            where: { id: cooperativeId },
+        });
+        const updatedMilestones = cooperative.milestones.filter(m => m !== milestone);
+        return await this.db.cooperative.update({
+            where: { id: cooperativeId },
+            data: { milestones: updatedMilestones },
+        });
+    }
+    async addIntervention(cooperativeId, intervention) {
+        return await this.db.cooperative.update({
+            where: { id: cooperativeId },
+            data: {
+                interventions: {
+                    push: intervention
+                }
+            },
+        });
+    }
+    async removeIntervention(cooperativeId, intervention) {
+        const cooperative = await this.db.cooperative.findUnique({
+            where: { id: cooperativeId },
+        });
+        const updatedInterventions = cooperative.interventions.filter(i => i !== intervention);
+        return await this.db.cooperative.update({
+            where: { id: cooperativeId },
+            data: { interventions: updatedInterventions },
+        });
+    }
 };
 CooperativeService = __decorate([
     (0, common_1.Injectable)(),
@@ -2071,6 +2241,9 @@ let ExtensionWorkerController = class ExtensionWorkerController {
     getAllWorkersCount() {
         return this.worker.getAllExtensionWorkersCount();
     }
+    getWorkerBreakdown() {
+        return this.worker.getWorkerBreakdown();
+    }
     updateAssignedTo(localGovernmentId, workerProfileId) {
         return this.worker.updateAssignedTo(localGovernmentId, workerProfileId);
     }
@@ -2136,6 +2309,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ExtensionWorkerController.prototype, "getAllWorkersCount", null);
+__decorate([
+    (0, common_1.Get)('getWorkerBreakdown'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ExtensionWorkerController.prototype, "getWorkerBreakdown", null);
 __decorate([
     (0, common_1.Post)("updateAssignedTo"),
     __param(0, (0, common_1.Body)("localGovernmentId")),
@@ -2671,6 +2850,24 @@ let WorkerService = class WorkerService {
         catch (error) {
             throw new common_1.BadRequestException(error);
         }
+    }
+    async getWorkerBreakdown() {
+        const breakdown = [];
+        const lgas = await this.db.localGovernment.findMany();
+        for (const lga of lgas) {
+            const cooperatives = await this.db.workerProfile.findMany({
+                where: {
+                    localGovernmentId: lga.id,
+                },
+            });
+            const breakDownItem = {
+                lga: lga,
+                Count: cooperatives.length,
+                Details: cooperatives,
+            };
+            breakdown.push(breakDownItem);
+        }
+        return breakdown;
     }
 };
 WorkerService = __decorate([
@@ -4904,8 +5101,8 @@ let ProjectService = class ProjectService {
             });
             const breakDownItem = {
                 lga: lga,
-                projectCount: projects.length,
-                projectDetails: projects,
+                Count: projects.length,
+                Details: projects,
             };
             breakdown.push(breakDownItem);
         }
@@ -6700,8 +6897,8 @@ let FarmerService = class FarmerService {
             const farmerDetails = farmers.map(farmer => (Object.assign(Object.assign({}, farmer), { user: farmer.User || null })));
             const breakDownItem = {
                 lga: lga,
-                farmerCount: farmers.length,
-                farmerDetails: farmerDetails,
+                Count: farmers.length,
+                Details: farmerDetails,
             };
             breakdown.push(breakDownItem);
         }

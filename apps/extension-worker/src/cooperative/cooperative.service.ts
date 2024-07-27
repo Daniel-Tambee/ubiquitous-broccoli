@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ICooperative } from './cooperative.interface';
-import { $Enums, Cooperative, FarmerProfile, LocalGovernment, Prisma } from '@prisma/client';
 import { CreateCooperativeDto } from './dto/dto';
 import { FindDto } from './dto/find_dto';
 import { UpdateDto } from './dto/update_dto';
@@ -8,9 +7,11 @@ import { DbService } from '@app/lib/db/db.service';
 import { generateShortId } from '@app/lib/short_id';
 import { CooperativeBreakdown } from './projectBreakdown';
 import { calculateGrowth } from '@app/lib/cooperative_growth_calc';
+import { CooperativeManager } from './CooperativeManager';
+import { Cooperative, FarmerProfile, LocalGovernment } from '@prisma/client';
 
 @Injectable()
-export class CooperativeService implements ICooperative {
+export class CooperativeService implements ICooperative, CooperativeManager {
   /**
    *
    */
@@ -204,5 +205,108 @@ export class CooperativeService implements ICooperative {
     }
   }
 
+  async addProject(cooperativeId: string, projectId: string): Promise<Cooperative> {
+    return await this.db.cooperative.update({
+      where: { id: cooperativeId },
+      data: {
+        projects: {
+          connect: { id: projectId }
+        }
+      },
+      include: { projects: true }
+    });
+  }
+
+  async removeProject(cooperativeId: string, projectId: string): Promise<Cooperative> {
+    return await this.db.cooperative.update({
+      where: { id: cooperativeId },
+      data: {
+        projects: {
+          disconnect: { id: projectId }
+        }
+      },
+      include: { projects: true }
+    });
+  }
+
+  async addVisit(cooperativeId: string, visit: string): Promise<Cooperative> {
+    return await this.db.cooperative.update({
+      where: { id: cooperativeId },
+      data: {
+        visits: {
+          push: visit
+        }
+      },
+      // include: { visits: true }
+    });
+  }
+
+  async removeVisit(cooperativeId: string, visit: string): Promise<Cooperative> {
+    const cooperative = await this.db.cooperative.findUnique({
+      where: { id: cooperativeId },
+    });
+
+    const updatedVisits = cooperative.visits.filter(v => v !== visit);
+
+    return await this.db.cooperative.update({
+      where: { id: cooperativeId },
+      data: { visits: updatedVisits },
+      // include: { visits: true }
+    });
+  }
+
+  async addMilestone(cooperativeId: string, milestone: string): Promise<Cooperative> {
+    return await this.db.cooperative.update({
+      where: { id: cooperativeId },
+      data: {
+        milestones: {
+          push: milestone
+        }
+      },
+      // include: { milestones: true }
+    });
+  }
+
+  async removeMilestone(cooperativeId: string, milestone: string): Promise<Cooperative> {
+    const cooperative = await this.db.cooperative.findUnique({
+      where: { id: cooperativeId },
+    });
+
+    const updatedMilestones = cooperative.milestones.filter(m => m !== milestone);
+
+    return await this.db.cooperative.update({
+      where: { id: cooperativeId },
+      data: { milestones: updatedMilestones },
+      // include: { milestones: true }
+    });
+  }
+
+  async addIntervention(cooperativeId: string, intervention: string): Promise<Cooperative> {
+    return await this.db.cooperative.update({
+      where: { id: cooperativeId },
+      data: {
+        interventions: {
+          push: intervention
+        }
+      },
+      // include: { interventions: true }
+    });
+  }
+
+  async removeIntervention(cooperativeId: string, intervention: string): Promise<Cooperative> {
+    const cooperative = await this.db.cooperative.findUnique({
+      where: { id: cooperativeId },
+    });
+
+    const updatedInterventions = cooperative.interventions.filter(i => i !== intervention);
+
+    return await this.db.cooperative.update({
+      where: { id: cooperativeId },
+      data: { interventions: updatedInterventions },
+      // include: { interventions: true }
+    });
+  }
+
 }
+
 

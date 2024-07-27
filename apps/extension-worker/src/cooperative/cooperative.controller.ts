@@ -2,7 +2,9 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   UseGuards,
   ValidationPipe,
@@ -78,5 +80,66 @@ export class CooperativeController implements ICooperative {
   async getCooperativeBreakdown() {
     return this.service.getCooperativeBreakdown();
   }
+  @Post(':id/projects/:projectId')
+  async addProject(
+    @Param('id') cooperativeId: string,
+    @Param('projectId') projectId: string
+  ): Promise<Cooperative> {
+    return this.service.addProject(cooperativeId, projectId);
+  }
 
-}
+  @Delete(':id/projects/:projectId')
+  async removeProject(
+    @Param('id') cooperativeId: string,
+    @Param('projectId') projectId: string
+  ): Promise<Cooperative> {
+    return this.service.removeProject(cooperativeId, projectId);
+  }
+
+  @Post(':id/visits/:visit')
+  async addVisit(
+    @Param('id') cooperativeId: string,
+    @Param('visit') visit: string
+  ): Promise<Cooperative> {
+    return this.service.addVisit(cooperativeId, visit);
+  }
+
+  @Delete(':id/visits/:visit')
+  async removeVisit(
+    @Param('id') cooperativeId: string,
+    @Param('visit') visit: string
+  ): Promise<Cooperative> {
+    return this.service.removeVisit(cooperativeId, visit);
+  }
+
+  @Post(':id/milestones/:milestone')
+  async addMilestone(
+    @Param('id') cooperativeId: string,
+    @Param('milestone') milestone: string
+  ): Promise<Cooperative> {
+    return this.service.addMilestone(cooperativeId, milestone);
+  }
+
+  @Delete(':id/milestones/:milestone')
+  async removeMilestone(
+    @Param('id') cooperativeId: string,
+    @Param('milestone') milestone: string
+  ): Promise<Cooperative> {
+    return this.service.removeMilestone(cooperativeId, milestone);
+  }
+
+  @Post(':id/interventions/:intervention')
+  async addIntervention(
+    @Param('id') cooperativeId: string,
+    @Param('intervention') intervention: string
+  ): Promise<Cooperative> {
+    return this.service.addIntervention(cooperativeId, intervention);
+  }
+
+  @Delete(':id/interventions/:intervention')
+  async removeIntervention(
+    @Param('id') cooperativeId: string,
+    @Param('intervention') intervention: string
+  ): Promise<Cooperative> {
+    return this.service.removeIntervention(cooperativeId, intervention);
+  }}
