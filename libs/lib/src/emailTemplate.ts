@@ -1,4 +1,3 @@
-// src/emailTemplate.ts
 export const getPasswordResetTemplate = (userName: string, otp: string) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -9,8 +8,8 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #6c8164;
-            color: #333;
+            background-color: #800080; /* Purple background color */
+            color: #00FF00; /* Green text color */
             margin: 0;
             padding: 0;
         }
@@ -19,14 +18,14 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #fff; /* Change background color to white */
+            background-color: #fff; /* White background for the container */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #6c8164; /* Change header background color to #6c8164 */
-            color: #fff;
+            background-color: #800080; /* Purple header background */
+            color: #00FF00; /* Green header text color */
         }
         .content {
             padding: 20px;
@@ -37,8 +36,8 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
             margin: 20px auto;
             padding: 10px 20px;
             text-align: center;
-            background-color: #6c8164;
-            color: #fff;
+            background-color: #800080; /* Purple background for the OTP */
+            color: #00FF00; /* Green OTP text color */
             border-radius: 5px;
             font-size: 1.2em;
             letter-spacing: 0.1em;
@@ -46,9 +45,9 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
         .footer {
             text-align: center;
             padding: 10px;
-            background-color: #6c8164; /* Change footer background color to #6c8164 */
+            background-color: #800080; /* Purple footer background */
             font-size: 12px;
-            color: #fff; /* Change footer text color to white */
+            color: #00FF00; /* Green footer text color */
         }
     </style>
 </head>
@@ -59,12 +58,12 @@ export const getPasswordResetTemplate = (userName: string, otp: string) => `
         </div>
         <div class="content">
             <p>Hi ${userName},</p>
-            <p>You recently requested to reset your password for your Yola Farms account. Use the OTP below to reset your password:</p>
+            <p>You recently requested to reset your password for your MCRP account. Use the OTP below to reset your password:</p>
             <div class="otp">
             <a href=${otp}>Click Here</a>
             </div>
             <p>If you did not request a password reset, please ignore this email or contact support if you have questions.</p>
-            <p>Thanks,<br>The Yola Farms Team</p>
+            <p>Thanks,<br>The MCRP Team</p>
         </div>
         <div class="footer">
             <p>If you’re having trouble using the OTP, please contact our support team.</p>
