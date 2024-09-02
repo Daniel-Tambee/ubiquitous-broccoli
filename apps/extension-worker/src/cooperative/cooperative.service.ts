@@ -24,7 +24,7 @@ export class CooperativeService implements ICooperative, CooperativeManager {
           localGovernmentId: data['localGovernmentId'],
           animal_type: data['animal_type'],
           location: data['location'],
-          name: data['name'],
+          name: data['Cooperative_name'],
           custom_fields: data['custom_field'],
           certificate: data['certificate']
         },
