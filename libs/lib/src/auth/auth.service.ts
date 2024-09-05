@@ -171,7 +171,7 @@ export class AuthService implements IAuth {
       // Step 4: Send the reset email with the reset link
       await this.mail.sendEmail(
         user.email,
-        'YolaFarms Password Reset',
+        'MCRP Password Reset',
         'Password RESET',
         getPasswordResetTemplate(user.first_name, resetLink),
       );
