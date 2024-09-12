@@ -511,6 +511,26 @@ export class FarmerService {
 
     return breakdown;
   }
+  async getFarmersByWorkerId(workerProfileId: string) {
+    try {
+      const farmers = await this.db.farmerProfile.findMany({
+        where: {
+          lga: {
+            worker: {
+              some: {
+                id: workerProfileId,  // Find the workers associated with the LocalGovernment
+              },
+            },
+          },
+        },
+      });
+
+      return farmers;
+    } catch (error) {
+      console.error('Error fetching farmers by worker profile ID:', error);
+      throw error;
+    }
+  }
 }
 
 

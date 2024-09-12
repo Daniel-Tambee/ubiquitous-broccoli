@@ -114,4 +114,9 @@ export class VisitController implements IVisit {
   async getAllKnownVisits() {
     return this.service.getAllKnownVisits();
   }
+
+  @Get('getVisitByWorkerId')
+  async getVisitByWorkerId(@Param('workerId') workerId: string) {
+    return this.service.getVisitByWorkerProfileId(workerId);
+  }
 }

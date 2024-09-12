@@ -59,4 +59,9 @@ export class FarmerController {
     return await this.farmer.getFarmerBreakdown();
   }
 
+  @Get('getFarmersByWorkerId')
+  async getFarmersByWorkerId(@Query("workerId") workerId: string) {
+    return await this.farmer.getFarmersByWorkerId(workerId);
+  }
+
 }

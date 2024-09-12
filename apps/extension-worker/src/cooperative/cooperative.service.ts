@@ -307,6 +307,29 @@ export class CooperativeService implements ICooperative, CooperativeManager {
     });
   }
 
+  async  findCooperativesByWorkerIdAndLocalGovernmentId(
+    workerId: string,
+    localGovernmentId: string
+  ): Promise<Cooperative[]> {
+    try {
+      const cooperatives = await this.db.cooperative.findMany({
+        where: {
+          workerProfileId: workerId,
+          localGovernmentId: localGovernmentId,  // Filter by both Worker ID and Local Government ID
+        },
+        include: {
+          lga: true,  // Include related LocalGovernment if needed
+          farmers: true,  // Include related farmers if needed
+          projects: true,  // Include related projects if needed
+          // Add other relations as necessary
+        },
+      });
+  
+      return cooperatives;
+    } catch (error) {
+      console.error('Error fetching cooperatives by worker ID and Local Government ID:', error);
+      throw error;
+    }
+  }
 }
-
 

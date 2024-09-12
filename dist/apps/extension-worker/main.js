@@ -1553,6 +1553,9 @@ let CooperativeController = class CooperativeController {
     async removeIntervention(cooperativeId, intervention) {
         return this.service.removeIntervention(cooperativeId, intervention);
     }
+    async findCooperativesByWorkerIdAndLocalGovernmentId(workerId, localGovernmentId) {
+        return this.service.findCooperativesByWorkerIdAndLocalGovernmentId(workerId, localGovernmentId);
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateCooperative'),
@@ -1685,6 +1688,14 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", typeof (_x = typeof Promise !== "undefined" && Promise) === "function" ? _x : Object)
 ], CooperativeController.prototype, "removeIntervention", null);
+__decorate([
+    (0, common_1.Get)('getCooperativesByWorkerIdAndLocalGovernmentId/:workerId/:localGovernmentId'),
+    __param(0, (0, common_1.Param)('workerId')),
+    __param(1, (0, common_1.Param)('localGovernmentId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], CooperativeController.prototype, "findCooperativesByWorkerIdAndLocalGovernmentId", null);
 CooperativeController = __decorate([
     (0, common_1.Controller)('cooperative'),
     (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
@@ -1768,7 +1779,7 @@ let CooperativeService = class CooperativeService {
                     localGovernmentId: data['localGovernmentId'],
                     animal_type: data['animal_type'],
                     location: data['location'],
-                    name: data['name'],
+                    name: data['Cooperative_name'],
                     custom_fields: data['custom_field'],
                     certificate: data['certificate']
                 },
@@ -2026,6 +2037,26 @@ let CooperativeService = class CooperativeService {
             where: { id: cooperativeId },
             data: { interventions: updatedInterventions },
         });
+    }
+    async findCooperativesByWorkerIdAndLocalGovernmentId(workerId, localGovernmentId) {
+        try {
+            const cooperatives = await this.db.cooperative.findMany({
+                where: {
+                    workerProfileId: workerId,
+                    localGovernmentId: localGovernmentId,
+                },
+                include: {
+                    lga: true,
+                    farmers: true,
+                    projects: true,
+                },
+            });
+            return cooperatives;
+        }
+        catch (error) {
+            console.error('Error fetching cooperatives by worker ID and Local Government ID:', error);
+            throw error;
+        }
     }
 };
 CooperativeService = __decorate([
@@ -5441,6 +5472,9 @@ let VisitController = class VisitController {
     async getAllKnownVisits() {
         return this.service.getAllKnownVisits();
     }
+    async getVisitByWorkerId(workerId) {
+        return this.service.getVisitByWorkerProfileId(workerId);
+    }
 };
 __decorate([
     (0, common_1.Post)('CreateVisit'),
@@ -5567,6 +5601,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], VisitController.prototype, "getAllKnownVisits", null);
+__decorate([
+    (0, common_1.Get)('getVisitByWorkerId'),
+    __param(0, (0, common_1.Param)('workerId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], VisitController.prototype, "getVisitByWorkerId", null);
 VisitController = __decorate([
     (0, common_1.Controller)('visit'),
     (0, swagger_1.ApiTags)('Visit'),
@@ -5955,6 +5996,18 @@ let VisitService = class VisitService {
             throw new common_1.BadRequestException(error);
         }
     }
+    async getVisitByWorkerProfileId(id) {
+        try {
+            return this.db.visit.findMany({
+                where: {
+                    workerProfileId: id,
+                },
+            });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
 };
 VisitService = __decorate([
     (0, common_1.Injectable)(),
@@ -6290,6 +6343,9 @@ let FarmerController = class FarmerController {
     async getFarmerBreakdown() {
         return await this.farmer.getFarmerBreakdown();
     }
+    async getFarmersByWorkerId(workerId) {
+        return await this.farmer.getFarmersByWorkerId(workerId);
+    }
 };
 __decorate([
     (0, common_1.Post)('FindByEmail'),
@@ -6364,6 +6420,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], FarmerController.prototype, "getFarmerBreakdown", null);
+__decorate([
+    (0, common_1.Get)('getFarmersByWorkerId'),
+    __param(0, (0, common_1.Query)("workerId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FarmerController.prototype, "getFarmersByWorkerId", null);
 FarmerController = __decorate([
     (0, common_1.Controller)('farmer'),
     (0, swagger_1.ApiTags)('farmer'),
@@ -6904,6 +6967,26 @@ let FarmerService = class FarmerService {
         }
         return breakdown;
     }
+    async getFarmersByWorkerId(workerProfileId) {
+        try {
+            const farmers = await this.db.farmerProfile.findMany({
+                where: {
+                    lga: {
+                        worker: {
+                            some: {
+                                id: workerProfileId,
+                            },
+                        },
+                    },
+                },
+            });
+            return farmers;
+        }
+        catch (error) {
+            console.error('Error fetching farmers by worker profile ID:', error);
+            throw error;
+        }
+    }
 };
 __decorate([
     (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_5_SECONDS),
@@ -7270,7 +7353,7 @@ let AuthService = class AuthService {
                     resetToken: true,
                 },
             });
-            await this.mail.sendEmail(user.email, 'YolaFarms Password Reset', 'Password RESET', (0, emailTemplate_1.getPasswordResetTemplate)(user.first_name, resetLink));
+            await this.mail.sendEmail(user.email, 'MCRP Password Reset', 'Password RESET', (0, emailTemplate_1.getPasswordResetTemplate)(user.first_name, resetLink));
             delete change.resetToken;
             return change;
         }
@@ -7712,8 +7795,8 @@ const getPasswordResetTemplate = (userName, otp) => `
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #6c8164;
-            color: #333;
+            background-color: #800080; /* Purple background color */
+            color: #00FF00; /* Green text color */
             margin: 0;
             padding: 0;
         }
@@ -7722,14 +7805,14 @@ const getPasswordResetTemplate = (userName, otp) => `
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #fff; /* Change background color to white */
+            background-color: #fff; /* White background for the container */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .header {
             text-align: center;
             padding: 10px 0;
-            background-color: #6c8164; /* Change header background color to #6c8164 */
-            color: #fff;
+            background-color: #800080; /* Purple header background */
+            color: #00FF00; /* Green header text color */
         }
         .content {
             padding: 20px;
@@ -7740,8 +7823,8 @@ const getPasswordResetTemplate = (userName, otp) => `
             margin: 20px auto;
             padding: 10px 20px;
             text-align: center;
-            background-color: #6c8164;
-            color: #fff;
+            background-color: #800080; /* Purple background for the OTP */
+            color: #00FF00; /* Green OTP text color */
             border-radius: 5px;
             font-size: 1.2em;
             letter-spacing: 0.1em;
@@ -7749,9 +7832,9 @@ const getPasswordResetTemplate = (userName, otp) => `
         .footer {
             text-align: center;
             padding: 10px;
-            background-color: #6c8164; /* Change footer background color to #6c8164 */
+            background-color: #800080; /* Purple footer background */
             font-size: 12px;
-            color: #fff; /* Change footer text color to white */
+            color: #00FF00; /* Green footer text color */
         }
     </style>
 </head>
@@ -7762,12 +7845,12 @@ const getPasswordResetTemplate = (userName, otp) => `
         </div>
         <div class="content">
             <p>Hi ${userName},</p>
-            <p>You recently requested to reset your password for your Yola Farms account. Use the OTP below to reset your password:</p>
+            <p>You recently requested to reset your password for your MCRP account. Use the OTP below to reset your password:</p>
             <div class="otp">
             <a href=${otp}>Click Here</a>
             </div>
             <p>If you did not request a password reset, please ignore this email or contact support if you have questions.</p>
-            <p>Thanks,<br>The Yola Farms Team</p>
+            <p>Thanks,<br>The MCRP Team</p>
         </div>
         <div class="footer">
             <p>If you’re having trouble using the OTP, please contact our support team.</p>

@@ -142,4 +142,10 @@ export class CooperativeController implements ICooperative {
     @Param('intervention') intervention: string
   ): Promise<Cooperative> {
     return this.service.removeIntervention(cooperativeId, intervention);
-  }}
+  }
+
+  @Get('getCooperativesByWorkerIdAndLocalGovernmentId/:workerId/:localGovernmentId')
+  async findCooperativesByWorkerIdAndLocalGovernmentId(@Param('workerId') workerId: string, @Param('localGovernmentId')localGovernmentId: string){
+    return this.service.findCooperativesByWorkerIdAndLocalGovernmentId(workerId, localGovernmentId);
+  }
+}
