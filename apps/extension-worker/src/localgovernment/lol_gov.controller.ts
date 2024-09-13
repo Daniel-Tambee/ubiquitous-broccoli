@@ -1,12 +1,13 @@
 import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { LolGovService } from './lol_gov.service';
+import { StatisticsService } from '../statistics/statistics.service';
 
 @Controller('lol-gov')
 export class LolGovController {
     /**
      *
      */
-    constructor(private readonly lcl: LolGovService) { }
+    constructor(private readonly lcl: LolGovService, private readonly stats:StatisticsService) { }
     @Get("getAllLocalGov")
     async getAllLocalGov() {
         try {
@@ -24,5 +25,10 @@ export class LolGovController {
         } catch (error) {
 
         }
+    }
+
+    @Get('getStatistics')
+    async getStatistics() {
+        return  await this.stats.getStatisticsForAllLocalGovernments();
     }
 }

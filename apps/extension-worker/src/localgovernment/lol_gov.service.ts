@@ -6,7 +6,7 @@ export class LolGovService {
   /**
    *
    */
-  constructor(private readonly db: DbService) {}
+  constructor(private readonly db: DbService,) {}
 
   async getAllLocalGov() {
     return this.db.localGovernment.findMany();

@@ -14,6 +14,8 @@ import { AppointmentModule } from './appointment/appointment.module';
 import { ConfigModule } from '@nestjs/config';
 import { LocalgovernmentModule } from './localgovernment/localgovernment.module';
 import { LolGovService } from './localgovernment/lol_gov.service';
+import { StatisticsModule } from './statistics/statistics.module';
+import { StatisticsController } from './statistics/statistics.controller';
 
 @Module({
   imports: [
@@ -30,8 +32,9 @@ import { LolGovService } from './localgovernment/lol_gov.service';
       envFilePath: './',
     }),
     LocalgovernmentModule,
+    StatisticsModule,
   ],
-  controllers: [AuthController],
+  controllers: [AuthController,StatisticsController],
   providers: [WorkerService, AuthService, LolGovService],
 })
 export class AppModule {}

@@ -2929,11 +2929,12 @@ const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const lol_gov_service_1 = __webpack_require__(/*! ./lol_gov.service */ "./apps/extension-worker/src/localgovernment/lol_gov.service.ts");
 const lol_gov_controller_1 = __webpack_require__(/*! ./lol_gov.controller */ "./apps/extension-worker/src/localgovernment/lol_gov.controller.ts");
 const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const statistics_service_1 = __webpack_require__(/*! ../statistics/statistics.service */ "./apps/extension-worker/src/statistics/statistics.service.ts");
 let LocalgovernmentModule = class LocalgovernmentModule {
 };
 LocalgovernmentModule = __decorate([
     (0, common_1.Module)({
-        providers: [lol_gov_service_1.LolGovService, db_service_1.DbService],
+        providers: [lol_gov_service_1.LolGovService, db_service_1.DbService, statistics_service_1.StatisticsService],
         controllers: [lol_gov_controller_1.LolGovController]
     })
 ], LocalgovernmentModule);
@@ -2961,14 +2962,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LolGovController = void 0;
 const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
 const lol_gov_service_1 = __webpack_require__(/*! ./lol_gov.service */ "./apps/extension-worker/src/localgovernment/lol_gov.service.ts");
+const statistics_service_1 = __webpack_require__(/*! ../statistics/statistics.service */ "./apps/extension-worker/src/statistics/statistics.service.ts");
 let LolGovController = class LolGovController {
-    constructor(lcl) {
+    constructor(lcl, stats) {
         this.lcl = lcl;
+        this.stats = stats;
     }
     async getAllLocalGov() {
         try {
@@ -2985,6 +2988,9 @@ let LolGovController = class LolGovController {
         catch (error) {
         }
     }
+    async getStatistics() {
+        return await this.stats.getStatisticsForAllLocalGovernments();
+    }
 };
 __decorate([
     (0, common_1.Get)("getAllLocalGov"),
@@ -2999,9 +3005,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], LolGovController.prototype, "getFarmersByLocalGovernment", null);
+__decorate([
+    (0, common_1.Get)('getStatistics'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], LolGovController.prototype, "getStatistics", null);
 LolGovController = __decorate([
     (0, common_1.Controller)('lol-gov'),
-    __metadata("design:paramtypes", [typeof (_a = typeof lol_gov_service_1.LolGovService !== "undefined" && lol_gov_service_1.LolGovService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof lol_gov_service_1.LolGovService !== "undefined" && lol_gov_service_1.LolGovService) === "function" ? _a : Object, typeof (_b = typeof statistics_service_1.StatisticsService !== "undefined" && statistics_service_1.StatisticsService) === "function" ? _b : Object])
 ], LolGovController);
 exports.LolGovController = LolGovController;
 
@@ -5218,6 +5230,170 @@ ReportModule = __decorate([
     })
 ], ReportModule);
 exports.ReportModule = ReportModule;
+
+
+/***/ }),
+
+/***/ "./apps/extension-worker/src/statistics/statistics.service.ts":
+/*!********************************************************************!*\
+  !*** ./apps/extension-worker/src/statistics/statistics.service.ts ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.StatisticsService = void 0;
+const db_service_1 = __webpack_require__(/*! @app/lib/db/db.service */ "./libs/lib/src/db/db.service.ts");
+const common_1 = __webpack_require__(/*! @nestjs/common */ "@nestjs/common");
+let StatisticsService = class StatisticsService {
+    constructor(db) {
+        this.db = db;
+    }
+    async getAllLocalGovernmentIds() {
+        try {
+            const localGovernments = await this.db.localGovernment.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                },
+            });
+            return localGovernments;
+        }
+        catch (error) {
+            console.error("Error fetching Local Governments:", error);
+            throw error;
+        }
+    }
+    async countFarmersByLgaId(lgaId) {
+        const projectTypes = ['LIVESTOCK', 'CROP'];
+        return await this.db.project.count({
+            where: {
+                type: {
+                    in: projectTypes,
+                },
+                participants: {
+                    some: {},
+                },
+                lga: {
+                    id: lgaId,
+                },
+            },
+        });
+    }
+    async countCooperativesByLgaId(lgaId) {
+        const projectTypes = ['LIVESTOCK', 'CROP'];
+        return await this.db.project.count({
+            where: {
+                type: {
+                    in: projectTypes,
+                },
+                Cooperative: {
+                    isNot: null,
+                },
+                lga: {
+                    id: lgaId,
+                },
+            },
+        });
+    }
+    async getStatisticsForAllLocalGovernments() {
+        try {
+            const localGovernments = await this.getAllLocalGovernmentIds();
+            const statistics = [];
+            for (const lga of localGovernments) {
+                const farmersCountLivestock = await this.countFarmersByLgaAndType(lga.id, 'LIVESTOCK');
+                const cooperativesCountLivestock = await this.countCooperativesByLgaAndType(lga.id, 'LIVESTOCK');
+                const projectsCountLivestock = await this.countProjectsByLgaAndType(lga.id, 'LIVESTOCK');
+                const farmersCountCrop = await this.countFarmersByLgaAndType(lga.id, 'CROP');
+                const cooperativesCountCrop = await this.countCooperativesByLgaAndType(lga.id, 'CROP');
+                const projectsCountCrop = await this.countProjectsByLgaAndType(lga.id, 'CROP');
+                statistics.push({
+                    lgaId: lga.id,
+                    lgaName: lga.name,
+                    farmersCountLivestock: farmersCountLivestock,
+                    farmersCountCrop: farmersCountCrop,
+                    cooperativesCountLivestock: cooperativesCountLivestock,
+                    cooperativesCountCrop: cooperativesCountCrop,
+                    projectsCountLivestock: projectsCountLivestock,
+                    projectsCountCrop: projectsCountCrop,
+                });
+            }
+            return statistics;
+        }
+        catch (error) {
+            console.error("Error fetching statistics for LGAs:", error);
+            throw error;
+        }
+    }
+    async countFarmersByLgaAndType(lgaId, projectType) {
+        return await this.db.project.count({
+            where: {
+                type: projectType,
+                participants: {
+                    some: {},
+                },
+                lga: {
+                    id: lgaId,
+                },
+            },
+        });
+    }
+    async countCooperativesByLgaAndType(lgaId, projectType) {
+        return await this.db.project.count({
+            where: {
+                type: projectType,
+                Cooperative: {
+                    isNot: null,
+                },
+                lga: {
+                    id: lgaId,
+                },
+            },
+        });
+    }
+    async getProjectsByLgaAndType(lgaId, projectType) {
+        return await this.db.project.findMany({
+            where: {
+                type: projectType,
+                lga: {
+                    id: lgaId,
+                },
+            },
+            select: {
+                id: true,
+                name: true,
+                description: true,
+                start_date: true,
+                end_date: true,
+            },
+        });
+    }
+    async countProjectsByLgaAndType(lgaId, projectType) {
+        return await this.db.project.count({
+            where: {
+                type: projectType,
+                lga: {
+                    id: lgaId,
+                },
+            },
+        });
+    }
+};
+StatisticsService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof db_service_1.DbService !== "undefined" && db_service_1.DbService) === "function" ? _a : Object])
+], StatisticsService);
+exports.StatisticsService = StatisticsService;
 
 
 /***/ }),
