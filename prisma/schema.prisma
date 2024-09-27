@@ -393,4 +393,5 @@ enum Intervention_type {
   CROP
   LIVESTOCK
   MACHINE
+  OTHER
 }
