@@ -1,0 +1,15 @@
+{
+    "source": {
+        "include": [
+            "src"
+        ],
+        "exclude": [
+            "**/*.spec.ts"
+        ]
+    },
+    "tsconfig": "tsconfig.json",
+    "output": "documentation",
+    "theme": "default",
+    "hideGenerator": true,
+    "disableCoverage": true
+}

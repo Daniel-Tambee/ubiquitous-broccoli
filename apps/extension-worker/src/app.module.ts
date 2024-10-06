@@ -16,6 +16,8 @@ import { LocalgovernmentModule } from './localgovernment/localgovernment.module'
 import { LolGovService } from './localgovernment/lol_gov.service';
 import { StatisticsModule } from './statistics/statistics.module';
 import { StatisticsController } from './statistics/statistics.controller';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -33,6 +35,11 @@ import { StatisticsController } from './statistics/statistics.controller';
     }),
     LocalgovernmentModule,
     StatisticsModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../../documentation'), // Adjust the path if necessary
+      serveRoot: '/compodoc',
+    }),
+    // ...other modules
   ],
   controllers: [AuthController,StatisticsController],
   providers: [WorkerService, AuthService, LolGovService],
