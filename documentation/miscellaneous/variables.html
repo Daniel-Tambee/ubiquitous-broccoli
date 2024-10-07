@@ -1,0 +1,666 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>extension-worker documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">extension-worker documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#cache" title="libs/lib/src/otp_generation.ts" ><b>cache</b>&nbsp;&nbsp;&nbsp;(libs/.../otp_generation.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#generateShortId" title="libs/lib/src/short_id.ts" ><b>generateShortId</b>&nbsp;&nbsp;&nbsp;(libs/.../short_id.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#generateTOTP" title="libs/lib/src/otp_generation.ts" ><b>generateTOTP</b>&nbsp;&nbsp;&nbsp;(libs/.../otp_generation.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getPasswordResetSuccessTemplate" title="libs/lib/src/getPasswordResetSuccessTemplate.ts" ><b>getPasswordResetSuccessTemplate</b>&nbsp;&nbsp;&nbsp;(libs/.../getPasswordResetSuccessTemplate.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#getPasswordResetTemplate" title="libs/lib/src/emailTemplate.ts" ><b>getPasswordResetTemplate</b>&nbsp;&nbsp;&nbsp;(libs/.../emailTemplate.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#prisma" title="libs/lib/src/cooperative_growth_calc.ts" ><b>prisma</b>&nbsp;&nbsp;&nbsp;(libs/.../cooperative_growth_calc.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#prisma" title="libs/lib/src/farmer_growth_calc.ts" ><b>prisma</b>&nbsp;&nbsp;&nbsp;(libs/.../farmer_growth_calc.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#prisma" title="libs/lib/src/projects_growth_calc.ts" ><b>prisma</b>&nbsp;&nbsp;&nbsp;(libs/.../projects_growth_calc.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#prisma" title="libs/lib/src/worker_growth_calc.ts" ><b>prisma</b>&nbsp;&nbsp;&nbsp;(libs/.../worker_growth_calc.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#secret" title="libs/lib/src/otp_generation.ts" ><b>secret</b>&nbsp;&nbsp;&nbsp;(libs/.../otp_generation.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#shortId" title="libs/lib/src/short_id.ts" ><b>shortId</b>&nbsp;&nbsp;&nbsp;(libs/.../short_id.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#verifyTOTP" title="libs/lib/src/otp_generation.ts" ><b>verifyTOTP</b>&nbsp;&nbsp;&nbsp;(libs/.../otp_generation.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>libs/lib/src/otp_generation.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cache"></a>
+                    <span class="name">
+                        <span ><b>cache</b></span>
+                        <a href="#cache"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>require(&#x27;memory-cache&#x27;)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateTOTP"></a>
+                    <span class="name">
+                        <span ><b>generateTOTP</b></span>
+                        <a href="#generateTOTP"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(): any &#x3D;&gt; {
+  try {
+    const token &#x3D; authenticator.generate(secret);
+    cache.put(&#x27;otp_tokens&#x27;, token, 30 * 60 * 1000); // Cache for 30 minutes
+    return token;
+  } catch (error) {
+    throw new BadRequestException(undefined, error);
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="secret"></a>
+                    <span class="name">
+                        <span ><b>secret</b></span>
+                        <a href="#secret"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>authenticator.generateSecret()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verifyTOTP"></a>
+                    <span class="name">
+                        <span ><b>verifyTOTP</b></span>
+                        <a href="#verifyTOTP"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(token: string): boolean &#x3D;&gt; {
+  const window &#x3D; 5 * 60 * 1000; // 5-minute verification window (adjust as needed)
+  const currentTime &#x3D; Date.now();
+
+  // Check the latest token and past tokens within the window
+  try {
+    for (let i &#x3D; 0; i &lt;&#x3D; 5; i++) {
+      const cachedToken &#x3D; cache.get(&#x60;otp_tokens_${currentTime - window * i}&#x60;);
+      if (cachedToken &amp;&amp; authenticator.check(token, secret)) {
+        return true;
+      }
+    }
+
+    // No valid token found within the window
+    return false;
+  } catch (error) {
+    throw new BadRequestException(undefined, error);
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/lib/src/short_id.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateShortId"></a>
+                    <span class="name">
+                        <span ><b>generateShortId</b></span>
+                        <a href="#generateShortId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {
+    // Generate a UUID
+    const id &#x3D; uuidv4();
+    console.log(&#x27;Original UUID:&#x27;, id);
+
+    // Hash the UUID using SHA-256 and encode it to base64
+    const hash &#x3D; SHA256(id).toString(enc.Base64);
+
+    // Replace non-alphanumeric characters to ensure it’s a valid identifier
+    const base64url &#x3D; hash.replace(/\+/g, &#x27;-&#x27;).replace(/\//g, &#x27;_&#x27;).replace(/&#x3D;+$/, &#x27;&#x27;);
+
+    // Truncate the hash to 6 characters
+    const shortId &#x3D; base64url.substring(0, 6);
+    return shortId;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shortId"></a>
+                    <span class="name">
+                        <span ><b>shortId</b></span>
+                        <a href="#shortId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>generateShortId()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/lib/src/getPasswordResetSuccessTemplate.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPasswordResetSuccessTemplate"></a>
+                    <span class="name">
+                        <span ><b>getPasswordResetSuccessTemplate</b></span>
+                        <a href="#getPasswordResetSuccessTemplate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(userName: string) &#x3D;&gt; &#x60;
+&lt;!DOCTYPE html&gt;
+&lt;html lang&#x3D;&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
+    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;
+    &lt;title&gt;Password Reset Successful&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #6c8164;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #6c8164;
+            color: #fff;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #6c8164;
+            font-size: 12px;
+            color: #fff;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class&#x3D;&quot;container&quot;&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+            &lt;h1&gt;Password Reset Successful&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;content&quot;&gt;
+            &lt;p&gt;Hi ${userName},&lt;/p&gt;
+            &lt;p&gt;Your password for your Yola Farms account has been successfully reset. If you did not make this change or if you believe an unauthorized person has accessed your account, please contact our support team immediately.&lt;/p&gt;
+            &lt;p&gt;For security reasons, we recommend that you do not share your password with anyone.&lt;/p&gt;
+            &lt;p&gt;Thanks,&lt;br&gt;The Yola Farms Team&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;footer&quot;&gt;
+            &lt;p&gt;If you need any assistance, please contact our support team.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&#x60;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/lib/src/emailTemplate.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPasswordResetTemplate"></a>
+                    <span class="name">
+                        <span ><b>getPasswordResetTemplate</b></span>
+                        <a href="#getPasswordResetTemplate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(userName: string, otp: string) &#x3D;&gt; &#x60;
+&lt;!DOCTYPE html&gt;
+&lt;html lang&#x3D;&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;
+    &lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1.0&quot;&gt;
+    &lt;title&gt;Password Reset Request&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #800080; /* Purple background color */
+            color: #00FF00; /* Green text color */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff; /* White background for the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #800080; /* Purple header background */
+            color: #00FF00; /* Green header text color */
+        }
+        .content {
+            padding: 20px;
+        }
+        .otp {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            padding: 10px 20px;
+            text-align: center;
+            background-color: #800080; /* Purple background for the OTP */
+            color: #00FF00; /* Green OTP text color */
+            border-radius: 5px;
+            font-size: 1.2em;
+            letter-spacing: 0.1em;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #800080; /* Purple footer background */
+            font-size: 12px;
+            color: #00FF00; /* Green footer text color */
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class&#x3D;&quot;container&quot;&gt;
+        &lt;div class&#x3D;&quot;header&quot;&gt;
+            &lt;h1&gt;Password Reset&lt;/h1&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;content&quot;&gt;
+            &lt;p&gt;Hi ${userName},&lt;/p&gt;
+            &lt;p&gt;You recently requested to reset your password for your MCRP account. Use the OTP below to reset your password:&lt;/p&gt;
+            &lt;div class&#x3D;&quot;otp&quot;&gt;
+            &lt;a href&#x3D;${otp}&gt;Click Here&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;p&gt;If you did not request a password reset, please ignore this email or contact support if you have questions.&lt;/p&gt;
+            &lt;p&gt;Thanks,&lt;br&gt;The MCRP Team&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;footer&quot;&gt;
+            &lt;p&gt;If you’re having trouble using the OTP, please contact our support team.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+&#x60;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/lib/src/cooperative_growth_calc.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prisma"></a>
+                    <span class="name">
+                        <span ><b>prisma</b></span>
+                        <a href="#prisma"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new DbService()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/lib/src/farmer_growth_calc.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prisma"></a>
+                    <span class="name">
+                        <span ><b>prisma</b></span>
+                        <a href="#prisma"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new DbService()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/lib/src/projects_growth_calc.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prisma"></a>
+                    <span class="name">
+                        <span ><b>prisma</b></span>
+                        <a href="#prisma"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new DbService()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/lib/src/worker_growth_calc.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prisma"></a>
+                    <span class="name">
+                        <span ><b>prisma</b></span>
+                        <a href="#prisma"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new DbService()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
